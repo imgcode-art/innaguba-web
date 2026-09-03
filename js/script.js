@@ -9,6 +9,21 @@
   });
 })();
 
+// ---------- Mobile nav hamburger menu ----------
+document.querySelectorAll('.nav-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const links = btn.closest('.nav').querySelector('.nav-links');
+    const isOpen = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+  });
+});
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    a.closest('.nav-links').classList.remove('open');
+    a.closest('.nav').querySelector('.nav-toggle')?.setAttribute('aria-expanded', 'false');
+  });
+});
+
 document.querySelectorAll('[data-row]').forEach(row => {
     row.addEventListener('click', () => {
       const isOpen = row.classList.contains('open');

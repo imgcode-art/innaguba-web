@@ -40,15 +40,26 @@
 
   /* ---------- Header ---------- */
   header { padding: var(--space-3) 0; border-bottom:1px solid var(--line); }
-  .nav { display:flex; justify-content:space-between; align-items:center; }
+  .nav { position:relative; display:flex; justify-content:space-between; align-items:center; }
   .logo { font-weight:700; font-size: var(--fs-body); letter-spacing:0.06em; }
   .nav-links { display:flex; gap: var(--space-4); font-size: var(--fs-body); font-weight:500; }
   .nav-links a { color: rgba(17,17,17,0.55); transition: color 0.2s ease; }
   .nav-links a:hover { color: var(--ink); }
   .nav-links a.active { color: var(--ink); font-weight:700; }
+  .nav-links .nav-call { display:none; }
   .eyebrow { transition: color 0.2s ease; }
   .eyebrow:hover { color: var(--red); }
-  @media (max-width:800px){ .nav-links{display:none;} }
+  .nav-toggle { display:none; flex-direction:column; justify-content:center; gap:5px; width:28px; height:28px; background:none; border:0; padding:0; cursor:pointer; }
+  .nav-toggle span { display:block; width:100%; height:2px; background: var(--ink); }
+  @media (max-width:800px){
+    .nav > .eyebrow { display:none; }
+    .nav-toggle { display:flex; }
+    .nav-links { display:none; position:absolute; top:calc(100% + var(--space-3)); left:0; right:0; flex-direction:column; gap:0; background: var(--paper); border:1px solid var(--line); padding: var(--space-2) var(--space-3); z-index:10; }
+    .nav-links.open { display:flex; }
+    .nav-links a { padding: var(--space-2) 0; border-bottom:1px solid var(--line); }
+    .nav-links a:last-child { border-bottom:0; }
+    .nav-links .nav-call { display:block; color: var(--ink); font-weight:700; }
+  }
 
   /* ---------- Background video embed (Vimeo, cropped to cover) — sized relative to its own container so it always fills it edge-to-edge, no letterboxing ---------- */
   .video-embed { position:absolute; inset:0; overflow:hidden; }
