@@ -72,14 +72,6 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
-  // ---------- Vimeo API loads async now (no longer blocks page render), so wait for it instead of gating on a single check ----------
-  const whenVimeoReady = cb => {
-    if (window.Vimeo) { cb(); return; }
-    const check = setInterval(() => {
-      if (window.Vimeo) { clearInterval(check); cb(); }
-    }, 100);
-  };
-
   // ---------- Hero orbit — bring videos to life one by one, at an uneven, lively pace ----------
   let orbitDelay = 0;
   document.querySelectorAll('.orbit-tile-inner[data-vimeo-id]').forEach((tile, i) => {
@@ -91,15 +83,15 @@ document.querySelectorAll('[data-row]').forEach(row => {
       iframe.setAttribute('frameborder', '0');
       iframe.setAttribute('title', tile.querySelector('img')?.alt || 'Inna Guba — video');
       tile.appendChild(iframe);
-      whenVimeoReady(() => {
+      if (window.Vimeo) {
         const player = new Vimeo.Player(iframe);
         let duration = null;
         player.getDuration().then(d => { duration = d; });
         player.on('timeupdate', data => {
-          if (duration && data.seconds >= duration - 10) player.setCurrentTime(0);
+          if (duration && data.seconds >= duration - 5) player.setCurrentTime(0);
         });
         player.on('ended', () => player.setCurrentTime(0).then(() => player.play()));
-      });
+      }
     }, orbitDelay);
   });
 
@@ -112,8 +104,8 @@ document.querySelectorAll('[data-row]').forEach(row => {
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('title', 'Inna Guba — video');
     mobileHeroVideo.appendChild(iframe);
-    whenVimeoReady(() => {
+    if (window.Vimeo) {
       const player = new Vimeo.Player(iframe);
       player.on('ended', () => player.setCurrentTime(0).then(() => player.play()));
-    });
+    }
   }
