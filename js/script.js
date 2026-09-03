@@ -78,7 +78,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
     orbitDelay += i === 0 ? 30 : 200 + Math.random() * 175;
     setTimeout(() => {
       const iframe = document.createElement('iframe');
-      iframe.src = `https://player.vimeo.com/video/${tile.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&autopause=0`;
+      iframe.src = `https://player.vimeo.com/video/${tile.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
       iframe.setAttribute('allow', 'autoplay; fullscreen');
       iframe.setAttribute('frameborder', '0');
       iframe.setAttribute('title', tile.querySelector('img')?.alt || 'Inna Guba — video');
@@ -99,7 +99,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
   const mobileHeroVideo = document.querySelector('.hc-mobile-video[data-vimeo-id]');
   if (mobileHeroVideo && window.matchMedia('(max-width: 900px)').matches) {
     const iframe = document.createElement('iframe');
-    iframe.src = `https://player.vimeo.com/video/${mobileHeroVideo.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&autopause=0`;
+    iframe.src = `https://player.vimeo.com/video/${mobileHeroVideo.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
     iframe.setAttribute('allow', 'autoplay; fullscreen');
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('title', 'Inna Guba — video');
