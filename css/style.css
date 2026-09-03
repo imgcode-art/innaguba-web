@@ -149,10 +149,7 @@
   .section-label .wrap { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid var(--line); padding-bottom: var(--space-3); flex-wrap:wrap; gap: var(--space-2); }
   .section-label h2 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; }
   .section-label .side { max-width:320px; font-size: var(--fs-body); line-height:1.5; text-align:right; font-weight:400; }
-  .section-label .side.side-nowrap { max-width:520px; white-space:nowrap; }
-  @media (max-width:700px){ .section-label .side.side-nowrap { max-width:320px; white-space:normal; } }
   .section-label .gallery-link { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.02em; color: var(--red); text-decoration:underline; text-underline-offset:3px; white-space:nowrap; }
-  @media (max-width:700px){ .section-label .side{text-align:left;} }
 
   /* ---------- Work grid ---------- */
   .work-grid { padding: 0 0 var(--space-7); }
