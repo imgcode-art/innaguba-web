@@ -97,7 +97,7 @@
     .hc-orbit-viewport { height:220px; }
     .hc-orbit-wrap { position:static; transform:none; width:100%; aspect-ratio:auto; height:100%; }
     .hc-mobile-video { display:block; position:absolute; inset:0; overflow:hidden; container-type:size; z-index:1; }
-    .hc-mobile-video iframe { position:absolute; top:50%; left:50%; width:100cqw; height:56.25cqw; min-height:100cqh; min-width:177.78cqh; transform:translate(-50%,-50%); pointer-events:none; border:0; filter: grayscale(1) contrast(1.1); }
+    .hc-mobile-video iframe { position:absolute; top:50%; left:50%; width:115cqw; height:64.7cqw; min-height:115cqh; min-width:204.4cqh; transform:translate(-50%,-50%); pointer-events:none; border:0; filter: grayscale(1) contrast(1.1); }
     .hc-center { width:auto; max-width:92%; }
     .hc-center h1 { white-space:nowrap; text-shadow:none; }
     .bottom-section { padding-top: var(--space-5); padding-bottom: var(--space-3); }
