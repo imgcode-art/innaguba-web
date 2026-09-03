@@ -75,7 +75,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // ---------- Hero orbit — bring videos to life one by one, at an uneven, lively pace ----------
   let orbitDelay = 0;
   document.querySelectorAll('.orbit-tile-inner[data-vimeo-id]').forEach((tile, i) => {
-    orbitDelay += i === 0 ? 30 : 200 + Math.random() * 175;
+    orbitDelay += i === 0 ? 2000 : 200 + Math.random() * 175;
     setTimeout(() => {
       const iframe = document.createElement('iframe');
       iframe.src = `https://player.vimeo.com/video/${tile.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
