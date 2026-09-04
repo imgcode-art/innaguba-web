@@ -89,17 +89,14 @@ document.querySelectorAll('[data-row]').forEach(row => {
 
   // ---------- Hero orbit — first video plays immediately, the rest come to life one by one ----------
   const wireOrbitVideoLoop = (iframe) => {
-    const attach = () => {
-      const player = new Vimeo.Player(iframe);
-      let duration = null;
-      player.getDuration().then(d => { duration = d; });
-      player.on('timeupdate', data => {
-        if (duration && data.seconds >= duration - 5) player.setCurrentTime(0);
-      });
-      player.on('ended', () => player.setCurrentTime(0).then(() => player.play()));
-    };
-    if (window.Vimeo) attach();
-    else document.getElementById('vimeo-player-api')?.addEventListener('load', attach);
+    if (!window.Vimeo) return;
+    const player = new Vimeo.Player(iframe);
+    let duration = null;
+    player.getDuration().then(d => { duration = d; });
+    player.on('timeupdate', data => {
+      if (duration && data.seconds >= duration - 5) player.setCurrentTime(0);
+    });
+    player.on('ended', () => player.setCurrentTime(0).then(() => player.play()));
   };
 
   let orbitDelay = 0;
