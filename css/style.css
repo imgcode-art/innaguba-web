@@ -362,7 +362,7 @@
   /* ---------- Contact page (business card + photo) ---------- */
   .contact-info { display:flex; align-items:center; gap: var(--space-8); padding: 0 0 var(--space-11); }
   .contact-info-photo { flex:0 1 560px; aspect-ratio: 8/5; overflow:hidden; }
-  .contact-info-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
+  .contact-info-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   .contact-info-text { flex:1; max-width:420px; }
   .contact-info-name { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-3); }
   .contact-info-line { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
