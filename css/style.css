@@ -109,12 +109,17 @@
     .hc-center { width:auto; max-width:92%; top:auto; bottom:9%; transform:translateX(-50%); }
     .hc-center h1 { display:inline-block; white-space:nowrap; color: var(--ink); font-size: clamp(38px, 9vw, 52px); background: var(--paper); padding: 8px 22px; }
     .bottom-section { padding-top: var(--space-5); padding-bottom: var(--space-3); }
+  }
+
+  /* Fixed-width claim/quote columns only fit side by side once there's ~1060px
+     of content width to spare; below that (tablets included) they overlap,
+     so this stacks them well before the general 900px breakpoint kicks in. */
+  @media (max-width:1150px){
     .mid-claim { text-align:left; }
     .claim-anchor { display:block; min-height:0; margin-top: var(--space-3); }
     .claim-ghost { display:block; }
     .claim-ghost > span { display:none; }
-    .claim-text { gap: var(--space-3); }
-    .claim-text { position:static; left:auto; text-align:left; width:auto; max-width:none; margin:0; }
+    .claim-text { gap: var(--space-3); position:static; left:auto; text-align:left; width:auto; max-width:none; margin:0; }
     .quote-line { position:static; right:auto; text-align:left; width:50%; max-width:none; margin: var(--space-3) 0 0 auto; }
   }
 
