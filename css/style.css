@@ -153,7 +153,7 @@
   .section-label h2 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; }
   #work h2 { line-height:1.1; }
   .section-label .side { max-width:320px; font-size: var(--fs-body); line-height:1.5; text-align:right; font-weight:400; }
-  .section-label .gallery-link { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.02em; color: var(--red); text-decoration:underline; text-underline-offset:3px; white-space:nowrap; }
+  .section-label .gallery-link { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.02em; color: var(--ink-body); white-space:nowrap; }
 
   /* ---------- Work grid ---------- */
   .work-grid { padding: 0 0 var(--space-7); }
@@ -321,7 +321,7 @@
   .price-tag { display:block; font-size: var(--fs-body); font-weight:700; margin-top: var(--space-2); margin-bottom: var(--space-3); letter-spacing:0.02em; }
   .price-btn { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.14em; text-transform:uppercase; border:1px solid var(--ink); padding:16px 28px; margin-right: var(--space-2); transition: background .2s ease, color .2s ease; }
   .price-btn:hover { background: var(--ink); color:#fff; }
-  .pb-content .gallery-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); font-weight:700; letter-spacing:0.02em; color: var(--red); text-decoration:underline; text-underline-offset:3px; }
+  .pb-content .gallery-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); font-weight:400; letter-spacing:0.02em; color: var(--ink-body); }
   @media (max-width:900px){ .price-bento{grid-template-columns:1fr;} .pb-card.pb-featured{flex-direction:column;} .pb-featured .pb-photo{order:1; margin-bottom: var(--space-4);} .pb-featured .pb-content{order:2; max-width:none;} }
 
   /* ---------- Video gallery ---------- */
@@ -383,7 +383,7 @@
   @media (max-width:700px){ .mobile-break { display:block; } }
   .about-thanks p { color: var(--ink-body); font-size: var(--fs-body); margin-bottom: var(--space-5); }
   .about-thanks-cta { display:flex; align-items:center; justify-content:flex-start; gap: var(--space-4); flex-wrap:wrap; }
-  .about-thanks-cta .gallery-link { color: var(--red); }
+  .about-thanks-cta .gallery-link { color: var(--ink-body); }
   .about-thanks-cta .about-cta-btn { border-color: var(--ink); color: var(--ink); }
   .about-thanks-cta .about-cta-btn:hover { background: var(--ink); color:#fff; }
   .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:16px 32px; transition: background .2s ease, color .2s ease; }
