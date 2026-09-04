@@ -265,6 +265,8 @@
   .footer-col h5 { font-size: var(--fs-body); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; opacity:0.45; margin-bottom: var(--space-2); }
   .footer-col a, .footer-col p { display:block; font-size: var(--fs-body); font-weight:500; margin-bottom: var(--space-1); }
   .footer-bottom { display:flex; justify-content:space-between; padding-top: var(--space-2); border-top:1px solid var(--line); font-size: var(--fs-body); opacity:0.5; flex-wrap:wrap; gap: var(--space-1); }
+  .footer-legal { display:flex; gap: var(--space-3); flex-wrap:wrap; }
+  .footer-legal a { text-decoration:underline; }
 
   [data-reveal] { opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
   [data-reveal].in { opacity:1; transform:translateY(0); }
@@ -384,3 +386,25 @@
   .about-thanks-cta .about-cta-btn:hover { background: var(--ink); color:#fff; }
   .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:16px 32px; transition: background .2s ease, color .2s ease; }
   .about-cta-btn:hover { background: var(--ink); color:#fff; }
+
+  /* ---------- Legal pages (GDPR / obchodní podmínky) ---------- */
+  .legal-content { max-width:760px; margin:0 auto; padding: var(--space-6) 0 var(--space-10); text-align:left; }
+  .legal-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin: var(--space-6) 0 var(--space-2); }
+  .legal-content h3:first-child { margin-top:0; }
+  .legal-content p, .legal-content li { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
+  .legal-content p { margin-bottom: var(--space-2); }
+  .legal-content ul { list-style:disc; margin: 0 0 var(--space-3) var(--space-3); }
+  .legal-content li { margin-bottom: var(--space-1); }
+  .legal-content a { color: var(--ink); text-decoration:underline; }
+  .legal-updated { font-size: var(--fs-body); color: var(--ink-body); opacity:0.6; margin-top: var(--space-5); }
+
+  /* ---------- Cookie consent bar ---------- */
+  .cookie-bar { position:fixed; left:0; right:0; bottom:0; z-index:80; background: var(--paper); border-top:1px solid var(--line); padding: var(--space-3) var(--space-5); display:flex; align-items:center; justify-content:space-between; gap: var(--space-4); flex-wrap:wrap; }
+  .cookie-bar[hidden] { display:none; }
+  .cookie-bar p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); max-width:640px; margin:0; }
+  .cookie-bar a { color: var(--ink); text-decoration:underline; }
+  .cookie-actions { display:flex; align-items:center; gap: var(--space-4); flex-wrap:wrap; }
+  .cookie-reject { font-size: var(--fs-body); font-weight:700; letter-spacing:0.05em; color: var(--ink-body); background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; }
+  .cookie-accept { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:12px 24px; background:none; color: var(--ink); cursor:pointer; transition: background .2s ease, color .2s ease; white-space:nowrap; }
+  .cookie-accept:hover { background: var(--ink); color:#fff; }
+  @media (max-width:700px){ .cookie-bar { padding: var(--space-3); flex-direction:column; align-items:flex-start; } .cookie-actions{ width:100%; justify-content:space-between; } }

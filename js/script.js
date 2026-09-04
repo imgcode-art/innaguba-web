@@ -74,6 +74,22 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
+  // ---------- Cookie consent bar ----------
+  (() => {
+    const KEY = 'cookie-consent';
+    const bar = document.querySelector('.cookie-bar');
+    if (!bar) return;
+    if (!localStorage.getItem(KEY)) bar.hidden = false;
+    bar.querySelector('.cookie-accept')?.addEventListener('click', () => {
+      localStorage.setItem(KEY, 'accepted');
+      bar.hidden = true;
+    });
+    bar.querySelector('.cookie-reject')?.addEventListener('click', () => {
+      localStorage.setItem(KEY, 'rejected');
+      bar.hidden = true;
+    });
+  })();
+
   // ---------- Contact form (opens a pre-filled e-mail, no backend) ----------
   document.querySelectorAll('.contact-form').forEach(form => {
     form.addEventListener('submit', e => {
