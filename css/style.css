@@ -177,7 +177,8 @@
     .wg .pos-3 { order:4; }
     .wg .pos-5 { order:5; }
     .wg .pos-6 { order:6; }
-    .wg .pos-5.tile-list { justify-content:flex-end; }
+    .wg .pos-4.tile-list { padding-right:0; }
+    .wg .pos-5.tile-list { justify-content:flex-end; padding-right:0; }
     .wg .pos-5.tile-list ul { text-align:right; }
   }
 
