@@ -177,6 +177,10 @@
     .wg .pos-3 { order:4; }
     .wg .pos-5 { order:5; }
     .wg .pos-6 { order:6; }
+    .wg .pos-4.tile-list { justify-content:flex-start; }
+    .wg .pos-4.tile-list ul { text-align:left; }
+    .wg .pos-5.tile-list { justify-content:flex-end; }
+    .wg .pos-5.tile-list ul { text-align:right; }
   }
 
   /* ---------- Steps (jak focení probíhá) ---------- */
