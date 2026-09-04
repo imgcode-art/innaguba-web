@@ -124,7 +124,7 @@
   }
 
   /* ---------- Belief ---------- */
-  .belief { padding: var(--space-8) 0 0; border-top:1px solid var(--line); }
+  .belief { padding: var(--space-8) 0 0; }
   .belief-question { margin-left: calc(100% / 3); text-align:left; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.03em; line-height:1.15; color: var(--ink-heading); margin-bottom: var(--space-8); }
   .belief-photo-row { display:flex; margin-bottom: 19px; }
   .belief-photo { width: calc(200% / 3); aspect-ratio: 8/3; overflow:hidden; background: var(--ink); }
@@ -139,7 +139,8 @@
   .belief-list { list-style:none; margin-top:0; }
   .belief-list li { font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); }
   @media (max-width:900px){
-    .belief-question { margin-left:0; text-align:left; margin-bottom: var(--space-6); }
+    .belief { padding-top: var(--space-4); }
+    .belief-question { margin-left:0; text-align:left; margin-bottom: var(--space-4); }
     .belief-photo-row { flex-direction:column; }
     .belief-photo { width:100%; aspect-ratio:4/3; }
     .belief-photo-text { width:100%; padding: var(--space-4) 0 0; }
@@ -156,6 +157,7 @@
 
   /* ---------- Work grid ---------- */
   .work-grid { padding: 0 0 var(--space-7); }
+  @media (max-width:900px){ .work-grid { padding-bottom:0; } }
   .wg { display:grid; grid-template-columns: repeat(3, 1fr); gap:0; background: var(--paper); }
   .wg .tile { position:relative; aspect-ratio: 4/3; overflow:hidden; background: var(--ink); }
   .wg .pos-1 { grid-column:1; grid-row:1; }
