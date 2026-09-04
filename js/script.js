@@ -87,10 +87,23 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
-  // ---------- Hero orbit — bring videos to life one by one, at an uneven, lively pace ----------
+  // ---------- Hero orbit — first video plays immediately, the rest come to life one by one ----------
+  const wireOrbitVideoLoop = (iframe) => {
+    if (!window.Vimeo) return;
+    const player = new Vimeo.Player(iframe);
+    let duration = null;
+    player.getDuration().then(d => { duration = d; });
+    player.on('timeupdate', data => {
+      if (duration && data.seconds >= duration - 5) player.setCurrentTime(0);
+    });
+    player.on('ended', () => player.setCurrentTime(0).then(() => player.play()));
+  };
+
   let orbitDelay = 0;
-  document.querySelectorAll('.orbit-tile-inner[data-vimeo-id]').forEach((tile, i) => {
-    orbitDelay += i === 0 ? 2000 : 200 + Math.random() * 175;
+  document.querySelectorAll('.orbit-tile-inner[data-vimeo-id]').forEach(tile => {
+    const existingIframe = tile.querySelector('iframe');
+    if (existingIframe) { wireOrbitVideoLoop(existingIframe); return; }
+    orbitDelay += 200 + Math.random() * 175;
     setTimeout(() => {
       const iframe = document.createElement('iframe');
       iframe.src = `https://player.vimeo.com/video/${tile.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
@@ -98,15 +111,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
       iframe.setAttribute('frameborder', '0');
       iframe.setAttribute('title', tile.querySelector('img')?.alt || 'Inna Guba — video');
       tile.appendChild(iframe);
-      if (window.Vimeo) {
-        const player = new Vimeo.Player(iframe);
-        let duration = null;
-        player.getDuration().then(d => { duration = d; });
-        player.on('timeupdate', data => {
-          if (duration && data.seconds >= duration - 5) player.setCurrentTime(0);
-        });
-        player.on('ended', () => player.setCurrentTime(0).then(() => player.play()));
-      }
+      wireOrbitVideoLoop(iframe);
     }, orbitDelay);
   });
 
