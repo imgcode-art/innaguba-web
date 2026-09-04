@@ -74,6 +74,16 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
+  // ---------- Mobile hero video — retry play if the browser blocked autoplay ----------
+  const heroVideo = document.querySelector('.hc-mobile-video video');
+  if (heroVideo) {
+    const tryPlay = () => heroVideo.play().catch(() => {});
+    tryPlay();
+    ['touchstart', 'click', 'scroll'].forEach(evt => {
+      document.addEventListener(evt, tryPlay, { once: true, passive: true });
+    });
+  }
+
   // ---------- Cookie consent bar ----------
   (() => {
     const KEY = 'cookie-consent';
