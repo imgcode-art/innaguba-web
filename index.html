@@ -9,14 +9,16 @@
 <title>Inna Guba — Foto a video</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://player.vimeo.com">
+<link rel="preconnect" href="https://i.vimeocdn.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=7">
-<!-- Calendly widget -->
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<!-- Calendly widget (loaded non-blocking; only needed once the visitor scrolls to the booking link) -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" media="print" onload="this.media='all'">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <!-- Elfsight Google Reviews | Untitled Google Reviews -->
 <script src="https://elfsightcdn.com/platform.js" async></script>
-<script src="https://player.vimeo.com/api/player.js"></script>
+<script id="vimeo-player-api" src="https://player.vimeo.com/api/player.js" async></script>
 </head>
 <body>
 
@@ -263,7 +265,7 @@
   </div>
 </section>
 
-<script src="js/script.js?v=9"></script>
+<script src="js/script.js?v=10"></script>
 
 </body>
 </html>
