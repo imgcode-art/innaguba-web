@@ -40,7 +40,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
 
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.1 });
+  }, { threshold: 0, rootMargin: '0px 0px -5% 0px' });
   document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
 
   // ---------- Video gallery lightbox ----------
