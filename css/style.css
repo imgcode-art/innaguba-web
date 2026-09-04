@@ -99,8 +99,8 @@
   .claim-anchor { position:relative; display:flex; justify-content:center; align-items:flex-start; margin-top: var(--space-2); min-height:245px; }
   .claim-ghost { display:inline-block; position:relative; white-space:nowrap; }
   .claim-ghost > span { visibility:hidden; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; }
-  .claim-text { visibility:visible; position:absolute; top:100%; left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:380px; display:flex; flex-direction:column; gap: var(--space-2); }
-  .quote-line { position:absolute; top: calc(var(--fs-heading) * 1.5); right:0; white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:justify; width:380px; }
+  .claim-text { visibility:visible; position:absolute; top:100%; left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; display:flex; flex-direction:column; gap: var(--space-2); }
+  .quote-line { position:absolute; top: calc(var(--fs-heading) * 1.5); right:0; white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:justify; width:300px; }
   .quote-line .quote-author { font-weight:400; }
   @media (max-width:900px){
     .hero-collage { padding:80px 0 0; }
