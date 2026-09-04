@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=4">
 <!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
@@ -59,10 +59,19 @@
     <p class="closing-lead">Ať už máte jasnou představu, nebo jen váháte, napište mi</p>
     <form class="contact-form" data-contact-form>
       <div class="cf-row">
-        <input type="text" name="jmeno" placeholder="Jméno" autocomplete="name" required>
-        <input type="email" name="email" placeholder="E-mail" autocomplete="email" required>
+        <div class="cf-field">
+          <label for="cf-jmeno">Jméno</label>
+          <input type="text" id="cf-jmeno" name="jmeno" placeholder="Jméno" autocomplete="name" required>
+        </div>
+        <div class="cf-field">
+          <label for="cf-email">E-mail</label>
+          <input type="email" id="cf-email" name="email" placeholder="E-mail" autocomplete="email" required>
+        </div>
       </div>
-      <textarea name="zprava" placeholder="Napište pár slov" rows="4" required></textarea>
+      <div class="cf-field">
+        <label for="cf-zprava">Zpráva</label>
+        <textarea id="cf-zprava" name="zprava" placeholder="Napište pár slov" rows="4" required></textarea>
+      </div>
       <button type="submit" class="cf-submit">Odeslat zprávu →</button>
     </form>
     <div class="cf-divider"><span>nebo rovnou</span></div>
