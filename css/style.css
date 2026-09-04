@@ -96,7 +96,7 @@
   .claim-ghost { display:inline-block; position:relative; white-space:nowrap; }
   .claim-ghost > span { visibility:hidden; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; }
   .claim-text { visibility:visible; position:absolute; top:100%; left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; display:flex; flex-direction:column; gap: var(--space-2); }
-  .quote-line { position:absolute; top: calc(var(--fs-heading) * 1.5); right:0; white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:justify; width:300px; }
+  .quote-line { position:absolute; top: calc(var(--fs-heading) * 1.5); right:0; white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
   .quote-line .quote-author { font-weight:400; }
   @media (max-width:900px){
     .hero-collage { padding:80px 0 0; }
@@ -139,8 +139,8 @@
   .belief-list { list-style:none; margin-top:0; }
   .belief-list li { font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); }
   @media (max-width:900px){
-    .belief { padding-top: var(--space-4); }
-    .belief-question { margin-left:0; text-align:left; margin-bottom: var(--space-4); }
+    .belief { padding-top: var(--space-10); }
+    .belief-question { margin-left:0; text-align:left; font-size: var(--fs-display); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
     .belief-photo-row { flex-direction:column; }
     .belief-photo { width:100%; aspect-ratio:4/3; }
     .belief-photo-text { width:100%; padding: var(--space-4) 0 0; }
