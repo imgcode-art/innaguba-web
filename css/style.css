@@ -237,7 +237,7 @@
   /* ---------- Closing CTA ---------- */
   .closing { padding: var(--space-7) 0 0; }
   .refs-grid + .closing { padding-top: var(--space-10); }
-  .closing .top { padding-bottom: var(--space-10); text-align:left; }
+  .closing .top { padding-bottom: 140px; text-align:left; }
   .closing-footer { padding: 0 0 var(--space-5); }
   .closing-title { font-size: var(--fs-display); font-weight:700; line-height:0.9; letter-spacing:-0.025em; color: var(--ink); padding-bottom: var(--space-4); border-bottom:1px solid var(--line); }
   .closing-lead { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); white-space:nowrap; margin: var(--space-4) 0 0; }
