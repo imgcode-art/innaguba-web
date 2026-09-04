@@ -110,17 +110,3 @@ document.querySelectorAll('[data-row]').forEach(row => {
     }, orbitDelay);
   });
 
-  // ---------- Mobile hero video — fills the hero on small screens, where the orbit tiles are hidden ----------
-  const mobileHeroVideo = document.querySelector('.hc-mobile-video[data-vimeo-id]');
-  if (mobileHeroVideo && window.matchMedia('(max-width: 900px)').matches) {
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://player.vimeo.com/video/${mobileHeroVideo.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
-    iframe.setAttribute('allow', 'autoplay; fullscreen');
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('title', 'Inna Guba — video');
-    mobileHeroVideo.appendChild(iframe);
-    if (window.Vimeo) {
-      const player = new Vimeo.Player(iframe);
-      player.on('ended', () => player.setCurrentTime(0).then(() => player.play()));
-    }
-  }
