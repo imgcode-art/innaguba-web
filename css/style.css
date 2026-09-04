@@ -35,7 +35,6 @@
   a { color:inherit; text-decoration:none; }
   .wrap { max-width: var(--max-w); margin:0 auto; }
 
-  .eyebrow { font-size: var(--fs-body); font-weight:700; letter-spacing:0.02em; }
   .plus { font-size: var(--fs-body); font-weight:700; }
 
   /* ---------- Header ---------- */
@@ -47,12 +46,9 @@
   .nav-links a:hover { color: var(--ink); }
   .nav-links a.active { color: var(--ink); font-weight:700; }
   .nav-links .nav-call { display:none; }
-  .eyebrow { transition: color 0.2s ease; }
-  .eyebrow:hover { color: var(--red); }
   .nav-toggle { display:none; flex-direction:column; justify-content:center; gap:5px; width:28px; height:28px; background:none; border:0; padding:0; cursor:pointer; }
   .nav-toggle span { display:block; width:100%; height:2px; background: var(--ink); }
   @media (max-width:800px){
-    .nav > .eyebrow { display:none; }
     .nav-toggle { display:flex; }
     .nav-links { display:none; position:absolute; top:calc(100% + var(--space-3)); left:0; right:0; flex-direction:column; gap:0; background: var(--paper); border:1px solid var(--line); padding: var(--space-2) var(--space-3); z-index:10; }
     .nav-links.open { display:flex; }
@@ -371,8 +367,8 @@
   .contact-info-text { flex:1; max-width:420px; }
   .contact-info-name { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-3); }
   .contact-info-line { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
-  .contact-info-call { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:700; color: var(--ink); border-bottom:1px solid var(--line); padding-bottom:2px; transition: color 0.2s ease; }
-  .contact-info-call:hover { color: var(--red); }
+  .contact-info-line a { color: inherit; font-weight:inherit; transition: color 0.2s ease; }
+  .contact-info-line a:hover { color: var(--red); }
   @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0 0 var(--space-9);} .contact-info-photo{flex-basis:auto; width:100%;} .contact-info-text{max-width:none;} }
 
   .about-thanks { background: var(--paper); text-align:left; padding: var(--space-10) 0; }
