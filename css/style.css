@@ -254,7 +254,7 @@
   .contact-form textarea { resize:vertical; min-height:110px; line-height:1.5; }
   .cf-submit { align-self:center; display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:14px 28px; background:none; color: var(--ink); cursor:pointer; transition: background .2s ease, color .2s ease; }
   .cf-submit:hover { background: var(--ink); color:#fff; }
-  .cf-divider { display:flex; align-items:center; gap: var(--space-3); margin: var(--space-6) auto var(--space-4); max-width:480px; }
+  .cf-divider { display:flex; align-items:center; gap: var(--space-3); margin: var(--space-5) auto; max-width:480px; }
   .cf-divider::before, .cf-divider::after { content:""; flex:1; height:1px; background: var(--line); }
   .cf-divider span { font-size: var(--fs-body); color: rgba(17,17,17,0.45); white-space:nowrap; }
   .cf-booking { display:block; width:fit-content; margin:0 auto; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:14px 28px; transition: background .2s ease, color .2s ease; }
