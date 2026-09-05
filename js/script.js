@@ -146,3 +146,16 @@ document.querySelectorAll('[data-row]').forEach(row => {
     }, orbitDelay);
   });
 
+  // ---------- Hero orbit — collapse into a stack on scroll, unstack when scrolling back ----------
+  const orbitWrap = document.querySelector('.hc-orbit-wrap');
+  if (orbitWrap) {
+    const STACK_RANGE = 500;
+    const updateOrbitStack = () => {
+      const progress = Math.min(Math.max(window.scrollY / STACK_RANGE, 0), 1);
+      orbitWrap.style.setProperty('--progress', progress);
+      orbitWrap.classList.toggle('is-stacked', progress > 0);
+    };
+    window.addEventListener('scroll', updateOrbitStack, { passive: true });
+    updateOrbitStack();
+  }
+
