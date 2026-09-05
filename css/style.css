@@ -91,10 +91,10 @@
   .hc-mobile-video { display:none; }
   .bottom-section { padding-top: var(--space-3); padding-bottom: var(--space-7); }
   .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-6); }
-  .mid-claim { text-align:center; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-3); }
+  .mid-claim { text-align:center; font-size: var(--fs-display); font-weight:700; letter-spacing:-0.025em; color: var(--ink-heading); margin-bottom: var(--space-3); }
   .claim-anchor { position:relative; display:flex; justify-content:center; align-items:flex-start; margin-top: var(--space-2); min-height:245px; }
   .claim-ghost { display:inline-block; position:relative; white-space:nowrap; }
-  .claim-ghost > span { visibility:hidden; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; }
+  .claim-ghost > span { visibility:hidden; font-size: var(--fs-display); font-weight:700; letter-spacing:-0.025em; }
   .claim-text { visibility:visible; position:absolute; top:100%; left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; display:flex; flex-direction:column; gap: var(--space-2); }
   .quote-line { position:absolute; top: calc(var(--fs-heading) * 1.5); right:0; white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
   .quote-line .quote-author { font-weight:400; }
