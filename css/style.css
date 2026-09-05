@@ -91,11 +91,12 @@
   .hc-center-video { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:44%; aspect-ratio:800/340; }
   .hc-center-video .orbit-tile-inner { animation:none; }
   .hc-mobile-video { display:none; }
-  .bottom-section { padding-top: var(--space-3); padding-bottom: var(--space-7); }
+  .bottom-section { padding-top: var(--space-3); padding-bottom: var(--space-7); text-align:center; }
   .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-6); }
+  .mid-claim-group { display:inline-block; }
   .mid-claim { text-align:center; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink); margin-bottom: var(--space-3); }
-  .mid-claim-lead { margin-bottom: var(--space-1); }
-  .mid-claim-body { display:table; margin-left:auto; margin-right:auto; text-align:left; }
+  .mid-claim-lead { margin-bottom: var(--space-1); text-align:left; }
+  .mid-claim-body { text-align:left; }
   .claim-anchor { position:relative; display:flex; justify-content:center; align-items:flex-start; margin-top: var(--space-2); min-height:245px; }
   .claim-ghost { display:inline-block; position:relative; white-space:nowrap; }
   .claim-ghost > span { visibility:hidden; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; }
@@ -122,7 +123,7 @@
      so this stacks them well before the general 900px breakpoint kicks in. */
   @media (max-width:1150px){
     .mid-claim { text-align:left; }
-    .mid-claim-body { display:block; margin:0; }
+    .mid-claim-group { display:block; }
     .claim-anchor { display:block; min-height:0; margin-top: var(--space-3); }
     .claim-ghost { display:block; }
     .claim-ghost > span { display:none; }
