@@ -146,16 +146,19 @@ document.querySelectorAll('[data-row]').forEach(row => {
     }, orbitDelay);
   });
 
-  // ---------- Hero orbit — collapse into a stack on scroll, unstack when scrolling back ----------
+  // ---------- Hero orbit — pinned while it collapses into a stack on scroll, unstacks when scrolling back ----------
   const orbitWrap = document.querySelector('.hc-orbit-wrap');
-  if (orbitWrap) {
-    const STACK_RANGE = 500;
+  const scrollPin = document.querySelector('.hc-scroll-pin');
+  if (orbitWrap && scrollPin) {
     const updateOrbitStack = () => {
-      const progress = Math.min(Math.max(window.scrollY / STACK_RANGE, 0), 1);
+      const scrollable = scrollPin.offsetHeight - window.innerHeight;
+      const scrolled = -scrollPin.getBoundingClientRect().top;
+      const progress = scrollable > 0 ? Math.min(Math.max(scrolled / scrollable, 0), 1) : 0;
       orbitWrap.style.setProperty('--progress', progress);
       orbitWrap.classList.toggle('is-stacked', progress > 0);
     };
     window.addEventListener('scroll', updateOrbitStack, { passive: true });
+    window.addEventListener('resize', updateOrbitStack);
     updateOrbitStack();
   }
 

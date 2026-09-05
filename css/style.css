@@ -70,7 +70,8 @@
   .video-bw iframe { filter: grayscale(1) contrast(1.1); }
 
   /* ---------- Hero — orbiting video collage ---------- */
-  .hero-collage { display:block; min-height:0; background: var(--paper); padding: var(--space-8) 0 0; overflow-x:hidden; }
+  .hero-collage { display:block; min-height:0; background: var(--paper); padding: var(--space-8) 0 0; overflow-x:clip; }
+  .hc-scroll-pin { position:relative; }
   .hc-orbit-viewport { position:relative; width:100%; height:min(750px, 55vw); margin:0 auto; }
   .hc-orbit-wrap { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:min(1150px, 86vw); aspect-ratio:1/1; }
   .hc-orbit-scale { position:absolute; inset:0; transform: scaleX(1.65); }
@@ -94,17 +95,15 @@
   .hc-orbit-wrap.is-stacked .orbit-ring, .hc-orbit-wrap.is-stacked .orbit-tile-inner { animation-play-state: paused; }
   @keyframes orbit-spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
   @keyframes orbit-counter-spin { from { transform:rotate(0deg) scaleX(0.606); } to { transform:rotate(-360deg) scaleX(0.606); } }
-  .hc-center { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:min(360px, 38%); text-align:center; }
-  .hc-center h1 { display:none; color: var(--ink); font-family: var(--accent-serif); font-style:italic; font-size: calc(var(--fs-display) * 1.05); font-weight:600; line-height:1.05; letter-spacing:0; text-shadow: 0 0 18px var(--paper), 0 0 18px var(--paper), 0 0 30px var(--paper), 0 0 30px var(--paper), 0 0 44px var(--paper); }
+  .hc-center { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:3; width:min(360px, 38%); text-align:center; }
+  .hc-center h1 { display:inline-block; white-space:nowrap; color: var(--ink); font-family: var(--accent-serif); font-style:italic; font-size: calc(var(--fs-display) * 1.05); font-weight:600; line-height:1.05; letter-spacing:0; background: var(--paper); padding: 8px 22px; }
   .hc-center-video { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:44%; aspect-ratio:800/340; }
   .hc-center-video .orbit-tile-inner { animation:none; }
   .hc-mobile-video { display:none; }
   .bottom-section { padding-top: var(--space-3); padding-bottom: var(--space-7); text-align:center; }
   .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-6); }
-  .mid-claim-group { display:inline-block; }
   .mid-claim { text-align:center; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink); margin-bottom: var(--space-3); }
-  .mid-claim-lead { margin-bottom: var(--space-1); text-align:left; font-family: var(--accent-serif); font-style:italic; font-size: calc(var(--fs-display) * 1.05); font-weight:600; line-height:1.05; letter-spacing:0; }
-  .mid-claim-body { text-align:left; }
+  .mid-claim-body { display:inline-block; text-align:left; }
   .claim-anchor { position:relative; display:flex; justify-content:center; align-items:flex-start; margin-top: var(--space-2); min-height:245px; }
   .claim-ghost { display:inline-block; position:relative; white-space:nowrap; }
   .claim-ghost > span { visibility:hidden; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; }
@@ -116,14 +115,16 @@
     .orbit-ring, .orbit-tile-inner { animation:none; }
     .orbit-tile { display:none; }
     .hc-center-video { display:none; }
-    .mid-claim-lead { display:none; }
     .hc-orbit-viewport { height:70vh; }
     .hc-orbit-wrap { position:static; transform:none; width:100%; aspect-ratio:auto; height:100%; }
     .hc-mobile-video { display:block; position:absolute; inset:0; overflow:hidden; z-index:1; }
     .hc-mobile-video video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; pointer-events:none; }
     .hc-center { width:auto; max-width:92%; top:auto; bottom:9%; transform:translateX(-50%); }
-    .hc-center h1 { display:inline-block; white-space:nowrap; color: var(--ink); font-size: calc(var(--fs-display) * 1.05); background: var(--paper); padding: 8px 22px; }
     .bottom-section { padding-top: var(--space-5); padding-bottom: var(--space-3); }
+  }
+  @media (min-width:901px){
+    .hc-scroll-pin { height: 220vh; }
+    .hc-orbit-viewport { position:sticky; top:0; }
   }
 
   /* Fixed-width claim/quote columns only fit side by side once there's ~1060px
@@ -131,7 +132,7 @@
      so this stacks them well before the general 900px breakpoint kicks in. */
   @media (max-width:1150px){
     .mid-claim { text-align:left; }
-    .mid-claim-group { display:block; }
+    .mid-claim-body { display:block; }
     .claim-anchor { display:block; min-height:0; margin-top: var(--space-3); }
     .claim-ghost { display:block; }
     .claim-ghost > span { display:none; }
