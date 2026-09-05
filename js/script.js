@@ -149,13 +149,22 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // ---------- Hero orbit — pinned while it collapses into a stack on scroll, unstacks when scrolling back ----------
   const orbitWrap = document.querySelector('.hc-orbit-wrap');
   const scrollPin = document.querySelector('.hc-scroll-pin');
+  const heroClaim = document.querySelector('.hc-center');
   if (orbitWrap && scrollPin) {
+    const STACK_END = 0.6;   // videos finish collapsing by 60% through the pinned scroll
+    const CLAIM_START = 0.5; // claim starts fading in just before the stack finishes
+    const CLAIM_END = 0.68;  // ...and is fully visible shortly after — then holds until 100%
     const updateOrbitStack = () => {
       const scrollable = scrollPin.offsetHeight - window.innerHeight;
       const scrolled = -scrollPin.getBoundingClientRect().top;
-      const progress = scrollable > 0 ? Math.min(Math.max(scrolled / scrollable, 0), 1) : 0;
-      orbitWrap.style.setProperty('--progress', progress);
-      orbitWrap.classList.toggle('is-stacked', progress > 0);
+      const raw = scrollable > 0 ? Math.min(Math.max(scrolled / scrollable, 0), 1) : 0;
+      const stackProgress = Math.min(raw / STACK_END, 1);
+      const claimOpacity = scrollable > 0
+        ? Math.min(Math.max((raw - CLAIM_START) / (CLAIM_END - CLAIM_START), 0), 1)
+        : 1;
+      orbitWrap.style.setProperty('--progress', stackProgress);
+      orbitWrap.classList.toggle('is-stacked', stackProgress > 0);
+      heroClaim?.style.setProperty('--claim-opacity', claimOpacity);
     };
     window.addEventListener('scroll', updateOrbitStack, { passive: true });
     window.addEventListener('resize', updateOrbitStack);
