@@ -87,11 +87,14 @@
   @keyframes orbit-spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
   @keyframes orbit-counter-spin { from { transform:rotate(0deg) scaleX(0.606); } to { transform:rotate(-360deg) scaleX(0.606); } }
   .hc-center { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:min(360px, 38%); text-align:center; }
-  .hc-center h1 { color: var(--ink); font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; text-shadow: 0 0 18px var(--paper), 0 0 18px var(--paper), 0 0 30px var(--paper), 0 0 30px var(--paper), 0 0 44px var(--paper); }
+  .hc-center h1 { display:none; color: var(--ink); font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; text-shadow: 0 0 18px var(--paper), 0 0 18px var(--paper), 0 0 30px var(--paper), 0 0 30px var(--paper), 0 0 44px var(--paper); }
+  .hc-center-video { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:44%; aspect-ratio:800/340; }
+  .hc-center-video .orbit-tile-inner { animation:none; }
   .hc-mobile-video { display:none; }
   .bottom-section { padding-top: var(--space-3); padding-bottom: var(--space-7); }
   .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-6); }
   .mid-claim { text-align:center; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink); margin-bottom: var(--space-3); }
+  .mid-claim-lead { margin-bottom: var(--space-1); }
   .claim-anchor { position:relative; display:flex; justify-content:center; align-items:flex-start; margin-top: var(--space-2); min-height:245px; }
   .claim-ghost { display:inline-block; position:relative; white-space:nowrap; }
   .claim-ghost > span { visibility:hidden; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; }
@@ -102,6 +105,8 @@
     .hero-collage { padding:80px 0 0; }
     .orbit-ring, .orbit-tile-inner { animation:none; }
     .orbit-tile { display:none; }
+    .hc-center-video { display:none; }
+    .mid-claim-lead { display:none; }
     .hc-orbit-viewport { height:70vh; }
     .hc-orbit-wrap { position:static; transform:none; width:100%; aspect-ratio:auto; height:100%; }
     .hc-mobile-video { display:block; position:absolute; inset:0; overflow:hidden; z-index:1; }
