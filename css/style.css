@@ -90,8 +90,8 @@
   .hc-center h1 { color: var(--ink); font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; text-shadow: 0 0 18px var(--paper), 0 0 18px var(--paper), 0 0 30px var(--paper), 0 0 30px var(--paper), 0 0 44px var(--paper); }
   .hc-mobile-video { display:none; }
   .bottom-section { padding-top: var(--space-3); padding-bottom: var(--space-7); }
-  .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-7); }
-  .mid-claim { text-align:center; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: 0; }
+  .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-6); }
+  .mid-claim { text-align:center; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-3); }
   .claim-anchor { position:relative; display:flex; justify-content:center; align-items:flex-start; margin-top: var(--space-2); min-height:245px; }
   .claim-ghost { display:inline-block; position:relative; white-space:nowrap; }
   .claim-ghost > span { visibility:hidden; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; }
