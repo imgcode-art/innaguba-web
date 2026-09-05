@@ -122,7 +122,7 @@
     .bottom-section { padding-top: var(--space-5); padding-bottom: var(--space-3); }
   }
   @media (min-width:901px){
-    .hc-scroll-pin { height: 300vh; }
+    .hc-scroll-pin { height: 220vh; }
     .hc-orbit-viewport { position:sticky; top:0; }
   }
 

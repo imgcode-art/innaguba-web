@@ -151,9 +151,9 @@ document.querySelectorAll('[data-row]').forEach(row => {
   const scrollPin = document.querySelector('.hc-scroll-pin');
   const heroClaim = document.querySelector('.hc-center');
   if (orbitWrap && scrollPin) {
-    const STACK_END = 0.6;   // videos finish collapsing by 60% through the pinned scroll
-    const CLAIM_START = 0.5; // claim starts fading in just before the stack finishes
-    const CLAIM_END = 0.68;  // ...and is fully visible shortly after — then holds until 100%
+    const STACK_END = 0.6;    // videos finish collapsing by 60% through the pinned scroll
+    const CLAIM_START = 0.38; // claim starts fading in earlier, well before the stack finishes
+    const CLAIM_END = 0.55;   // ...and is fully visible shortly before it — then holds until 100%
     const updateOrbitStack = () => {
       const scrollable = scrollPin.offsetHeight - window.innerHeight;
       const scrolled = -scrollPin.getBoundingClientRect().top;
