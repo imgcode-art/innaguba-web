@@ -187,7 +187,7 @@
   .wg .tile-list li + li { margin-top:4px; }
   .wg .pos-4.tile-list { align-items:flex-start; justify-content:flex-end; padding: 62px 62px var(--space-4) var(--space-4); }
   .wg .pos-4.tile-list ul { text-align:right; }
-  @media (max-width:800px){
+  @media (max-width:1150px){
     .wg{grid-template-columns:1fr; gap: var(--space-10);}
     .wg .pos-1, .wg .pos-2, .wg .pos-4, .wg .pos-5, .wg .pos-6 { grid-column:1; grid-row:auto; }
     .wg .pos-2 { aspect-ratio:3/4; }
