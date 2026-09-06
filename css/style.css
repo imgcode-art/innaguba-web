@@ -33,6 +33,7 @@
   @media (max-width:700px){ body{padding:0 var(--space-3);} }
   img { display:block; width:100%; height:100%; object-fit:cover; }
   a { color:inherit; text-decoration:none; }
+  .gallery-link { text-decoration:underline; text-underline-offset:3px; }
   .wrap { max-width: var(--max-w); margin:0 auto; }
 
   .plus { font-size: var(--fs-body); font-weight:700; }
@@ -254,10 +255,13 @@
   /* ---------- Closing CTA ---------- */
   .closing { padding: var(--space-7) 0 0; }
   .refs-grid + .closing { padding-top: var(--space-10); }
+  .about-bento + .closing { padding-top: 0; }
   .closing .top { text-align:left; }
   .closing-footer { padding: 0 0 var(--space-5); }
   .closing-title { font-size: var(--fs-display); font-weight:700; line-height:0.9; letter-spacing:-0.025em; color: var(--ink); padding-bottom: var(--space-4); border-bottom:1px solid var(--line); }
+  .closing-note { font-size: var(--fs-body); color: var(--ink-body); margin: var(--space-4) 0 0; }
   .closing-lead { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); white-space:nowrap; margin: var(--space-4) 0 0; }
+  .closing .about-thanks-cta { margin-top: var(--space-4); }
   @media (max-width:900px){ .closing-lead { white-space:normal; } }
 
   /* ---------- Contact form ---------- */
@@ -390,11 +394,6 @@
   .contact-info-line a:hover { color: var(--red); }
   @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0 0 var(--space-9);} .contact-info-photo{flex-basis:auto; width:100%;} .contact-info-text{max-width:none;} }
 
-  .about-thanks { background: var(--paper); text-align:left; padding: var(--space-10) 0; }
-  .about-thanks h2 { color: var(--ink); font-size: var(--fs-display); font-weight:700; letter-spacing:-0.03em; line-height:0.85; padding-bottom: var(--space-4); border-bottom:1px solid var(--line); margin-bottom: var(--space-4); }
-  .mobile-break { display:none; }
-  @media (max-width:700px){ .mobile-break { display:block; } }
-  .about-thanks p { color: var(--ink-body); font-size: var(--fs-body); margin-bottom: var(--space-5); }
   .about-thanks-cta { display:flex; align-items:center; justify-content:flex-start; gap: var(--space-4); flex-wrap:wrap; }
   .about-thanks-cta .gallery-link { color: var(--ink-body); }
   .about-thanks-cta .about-cta-btn { border-color: var(--ink); color: var(--ink); }
