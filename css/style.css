@@ -164,6 +164,11 @@
   .proof-stats { list-style:none; max-width:460px; }
   .proof-stats li { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); line-height:1.15; }
   .proof-stats li + li { margin-top:4px; }
+  @media (min-width:901px){
+    .proof-block { display:flex; align-items:center; gap: var(--space-8); }
+    .proof-photo { max-width:none; flex:1 1 60%; margin-bottom:0; }
+    .proof-stats { max-width:none; flex:1 1 40%; }
+  }
 
   /* ---------- Work grid (services list + photo) ---------- */
   .work-grid { padding: 0 0 var(--space-9); }
