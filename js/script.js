@@ -161,19 +161,23 @@ document.querySelectorAll('[data-row]').forEach(row => {
   const heroClaim = document.querySelector('.hc-center');
   if (orbitWrap && scrollPin) {
     const STACK_END = 0.6;    // videos finish collapsing by 60% through the pinned scroll
-    const CLAIM_START = 0.38; // claim starts fading in earlier, well before the stack finishes
-    const CLAIM_END = 0.55;   // ...and is fully visible shortly before it — then holds until 100%
+    const CLAIM_START = 0.3;  // "Zastavme čas?" starts fading in
+    const CLAIM_END = 0.45;   // ...and is fully visible
+    const SWAP_START = 0.62;  // it then swaps into "Mějte památku..." while still pinned,
+    const SWAP_END = 0.8;     // ...so it's already on screen the moment the pin releases
+    const fade = (raw, start, end) => Math.min(Math.max((raw - start) / (end - start), 0), 1);
     const updateOrbitStack = () => {
       const scrollable = scrollPin.offsetHeight - window.innerHeight;
       const scrolled = -scrollPin.getBoundingClientRect().top;
       const raw = scrollable > 0 ? Math.min(Math.max(scrolled / scrollable, 0), 1) : 0;
       const stackProgress = Math.min(raw / STACK_END, 1);
-      const claimOpacity = scrollable > 0
-        ? Math.min(Math.max((raw - CLAIM_START) / (CLAIM_END - CLAIM_START), 0), 1)
-        : 1;
+      const swapIn = scrollable > 0 ? fade(raw, SWAP_START, SWAP_END) : 0;
+      const claimOpacity = (scrollable > 0 ? fade(raw, CLAIM_START, CLAIM_END) : 1) * (1 - swapIn);
+      const claim2Opacity = swapIn;
       orbitWrap.style.setProperty('--progress', stackProgress);
       orbitWrap.classList.toggle('is-stacked', stackProgress > 0);
       heroClaim?.style.setProperty('--claim-opacity', claimOpacity);
+      heroClaim?.style.setProperty('--claim2-opacity', claim2Opacity);
     };
     window.addEventListener('scroll', updateOrbitStack, { passive: true });
     window.addEventListener('resize', updateOrbitStack);
