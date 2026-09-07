@@ -140,7 +140,7 @@
   }
 
   /* ---------- Belief list (standalone, after the banner video) ---------- */
-  .belief-list-section { padding: var(--space-9) 0; }
+  .belief-list-section { padding: var(--space-9) 0 50px; }
   .belief-list { list-style:none; max-width:640px; margin-left: calc((100% - 2 * var(--space-6)) / 3 + var(--space-6)); margin-right:auto; }
   @media (max-width:900px){ .belief-list { margin-left:auto; } }
   .belief-list li { font-size: var(--fs-heading); font-weight:700; line-height:1.4; letter-spacing:-0.01em; color: var(--ink-heading); }
@@ -155,7 +155,7 @@
   .section-label .gallery-link { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.02em; color: var(--ink-body); white-space:nowrap; }
 
   /* ---------- Proof block (photo + stats, between the hero quote and "Tři cesty") ---------- */
-  .proof-block { padding: var(--space-8) 0 var(--space-9); }
+  .proof-block { padding: var(--space-8) 0 50px; }
   .proof-photo { width:100%; max-width:460px; aspect-ratio:4/3; overflow:hidden; background: var(--ink); margin-bottom: var(--space-4); }
   .proof-photo img { width:100%; height:100%; object-fit:cover; }
   .proof-stats { list-style:none; max-width:460px; }
@@ -169,7 +169,7 @@
   }
 
   /* ---------- Work grid (services list + photo) ---------- */
-  .work-grid { padding: 0 0 var(--space-9); }
+  .work-grid { padding: 0 0 50px; }
   .work-services { display:block; margin-bottom: var(--space-6); }
   .work-services ul { list-style:none; }
   .work-services li { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); line-height:1.15; }
@@ -228,8 +228,8 @@
   @media (max-width:900px){ .rg{flex-direction:column; gap: var(--space-8); max-width:400px; margin:0 auto;} }
 
   /* ---------- Closing CTA ---------- */
-  .closing { padding: var(--space-7) 0 var(--space-9); }
-  .refs-grid + .closing { padding-top: var(--space-10); }
+  .closing { padding: var(--space-7) 0 50px; }
+  .refs-grid + .closing { padding-top: 150px; }
   .about-bento + .closing { padding-top: 0; }
   .closing .top { text-align:left; }
   .closing-footer { padding: 0 0 var(--space-5); }
