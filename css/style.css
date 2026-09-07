@@ -144,7 +144,7 @@
   .belief-list { list-style:none; max-width:640px; margin-left: calc((100% - 2 * var(--space-6)) / 3 + var(--space-6)); margin-right:auto; }
   @media (max-width:900px){ .belief-list { margin-left:auto; } }
   .belief-list li { font-size: var(--fs-heading); font-weight:700; line-height:1.4; letter-spacing:-0.01em; color: var(--ink-heading); }
-  .belief-list li + li { margin-top: var(--space-2); }
+  .belief-list li + li { margin-top: var(--space-1); }
 
   /* ---------- Section label ---------- */
   .section-label { padding: var(--space-10) 0 var(--space-6); }
