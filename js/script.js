@@ -79,14 +79,23 @@ document.querySelectorAll('[data-row]').forEach(row => {
   if (heroVideo) {
     heroVideo.muted = true;
     heroVideo.playsInline = true;
+    heroVideo.load();
     const tryPlay = () => heroVideo.play().catch(() => {});
     tryPlay();
-    ['loadeddata', 'loadedmetadata', 'canplay', 'canplaythrough'].forEach(evt => {
+    ['loadeddata', 'loadedmetadata', 'canplay', 'canplaythrough', 'playing'].forEach(evt => {
       heroVideo.addEventListener(evt, tryPlay);
     });
     ['touchstart', 'click', 'scroll'].forEach(evt => {
       document.addEventListener(evt, tryPlay, { once: true, passive: true });
     });
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlay(); });
+    window.addEventListener('pageshow', tryPlay);
+    if ('IntersectionObserver' in window) {
+      const heroVideoObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) tryPlay(); });
+      }, { threshold: 0.1 });
+      heroVideoObserver.observe(heroVideo);
+    }
   }
 
   // ---------- Cookie consent bar ----------
