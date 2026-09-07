@@ -72,7 +72,7 @@
   /* ---------- Hero — orbiting video collage ---------- */
   .hero-collage { display:block; min-height:0; background: var(--paper); padding: var(--space-8) 0 0; overflow-x:clip; }
   .hc-scroll-pin { position:relative; }
-  .hc-orbit-viewport { position:relative; width:100%; height:min(750px, 55vw); margin:0 auto; overflow:hidden; }
+  .hc-orbit-viewport { position:relative; width:100%; height:min(560px, 42vw); margin:0 auto; overflow:hidden; }
   .hc-orbit-wrap { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:min(1150px, 86vw); aspect-ratio:1/1; }
   .hc-orbit-scale { position:absolute; inset:0; transform: scaleX(1.65); }
   .orbit-ring { position:absolute; inset:0; animation: orbit-spin 90s linear infinite; }
@@ -107,10 +107,8 @@
   .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-6); }
   .mid-claim { text-align:center; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink); margin-bottom: var(--space-3); }
   .mid-claim-body { display:inline-block; text-align:left; }
-  .claim-anchor { position:relative; display:flex; justify-content:center; align-items:flex-start; margin-top: var(--space-2); min-height: calc(var(--fs-display) * 0.95 + 85px + var(--space-3)); }
-  .claim-ghost { display:inline-block; position:relative; white-space:nowrap; }
-  .claim-ghost > span { visibility:hidden; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; }
-  .claim-text { visibility:visible; position:absolute; top:100%; left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; display:flex; flex-direction:column; gap: var(--space-2); }
+  .claim-anchor { position:relative; margin-top: var(--space-2); min-height: calc(var(--fs-display) * 0.95 + 85px + var(--space-3)); }
+  .claim-text { position:absolute; top: calc(var(--fs-display) * 0.95); left: calc((100% - var(--space-8)) * 0.6 + var(--space-8)); white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; display:flex; flex-direction:column; gap: var(--space-2); }
   .quote-line { position:absolute; top:100%; left: calc((100% - var(--space-8)) * 0.6); white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
   .quote-line .quote-author { font-weight:400; }
   @media (max-width:900px){
@@ -136,10 +134,8 @@
   @media (max-width:1150px){
     .mid-claim { text-align:left; }
     .mid-claim-body { display:block; }
-    .claim-anchor { display:block; min-height:0; margin-top: var(--space-3); }
-    .claim-ghost { display:block; }
-    .claim-ghost > span { display:none; }
-    .claim-text { gap: var(--space-3); position:static; left:auto; text-align:left; width:auto; max-width:none; margin:0; }
+    .claim-anchor { min-height:0; margin-top: var(--space-3); }
+    .claim-text { gap: var(--space-3); position:static; text-align:left; width:auto; max-width:none; margin:0; }
     .quote-line { position:static; right:auto; text-align:left; width:50%; max-width:none; margin: var(--space-3) 0 0 auto; }
   }
 
