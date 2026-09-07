@@ -108,8 +108,8 @@
   .mid-claim { text-align:center; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink); margin-bottom: var(--space-3); }
   .mid-claim-body { display:inline-block; text-align:left; }
   .claim-anchor { position:relative; margin-top: var(--space-2); min-height: calc(var(--fs-display) * 0.95 + 85px + var(--space-3)); }
-  .claim-text { position:absolute; top: calc(var(--fs-display) * 0.95); left: calc((100% - var(--space-8)) * 0.6 + var(--space-8)); white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; display:flex; flex-direction:column; gap: var(--space-2); }
-  .quote-line { position:absolute; top:100%; left: calc((100% - var(--space-8)) * 0.6); white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
+  .claim-text { position:absolute; top: calc(var(--fs-display) * 0.95); left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; display:flex; flex-direction:column; gap: var(--space-2); }
+  .quote-line { position:absolute; top:100%; right:0; white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
   .quote-line .quote-author { font-weight:400; }
   @media (max-width:900px){
     .hero-collage { padding:80px 0 0; }
