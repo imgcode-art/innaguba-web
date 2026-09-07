@@ -109,7 +109,7 @@
   .mid-claim-body { display:inline-block; text-align:left; }
   .claim-anchor { position:relative; margin-top: var(--space-2); min-height: calc(var(--fs-display) * 0.95 + 85px + var(--space-3)); }
   .claim-text { position:absolute; top: calc(var(--fs-display) * 0.95); left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; display:flex; flex-direction:column; gap: var(--space-2); }
-  .quote-line { position:absolute; top:100%; right:0; white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
+  .quote-line { position:absolute; top:100%; left: calc((100% - var(--space-8)) * 0.8 + var(--space-8) - 168px); white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
   .quote-line .quote-author { font-weight:400; }
   @media (max-width:900px){
     .hero-collage { padding:80px 0 0; }
@@ -163,7 +163,8 @@
   @media (min-width:901px){
     .proof-block { display:flex; align-items:center; gap: var(--space-8); }
     .proof-photo { max-width:none; flex:1 1 60%; margin-bottom:0; }
-    .proof-stats { max-width:none; flex:1 1 40%; }
+    .proof-stats-col { flex:1 1 40%; display:flex; justify-content:center; }
+    .proof-stats { max-width:none; width:fit-content; }
   }
 
   /* ---------- Work grid (services list + photo) ---------- */
