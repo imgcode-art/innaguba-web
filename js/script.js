@@ -155,6 +155,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
       if (duration && data.seconds >= duration - 5) player.setCurrentTime(0);
     });
     player.on('ended', () => player.setCurrentTime(0).then(() => player.play()));
+    player.on('play', () => iframe.closest('.orbit-tile-inner')?.classList.add('is-playing'));
   };
 
   let orbitDelay = 0;
@@ -165,7 +166,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
     setTimeout(() => {
       const iframe = document.createElement('iframe');
       iframe.src = `https://player.vimeo.com/video/${tile.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
-      iframe.setAttribute('allow', 'autoplay; fullscreen');
+      iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
       iframe.setAttribute('frameborder', '0');
       iframe.setAttribute('title', tile.querySelector('img')?.alt || 'Inna Guba — video');
       tile.appendChild(iframe);
