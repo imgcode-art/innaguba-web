@@ -66,6 +66,7 @@
     min-height:100cqh; min-width:177.78cqh; /* cover trick, relative to the container's own size */
     transform:translate(-50%,-50%);
     pointer-events:none; border:0;
+    transition: filter .8s ease;
   }
   .video-bw iframe { filter: grayscale(1) contrast(1.1); }
 

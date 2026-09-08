@@ -98,6 +98,24 @@ document.querySelectorAll('[data-row]').forEach(row => {
     }
   }
 
+  // ---------- Banner video — grayscale until scrolled into view, then fades to color and plays ----------
+  const scrollVideo = document.querySelector('[data-scroll-video]');
+  if (scrollVideo && window.Vimeo) {
+    const scrollVideoPlayer = new Vimeo.Player(scrollVideo.querySelector('iframe'));
+    scrollVideoPlayer.pause().catch(() => {});
+    let scrollVideoStarted = false;
+    const scrollVideoObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !scrollVideoStarted) {
+          scrollVideoStarted = true;
+          scrollVideo.classList.remove('video-bw');
+          scrollVideoPlayer.play().catch(() => {});
+        }
+      });
+    }, { threshold: 0.5 });
+    scrollVideoObserver.observe(scrollVideo);
+  }
+
   // ---------- Cookie consent bar ----------
   (() => {
     const KEY = 'cookie-consent';
