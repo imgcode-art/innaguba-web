@@ -103,13 +103,14 @@
   .hc-center-video { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:44%; aspect-ratio:800/340; }
   .hc-center-video .orbit-tile-inner { animation:none; }
   .hc-mobile-video { display:none; }
-  .bottom-section { padding-top: var(--space-1); padding-bottom: var(--space-7); text-align:center; }
+  .bottom-section { padding-top: var(--space-1); padding-bottom: var(--space-4); text-align:center; }
   .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-4); }
   .mid-claim { text-align:center; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink); margin-bottom: var(--space-3); }
   .mid-claim-body { display:inline-block; text-align:left; }
-  .claim-anchor { position:relative; margin-top: var(--space-2); min-height: calc(85px + 2 * var(--space-3)); }
-  .claim-text { position:absolute; top: var(--space-3); left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; display:flex; flex-direction:column; gap: var(--space-2); }
-  .quote-line { position:absolute; top:100%; left: calc((100% - var(--space-8)) * 0.8 + var(--space-8) - 168px); white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
+  .claim-anchor { position:relative; margin-top:0; min-height: calc(85px + var(--space-3) + var(--space-2)); }
+  .claim-text { position:absolute; top: var(--space-2); left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; display:flex; flex-direction:column; gap: var(--space-2); }
+  /* left edge matches .proof-stats-col's own left edge: .proof-photo's 60% width + the row's gap, in the shared .wrap coordinate space */
+  .quote-line { position:absolute; top:100%; left: calc(60% + (var(--space-8) * 0.4)); white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
   .quote-line .quote-author { font-weight:400; }
   @media (max-width:900px){
     .hero-collage { padding:80px 0 0; }
