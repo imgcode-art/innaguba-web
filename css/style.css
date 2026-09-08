@@ -361,14 +361,15 @@
   .lb-close { position:absolute; top:-40px; right:0; color:#fff; font-size: var(--fs-body); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; background:none; border:0; }
 
   /* ---------- O mně ---------- */
-  .about-hero .wrap { align-items:flex-start; }
-  .about-hero-side { max-width:420px; display:flex; flex-direction:column; text-align:left; }
-  .about-hero-side .ab-photo { width:100%; aspect-ratio:4/5; overflow:hidden; margin:0 0 var(--space-4); }
-  .about-hero-side .ab-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-3); color: var(--ink-heading); }
-  .about-hero-side .ab-content p { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
-  @media (max-width:900px){ .about-hero .wrap{flex-direction:column; align-items:flex-start;} .about-hero-side{max-width:none; width:100%;} }
+  .about-hero { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6) var(--space-4); padding: var(--space-8) 0 var(--space-9); }
+  .ab-hero-photo { grid-column:2; aspect-ratio:4/5; overflow:hidden; }
+  .ab-hero-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
+  .ab-hero-text { grid-column:3; display:flex; flex-direction:column; justify-content:flex-end; text-align:left; }
+  .ab-hero-text h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-3); color: var(--ink-heading); }
+  .ab-hero-text p { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
+  @media (max-width:900px){ .about-hero{grid-template-columns:1fr; gap: var(--space-4); padding: var(--space-6) 0 var(--space-7);} .ab-hero-photo{grid-column:1;} .ab-hero-text{grid-column:1; justify-content:flex-start;} }
 
-  .about-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6) var(--space-4); padding: var(--space-9) 0 var(--space-11); }
+  .about-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6) var(--space-4); padding: 0 0 var(--space-11); }
   .ab-card { display:flex; flex-direction:column; }
   .ab-photo { width:100%; aspect-ratio:4/5; overflow:hidden; margin:0 0 var(--space-4); }
   .ab-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
