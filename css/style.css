@@ -141,7 +141,7 @@
 
   /* ---------- Belief list (standalone, after the banner video) ---------- */
   .belief-list-section { padding: var(--space-9) 0 50px; }
-  .belief-list { list-style:none; max-width:640px; margin-left: calc(50% - 180px); margin-right:auto; }
+  .belief-list { list-style:none; max-width:640px; margin-left: 54.34%; margin-right:auto; }
   @media (max-width:900px){ .belief-list { margin-left:auto; } }
   .belief-list li { font-size: var(--fs-heading); font-weight:700; line-height:1.4; letter-spacing:-0.01em; color: var(--ink-heading); }
   .belief-list li + li { margin-top: var(--space-1); }
