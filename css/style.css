@@ -168,10 +168,11 @@
   @media (min-width:901px){
     .proof-block { display:flex; align-items:center; gap: var(--space-8); position:relative; container-type:inline-size; }
     .proof-photo { max-width:none; flex:1 1 60%; margin-bottom:0; }
-    .proof-stats-col { flex:1 1 40%; display:flex; flex-direction:column; align-items:center; align-self:flex-start; margin-top:var(--space-6); }
+    .proof-stats-col { flex:1 1 40%; display:flex; flex-direction:column; align-items:flex-start; align-self:flex-start; margin-top:var(--space-6); }
     .proof-stats { max-width:none; width:fit-content; }
-    /* left-aligned, starting at .proof-stats-col's own left edge (.proof-photo's width + the row gap) and at .proof-photo-small's own top, in the open space left of the small photo */
-    .proof-side { position:absolute; left: calc((100cqw - var(--space-8)) * 0.6 + var(--space-8)); top: calc((100cqw - var(--space-8)) * 0.225 + var(--space-8)); width:280px; text-align:left; }
+    /* left-aligned, starting at .proof-stats' own left edge (.proof-photo's width + the row gap); height matches .proof-photo-small so its content centers vertically against it */
+    .proof-side { position:absolute; left: calc((100cqw - var(--space-8)) * 0.6 + var(--space-8)); top: calc((100cqw - var(--space-8)) * 0.225 + var(--space-8)); height: calc((100cqw - var(--space-8)) * 0.225); width:200px; display:flex; flex-direction:column; justify-content:center; gap: var(--space-2); text-align:left; }
+    .proof-side .proof-note, .proof-side .proof-cta { margin-top:0; }
     /* height = half of .proof-photo's own height (60% of this container's width, minus its share of the gap, times its 4:3 ratio), so its top edge starts at .proof-photo's vertical midpoint; bottom:50px cancels the block's own padding-bottom so it lines up with .proof-photo's bottom edge, not the padding box */
     .proof-photo-small { display:block; position:absolute; right:0; bottom:50px; height:calc((100cqw - var(--space-8)) * 0.225); aspect-ratio:2/3; overflow:hidden; }
     .proof-photo-small img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
