@@ -430,3 +430,27 @@
   .cookie-accept { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:12px 24px; background:none; color: var(--ink); cursor:pointer; transition: background .2s ease, color .2s ease; white-space:nowrap; }
   .cookie-accept:hover { background: var(--ink); color:#fff; }
   @media (max-width:700px){ .cookie-bar { padding: var(--space-3); flex-direction:column; align-items:flex-start; } .cookie-actions{ width:100%; justify-content:space-between; } }
+
+  /* ---------- Sitewide photo hover zoom (homepage + other subpages, desktop only) ---------- */
+  .proof-photo img,
+  .proof-photo-small img,
+  .work-photo img,
+  .rg .card .thumb img,
+  .pb-photo img,
+  .ab-hero-photo img,
+  .ab-photo img,
+  .contact-info-photo img {
+    transition: transform .6s cubic-bezier(0.25,1,0.5,1);
+  }
+  @media (hover:hover) and (pointer:fine) {
+    .proof-photo:hover img,
+    .proof-photo-small:hover img,
+    .work-photo:hover img,
+    .rg .card .thumb:hover img,
+    .pb-photo:hover img,
+    .ab-hero-photo:hover img,
+    .ab-photo:hover img,
+    .contact-info-photo:hover img {
+      transform: scale(1.06);
+    }
+  }
