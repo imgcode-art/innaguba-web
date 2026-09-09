@@ -161,7 +161,16 @@ document.querySelectorAll('[data-row]').forEach(row => {
   const wireOrbitVideoLoop = (iframe, tile, attempt = 0) => {
     if (!window.Vimeo) return;
     const player = new Vimeo.Player(iframe);
-    player.on('play', () => tile.classList.add('is-playing'));
+    // 'play' fires as soon as Vimeo accepts the play command, which can be a beat before any frame
+    // actually advances — colorizing right then made photos look "colored but still frozen" for a
+    // moment before real motion appeared. The first 'timeupdate' means playback has genuinely moved,
+    // so the color change lands exactly when the user actually sees the video come alive.
+    let started = false;
+    player.on('timeupdate', () => {
+      if (started) return;
+      started = true;
+      tile.classList.add('is-playing');
+    });
 
     const playAttempt = player.ready().then(() => player.play());
     const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('orbit-video-timeout')), 4000));
