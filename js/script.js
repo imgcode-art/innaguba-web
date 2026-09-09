@@ -146,7 +146,28 @@ document.querySelectorAll('[data-row]').forEach(row => {
   });
 
   // ---------- Hero orbit — first video plays immediately, the rest come to life one by one ----------
-  const wireOrbitVideoLoop = (iframe) => {
+  // The 'play' listener is always wired up BEFORE we ever call player.play() ourselves, so we can
+  // never miss the event (which was one bug: iframes that already had autoplay=1 baked into their
+  // src could start playing before this script attached its listener, leaving that one tile stuck
+  // grayscale forever even though it was actually playing underneath).
+  // Every tile — even the two whose iframe is already in the HTML — is wired up through this same
+  // staggered setTimeout queue, one at a time. Wiring two players in the same tick (which happened
+  // between the two pre-existing iframes) could make one of them hang forever on play().
+  // Playing 7 background videos at once is occasionally flaky: for a couple of tiles, the play()
+  // call can just hang forever — Vimeo's ready() handshake succeeds but no response ever comes back
+  // for the actual play command, on that exact video, every time. Retrying the same player never
+  // helps, so if play() hasn't resolved within a few seconds we throw the iframe away and swap in a
+  // brand new one (a fresh player session), up to twice more.
+  const buildOrbitIframe = (tile, title) => {
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://player.vimeo.com/video/${tile.dataset.vimeoId}?background=1&loop=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
+    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('title', title);
+    return iframe;
+  };
+
+  const wireOrbitVideoLoop = (iframe, tile, attempt = 0) => {
     if (!window.Vimeo) return;
     const player = new Vimeo.Player(iframe);
     let duration = null;
@@ -155,23 +176,32 @@ document.querySelectorAll('[data-row]').forEach(row => {
       if (duration && data.seconds >= duration - 5) player.setCurrentTime(0);
     });
     player.on('ended', () => player.setCurrentTime(0).then(() => player.play()));
-    player.on('play', () => iframe.closest('.orbit-tile-inner')?.classList.add('is-playing'));
+    player.on('play', () => tile.classList.add('is-playing'));
+
+    const playAttempt = player.ready().then(() => player.play());
+    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('orbit-video-timeout')), 4000));
+    Promise.race([playAttempt, timeout]).catch(() => {
+      if (attempt >= 2) return;
+      const title = iframe.getAttribute('title');
+      iframe.remove();
+      const fresh = buildOrbitIframe(tile, title);
+      tile.appendChild(fresh);
+      wireOrbitVideoLoop(fresh, tile, attempt + 1);
+    });
   };
 
   let orbitDelay = 0;
   document.querySelectorAll('.orbit-tile-inner[data-vimeo-id]').forEach(tile => {
-    const existingIframe = tile.querySelector('iframe');
-    if (existingIframe) { wireOrbitVideoLoop(existingIframe); return; }
+    const runDelay = orbitDelay;
     orbitDelay += 200 + Math.random() * 175;
     setTimeout(() => {
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://player.vimeo.com/video/${tile.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
-      iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
-      iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('title', tile.querySelector('img')?.alt || 'Inna Guba — video');
-      tile.appendChild(iframe);
-      wireOrbitVideoLoop(iframe);
-    }, orbitDelay);
+      let iframe = tile.querySelector('iframe');
+      if (!iframe) {
+        iframe = buildOrbitIframe(tile, tile.querySelector('img')?.alt || 'Inna Guba — video');
+        tile.appendChild(iframe);
+      }
+      wireOrbitVideoLoop(iframe, tile);
+    }, runDelay);
   });
 
   // ---------- Hero orbit — pinned while it collapses into a stack on scroll, unstacks when scrolling back ----------
