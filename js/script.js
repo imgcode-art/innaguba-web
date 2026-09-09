@@ -145,81 +145,51 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
-  // ---------- Hero orbit — videos take turns: exactly one plays (and is in color) at a time ----------
-  // Only ever one Vimeo player is actively decoding, which is also what makes this reliable — trying
-  // to keep all 7 playing simultaneously was the source of the earlier chaotic/stuck-video bugs.
-  // Sequence: build/reuse that tile's iframe -> play it (racing a timeout so a hung play() can't
-  // stall the whole carousel) -> when it ends (or a duration-based fallback timer fires, in case
-  // 'ended' never arrives) -> fade it back to grayscale, pause it, move to the next tile.
-  const orbitTiles = [...document.querySelectorAll('.orbit-tile-inner[data-vimeo-id]')];
-  const orbitPlayers = new Map();
-
+  // ---------- Hero orbit — videos start one by one (first almost immediately), and once a video is
+  // playing it just stays playing and in color, looping on its own for good (no cutoff, no reverting
+  // back to grayscale). The 'play' listener is always wired up BEFORE play() is called, so we can
+  // never miss the event and leave a tile stuck grayscale despite actually playing underneath.
   const buildOrbitIframe = (tile, title) => {
     const iframe = document.createElement('iframe');
-    iframe.src = `https://player.vimeo.com/video/${tile.dataset.vimeoId}?background=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
+    iframe.src = `https://player.vimeo.com/video/${tile.dataset.vimeoId}?background=1&loop=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
     iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('title', title);
     return iframe;
   };
 
-  const getOrbitPlayer = (tile) => {
-    let entry = orbitPlayers.get(tile);
-    if (entry) return entry;
-    let iframe = tile.querySelector('iframe');
-    if (!iframe) {
-      iframe = buildOrbitIframe(tile, tile.querySelector('img')?.alt || 'Inna Guba — video');
-      tile.appendChild(iframe);
-    }
-    entry = { player: window.Vimeo ? new Vimeo.Player(iframe) : null, wired: false, onEnded: null };
-    orbitPlayers.set(tile, entry);
-    return entry;
-  };
+  const wireOrbitVideoLoop = (iframe, tile, attempt = 0) => {
+    if (!window.Vimeo) return;
+    const player = new Vimeo.Player(iframe);
+    player.on('play', () => tile.classList.add('is-playing'));
 
-  let orbitIndex = -1;
-  let orbitGen = 0;
-  let orbitTimer = null;
-
-  const playOrbitTile = (index) => {
-    if (!orbitTiles.length) return;
-    if (orbitTimer) { clearTimeout(orbitTimer); orbitTimer = null; }
-    orbitGen += 1;
-    const myGen = orbitGen;
-    orbitIndex = ((index % orbitTiles.length) + orbitTiles.length) % orbitTiles.length;
-    const tile = orbitTiles[orbitIndex];
-    const entry = getOrbitPlayer(tile);
-    const advanceIfCurrent = () => { if (myGen === orbitGen) advanceOrbit(); };
-
-    if (!entry.player) { advanceIfCurrent(); return; }
-    if (!entry.wired) {
-      entry.wired = true;
-      entry.player.on('ended', () => entry.onEnded && entry.onEnded());
-    }
-    entry.onEnded = advanceIfCurrent;
-    tile.classList.add('is-playing');
-
-    const playAttempt = entry.player.ready()
-      .then(() => entry.player.setCurrentTime(0))
-      .then(() => entry.player.play());
+    const playAttempt = player.ready().then(() => player.play());
     const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('orbit-video-timeout')), 4000));
-    Promise.race([playAttempt, timeout]).catch(advanceIfCurrent);
-
-    entry.player.getDuration()
-      .then(d => { if (myGen === orbitGen) orbitTimer = setTimeout(advanceIfCurrent, (d || 8) * 1000 + 400); })
-      .catch(() => { if (myGen === orbitGen) orbitTimer = setTimeout(advanceIfCurrent, 8400); });
+    Promise.race([playAttempt, timeout]).catch(() => {
+      // A hung play() never recovers on retry — swap in a brand new iframe/player session instead,
+      // up to twice more, before giving up on that tile.
+      if (attempt >= 2) return;
+      const title = iframe.getAttribute('title');
+      iframe.remove();
+      const fresh = buildOrbitIframe(tile, title);
+      tile.appendChild(fresh);
+      wireOrbitVideoLoop(fresh, tile, attempt + 1);
+    });
   };
 
-  const advanceOrbit = () => {
-    if (orbitTimer) { clearTimeout(orbitTimer); orbitTimer = null; }
-    const current = orbitTiles[orbitIndex];
-    if (current) {
-      current.classList.remove('is-playing');
-      orbitPlayers.get(current)?.player?.pause().catch(() => {});
-    }
-    playOrbitTile(orbitIndex + 1);
-  };
-
-  setTimeout(() => playOrbitTile(0), 600);
+  let orbitDelay = 0;
+  document.querySelectorAll('.orbit-tile-inner[data-vimeo-id]').forEach(tile => {
+    const runDelay = orbitDelay;
+    orbitDelay += 300 + Math.random() * 200;
+    setTimeout(() => {
+      let iframe = tile.querySelector('iframe');
+      if (!iframe) {
+        iframe = buildOrbitIframe(tile, tile.querySelector('img')?.alt || 'Inna Guba — video');
+        tile.appendChild(iframe);
+      }
+      wireOrbitVideoLoop(iframe, tile);
+    }, runDelay);
+  });
 
   // ---------- Hero orbit — pinned while it collapses into a stack on scroll, unstacks when scrolling back ----------
   const orbitWrap = document.querySelector('.hc-orbit-wrap');
