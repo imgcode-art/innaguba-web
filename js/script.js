@@ -25,16 +25,22 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 });
 
 document.querySelectorAll('[data-row]').forEach(row => {
-    row.addEventListener('click', () => {
+    const toggleRow = () => {
       const isOpen = row.classList.contains('open');
       document.querySelectorAll('[data-row]').forEach(r => {
         r.classList.remove('open');
         r.querySelector('.plus').textContent = '+';
+        r.setAttribute('aria-expanded', 'false');
       });
       if (!isOpen) {
         row.classList.add('open');
         row.querySelector('.plus').textContent = '×';
+        row.setAttribute('aria-expanded', 'true');
       }
+    };
+    row.addEventListener('click', toggleRow);
+    row.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleRow(); }
     });
   });
 
