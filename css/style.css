@@ -360,7 +360,7 @@
 
   /* ---------- Pricing (Ceník) ---------- */
   .pricing-grid { padding: 0 0 var(--space-11); }
-  .price-bento { display:grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-8) var(--space-7); }
+  .price-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8) var(--space-7); }
   .pb-card { display:flex; flex-direction:column; }
   .pb-card.pb-featured { grid-column: 1 / -1; flex-direction:row; align-items:stretch; gap: var(--space-8); }
   /* position:absolute on the img keeps it out of the height calculation, so .pb-photo's own
