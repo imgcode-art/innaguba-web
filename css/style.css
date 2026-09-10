@@ -58,13 +58,14 @@
     .nav-links .nav-call { display:block; color: var(--ink); font-weight:700; }
   }
 
-  /* ---------- Background video embed (Vimeo, cropped to cover) — sized relative to its own container so it always fills it edge-to-edge, no letterboxing ---------- */
+  /* ---------- Background video embed (Vimeo background=1 mode already crops its own content to
+     cover whatever box it's given, regardless of aspect ratio — so the iframe just needs to match
+     the container exactly; no extra sizing math needed, which avoids the letterboxing that showed
+     up on narrow mobile containers with the previous container-query-based cover trick) ---------- */
   .video-embed { position:absolute; inset:0; overflow:hidden; }
   .video-embed iframe {
-    position:absolute; top:50%; left:50%;
-    width:100cqw; height:56.25cqw; /* 16:9 */
-    min-height:100cqh; min-width:177.78cqh; /* cover trick, relative to the container's own size */
-    transform:translate(-50%,-50%);
+    position:absolute; inset:0;
+    width:100%; height:100%;
     pointer-events:none; border:0;
     transition: filter .8s ease;
   }
@@ -206,7 +207,7 @@
   @media (max-width:900px){ .steps-list{flex-direction:column; gap: var(--space-5);} .step{flex:1 1 auto;} }
 
   /* ---------- Full photo banner ---------- */
-  .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
+  .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; }
 
   /* ---------- News / reference grid ---------- */
   .refs-grid { padding: 0; }
@@ -296,7 +297,7 @@
   @media (max-width:800px){ .pg{grid-template-columns:1fr; gap: var(--space-7);} }
 
   /* ---------- Gallery placeholder page ---------- */
-  .gallery-hero { position:relative; height:60vh; min-height:360px; overflow:hidden; container-type:size; }
+  .gallery-hero { position:relative; height:60vh; min-height:360px; overflow:hidden; }
   .gallery-hero + .section-label { padding-top: 69px; }
   .gallery-hero img { filter: grayscale(1) contrast(1.1); }
   .gallery-soon { padding: var(--space-8) 0 var(--space-11); }
