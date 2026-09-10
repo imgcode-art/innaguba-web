@@ -129,7 +129,7 @@
   .claim-anchor { position:relative; margin-top:0; min-height: 37px; }
   .claim-text { position:absolute; top: var(--space-2); left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; }
   /* left edge matches .proof-stats-col's own left edge: .proof-photo's 60% width + the row's gap, in the shared .wrap coordinate space */
-  .quote-line { position:absolute; top: var(--space-2); left: calc(60% + (var(--space-8) * 0.4)); white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
+  .quote-line { position:absolute; top: var(--space-2); left: calc(60% + (var(--space-8) * 0.4)); white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
   .quote-line .quote-author { font-weight:400; }
   @media (max-width:900px){
     .hero-collage { padding:80px 0 0; }
