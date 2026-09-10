@@ -257,6 +257,7 @@
   @media (max-width:900px){ .rg{flex-direction:column; gap: var(--space-8); max-width:400px; margin:0 auto;} }
 
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
+  .section-label:has(+ .faq-section) { padding-bottom: var(--space-4); }
   .faq-section { padding: 0; }
   .faq-list { max-width:760px; }
   .faq-item { border-bottom:1px solid var(--line); cursor:pointer; }
