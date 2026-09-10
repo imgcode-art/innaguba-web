@@ -296,7 +296,7 @@
   @media (max-width:800px){ .pg{grid-template-columns:1fr; gap: var(--space-7);} }
 
   /* ---------- Gallery placeholder page ---------- */
-  .gallery-hero { height:60vh; min-height:360px; overflow:hidden; }
+  .gallery-hero { position:relative; height:60vh; min-height:360px; overflow:hidden; container-type:size; }
   .gallery-hero + .section-label { padding-top: 69px; }
   .gallery-hero img { filter: grayscale(1) contrast(1.1); }
   .gallery-soon { padding: var(--space-8) 0 var(--space-11); }
