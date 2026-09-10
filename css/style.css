@@ -258,7 +258,7 @@
 
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
   .faq-section { padding: 0; }
-  .faq-list { max-width:760px; border-top:1px solid var(--line); }
+  .faq-list { max-width:760px; }
   .faq-item { border-bottom:1px solid var(--line); cursor:pointer; }
   .faq-question { display:flex; justify-content:space-between; align-items:center; gap: var(--space-4); padding: var(--space-4) 0; font-size: var(--fs-body); font-weight:600; color: var(--ink-heading); }
   .faq-item .plus { flex:none; font-size: var(--fs-body); font-weight:400; color: var(--ink-body); }
