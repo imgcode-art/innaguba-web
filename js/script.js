@@ -158,8 +158,14 @@ document.querySelectorAll('[data-row]').forEach(row => {
     return iframe;
   };
 
+  // Defensive: whatever iframe we're about to wire up, make sure it's the ONLY one left in the tile.
+  const keepOnlyIframe = (tile, keep) => {
+    tile.querySelectorAll('iframe').forEach(f => { if (f !== keep) f.remove(); });
+  };
+
   const wireOrbitVideoLoop = (iframe, tile, attempt = 0) => {
     if (!window.Vimeo) return;
+    keepOnlyIframe(tile, iframe);
     const player = new Vimeo.Player(iframe);
     // 'play' fires as soon as Vimeo accepts the play command, which can be a beat before any frame
     // actually advances — colorizing right then made photos look "colored but still frozen" for a
