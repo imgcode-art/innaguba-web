@@ -58,16 +58,25 @@
     .nav-links .nav-call { display:block; color: var(--ink); font-weight:700; }
   }
 
-  /* ---------- Background video embed (Vimeo background=1 mode already crops its own content to
-     cover whatever box it's given, regardless of aspect ratio — so the iframe just needs to match
-     the container exactly; no extra sizing math needed, which avoids the letterboxing that showed
-     up on narrow mobile containers with the previous container-query-based cover trick) ---------- */
+  /* ---------- Background video embed (Vimeo, cropped to cover) — sized relative to its own container so it always fills it edge-to-edge, no letterboxing ---------- */
   .video-embed { position:absolute; inset:0; overflow:hidden; }
   .video-embed iframe {
-    position:absolute; inset:0;
-    width:100%; height:100%;
+    position:absolute; top:50%; left:50%;
+    width:100cqw; height:56.25cqw; /* 16:9 */
+    min-height:100cqh; min-width:177.78cqh; /* cover trick, relative to the container's own size */
+    transform:translate(-50%,-50%);
     pointer-events:none; border:0;
     transition: filter .8s ease;
+  }
+  /* iOS Safari's support for cqw/cqh on narrow containers doesn't crop reliably (bars showed up on
+     mobile even though the exact same math covers correctly on desktop) — vw/vh are older and far
+     more consistently supported, and here the container is effectively viewport-sized anyway, so
+     swapping the same cover formula onto vw/vh sidesteps the bug without touching desktop at all. */
+  @media (max-width:900px){
+    .video-embed iframe {
+      width:100vw; height:56.25vw;
+      min-height:100vh; min-width:177.78vh;
+    }
   }
   .video-bw iframe { filter: grayscale(1) contrast(1.1); }
 
@@ -207,7 +216,7 @@
   @media (max-width:900px){ .steps-list{flex-direction:column; gap: var(--space-5);} .step{flex:1 1 auto;} }
 
   /* ---------- Full photo banner ---------- */
-  .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; }
+  .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
 
   /* ---------- News / reference grid ---------- */
   .refs-grid { padding: 0; }
@@ -297,7 +306,7 @@
   @media (max-width:800px){ .pg{grid-template-columns:1fr; gap: var(--space-7);} }
 
   /* ---------- Gallery placeholder page ---------- */
-  .gallery-hero { position:relative; height:60vh; min-height:360px; overflow:hidden; }
+  .gallery-hero { position:relative; height:60vh; min-height:360px; overflow:hidden; container-type:size; }
   .gallery-hero + .section-label { padding-top: 69px; }
   .gallery-hero img { filter: grayscale(1) contrast(1.1); }
   .gallery-soon { padding: var(--space-8) 0 var(--space-11); }
