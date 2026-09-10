@@ -116,13 +116,23 @@ document.querySelectorAll('[data-row]').forEach(row => {
     scrollVideoObserver.observe(scrollVideo);
   }
 
-  // ---------- Gallery hero video — plays once and stops, overriding any loop setting saved on the
-  // Vimeo video itself (which takes effect regardless of the embed URL's own query params) ----------
+  // ---------- Gallery hero video — background=1 keeps it chrome-free (no title/byline, no Vimeo
+  // end-card with related videos), but background mode always loops no matter what the URL or
+  // setLoop() say. So instead we watch playback time and pause it just short of the very end,
+  // before it ever gets the chance to loop back to the start — it freezes on its last frame. ----------
   const heroVideoIframe = document.querySelector('.gallery-hero .video-embed iframe');
   if (heroVideoIframe && window.Vimeo) {
     const heroVideoPlayer = new Vimeo.Player(heroVideoIframe);
-    heroVideoPlayer.setLoop(false).catch(() => {});
-    heroVideoPlayer.on('ended', () => heroVideoPlayer.pause().catch(() => {}));
+    let heroVideoDuration = null;
+    let heroVideoStopped = false;
+    heroVideoPlayer.getDuration().then(d => { heroVideoDuration = d; });
+    heroVideoPlayer.on('timeupdate', data => {
+      if (heroVideoStopped || !heroVideoDuration) return;
+      if (data.seconds >= heroVideoDuration - 0.3) {
+        heroVideoStopped = true;
+        heroVideoPlayer.pause().catch(() => {});
+      }
+    });
   }
 
   // ---------- Cookie consent bar ----------
