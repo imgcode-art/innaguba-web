@@ -491,6 +491,6 @@
     }
     /* stronger zoom on this one small accent photo, so she visibly comes closer on hover */
     .proof-photo-small:hover img {
-      transform: scale(1.35);
+      transform: scale(1.7);
     }
   }
