@@ -118,22 +118,24 @@ document.querySelectorAll('[data-row]').forEach(row => {
 
   // ---------- Gallery hero video — background=1 keeps it chrome-free (no title/byline, no Vimeo
   // end-card with related videos), but background mode always loops no matter what the URL or
-  // setLoop() say, and Vimeo's own reported duration isn't reliable enough to pre-empt the loop
-  // without cutting the ending short. So instead we let it play all the way through, catch the
-  // moment it loops back to the start (current time suddenly drops), and immediately snap back to
-  // the last real frame it reached and stop there — the viewer sees the full clip, just no repeat. ----------
+  // setLoop() say. Waiting for the actual loop restart and snapping back caused a visible flicker
+  // (a flash of the very first frame right before jumping back to the end), so instead we pause
+  // just shy of the real duration — before it ever gets the chance to loop — and then immediately
+  // seek forward to the exact last frame while paused, so what freezes on screen is the true
+  // ending, not the slightly-earlier frame where we intervened. ----------
   const heroVideoIframe = document.querySelector('.gallery-hero .video-embed iframe');
   if (heroVideoIframe && window.Vimeo) {
     const heroVideoPlayer = new Vimeo.Player(heroVideoIframe);
-    let heroVideoMaxTime = 0;
+    let heroVideoDuration = null;
     let heroVideoStopped = false;
+    heroVideoPlayer.getDuration().then(d => { heroVideoDuration = d; });
     heroVideoPlayer.on('timeupdate', data => {
-      if (heroVideoStopped) return;
-      if (data.seconds < heroVideoMaxTime - 0.5) {
+      if (heroVideoStopped || !heroVideoDuration) return;
+      if (data.seconds >= heroVideoDuration - 0.4) {
         heroVideoStopped = true;
-        heroVideoPlayer.setCurrentTime(heroVideoMaxTime).then(() => heroVideoPlayer.pause()).catch(() => {});
-      } else {
-        heroVideoMaxTime = data.seconds;
+        heroVideoPlayer.pause()
+          .then(() => heroVideoPlayer.setCurrentTime(heroVideoDuration))
+          .catch(() => {});
       }
     });
   }
