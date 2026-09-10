@@ -122,7 +122,7 @@
   /* min-height taller than the row's own top offset, so .claim-text/.quote-line (now on one shared
      row, positioned lower — closer to .proof-photo below) have room to render without spilling past
      the anchor's bottom edge into the next section */
-  .claim-anchor { position:relative; margin-top:0; min-height: calc(85px + var(--space-3) + var(--space-2) + 90px); }
+  .claim-anchor { position:relative; margin-top:0; min-height: calc(85px + var(--space-3) + var(--space-2) + 37px); }
   .claim-text { position:absolute; top: calc(85px + var(--space-3) + var(--space-2)); left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; }
   /* left edge matches .proof-stats-col's own left edge: .proof-photo's 60% width + the row's gap, in the shared .wrap coordinate space */
   .quote-line { position:absolute; top: calc(85px + var(--space-3) + var(--space-2)); left: calc(60% + (var(--space-8) * 0.4)); white-space:normal; font-size: var(--fs-body); font-weight:700; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
