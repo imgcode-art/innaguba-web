@@ -118,19 +118,22 @@ document.querySelectorAll('[data-row]').forEach(row => {
 
   // ---------- Gallery hero video — background=1 keeps it chrome-free (no title/byline, no Vimeo
   // end-card with related videos), but background mode always loops no matter what the URL or
-  // setLoop() say. So instead we watch playback time and pause it just short of the very end,
-  // before it ever gets the chance to loop back to the start — it freezes on its last frame. ----------
+  // setLoop() say, and Vimeo's own reported duration isn't reliable enough to pre-empt the loop
+  // without cutting the ending short. So instead we let it play all the way through, catch the
+  // moment it loops back to the start (current time suddenly drops), and immediately snap back to
+  // the last real frame it reached and stop there — the viewer sees the full clip, just no repeat. ----------
   const heroVideoIframe = document.querySelector('.gallery-hero .video-embed iframe');
   if (heroVideoIframe && window.Vimeo) {
     const heroVideoPlayer = new Vimeo.Player(heroVideoIframe);
-    let heroVideoDuration = null;
+    let heroVideoMaxTime = 0;
     let heroVideoStopped = false;
-    heroVideoPlayer.getDuration().then(d => { heroVideoDuration = d; });
     heroVideoPlayer.on('timeupdate', data => {
-      if (heroVideoStopped || !heroVideoDuration) return;
-      if (data.seconds >= heroVideoDuration - 0.3) {
+      if (heroVideoStopped) return;
+      if (data.seconds < heroVideoMaxTime - 0.5) {
         heroVideoStopped = true;
-        heroVideoPlayer.pause().catch(() => {});
+        heroVideoPlayer.setCurrentTime(heroVideoMaxTime).then(() => heroVideoPlayer.pause()).catch(() => {});
+      } else {
+        heroVideoMaxTime = data.seconds;
       }
     });
   }
