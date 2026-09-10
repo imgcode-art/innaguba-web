@@ -116,6 +116,15 @@ document.querySelectorAll('[data-row]').forEach(row => {
     scrollVideoObserver.observe(scrollVideo);
   }
 
+  // ---------- Gallery hero video — plays once and stops, overriding any loop setting saved on the
+  // Vimeo video itself (which takes effect regardless of the embed URL's own query params) ----------
+  const heroVideoIframe = document.querySelector('.gallery-hero .video-embed iframe');
+  if (heroVideoIframe && window.Vimeo) {
+    const heroVideoPlayer = new Vimeo.Player(heroVideoIframe);
+    heroVideoPlayer.setLoop(false).catch(() => {});
+    heroVideoPlayer.on('ended', () => heroVideoPlayer.pause().catch(() => {}));
+  }
+
   // ---------- Cookie consent bar ----------
   (() => {
     const KEY = 'cookie-consent';
