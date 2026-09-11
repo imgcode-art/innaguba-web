@@ -371,10 +371,7 @@
   .price-list li { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-2); }
   .price-list li:last-child { margin-bottom:0; }
   .price-list li.strong { font-weight:700; color: var(--ink); }
-  .price-tag { display:block; font-size: var(--fs-body); font-weight:700; margin-top: var(--space-2); margin-bottom: var(--space-3); letter-spacing:0.02em; }
-  .price-btn { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.14em; text-transform:uppercase; border:1px solid var(--ink); padding:16px 28px; margin-right: var(--space-2); transition: background .2s ease, color .2s ease; }
-  .price-btn:hover { background: var(--ink); color:#fff; }
-  .pb-content .gallery-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); }
+  .price-tag { display:block; font-size: var(--fs-body); font-weight:700; margin-top: var(--space-2); letter-spacing:0.02em; }
   @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-10) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column;} .pb-featured .pb-photo{order:1; margin-bottom: var(--space-3); aspect-ratio:4/5;} .pb-featured .pb-photo img{position:static;} .pb-featured .pb-content{order:2; max-width:none;} }
 
   /* ---------- Video gallery ---------- */
