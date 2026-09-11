@@ -80,37 +80,24 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
-  // ---------- Mobile hero stack — 3 stacking-card videos. Each card's iframe is only created the
-  // first time it scrolls into view (lazy), and is paused whenever it scrolls back out — keeps this
-  // light on data/battery since at most one of the three is ever actually playing. ----------
-  const heroMobileCards = document.querySelectorAll('.hc-mobile-card');
-  if (heroMobileCards.length && window.Vimeo) {
-    const buildMobileCardIframe = id => {
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://player.vimeo.com/video/${id}?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0`;
-      iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
-      iframe.setAttribute('frameborder', '0');
-      return iframe;
-    };
-    const mobileCardObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        const card = entry.target;
-        let embed = card.querySelector('.video-embed');
-        if (entry.isIntersecting) {
-          if (!embed) {
-            embed = document.createElement('div');
-            embed.className = 'video-embed';
-            embed.appendChild(buildMobileCardIframe(card.dataset.vimeoId));
-            card.appendChild(embed);
-          } else {
-            new Vimeo.Player(embed.querySelector('iframe')).play().catch(() => {});
-          }
-        } else if (embed) {
-          new Vimeo.Player(embed.querySelector('iframe')).pause().catch(() => {});
-        }
-      });
-    }, { threshold: 0.5 });
-    heroMobileCards.forEach(card => mobileCardObserver.observe(card));
+  // ---------- Mobile hero video — starts immediately, stays hidden until playback is genuinely
+  // confirmed via 'timeupdate' (same fix used for the homepage orbit tiles, so Vimeo's own loading
+  // chrome never flashes through before the video is actually ready). ----------
+  const heroMobileEmbed = document.querySelector('.hc-mobile-video-embed');
+  if (heroMobileEmbed && window.Vimeo) {
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://player.vimeo.com/video/${heroMobileEmbed.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0`;
+    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
+    iframe.setAttribute('frameborder', '0');
+    heroMobileEmbed.appendChild(iframe);
+    const heroMobilePlayer = new Vimeo.Player(iframe);
+    let heroMobileStarted = false;
+    heroMobilePlayer.on('timeupdate', () => {
+      if (heroMobileStarted) return;
+      heroMobileStarted = true;
+      heroMobileEmbed.classList.add('is-playing');
+    });
+    heroMobilePlayer.ready().then(() => heroMobilePlayer.play()).catch(() => {});
   }
 
   // ---------- Banner video — grayscale until scrolled into view, then fades to color and plays ----------

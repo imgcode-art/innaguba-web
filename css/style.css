@@ -114,11 +114,12 @@
   .hc-center h1 { display:block; width:100%; text-align:center; color: var(--ink); font-family: var(--sans); text-transform:uppercase; font-size: calc(var(--fs-display) * 0.95); font-weight:800; line-height:1; letter-spacing:-0.01em; background: var(--paper); padding: var(--space-4) 0; }
   .hc-center-video { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:44%; aspect-ratio:800/340; }
   .hc-center-video .orbit-tile-inner { animation:none; }
-  /* ---------- Mobile hero — 3 videos that stack like scrolling cards as you scroll, with the claim
-     pinned above them the whole time. Lives as its own sibling next to .hc-scroll-pin (not nested
-     inside it) specifically because .hc-orbit-viewport has overflow:hidden — any ancestor with
-     overflow other than visible breaks position:sticky entirely. ---------- */
-  .hc-mobile-stack { display:none; }
+  /* ---------- Mobile hero — single background video with the claim centered over it ---------- */
+  .hc-mobile-hero { display:none; }
+  /* hidden until playback is actually confirmed (matches the homepage orbit tiles' fix for Vimeo's
+     own loading chrome — a title label + spinner — flashing through before the video is ready) */
+  .hc-mobile-video-embed iframe { opacity:0; transition:opacity .4s ease; }
+  .hc-mobile-video-embed.is-playing iframe { opacity:1; }
   .bottom-section { padding-top: var(--space-1); padding-bottom: var(--space-4); text-align:center; }
   .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-4); }
   .mid-claim { text-align:center; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink); margin-bottom: var(--space-3); }
@@ -133,17 +134,11 @@
   .quote-line { position:absolute; top: var(--space-2); left: calc(60% + (var(--space-8) * 0.4)); right:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; }
   .quote-line .quote-author { font-weight:400; }
   @media (max-width:900px){
-    .hero-collage { padding:80px 0 0; }
+    .hero-collage { padding:0; }
     .hc-scroll-pin { display:none; }
-    .hc-mobile-stack { display:block; position:relative; }
-    /* each card pins at the top of the viewport for its own 100vh turn, then the next card (later in
-       DOM, so it paints on top) scrolls up and covers it — the classic sticky card-stack, no JS scroll
-       handling needed so it stays smooth on mobile */
-    .hc-mobile-card { position:sticky; top:0; height:100vh; overflow:hidden; background: var(--ink); }
-    /* height:0 so the claim never takes up a "turn" of its own in the stack — it just rides along,
-       stuck to the top of the viewport, for as long as the 3 cards beneath it are scrolling by */
-    .hc-mobile-claim { position:sticky; top:0; height:0; z-index:5; display:flex; justify-content:center; pointer-events:none; }
-    .hc-mobile-claim h1 { margin-top:50vh; transform:translateY(-50%); width:100%; text-align:center; color: var(--ink); font-family: var(--sans); text-transform:uppercase; font-size: calc(var(--fs-display) * 0.95); font-weight:800; line-height:1; letter-spacing:-0.01em; background: var(--paper); padding: var(--space-3) 0; }
+    .hc-mobile-hero { display:block; position:relative; height:70vh; overflow:hidden; background: var(--ink); }
+    .hc-mobile-claim { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:5; display:flex; justify-content:center; }
+    .hc-mobile-claim h1 { margin:0; width:100%; text-align:center; color: var(--ink); font-family: var(--sans); text-transform:uppercase; font-size: calc(var(--fs-display) * 0.95); font-weight:800; line-height:1; letter-spacing:-0.01em; background: var(--paper); padding: var(--space-3) 0; }
     .bottom-section { padding-top: var(--space-3); padding-bottom: var(--space-3); }
   }
   @media (min-width:901px){
