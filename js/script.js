@@ -80,9 +80,10 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
-  // ---------- Mobile hero video — starts immediately, stays hidden until playback is genuinely
-  // confirmed via 'timeupdate' (same fix used for the homepage orbit tiles, so Vimeo's own loading
-  // chrome never flashes through before the video is actually ready). ----------
+  // ---------- Mobile hero video — starts immediately. Prefers to reveal on 'timeupdate' (matches the
+  // homepage orbit tiles, so Vimeo's loading chrome never flashes through), but background=1 videos
+  // don't always fire that promptly, so a short fallback timer reveals it regardless after 1s —
+  // better a still frame appears right away than a black rectangle sitting there for several seconds. ----------
   const heroMobileEmbed = document.querySelector('.hc-mobile-video-embed');
   if (heroMobileEmbed && window.Vimeo) {
     const iframe = document.createElement('iframe');
@@ -92,12 +93,14 @@ document.querySelectorAll('[data-row]').forEach(row => {
     heroMobileEmbed.appendChild(iframe);
     const heroMobilePlayer = new Vimeo.Player(iframe);
     let heroMobileStarted = false;
-    heroMobilePlayer.on('timeupdate', () => {
+    const revealHeroMobile = () => {
       if (heroMobileStarted) return;
       heroMobileStarted = true;
       heroMobileEmbed.classList.add('is-playing');
-    });
+    };
+    heroMobilePlayer.on('timeupdate', revealHeroMobile);
     heroMobilePlayer.ready().then(() => heroMobilePlayer.play()).catch(() => {});
+    setTimeout(revealHeroMobile, 1000);
   }
 
   // ---------- Banner video — grayscale until scrolled into view, then fades to color and plays ----------
