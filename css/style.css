@@ -329,7 +329,7 @@
   .gallery-soon p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-3); }
 
   /* ---------- Photo gallery (masonry) ---------- */
-  .photo-gallery { padding: var(--space-4) 0 var(--space-11); }
+  .photo-gallery { padding: 0 0 var(--space-11); }
   .pgg-series { margin-bottom: var(--space-10); }
   .pgg-series:last-of-type { margin-bottom: var(--space-6); }
   .pgg { columns:3; column-gap: var(--space-2); }
@@ -378,7 +378,7 @@
   @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-10) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column;} .pb-featured .pb-photo{order:1; margin-bottom: var(--space-3); aspect-ratio:4/5;} .pb-featured .pb-photo img{position:static;} .pb-featured .pb-content{order:2; max-width:none;} }
 
   /* ---------- Video gallery ---------- */
-  .video-gallery { padding: var(--space-4) 0 var(--space-11); }
+  .video-gallery { padding: 0 0 var(--space-11); }
   .vgg { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
   .vcard { cursor:pointer; }
   .vcard .thumb { position:relative; aspect-ratio:16/9; overflow:hidden; background:#0D0D0D; }
