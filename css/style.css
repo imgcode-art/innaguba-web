@@ -434,14 +434,14 @@
 
   /* ---------- Contact page (business card + photo) ---------- */
   .contact-info { display:flex; align-items:center; gap: var(--space-8); padding: 0 0 var(--space-11); }
-  .contact-info-photo { flex:0 1 560px; aspect-ratio: 8/5; overflow:hidden; }
+  .contact-info-photo { flex:0 1 560px; height:458px; overflow:hidden; }
   .contact-info-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   .contact-info-text { flex:1; max-width:420px; }
   .contact-info-name { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-3); }
   .contact-info-line { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
   .contact-info-line a { color: inherit; font-weight:inherit; transition: color 0.2s ease; }
   .contact-info-line a:hover { color: var(--red); }
-  @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0 0 var(--space-9);} .contact-info-photo{flex-basis:auto; width:100%;} .contact-info-text{max-width:none;} }
+  @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0 0 var(--space-9);} .contact-info-photo{flex-basis:auto; width:100%; height:auto; aspect-ratio:8/5;} .contact-info-text{max-width:none;} }
 
   .about-thanks-cta { display:flex; align-items:center; justify-content:flex-start; gap: var(--space-4); flex-wrap:wrap; }
   .about-thanks-cta .about-cta-btn { border-color: var(--ink); color: var(--ink); }
