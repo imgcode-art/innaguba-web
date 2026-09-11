@@ -80,28 +80,37 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
-  // ---------- Mobile hero video — retry play if the browser blocked autoplay ----------
-  const heroVideo = document.querySelector('.hc-mobile-video video');
-  if (heroVideo) {
-    heroVideo.muted = true;
-    heroVideo.playsInline = true;
-    heroVideo.load();
-    const tryPlay = () => heroVideo.play().catch(() => {});
-    tryPlay();
-    ['loadeddata', 'loadedmetadata', 'canplay', 'canplaythrough', 'playing'].forEach(evt => {
-      heroVideo.addEventListener(evt, tryPlay);
-    });
-    ['touchstart', 'click', 'scroll'].forEach(evt => {
-      document.addEventListener(evt, tryPlay, { once: true, passive: true });
-    });
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlay(); });
-    window.addEventListener('pageshow', tryPlay);
-    if ('IntersectionObserver' in window) {
-      const heroVideoObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) tryPlay(); });
-      }, { threshold: 0.1 });
-      heroVideoObserver.observe(heroVideo);
-    }
+  // ---------- Mobile hero stack — 3 stacking-card videos. Each card's iframe is only created the
+  // first time it scrolls into view (lazy), and is paused whenever it scrolls back out — keeps this
+  // light on data/battery since at most one of the three is ever actually playing. ----------
+  const heroMobileCards = document.querySelectorAll('.hc-mobile-card');
+  if (heroMobileCards.length && window.Vimeo) {
+    const buildMobileCardIframe = id => {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://player.vimeo.com/video/${id}?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0`;
+      iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
+      iframe.setAttribute('frameborder', '0');
+      return iframe;
+    };
+    const mobileCardObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const card = entry.target;
+        let embed = card.querySelector('.video-embed');
+        if (entry.isIntersecting) {
+          if (!embed) {
+            embed = document.createElement('div');
+            embed.className = 'video-embed';
+            embed.appendChild(buildMobileCardIframe(card.dataset.vimeoId));
+            card.appendChild(embed);
+          } else {
+            new Vimeo.Player(embed.querySelector('iframe')).play().catch(() => {});
+          }
+        } else if (embed) {
+          new Vimeo.Player(embed.querySelector('iframe')).pause().catch(() => {});
+        }
+      });
+    }, { threshold: 0.5 });
+    heroMobileCards.forEach(card => mobileCardObserver.observe(card));
   }
 
   // ---------- Banner video — grayscale until scrolled into view, then fades to color and plays ----------
