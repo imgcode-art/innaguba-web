@@ -372,6 +372,7 @@
   .price-list li:last-child { margin-bottom:0; }
   .price-list li.strong { font-weight:700; color: var(--ink); }
   .price-tag { display:block; font-size: var(--fs-body); font-weight:700; margin-top: var(--space-2); letter-spacing:0.02em; }
+  .pb-badge { display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--red); border:1px solid var(--red); border-radius:20px; padding:4px 12px; margin-bottom: var(--space-3); }
   @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-10) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column;} .pb-featured .pb-photo{order:1; margin-bottom: var(--space-3); aspect-ratio:4/5;} .pb-featured .pb-photo img{position:static;} .pb-featured .pb-content{order:2; max-width:none;} }
 
   /* ---------- Video gallery ---------- */
