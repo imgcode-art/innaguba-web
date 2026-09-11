@@ -365,7 +365,7 @@
   .pb-featured .pb-photo img { position:absolute; inset:0; }
   .pb-featured .pb-content { flex:1; order:1; max-width:460px; }
   .pb-photo { aspect-ratio:4/5; overflow:hidden; margin-bottom: var(--space-4); }
-  .pb-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
+  .pb-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   .pb-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-3); color: var(--ink-heading); }
   .price-list { list-style:none; margin-bottom: var(--space-1); }
   .price-list li { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-2); }
