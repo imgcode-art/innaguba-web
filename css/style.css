@@ -119,22 +119,15 @@
   .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-4); }
   .mid-claim { text-align:center; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink); margin-bottom: var(--space-3); }
   .mid-claim-body { display:inline-block; text-align:left; }
-  /* min-height taller than the row's own top offset, so .claim-text/.quote-line (now on one shared
-     row, positioned lower — closer to .proof-photo below) have room to render without spilling past
-     the anchor's bottom edge into the next section */
   /* height ≈ the row's own rendered height (~70px, 3 lines) — shorter than its top offset + height,
      so the row overflows the anchor's box by exactly enough that combined with the fixed spacing
      below (.bottom-section's padding, etc.) the gap to .proof-photo lands on var(--space-8), matching
      .proof-photo's own row-gap to the stats beside it (measured/tuned against the live layout) */
-  .claim-anchor { position:relative; margin-top:0; min-height: 118px; }
+  .claim-anchor { position:relative; margin-top:0; min-height: 37px; }
   .claim-text { position:absolute; top: var(--space-2); left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; }
   /* left edge matches .proof-stats-col's own left edge: .proof-photo's 60% width + the row's gap, in the shared .wrap coordinate space */
   .quote-line { position:absolute; top: var(--space-2); left: calc(60% + (var(--space-8) * 0.4)); white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:300px; }
   .quote-line .quote-author { font-weight:400; }
-  /* circular portrait beside the quote — same 150px size as the review thumbs below, right-aligned to
-     the separator line's own right edge (.claim-anchor spans the full .wrap width, so right:0 matches it) */
-  .quote-photo { position:absolute; top: var(--space-2); right:0; width:150px; height:150px; border-radius:50%; overflow:hidden; }
-  .quote-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
   @media (max-width:900px){
     .hero-collage { padding:80px 0 0; }
     .orbit-ring, .orbit-tile-inner { animation:none; }
@@ -161,7 +154,6 @@
     .claim-anchor { min-height:0; margin-top: var(--space-3); }
     .claim-text { gap: var(--space-3); position:static; text-align:left; width:auto; max-width:none; margin:0; }
     .quote-line { position:static; right:auto; text-align:left; width:50%; max-width:none; margin: var(--space-3) 0 0 auto; }
-    .quote-photo { position:static; width:100px; height:100px; margin: var(--space-3) 0 0 auto; }
   }
 
   /* ---------- Belief list (standalone, after the banner video) ---------- */
