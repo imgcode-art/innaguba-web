@@ -121,30 +121,6 @@ document.querySelectorAll('[data-row]').forEach(row => {
     scrollVideoObserver.observe(scrollVideo);
   }
 
-  // ---------- Gallery hero video — background=1 keeps it chrome-free (no title/byline, no Vimeo
-  // end-card with related videos), but background mode always loops no matter what the URL or
-  // setLoop() say. Waiting for the actual loop restart and snapping back caused a visible flicker
-  // (a flash of the very first frame right before jumping back to the end), so instead we pause
-  // just shy of the real duration — before it ever gets the chance to loop — and then immediately
-  // seek forward to the exact last frame while paused, so what freezes on screen is the true
-  // ending, not the slightly-earlier frame where we intervened. ----------
-  const heroVideoIframe = document.querySelector('.gallery-hero .video-embed iframe');
-  if (heroVideoIframe && window.Vimeo) {
-    const heroVideoPlayer = new Vimeo.Player(heroVideoIframe);
-    let heroVideoDuration = null;
-    let heroVideoStopped = false;
-    heroVideoPlayer.getDuration().then(d => { heroVideoDuration = d; });
-    heroVideoPlayer.on('timeupdate', data => {
-      if (heroVideoStopped || !heroVideoDuration) return;
-      if (data.seconds >= heroVideoDuration - 0.4) {
-        heroVideoStopped = true;
-        heroVideoPlayer.pause()
-          .then(() => heroVideoPlayer.setCurrentTime(heroVideoDuration))
-          .catch(() => {});
-      }
-    });
-  }
-
   // ---------- Cookie consent bar ----------
   (() => {
     const KEY = 'cookie-consent';
