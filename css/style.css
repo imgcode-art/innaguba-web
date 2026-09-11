@@ -136,7 +136,7 @@
   @media (max-width:900px){
     .hero-collage { padding:0; }
     .hc-scroll-pin { display:none; }
-    .hc-mobile-hero { display:block; position:relative; height:70vh; overflow:hidden; background: var(--ink); }
+    .hc-mobile-hero { display:block; position:relative; height:70vh; overflow:hidden; background: var(--ink) url("../images/hero-mobile-video-poster.jpg") center/cover no-repeat; }
     .hc-mobile-claim { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:5; display:flex; justify-content:center; }
     .hc-mobile-claim h1 { margin:0; width:100%; text-align:center; color: var(--ink); font-family: var(--sans); text-transform:uppercase; font-size: calc(var(--fs-display) * 0.95); font-weight:800; line-height:1; letter-spacing:-0.01em; background: var(--paper); padding: var(--space-3) 0; }
     .bottom-section { padding-top: var(--space-3); padding-bottom: var(--space-3); }
