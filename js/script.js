@@ -80,28 +80,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
-  // ---------- Mobile hero video — starts immediately. Prefers to reveal on 'timeupdate' (matches the
-  // homepage orbit tiles, so Vimeo's loading chrome never flashes through), but background=1 videos
-  // don't always fire that promptly, so a short fallback timer reveals it regardless after 1s —
-  // better a still frame appears right away than a black rectangle sitting there for several seconds. ----------
-  const heroMobileEmbed = document.querySelector('.hc-mobile-video-embed');
-  if (heroMobileEmbed && window.Vimeo) {
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://player.vimeo.com/video/${heroMobileEmbed.dataset.vimeoId}?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0`;
-    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
-    iframe.setAttribute('frameborder', '0');
-    heroMobileEmbed.appendChild(iframe);
-    const heroMobilePlayer = new Vimeo.Player(iframe);
-    let heroMobileStarted = false;
-    const revealHeroMobile = () => {
-      if (heroMobileStarted) return;
-      heroMobileStarted = true;
-      heroMobileEmbed.classList.add('is-playing');
-    };
-    heroMobilePlayer.on('timeupdate', revealHeroMobile);
-    heroMobilePlayer.ready().then(() => heroMobilePlayer.play()).catch(() => {});
-    setTimeout(revealHeroMobile, 1000);
-  }
+  // ---------- Mobile hero video — self-hosted <video autoplay>, no JS needed to start it ----------
 
   // ---------- Banner video — grayscale until scrolled into view, then fades to color and plays ----------
   const scrollVideo = document.querySelector('[data-scroll-video]');
@@ -150,59 +129,15 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
-  // ---------- Hero orbit — videos start one by one (first almost immediately), and once a video is
-  // playing it just stays playing and in color, looping on its own for good (no cutoff, no reverting
-  // back to grayscale). The 'play' listener is always wired up BEFORE play() is called, so we can
-  // never miss the event and leave a tile stuck grayscale despite actually playing underneath.
-  const buildOrbitIframe = (tile, title) => {
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://player.vimeo.com/video/${tile.dataset.vimeoId}?background=1&loop=1&muted=1&controls=0&autopause=0&title=0&byline=0&portrait=0`;
-    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('title', title);
-    return iframe;
-  };
-
-  const wireOrbitVideoLoop = (iframe, tile, attempt = 0) => {
-    if (!window.Vimeo) return;
-    const player = new Vimeo.Player(iframe);
-    // 'play' fires as soon as Vimeo accepts the play command, which can be a beat before any frame
-    // actually advances — colorizing right then made photos look "colored but still frozen" for a
-    // moment before real motion appeared. The first 'timeupdate' means playback has genuinely moved,
-    // so the color change lands exactly when the user actually sees the video come alive.
-    let started = false;
-    player.on('timeupdate', () => {
-      if (started) return;
-      started = true;
-      tile.classList.add('is-playing');
-    });
-
-    const playAttempt = player.ready().then(() => player.play());
-    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('orbit-video-timeout')), 4000));
-    Promise.race([playAttempt, timeout]).catch(() => {
-      // A hung play() never recovers on retry — swap in a brand new iframe/player session instead,
-      // up to twice more, before giving up on that tile.
-      if (attempt >= 2) return;
-      const title = iframe.getAttribute('title');
-      iframe.remove();
-      const fresh = buildOrbitIframe(tile, title);
-      tile.appendChild(fresh);
-      wireOrbitVideoLoop(fresh, tile, attempt + 1);
-    });
-  };
-
-  let orbitDelay = 0;
-  document.querySelectorAll('.orbit-tile-inner[data-vimeo-id]').forEach(tile => {
-    const runDelay = orbitDelay;
-    orbitDelay += 300 + Math.random() * 200;
-    setTimeout(() => {
-      let iframe = tile.querySelector('iframe');
-      if (!iframe) {
-        iframe = buildOrbitIframe(tile, tile.querySelector('img')?.alt || 'Inna Guba — video');
-        tile.appendChild(iframe);
-      }
-      wireOrbitVideoLoop(iframe, tile);
-    }, runDelay);
+  // ---------- Hero orbit — each tile is a genuinely static poster (the <video> stays paused, not
+  // just grayscale-filtered-but-secretly-playing) until its own scheduled moment, when it starts
+  // playing for the first time — so the reveal is a real freeze-to-motion cut, not a color fade
+  // over footage that was already running underneath. ----------
+  const ORBIT_REVEAL_DELAYS_MS = [1000, 2500, 3500, 4500, 5500, 6500, 7500];
+  document.querySelectorAll('.orbit-tile-inner video').forEach((video, i) => {
+    const tile = video.closest('.orbit-tile-inner');
+    video.addEventListener('playing', () => tile.classList.add('is-playing'), { once: true });
+    setTimeout(() => video.play().catch(() => {}), ORBIT_REVEAL_DELAYS_MS[i] ?? 7500);
   });
 
   // ---------- Hero orbit — pinned while it collapses into a stack on scroll, unstacks when scrolling back ----------

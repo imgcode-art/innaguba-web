@@ -10,13 +10,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=155">
+<link rel="stylesheet" href="css/style.css?v=157">
+<!-- Warm up the connections the hero videos need, so the actual iframe requests skip DNS/TLS setup -->
+<link rel="preconnect" href="https://player.vimeo.com">
+<link rel="preconnect" href="https://i.vimeocdn.com" crossorigin>
+<link rel="preconnect" href="https://f.vimeocdn.com">
 <!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <!-- Elfsight Google Reviews | Untitled Google Reviews -->
 <script src="https://elfsightcdn.com/platform.js" async></script>
-<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="https://player.vimeo.com/api/player.js" defer></script>
 </head>
 <body>
 
@@ -44,28 +48,28 @@
     <div class="hc-orbit-scale">
     <div class="orbit-ring">
       <div class="orbit-tile ot-1">
-        <div class="orbit-tile-inner" data-vimeo-id="1225079124"><img src="https://i.vimeocdn.com/video/2198705852-0aa4729a55769eeef70952d25ad7dc93d70eee49b4fd36c61f20ac0dab8bcd6f-d_800x450?region=us" alt="Rodinné video v Brně"></div>
+        <div class="orbit-tile-inner"><video src="videos/bijovi.mp4" poster="images/hero/bijovi-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
       </div>
       <div class="orbit-tile ot-2">
-        <div class="orbit-tile-inner" data-vimeo-id="1225079204"><img src="https://i.vimeocdn.com/video/2198706123-687b917206d7d54de7029253a10e09a1b671e1d0389a1b9d9ccff7575b443ad5-d_800x450?region=us" alt="Rodinný fotograf"></div>
+        <div class="orbit-tile-inner"><video src="videos/bockovi.mp4" poster="images/hero/bockovi-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
       </div>
       <div class="orbit-tile ot-3">
-        <div class="orbit-tile-inner" data-vimeo-id="1225079403"><img src="https://i.vimeocdn.com/video/2198706183-770020b6a67ca81b905c2f3bdfad3fb81c0ef84db7c54b1b07c1050d42faf70f-d_800x450?region=us" alt="Rodinná fotografie v Brně"></div>
+        <div class="orbit-tile-inner"><video src="videos/fels.mp4" poster="images/hero/fels-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
       </div>
       <div class="orbit-tile ot-4">
-        <div class="orbit-tile-inner" data-vimeo-id="1225079534"><img src="https://i.vimeocdn.com/video/2198706352-831bcf25faf75727bbe9e8036f46b9602344b4e521549688e43dbe8b0c92e4d8-d_800x450?region=us" alt="Dětský portrét Brno"></div>
+        <div class="orbit-tile-inner"><video src="videos/julia.mp4" poster="images/hero/julia-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
       </div>
       <div class="orbit-tile ot-5">
-        <div class="orbit-tile-inner" data-vimeo-id="1225080104"><img src="https://i.vimeocdn.com/video/2198707052-11185322367cdee9b6f25f938e2dfbf8bf6d533a3d9b98b841412bb798d76502-d_800x450?region=us" alt="Fotograf Brno"></div>
+        <div class="orbit-tile-inner"><video src="videos/motorka.mp4" poster="images/hero/motorka-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
       </div>
       <div class="orbit-tile ot-6">
-        <div class="orbit-tile-inner" data-vimeo-id="1225078942"><img src="https://i.vimeocdn.com/video/2198705661-4582d2013eeaaf61704c8ce520974aa891e1928fc9e2e7b7706eb6f4195e3b9e-d_800x450?region=us" alt="Rodinné focení"></div>
+        <div class="orbit-tile-inner"><video src="videos/strmiskovi.mp4" poster="images/hero/strmiskovi-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
       </div>
     </div>
     </div>
 
     <div class="hc-center-video">
-      <div class="orbit-tile-inner" data-vimeo-id="1225078600"><img src="https://i.vimeocdn.com/video/2198705211-63ce81fc2d4867fac88edd316af919b2872c9be6b93b104ede59f251fc524fc0-d_800x450?region=us" alt="Rodinné video"></div>
+      <div class="orbit-tile-inner"><video src="videos/album.mp4" poster="images/hero/album-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
     </div>
 
     <div class="hc-center">
@@ -77,7 +81,7 @@
   </div>
 
   <div class="hc-mobile-hero">
-    <div class="video-embed hc-mobile-video-embed" data-vimeo-id="1225078600"></div>
+    <video class="hc-mobile-video-embed" src="videos/album.mp4" poster="images/hero/album-poster.jpg" muted loop playsinline preload="auto" autoplay aria-hidden="true"></video>
     <div class="hc-mobile-claim"><h1>Zastavme čas?</h1></div>
   </div>
 
@@ -303,7 +307,7 @@
   </div>
 </div>
 
-<script src="js/script.js?v=48"></script>
+<script src="js/script.js?v=52" defer></script>
 
 </body>
 </html>
