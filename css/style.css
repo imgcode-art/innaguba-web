@@ -421,7 +421,7 @@
   .ab-hero-text { grid-column:1; display:flex; flex-direction:column; text-align:left; }
   .ab-hero-text h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-3); color: var(--ink-heading); }
   .ab-hero-text p { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
-  @media (max-width:900px){ .about-hero{grid-template-columns:1fr; gap: var(--space-4); padding: var(--space-6) 0 var(--space-5);} .ab-hero-photo{grid-column:1;} .ab-hero-text{grid-column:1;} }
+  @media (max-width:900px){ .about-hero{grid-template-columns:1fr; gap: var(--space-4); padding: 0 0 var(--space-5);} .ab-hero-photo{grid-column:1;} .ab-hero-text{grid-column:1;} }
 
   .about-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6) var(--space-4); padding: 0 0 var(--space-11); }
   .ab-card { display:flex; flex-direction:column; }
