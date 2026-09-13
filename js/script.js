@@ -123,8 +123,15 @@ document.querySelectorAll('[data-row]').forEach(row => {
       const name = form.querySelector('[name="jmeno"]').value.trim();
       const email = form.querySelector('[name="email"]').value.trim();
       const message = form.querySelector('[name="zprava"]').value.trim();
+      const sluzba = form.querySelector('[name="sluzba"]:checked')?.value;
+      const termin = form.querySelector('[name="termin"]:checked')?.value;
       const subject = encodeURIComponent(`Zpráva z webu od ${name}`);
-      const body = encodeURIComponent(`Jméno: ${name}\nE-mail: ${email}\n\n${message}`);
+      const body = encodeURIComponent(
+        `Jméno: ${name}\nE-mail: ${email}` +
+        (sluzba ? `\nO co má zájem: ${sluzba}` : '') +
+        (termin ? `\nKdy chce fotit: ${termin}` : '') +
+        `\n\n${message}`
+      );
       window.location.href = `mailto:ig.mimifoto@gmail.com?subject=${subject}&body=${body}`;
     });
   });
@@ -144,10 +151,11 @@ document.querySelectorAll('[data-row]').forEach(row => {
   const orbitWrap = document.querySelector('.hc-orbit-wrap');
   const scrollPin = document.querySelector('.hc-scroll-pin');
   const heroClaim = document.querySelector('.hc-center');
+  const orbitViewport = document.querySelector('.hc-orbit-viewport');
   if (orbitWrap && scrollPin) {
-    const STACK_END = 0.6;    // videos finish collapsing by 60% through the pinned scroll
-    const CLAIM_START = 0.38; // claim starts fading in earlier, well before the stack finishes
-    const CLAIM_END = 0.55;   // ...and is fully visible shortly before it — then holds until 100%
+    const STACK_END = 0.9;    // videos finish collapsing by 90% through the pinned scroll — almost no dead scroll left after
+    const CLAIM_START = 0.55; // claim starts fading in well after the stack begins collapsing
+    const CLAIM_END = 0.8;    // ...and is fully visible shortly before the stack finishes
     const updateOrbitStack = () => {
       const scrollable = scrollPin.offsetHeight - window.innerHeight;
       const scrolled = -scrollPin.getBoundingClientRect().top;
@@ -159,6 +167,15 @@ document.querySelectorAll('[data-row]').forEach(row => {
       orbitWrap.style.setProperty('--progress', stackProgress);
       orbitWrap.classList.toggle('is-stacked', stackProgress > 0);
       heroClaim?.style.setProperty('--claim-opacity', claimOpacity);
+      // shrink the pinned viewport in lockstep with the collapse so no dead blank space is
+      // left behind once the tiles have gathered into their small stacked cluster
+      if (orbitViewport) {
+        const startH = Math.min(750, window.innerWidth * 0.55);
+        const endH = Math.min(340, window.innerWidth * 0.3);
+        orbitViewport.style.height = stackProgress > 0
+          ? `${startH - (startH - endH) * stackProgress}px`
+          : '';
+      }
     };
     window.addEventListener('scroll', updateOrbitStack, { passive: true });
     window.addEventListener('resize', updateOrbitStack);

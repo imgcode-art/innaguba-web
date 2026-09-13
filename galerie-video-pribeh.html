@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=158">
+<link rel="stylesheet" href="css/style.css?v=246">
 <!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
@@ -27,7 +27,7 @@
       <a href="o-mne.html">O mně</a>
       <a href="cenik.html">Ceník</a>
       <a href="kontakt.html">Kontakt</a>
-      <a href="tel:+420774547333" class="nav-call">Spojit se →</a>
+      <a href="tel:+420774547333" class="nav-call">Chci fotit →</a>
     </div>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -129,9 +129,13 @@
 
 <section class="closing wrap" id="kontakt" data-reveal>
   <div class="top">
-    <p class="closing-title">Pojďme do toho spolu</p>
-    <p class="closing-note">Prohlédněte si galerii a představte si, jak v ní ožijí vaše vlastní příběhy.</p>
-    <p class="closing-lead">Ať už máte jasnou představu, nebo jen váháte, napište mi</p>
+    <p class="closing-title">Pojďme zachytit právě tuhle chvíli</p>
+    <p class="closing-note">Nemusíte čekat na ideální období, dokonalé oblečení ani děti v nejlepší náladě. Tenhle okamžik je právě teď.</p>
+    <p class="closing-lead">Napište mi a společně vybereme místo, termín i druh focení, který bude sedět právě vaší rodině.</p>
+    <div class="about-thanks-cta">
+      <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary">Chci focení</a>
+    </div>
+    <p class="closing-form-lead">Nebo mi napište pár slov o vás a já se ozvu.</p>
     <form class="contact-form" data-contact-form>
       <div class="cf-row">
         <div class="cf-field">
@@ -143,14 +147,31 @@
           <input type="email" id="cf-email" name="email" placeholder="E-mail" autocomplete="email" required>
         </div>
       </div>
+      <div class="cf-field cf-choices">
+        <label>O co máte zájem?</label>
+        <div class="cf-radio-group">
+          <label class="cf-radio"><input type="radio" name="sluzba" value="Rodinné focení"><span>Rodinné focení</span></label>
+          <label class="cf-radio"><input type="radio" name="sluzba" value="Dětský portrét"><span>Dětský portrét</span></label>
+          <label class="cf-radio"><input type="radio" name="sluzba" value="Rodinné video"><span>Rodinné video</span></label>
+          <label class="cf-radio"><input type="radio" name="sluzba" value="Těhotenské / newborn"><span>Těhotenské / newborn</span></label>
+          <label class="cf-radio"><input type="radio" name="sluzba" value="Ještě nevím, potřebuji poradit"><span>Ještě nevím, potřebuji poradit</span></label>
+        </div>
+      </div>
+      <div class="cf-field cf-choices">
+        <label>Kdy přibližně byste chtěli fotit?</label>
+        <div class="cf-radio-group">
+          <label class="cf-radio"><input type="radio" name="termin" value="co nejdříve"><span>co nejdříve</span></label>
+          <label class="cf-radio"><input type="radio" name="termin" value="během příštího měsíce"><span>během příštího měsíce</span></label>
+          <label class="cf-radio"><input type="radio" name="termin" value="za 2–3 měsíce"><span>za 2–3 měsíce</span></label>
+          <label class="cf-radio"><input type="radio" name="termin" value="zatím nevím"><span>zatím nevím</span></label>
+        </div>
+      </div>
       <div class="cf-field">
         <label for="cf-zprava">Zpráva</label>
         <textarea id="cf-zprava" name="zprava" placeholder="Napište pár slov" rows="4" required></textarea>
       </div>
       <button type="submit" class="cf-submit">Odeslat zprávu</button>
     </form>
-    <div class="cf-divider"><span>nebo rovnou</span></div>
-    <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="cf-booking">Domluvit termín v kalendáři →</a>
   </div>
 </section>
 
@@ -198,7 +219,7 @@
   </div>
 </div>
 
-<script src="js/script.js?v=48"></script>
+<script src="js/script.js?v=54"></script>
 
 </body>
 </html>

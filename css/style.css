@@ -117,8 +117,8 @@
   .hc-orbit-wrap.is-stacked .orbit-ring, .hc-orbit-wrap.is-stacked .orbit-tile-inner { animation-play-state: paused; }
   @keyframes orbit-spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
   @keyframes orbit-counter-spin { from { transform:rotate(0deg) scaleX(0.606); } to { transform:rotate(-360deg) scaleX(0.606); } }
-  .hc-center { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:3; width:100%; display:flex; justify-content:center; align-items:center; opacity: var(--claim-opacity, 1); transition: opacity .2s linear; }
-  .hc-center h1 { display:block; width:100%; text-align:center; color: var(--ink); font-family: var(--sans); text-transform:uppercase; font-size: calc(var(--fs-display) * 0.95); font-weight:800; line-height:1; letter-spacing:-0.01em; background: var(--paper); padding: var(--space-4) 0; }
+  .hc-center { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:3; width:100%; display:flex; flex-direction:column; align-items:center; opacity: var(--claim-opacity, 1); transition: opacity .2s linear; }
+  .hc-eyebrow { display:block; width:100%; text-align:center; background: var(--paper); padding: var(--space-3) 0; font-size: var(--fs-heading); font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color: var(--ink-body); }
   .hc-center-video { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:44%; aspect-ratio:800/340; }
   .hc-center-video .orbit-tile-inner { animation:none; }
   .hc-center-video .orbit-tile-inner video { animation-delay: -9s; }
@@ -127,41 +127,22 @@
   /* self-hosted <video> covers immediately via its own poster frame — no Vimeo loading chrome to
      hide, so (unlike the old iframe embed) it needs no opacity fade-in of its own */
   .hc-mobile-video-embed { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .bottom-section { padding-top: var(--space-1); padding-bottom: var(--space-4); text-align:center; }
-  .separator-line { border:0; border-top:1px solid var(--line); margin: 0 0 var(--space-4); }
-  .mid-claim { text-align:center; font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink); margin-bottom: var(--space-3); }
-  .mid-claim-body { display:inline-block; text-align:left; }
-  /* height ≈ the row's own rendered height (~70px, 3 lines) — shorter than its top offset + height,
-     so the row overflows the anchor's box by exactly enough that combined with the fixed spacing
-     below (.bottom-section's padding, etc.) the gap to .proof-photo lands on var(--space-8), matching
-     .proof-photo's own row-gap to the stats beside it (measured/tuned against the live layout) */
-  .claim-anchor { position:relative; margin-top:0; min-height: 37px; }
-  .claim-text { position:absolute; top: var(--space-2); left:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; width:460px; }
-  /* left edge matches .proof-stats-col's own left edge: .proof-photo's 60% width + the row's gap, in the shared .wrap coordinate space */
-  .quote-line { position:absolute; top: var(--space-2); left: calc(60% + (var(--space-8) * 0.4)); right:0; white-space:normal; font-size: var(--fs-body); font-weight:400; line-height:1.65; color: var(--ink-body); text-align:left; }
-  .quote-line .quote-author { font-weight:400; }
+  .bottom-section { padding-top: var(--space-1); padding-bottom: var(--space-9); text-align:center; }
+  .hero-lead { max-width:640px; margin:0 auto var(--space-3); font-size: var(--fs-heading); font-weight:700; line-height:1.3; color: var(--ink-heading); text-align:left; }
+  .hero-note { max-width:640px; margin:0 auto var(--space-4); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:left; }
+  .hero-cta-row { display:flex; justify-content:center; gap: var(--space-5); flex-wrap:wrap; }
+  .hero-cta-primary { background:#2b2b2b; color:#fff; transition: background .25s ease, color .25s ease, transform .25s ease; }
+  .about-cta-btn.hero-cta-primary:hover { background:#fff; color: var(--ink); transform: scale(1.04); }
   @media (max-width:900px){
     .hero-collage { padding:0; }
     .hc-scroll-pin { display:none; }
     .hc-mobile-hero { display:block; position:relative; height:70vh; overflow:hidden; background: var(--ink) url("images/hero/album-poster.jpg") center/cover no-repeat; }
-    .hc-mobile-claim { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:5; display:flex; justify-content:center; }
-    .hc-mobile-claim h1 { margin:0; width:100%; text-align:center; color: var(--ink); font-family: var(--sans); text-transform:uppercase; font-size: calc(var(--fs-display) * 0.95); font-weight:800; line-height:1; letter-spacing:-0.01em; background: var(--paper); padding: var(--space-3) 0; }
+    .hc-mobile-claim { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:5; display:flex; flex-direction:column; align-items:center; }
     .bottom-section { padding-top: var(--space-10); padding-bottom: var(--space-3); }
   }
   @media (min-width:901px){
-    .hc-scroll-pin { height: 140vh; }
+    .hc-scroll-pin { height: 115vh; }
     .hc-orbit-viewport { position:sticky; top:0; }
-  }
-
-  /* Fixed-width claim/quote columns only fit side by side once there's ~1060px
-     of content width to spare; below that (tablets included) they overlap,
-     so this stacks them well before the general 900px breakpoint kicks in. */
-  @media (max-width:1150px){
-    .mid-claim { text-align:left; }
-    .mid-claim-body { display:block; }
-    .claim-anchor { min-height:0; margin-top: var(--space-3); }
-    .claim-text { gap: var(--space-3); position:static; text-align:left; width:auto; max-width:none; margin:0; }
-    .quote-line { position:static; right:auto; text-align:left; width:50%; max-width:none; margin: var(--space-3) 0 0 auto; }
   }
 
   /* ---------- Belief list (standalone, after the banner video) ---------- */
@@ -173,53 +154,60 @@
 
   /* ---------- Section label ---------- */
   .section-label { padding: var(--space-10) 0 var(--space-6); }
+  @media (max-width:900px){ .section-label { padding-top: var(--space-8); } }
   .section-label .wrap { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid var(--line); padding-bottom: var(--space-3); flex-wrap:wrap; gap: var(--space-2); }
-  .section-label h2 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; }
+  .section-label h2 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); }
   #work h2 { line-height:1.1; }
   .section-label .side { max-width:320px; font-size: var(--fs-body); line-height:1.5; text-align:right; font-weight:400; }
   .section-label .gallery-link { display:inline-block; font-size: var(--fs-body); white-space:nowrap; }
 
   /* ---------- Proof block (photo + stats, between the hero quote and "Tři cesty") ---------- */
   .proof-block { padding: var(--space-8) 0 50px; }
-  .proof-photo { width:100%; max-width:460px; aspect-ratio:4/3; overflow:hidden; background: var(--ink); margin-bottom: var(--space-4); }
+  .proof-photo { width:100%; aspect-ratio:4/3; overflow:hidden; background: var(--ink); margin-bottom: var(--space-4); }
   .proof-photo img { width:100%; height:100%; object-fit:cover; }
   .proof-stats { list-style:none; max-width:460px; }
-  .proof-stats li { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); line-height:1.15; }
-  .proof-stats li + li { margin-top:4px; }
-  .proof-note { max-width:360px; font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-top: var(--space-3); }
-  .proof-cta { margin-top: var(--space-2); }
-  /* small accent photo — before the reassurance text on mobile, absolutely positioned beside it on desktop.
-     Its width (the shorter side) is half of .proof-photo's own width (its longer side, since that photo is
-     landscape 4:3) — same min(...,460px) cap as .proof-photo so the ratio holds at any viewport width. */
-  /* top margin matches the gap between the quote and the kissing photo above this block
-     (.bottom-section's padding-bottom + .proof-block's own padding-top) */
-  .proof-photo-small { display:block; width:min(50%, 230px); aspect-ratio:2/3; overflow:hidden; margin: calc(var(--space-3) + var(--space-8)) 0 var(--space-3) auto; }
-  .proof-photo-small img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
+  .proof-stats li { display:flex; flex-direction:column; gap:4px; }
+  .proof-stats li strong { font-size: var(--fs-display); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); line-height:1.15; }
+  .proof-stats li span { font-size: var(--fs-body); font-weight:400; color: var(--ink-body); }
+  .proof-stats li + li { margin-top: var(--space-3); }
+  .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
+  .hero-cta-row .proof-teaser-link { margin-top:0; align-self:center; }
   @media (min-width:901px){
-    .proof-block { display:flex; align-items:center; gap: var(--space-8); position:relative; container-type:inline-size; }
-    .proof-photo { max-width:none; flex:1 1 60%; margin-bottom:0; }
-    .proof-stats-col { flex:1 1 40%; display:flex; flex-direction:column; align-items:flex-start; align-self:flex-start; margin-top:var(--space-6); }
+    .proof-block { display:flex; align-items:center; gap: var(--space-8); }
+    .proof-photo { max-width:none; flex:1 1 50%; margin-bottom:0; }
+    .proof-stats-col { flex:1 1 50%; display:flex; flex-direction:column; align-items:flex-start; }
     .proof-stats { max-width:none; width:fit-content; }
-    /* left-aligned, starting at .proof-stats' own left edge (.proof-photo's width + the row gap); height matches .proof-photo-small so its content centers vertically against it */
-    .proof-side { position:absolute; left: calc((100cqw - var(--space-8)) * 0.6 + var(--space-8)); top: calc((100cqw - var(--space-8)) * 0.225 + var(--space-8)); height: calc((100cqw - var(--space-8)) * 0.225); width:270px; display:flex; flex-direction:column; justify-content:center; gap: var(--space-2); text-align:left; }
-    .proof-side .proof-note, .proof-side .proof-cta { margin-top:0; }
-    /* height = half of .proof-photo's own height (60% of this container's width, minus its share of the gap, times its 4:3 ratio), so its top edge starts at .proof-photo's vertical midpoint; bottom:50px cancels the block's own padding-bottom so it lines up with .proof-photo's bottom edge, not the padding box */
-    .proof-photo-small { position:absolute; right:0; bottom:50px; height:calc((100cqw - var(--space-8)) * 0.225); width:auto; aspect-ratio:2/3; margin:0; }
   }
 
-  /* ---------- Work grid (services list + photo) ---------- */
-  .work-grid { padding: 0 0 50px; }
-  .work-services { display:block; margin-bottom: var(--space-3); }
-  .work-services ul { list-style:none; }
-  .work-services li { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); line-height:1.15; }
-  .work-services li + li { margin-top:4px; }
-  .work-gallery-link { display:inline-block; margin-bottom: var(--space-6); font-size: var(--fs-body); }
-  .work-photo { width:100%; aspect-ratio:21/9; overflow:hidden; background: var(--ink); }
-  .work-photo img { width:100%; height:100%; object-fit:cover; object-position: center 85%; }
-  @media (max-width:900px){ .work-photo { aspect-ratio:4/3; } }
+  /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */
+  .reassure-section { padding: var(--space-8) 0 50px; text-align:center; }
+  .reassure-narrow { max-width:640px; margin:0 auto; }
+  .reassure-photo { width:min(50%, 230px); aspect-ratio:2/3; overflow:hidden; margin: 0 0 var(--space-4) auto; }
+  .reassure-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
+  .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
+  @media (min-width:901px){ .reassure-title { white-space:nowrap; } }
+  .reassure-lead { font-size: var(--fs-heading); font-weight:700; color: var(--ink-heading); margin-bottom: var(--space-4); }
+  .reassure-lead:first-of-type { margin-bottom: var(--space-1); }
+  .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); }
+  .reassure-section .proof-teaser-link { margin-top:0; }
+  .reassure-body p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
+
+  /* ---------- Work cards ("Jak můžeme zachytit vaši rodinu?") — reuses .pg/.pcard from the
+     portfolio page's gallery grid, plus a description and link line each card didn't need there ---------- */
+  .work-cards { padding: 0 0 50px; }
+  .pg .pcard p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-top: var(--space-1); }
+  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
+
+  /* ---------- Memory section ("Nejen fotografie. Vzpomínku na to, jaké to bylo.") ---------- */
+  .memory-section { padding: var(--space-6) 0 50px; text-align:center; }
+  .memory-narrow { max-width:640px; margin:0 auto; }
+  .memory-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
+  @media (min-width:901px){ .memory-title { white-space:nowrap; } }
+  .memory-body p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-3); }
+  .memory-punch { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-heading); margin-top: var(--space-3); }
 
   /* ---------- Steps (jak focení probíhá) ---------- */
-  .steps-section { padding: 0 0 var(--space-10); }
+  .steps-section { padding: 0 0 50px; }
   .steps-list { display:flex; justify-content:space-between; }
   .step { flex:0 0 360px; }
   .step-num { display:block; font-size: var(--fs-body); font-weight:700; color: rgba(17,17,17,0.35); margin-bottom: var(--space-2); }
@@ -229,6 +217,7 @@
 
   /* ---------- Full photo banner ---------- */
   .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
+  .banner-video { margin-bottom:50px; }
 
   /* ---------- News / reference grid ---------- */
   .refs-grid { padding: 0; }
@@ -260,18 +249,25 @@
   .google-reviews .es-carousel-arrow-control-icon path { fill: var(--ink) !important; }
   .google-reviews .es-bullets-control-item { background: var(--line) !important; box-shadow:none !important; transform: scale(0.75) !important; }
   .google-reviews .es-bullets-control-item-active { background: rgba(17,17,17,0.35) !important; }
-  .rg { display:flex; justify-content:space-between; gap: var(--space-6); }
-  .rg .card { text-align:left; flex:0 0 auto; }
+  .rg { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8) var(--space-6); }
+  .rg .card { text-align:left; }
   .rg .card .thumb { width:150px; height:150px; border-radius:50%; overflow:hidden; margin:0 0 var(--space-4); }
   .rg .card .thumb img { filter: grayscale(1) contrast(1.05); }
   .rg .card p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); max-width:360px; margin:0; }
   .rg .card p strong { font-weight:700; font-style:normal; }
-  @media (max-width:900px){ .rg{flex-direction:column; gap: var(--space-8); max-width:400px; margin:0 auto;} }
+  .rg .card .card-name { margin-top: var(--space-3); font-weight:700; color: var(--ink-heading); }
+  .rg .card .card-service { margin-top:2px; color: var(--ink-body); }
+  @media (min-width:901px){
+    .rg .card:nth-child(2) { width:fit-content; margin-left:auto; margin-right:auto; }
+    .rg .card:nth-child(3) { width:fit-content; margin-left:auto; }
+  }
+  @media (max-width:900px){ .rg{grid-template-columns:1fr; gap: var(--space-8); max-width:400px; margin:0 auto;} }
 
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
-  .section-label:has(+ .faq-section) { padding-top: 130px; padding-bottom: var(--space-1); }
-  .faq-section { padding: 0; }
-  .faq-list { max-width:760px; }
+  .section-label:has(+ .faq-section) { padding-top: 130px; padding-bottom: var(--space-1); text-align:center; }
+  .section-label:has(+ .faq-section) .wrap { justify-content:center; }
+  .faq-section { padding: 0; text-align:center; }
+  .faq-list { max-width:760px; margin:0 auto; text-align:left; }
   .faq-item { border-bottom:1px solid var(--line); cursor:pointer; }
   .faq-question { display:flex; justify-content:space-between; align-items:center; gap: var(--space-4); padding: var(--space-4) 0; font-size: var(--fs-body); font-weight:600; color: var(--ink-heading); }
   .faq-item .plus { flex:none; font-size: var(--fs-body); font-weight:400; color: var(--ink-body); }
@@ -279,18 +275,46 @@
   .faq-answer-inner { overflow:hidden; }
   .faq-item.open .faq-answer { grid-template-rows:1fr; }
   .faq-answer p { max-width:620px; padding: 0 0 var(--space-4); font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
+  .faq-section + .section-label { padding-top: 150px; }
+
+  /* ---------- Price teaser ("Kolik taková vzpomínka stojí?") ---------- */
+  .price-teaser { padding: 0 0 var(--space-9); text-align:center; }
+  .price-teaser-row { display:flex; justify-content:center; gap: var(--space-7); flex-wrap:wrap; margin-bottom: var(--space-4); }
+  .price-teaser-item h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-1); }
+  .price-teaser-item p { font-size: var(--fs-body); color: var(--ink-body); }
+  .price-teaser .proof-teaser-link { margin-top:0; }
+  @media (max-width:600px){ .price-teaser-row { flex-direction:column; gap: var(--space-4); } }
 
   /* ---------- Closing CTA ---------- */
   .closing { padding: var(--space-7) 0 50px; }
-  .refs-grid + .closing, .faq-section + .closing { padding-top: 150px; }
-  .about-bento + .closing { padding-top: 0; }
+  .refs-grid + .closing { padding-top: 150px; }
+  .price-teaser + .closing { padding-top: 60px; }
+  .my-story + .closing { padding-top: 0; }
   .closing .top { text-align:left; }
   .closing-footer { padding: 0 0 var(--space-5); }
-  .closing-title { font-size: var(--fs-display); font-weight:700; line-height:0.9; letter-spacing:-0.025em; color: var(--ink); padding-bottom: var(--space-4); border-bottom:1px solid var(--line); }
+  .closing-title { font-size: var(--fs-display); font-weight:700; line-height:0.9; letter-spacing:-0.025em; color: var(--ink-heading); padding-bottom: var(--space-4); border-bottom:1px solid var(--line); }
   .closing-note { font-size: var(--fs-body); color: var(--ink-body); margin: var(--space-4) 0 0; }
-  .closing-lead { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); white-space:nowrap; margin: var(--space-4) 0 0; }
+  .closing-lead { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin: var(--space-4) 0 0; }
+  .closing-punch { font-size: var(--fs-body); font-style:italic; color: var(--ink-body); margin: var(--space-3) 0 0; }
   .closing .about-thanks-cta { margin-top: var(--space-4); }
-  @media (max-width:900px){ .closing-lead { white-space:normal; } }
+  .closing-form-lead { font-size: var(--fs-body); color: var(--ink-body); text-align:center; margin: var(--space-5) 0 0; }
+
+  /* ---------- Why me (o-mne.html) — two columns stretched to the same height (the right one,
+     with its big photo + two cards, is naturally taller); the left column's photo grows to fill
+     whatever space is left under its two short cards, so both columns end on the same line. ---------- */
+  .why-me-layout { padding: 0 0 var(--space-9); display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items:stretch; }
+  .why-col-left, .why-col-right { display:flex; flex-direction:column; gap: var(--space-6); }
+  .why-left-top { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+  .why-right-bottom { display:flex; flex-direction:column; gap: var(--space-4); }
+  .why-me-card h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-2); }
+  .why-me-card p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
+  .proc-ja-photo { flex:1; min-height:0; overflow:hidden; }
+  .proc-ja-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
+  @media (max-width:900px){
+    .why-me-layout { grid-template-columns:1fr; align-items:start; }
+    .proc-ja-photo { flex:none; width:min(100%, 460px); aspect-ratio:1/1; margin:0 auto; }
+    .why-left-top { grid-template-columns:1fr; }
+  }
 
   /* ---------- Contact form ---------- */
   .contact-form { margin: var(--space-5) auto 0; max-width:480px; display:flex; flex-direction:column; gap: var(--space-4); text-align:left; }
@@ -301,8 +325,12 @@
   .cf-row input::placeholder, .contact-form textarea::placeholder { color: rgba(17,17,17,0.35); }
   .cf-row input:focus, .contact-form textarea:focus { outline:none; border-color: var(--ink); }
   .contact-form textarea { resize:none; min-height:110px; line-height:1.5; }
+  .cf-radio-group { display:flex; flex-wrap:wrap; gap: var(--space-2); }
+  .cf-radio { display:inline-flex; align-items:center; gap:6px; font-size: var(--fs-body); font-weight:400; text-transform:none; letter-spacing:normal; color: var(--ink-body); border:1px solid var(--line); padding:8px 14px; cursor:pointer; transition: border-color .2s ease, color .2s ease; }
+  .cf-radio input { accent-color: var(--ink); }
+  .cf-radio:has(input:checked) { border-color: var(--ink); font-weight:700; color: var(--ink); }
   .cf-submit { align-self:center; display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink); cursor:pointer; transition: background .2s ease, color .2s ease; }
-  .cf-submit:hover { background: var(--ink); color:#fff; }
+  .cf-submit:hover { background: var(--ink-body); border-color: var(--ink-body); color:#fff; }
   .cf-divider { display:flex; align-items:center; gap: var(--space-3); margin: var(--space-5) auto; max-width:480px; }
   .cf-divider::before, .cf-divider::after { content:""; flex:1; height:1px; background: var(--line); }
   .cf-divider span { font-size: var(--fs-body); color: rgba(17,17,17,0.45); white-space:nowrap; }
@@ -361,26 +389,58 @@
   .video-gallery .back, .photo-gallery .back { display:block; margin-top: var(--space-6); }
 
   /* ---------- Pricing (Ceník) ---------- */
-  .pricing-grid { padding: 0 0 var(--space-11); }
+  .cenik-hero { padding: var(--space-10) 0 50px; text-align:center; }
+  @media (max-width:900px){ .cenik-hero { padding-top: var(--space-8); } }
+  .cenik-label { font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2); }
+  .cenik-h1 { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
+  @media (min-width:901px){ .cenik-h1 { white-space:nowrap; } }
+  .cenik-hero-narrow { max-width:640px; margin:0 auto; }
+  .cenik-hero-narrow p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-3); }
+  .cenik-hero-narrow p:last-of-type { margin-bottom: var(--space-2); }
+
+  .cenik-intro { max-width:640px; margin:0 auto var(--space-6); text-align:center; }
+  .cenik-intro-lead { font-size: var(--fs-heading); font-weight:700; color: var(--ink-heading); margin-bottom: var(--space-2); }
+  .cenik-intro p:not(.cenik-intro-lead) { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
+
+  .pricing-grid { padding: 0 0 50px; }
   .price-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-9) var(--space-7); }
+  .price-bento-1 { grid-template-columns: 1fr; }
   .pb-card { display:flex; flex-direction:column; }
   .pb-card.pb-featured { grid-column: 1 / -1; flex-direction:row; align-items:stretch; gap: var(--space-8); }
   /* position:absolute on the img keeps it out of the height calculation, so .pb-photo's own
      (pre-stretch) height is 0 and .pb-content's real content height drives the stretched row —
      the photo ends up exactly as tall as the package description beside it, not the other way round */
   .pb-featured .pb-photo { position:relative; flex:1.1; order:2; margin-bottom:0; aspect-ratio:auto; }
-  .pb-featured .pb-photo img { position:absolute; inset:0; }
+  .pb-featured .pb-photo img, .pb-featured .pb-photo video { position:absolute; inset:0; }
   .pb-featured .pb-content { flex:1; order:1; max-width:460px; min-height:438px; }
   .pb-photo { position:relative; aspect-ratio:4/5; overflow:hidden; margin-bottom: var(--space-4); }
-  .pb-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
-  .pb-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-3); color: var(--ink-heading); }
+  .pb-photo img, .pb-photo video { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
+  .pb-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-heading); }
+  .pb-subtitle { font-size: var(--fs-body); font-style:italic; color: var(--ink-body); margin-bottom: var(--space-3); }
+  .pb-content p:not(.pb-subtitle):not(.pb-note) { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-2); }
   .price-list { list-style:none; margin-bottom: var(--space-1); }
   .price-list li { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-2); }
   .price-list li:last-child { margin-bottom:0; }
   .price-list li.strong { font-weight:700; color: var(--ink); }
   .price-tag { display:block; font-size: var(--fs-body); font-weight:700; margin-top: var(--space-2); letter-spacing:0.02em; }
+  .pb-note { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-top: var(--space-3); }
+  .pb-content .proof-teaser-link { margin-top: var(--space-3); }
   .pb-badge { position:absolute; top: var(--space-3); left: var(--space-3); z-index:2; display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink); background: var(--paper); border-radius:20px; padding:6px 14px; }
-  @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; margin-bottom: var(--space-3); aspect-ratio:4/5;} .pb-featured .pb-photo img{position:static;} .pb-featured .pb-content{order:2; max-width:none; min-height:auto;} }
+  .pb-recommended { border:1px solid var(--ink); padding: var(--space-4); }
+  .pb-recommended .pb-photo { margin-top: calc(var(--space-4) * -1); margin-left: calc(var(--space-4) * -1); margin-right: calc(var(--space-4) * -1); width: calc(100% + var(--space-4) * 2); }
+  @media (min-width:901px){ .pb-recommended { transform: scale(1.03); } }
+  @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; margin-bottom: var(--space-3); aspect-ratio:4/5;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; max-width:none; min-height:auto;} .pb-recommended{transform:none;} }
+
+  .cenik-included { max-width:640px; margin:0 auto; padding: var(--space-8) 0 50px; text-align:center; }
+  .cenik-included-title { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-4); }
+  .cenik-included-list { list-style:none; text-align:left; display:inline-block; margin:0 auto var(--space-5); }
+  .cenik-included-list li { font-size: var(--fs-body); line-height:2; color: var(--ink-body); }
+  .cenik-included-list li::before { content:"✓ "; font-weight:700; color: var(--ink-heading); }
+  .cenik-included-note p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-2); }
+
+  .cenik-help-cta { margin-top: var(--space-4); }
+  .cenik-help-alt { font-size: var(--fs-body); color: var(--ink-body); margin-top: var(--space-3); }
+  .cenik-help-alt a { text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
 
   /* ---------- Video gallery ---------- */
   .video-gallery { padding: 0 0 var(--space-11); }
@@ -415,22 +475,34 @@
   .lb-close { position:absolute; top:-40px; right:0; color:#fff; font-size: var(--fs-body); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; background:none; border:0; }
 
   /* ---------- O mně ---------- */
-  .about-hero { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6) var(--space-4); padding: 0 0 var(--space-6); align-items:start; }
-  .ab-hero-photo { grid-column:2 / 4; aspect-ratio:3234/1605; overflow:hidden; }
+  .ab-hero-photo { aspect-ratio:3234/1605; overflow:hidden; }
   .ab-hero-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
-  .ab-hero-text { grid-column:1; display:flex; flex-direction:column; text-align:left; }
-  .ab-hero-text h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-3); color: var(--ink-heading); }
-  .ab-hero-text p { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
-  @media (max-width:900px){ .about-hero{grid-template-columns:1fr; gap: var(--space-4); padding: 0 0 var(--space-5);} .ab-hero-photo{grid-column:1;} .ab-hero-text{grid-column:1;} }
 
-  .about-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6) var(--space-4); padding: 0 0 var(--space-11); }
-  .ab-card { display:flex; flex-direction:column; }
-  .ab-photo { width:100%; aspect-ratio:4/5; overflow:hidden; margin:0 0 var(--space-4); }
-  .ab-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
-  .ab-photo-color img { filter: contrast(1.05); }
-  .ab-content h2 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-3); color: var(--ink-heading); }
-  .ab-content p { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
-  @media (max-width:900px){ .about-bento{grid-template-columns:1fr; padding: 0 0 var(--space-9);} }
+  /* ---------- My story ("A proč to vlastně dělám?") ---------- */
+  .my-story { padding: 0 0 var(--space-9); display:flex; flex-direction:column; gap: var(--space-9); }
+  .story-row { display:grid; grid-template-columns: 1fr 1.3fr; gap: var(--space-6); align-items:center; }
+  .story-photo { aspect-ratio:4/5; overflow:hidden; }
+  @media (min-width:901px){
+    .story-row:has(.story-photo-wide) { display:flex; align-items:stretch; }
+    .story-row:has(.story-photo-wide) .story-photo-wide { flex:0 0 43.5%; aspect-ratio:5/4; align-self:flex-start; }
+    .story-row:has(.story-photo-wide) .story-text { flex:1; max-width:520px; }
+  }
+  .story-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
+  .story-text { max-width:520px; }
+  .story-text h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin: var(--space-4) 0 var(--space-3); }
+  .story-text h3:first-child { margin-top:0; }
+  .story-text p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-2); }
+  .my-story-intro { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); line-height:1.5; margin-bottom: var(--space-4); }
+  .my-story-close { font-size: var(--fs-heading); font-weight:700; color: var(--ink); }
+  .story-outro { max-width:640px; margin:0 auto; text-align:center; }
+  .story-outro p { font-size: var(--fs-heading); line-height:1.8; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
+  @media (max-width:900px){ .my-story { gap: var(--space-5); } }
+  @media (max-width:900px){ .story-row { grid-template-columns:1fr; } .story-photo { aspect-ratio:3/2; } .story-photo-wide { height:auto; } }
+  .story-card h3 { text-align:center; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-6); }
+  .story-card-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6) var(--space-4); }
+  .story-card-item .story-photo { aspect-ratio:4/5; margin-bottom: var(--space-3); }
+  .story-card-item p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-2); }
+  @media (max-width:900px){ .story-card-grid { grid-template-columns:1fr; } }
 
   /* ---------- Contact page (business card + photo) ---------- */
   .contact-info { display:flex; align-items:center; gap: var(--space-8); padding: 0 0 var(--space-11); }
@@ -443,9 +515,7 @@
   .contact-info-line a:hover { color: var(--red); }
   @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0 0 var(--space-9);} .contact-info-photo{flex-basis:auto; width:100%; height:auto; aspect-ratio:3234/1605;} .contact-info-text{max-width:none;} }
 
-  .about-thanks-cta { display:flex; align-items:center; justify-content:flex-start; gap: var(--space-4); flex-wrap:wrap; }
-  .about-thanks-cta .about-cta-btn { border-color: var(--ink); color: var(--ink); }
-  .about-thanks-cta .about-cta-btn:hover { background: var(--ink); color:#fff; }
+  .about-thanks-cta { display:flex; align-items:center; justify-content:center; gap: var(--space-4); flex-wrap:wrap; }
   .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:16px 32px; transition: background .2s ease, color .2s ease; }
   .about-cta-btn:hover { background: var(--ink); color:#fff; }
 
@@ -473,23 +543,23 @@
 
   /* ---------- Sitewide photo hover zoom (homepage + other subpages, desktop only) ---------- */
   .proof-photo img,
-  .proof-photo-small img,
-  .work-photo img,
+  .reassure-photo img,
   .rg .card .thumb img,
   .pb-photo img,
   .ab-hero-photo img,
-  .ab-photo img,
+  .proc-ja-photo img,
+  .story-photo img,
   .contact-info-photo img {
     transition: transform .6s cubic-bezier(0.25,1,0.5,1);
   }
   @media (hover:hover) and (pointer:fine) {
     .proof-photo:hover img,
-    .proof-photo-small:hover img,
-    .work-photo:hover img,
+    .reassure-photo:hover img,
     .rg .card .thumb:hover img,
     .pb-photo:hover img,
     .ab-hero-photo:hover img,
-    .ab-photo:hover img,
+    .proc-ja-photo:hover img,
+    .story-photo:hover img,
     .contact-info-photo:hover img {
       transform: scale(1.06);
     }
