@@ -115,23 +115,58 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   })();
 
-  // ---------- Contact form (opens a pre-filled e-mail, no backend) ----------
+  // ---------- Contact form (sends via Web3Forms, no backend needed) ----------
+  const WEB3FORMS_ACCESS_KEY = '678c6592-26f3-4337-82fc-1c2fd2dc5074';
   document.querySelectorAll('.contact-form').forEach(form => {
-    form.addEventListener('submit', e => {
+    const submitBtn = form.querySelector('.cf-submit');
+    let status = form.querySelector('.cf-status');
+    if (!status) {
+      status = document.createElement('p');
+      status.className = 'cf-status';
+      submitBtn.insertAdjacentElement('afterend', status);
+    }
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       const name = form.querySelector('[name="jmeno"]').value.trim();
       const email = form.querySelector('[name="email"]').value.trim();
       const message = form.querySelector('[name="zprava"]').value.trim();
       const sluzba = form.querySelector('[name="sluzba"]:checked')?.value;
       const termin = form.querySelector('[name="termin"]:checked')?.value;
-      const subject = encodeURIComponent(`Zpráva z webu od ${name}`);
-      const body = encodeURIComponent(
-        `Jméno: ${name}\nE-mail: ${email}` +
-        (sluzba ? `\nO co má zájem: ${sluzba}` : '') +
-        (termin ? `\nKdy chce fotit: ${termin}` : '') +
-        `\n\n${message}`
-      );
-      window.location.href = `mailto:ig.mimifoto@gmail.com?subject=${subject}&body=${body}`;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Odesílám…';
+      status.removeAttribute('data-state');
+      status.textContent = '';
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            subject: `Zpráva z webu od ${name}`,
+            jmeno: name,
+            email,
+            'o co má zájem': sluzba || '',
+            'kdy chce fotit': termin || '',
+            zprava: message,
+          }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          form.reset();
+          status.textContent = 'Děkuji, zpráva byla odeslána. Ozvu se vám co nejdřív.';
+          status.setAttribute('data-state', 'success');
+        } else {
+          throw new Error(data.message || 'Odeslání se nezdařilo');
+        }
+      } catch (err) {
+        status.textContent = 'Něco se nepovedlo. Napište mi prosím přímo na ig.mimifoto@gmail.com.';
+        status.setAttribute('data-state', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Odeslat zprávu';
+      }
     });
   });
 
