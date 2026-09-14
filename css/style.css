@@ -132,8 +132,11 @@
   .hero-note { max-width:640px; margin:0 auto var(--space-4); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:left; }
   .hero-cta-row { display:flex; justify-content:center; gap: var(--space-5); flex-wrap:wrap; }
   @media (min-width:901px){
-    /* nudge just this button right, without affecting its size or the link beside it */
-    .hero-cta-row .hero-cta-primary { position:relative; left: 56px; }
+    /* mirror .proof-block's 50/50 grid so "Chci focení" starts at the exact same x as "12 let",
+       using justify-self (not flex-grow) so the button keeps its natural size, not stretched */
+    .hero-cta-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+    .hero-cta-row a:first-child { justify-self:end; }
+    .hero-cta-row a:last-child { justify-self:start; }
   }
   .hero-cta-primary { background:#2b2b2b; color:#fff; transition: background .25s ease, color .25s ease, transform .25s ease; }
   .about-cta-btn.hero-cta-primary:hover { background:#fff; color: var(--ink); transform: scale(1.04); }
