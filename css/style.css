@@ -351,9 +351,9 @@
   .cf-radio:has(input:checked) { border-color: var(--ink); font-weight:700; color: var(--ink); }
   .cf-submit { align-self:center; display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink); cursor:pointer; transition: background .2s ease, color .2s ease; }
   .cf-submit:hover { background: var(--ink-body); border-color: var(--ink-body); color:#fff; }
-  .cf-submit:disabled { opacity:0.5; cursor:default; }
+  .cf-submit:disabled:not([data-state="success"]) { opacity:0.5; cursor:default; }
+  .cf-submit[data-state="success"] { background:#2f6b3a; border-color:#2f6b3a; color:#fff; opacity:1; }
   .cf-status { text-align:center; font-size: var(--fs-body); margin-top: var(--space-2); }
-  .cf-status[data-state="success"] { color:#2f6b3a; }
   .cf-status[data-state="error"] { color:#a13a3a; }
   .cf-divider { display:flex; align-items:center; gap: var(--space-3); margin: var(--space-5) auto; max-width:480px; }
   .cf-divider::before, .cf-divider::after { content:""; flex:1; height:1px; background: var(--line); }

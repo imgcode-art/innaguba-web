@@ -155,17 +155,22 @@ document.querySelectorAll('[data-row]').forEach(row => {
         const data = await res.json();
         if (data.success) {
           form.reset();
+          submitBtn.textContent = 'Odesláno ✓';
+          submitBtn.setAttribute('data-state', 'success');
           status.textContent = 'Děkuji, zpráva byla odeslána. Ozvu se vám co nejdřív.';
-          status.setAttribute('data-state', 'success');
+          setTimeout(() => {
+            submitBtn.textContent = 'Odeslat zprávu';
+            submitBtn.removeAttribute('data-state');
+            submitBtn.disabled = false;
+          }, 4000);
         } else {
           throw new Error(data.message || 'Odeslání se nezdařilo');
         }
       } catch (err) {
-        status.textContent = 'Něco se nepovedlo. Napište mi prosím přímo na ig.mimifoto@gmail.com.';
-        status.setAttribute('data-state', 'error');
-      } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Odeslat zprávu';
+        status.textContent = 'Něco se nepovedlo. Napište mi prosím přímo na ig.mimifoto@gmail.com.';
+        status.setAttribute('data-state', 'error');
       }
     });
   });
