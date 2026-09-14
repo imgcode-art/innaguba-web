@@ -145,6 +145,7 @@
     .hc-scroll-pin { display:none; }
     .hc-mobile-hero { display:block; position:relative; height:70vh; overflow:hidden; background: var(--ink) url("images/hero/album-poster.jpg") center/cover no-repeat; }
     .hc-mobile-claim { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:5; display:flex; flex-direction:column; align-items:center; }
+    .hc-mobile-claim .hc-eyebrow { font-size: clamp(18px, 6.2vw, 32px); white-space:nowrap; }
     .bottom-section { padding-top: var(--space-10); padding-bottom: var(--space-3); }
   }
   @media (min-width:901px){
