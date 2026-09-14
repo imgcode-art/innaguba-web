@@ -198,7 +198,8 @@
   @media (min-width:901px){ .reassure-title { white-space:nowrap; } }
   .reassure-lead { font-size: var(--fs-heading); font-weight:700; color: var(--ink-heading); margin-bottom: var(--space-4); }
   .reassure-lead:first-of-type { margin-bottom: var(--space-1); }
-  .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); }
+  .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); margin-left:20px; max-width:calc(100% - 20px); }
+  @media (max-width:900px){ .reassure-body { margin-left:0; max-width:none; } }
   .reassure-section .proof-teaser-link { margin-top:0; }
   .reassure-body p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
 
@@ -315,7 +316,7 @@
   .closing-punch { font-size: var(--fs-body); font-style:italic; color: var(--ink-body); margin: var(--space-3) 0 0; }
   .closing .about-thanks-cta { margin-top: var(--space-4); }
   .closing-form-lead { font-size: var(--fs-body); color: var(--ink-body); text-align:center; margin: var(--space-5) 0 0; }
-  .closing-form-lead a { text-decoration:underline; text-underline-offset:3px; color: var(--ink); font-weight:700; }
+  .closing-form-lead a { text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); font-weight:400; }
 
   /* ---------- Why me (o-mne.html) — two columns stretched to the same height (the right one,
      with its big photo + two cards, is naturally taller); the left column's photo grows to fill
@@ -331,7 +332,7 @@
   @media (max-width:900px){
     .why-me-layout { grid-template-columns:1fr; align-items:start; }
     .why-col-left { flex-direction:column-reverse; }
-    .proc-ja-photo { flex:none; width:min(100%, 460px); aspect-ratio:1/1; margin:0 auto var(--space-6); }
+    .proc-ja-photo { flex:none; width:min(100%, 460px); aspect-ratio:1/1; margin:0 auto; }
     .why-left-top { grid-template-columns:1fr; }
   }
 
