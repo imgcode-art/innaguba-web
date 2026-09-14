@@ -132,10 +132,8 @@
   .hero-note { max-width:640px; margin:0 auto var(--space-4); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:left; }
   .hero-cta-row { display:flex; justify-content:center; gap: var(--space-5); flex-wrap:wrap; }
   @media (min-width:901px){
-    /* match .proof-block's 50/50 split below, so "Chci focení" lands exactly above "12 let" */
-    .hero-cta-row { gap: var(--space-8); }
-    .hero-cta-row a:first-child { flex:1 1 50%; text-align:right; }
-    .hero-cta-row a:last-child { flex:1 1 50%; text-align:left; }
+    /* nudge just this button right, without affecting its size or the link beside it */
+    .hero-cta-row .hero-cta-primary { position:relative; left: 56px; }
   }
   .hero-cta-primary { background:#2b2b2b; color:#fff; transition: background .25s ease, color .25s ease, transform .25s ease; }
   .about-cta-btn.hero-cta-primary:hover { background:#fff; color: var(--ink); transform: scale(1.04); }
@@ -224,8 +222,9 @@
   /* ---------- Full photo banner ---------- */
   .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
   .banner-video { margin-bottom:50px; }
-  .banner-photo { height:50vh; min-height:320px; margin: 50px 0; }
-  .banner-photo img { width:100%; height:100%; object-fit:cover; object-position:center bottom; }
+  .banner-photo { margin: 50px 0; }
+  .banner-photo img { width:100%; height:100%; object-fit:cover; object-position:70% bottom; }
+  @media (min-width:901px){ .banner-photo { height:50vh; min-height:320px; } }
 
   /* ---------- News / reference grid ---------- */
   .refs-grid { padding: 0; }
@@ -320,7 +319,8 @@
   .proc-ja-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
   @media (max-width:900px){
     .why-me-layout { grid-template-columns:1fr; align-items:start; }
-    .proc-ja-photo { flex:none; width:min(100%, 460px); aspect-ratio:1/1; margin:0 auto; }
+    .why-col-left { flex-direction:column-reverse; }
+    .proc-ja-photo { flex:none; width:min(100%, 460px); aspect-ratio:1/1; margin:0 auto var(--space-6); }
     .why-left-top { grid-template-columns:1fr; }
   }
 
@@ -506,7 +506,7 @@
   .story-outro p { font-size: var(--fs-heading); line-height:1.8; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
   @media (max-width:900px){ .my-story { gap: var(--space-5); } }
   @media (max-width:900px){ .story-row { grid-template-columns:1fr; } .story-photo { aspect-ratio:3/2; } .story-photo-wide { height:auto; } }
-  .story-card h3 { text-align:center; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-6); }
+  .story-card h3 { text-align:left; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-6); }
   .story-card-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6) var(--space-4); }
   .story-card-item .story-photo { aspect-ratio:4/5; margin-bottom: var(--space-3); }
   .story-card-item p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-2); }
