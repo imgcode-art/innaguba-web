@@ -332,6 +332,7 @@
   .cf-row { display:flex; gap: var(--space-3); }
   .cf-field { display:flex; flex-direction:column; gap: 6px; flex:1; }
   .cf-field label { font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color: var(--ink-heading); }
+  .cf-choices > label { font-size: var(--fs-body); font-weight:700; letter-spacing:normal; text-transform:none; }
   .cf-row input, .contact-form textarea { width:100%; background: var(--paper); border:1px solid var(--line); padding: var(--space-3); font-family:var(--sans); font-size: var(--fs-body); color: var(--ink); }
   .cf-row input::placeholder, .contact-form textarea::placeholder { color: rgba(17,17,17,0.35); }
   .cf-row input:focus, .contact-form textarea:focus { outline:none; border-color: var(--ink); }
@@ -416,7 +417,7 @@
   .pricing-grid { padding: 0 0 50px; }
   .price-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-9) var(--space-7); }
   .price-bento-1 { grid-template-columns: 1fr; }
-  .pb-card { display:flex; flex-direction:column; }
+  .pb-card { display:flex; flex-direction:column; min-width:0; }
   .pb-card.pb-featured { grid-column: 1 / -1; flex-direction:row; align-items:stretch; gap: var(--space-8); }
   /* position:absolute on the img keeps it out of the height calculation, so .pb-photo's own
      (pre-stretch) height is 0 and .pb-content's real content height drives the stretched row —
