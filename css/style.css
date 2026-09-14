@@ -344,6 +344,7 @@
   .cf-row input, .contact-form textarea { width:100%; background: var(--paper); border:1px solid var(--line); padding: var(--space-3); font-family:var(--sans); font-size: var(--fs-body); color: var(--ink); }
   .cf-row input::placeholder, .contact-form textarea::placeholder { color: rgba(17,17,17,0.35); }
   .cf-row input:focus, .contact-form textarea:focus { outline:none; border-color: var(--ink); }
+  .cf-row input.cf-invalid, .contact-form textarea.cf-invalid { border-color:#a13a3a; }
   .contact-form textarea { resize:none; min-height:110px; line-height:1.5; }
   .cf-radio-group { display:flex; flex-wrap:wrap; gap: var(--space-2); }
   .cf-radio { display:inline-flex; align-items:center; gap:6px; font-size: var(--fs-body); font-weight:400; text-transform:none; letter-spacing:normal; color: var(--ink-body); border:1px solid var(--line); padding:8px 14px; cursor:pointer; transition: border-color .2s ease, color .2s ease; }

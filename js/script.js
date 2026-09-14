@@ -125,8 +125,23 @@ document.querySelectorAll('[data-row]').forEach(row => {
       status.className = 'cf-status';
       submitBtn.insertAdjacentElement('afterend', status);
     }
+    form.querySelectorAll('input, textarea').forEach(field => {
+      field.addEventListener('input', () => field.classList.remove('cf-invalid'));
+    });
+
     form.addEventListener('submit', async e => {
       e.preventDefault();
+
+      const invalidFields = Array.from(form.querySelectorAll('input, textarea')).filter(f => !f.checkValidity());
+      form.querySelectorAll('.cf-invalid').forEach(f => f.classList.remove('cf-invalid'));
+      if (invalidFields.length) {
+        invalidFields.forEach(f => f.classList.add('cf-invalid'));
+        status.textContent = 'Zkontrolujte prosím vyplněné údaje — jméno, e-mail a zprávu je potřeba vyplnit správně.';
+        status.setAttribute('data-state', 'error');
+        invalidFields[0].focus();
+        return;
+      }
+
       const name = form.querySelector('[name="jmeno"]').value.trim();
       const email = form.querySelector('[name="email"]').value.trim();
       const message = form.querySelector('[name="zprava"]').value.trim();
