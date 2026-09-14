@@ -10,17 +10,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=263">
-<!-- Warm up the connections the hero videos need, so the actual iframe requests skip DNS/TLS setup -->
-<link rel="preconnect" href="https://player.vimeo.com">
-<link rel="preconnect" href="https://i.vimeocdn.com" crossorigin>
-<link rel="preconnect" href="https://f.vimeocdn.com">
+<link rel="stylesheet" href="css/style.css?v=269">
 <!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <!-- Elfsight Google Reviews | Untitled Google Reviews -->
 <script src="https://elfsightcdn.com/platform.js" async></script>
-<script src="https://player.vimeo.com/api/player.js" defer></script>
 </head>
 <body>
 
@@ -89,7 +84,7 @@
   <div class="wrap bottom-section">
     <p class="hero-lead">Děti rostou neuvěřitelně rychle. Zachytíme vaše společné chvíle, ke kterým se budete vracet znovu a znovu. Ke smíchu, objetím a pohledům, které vám i za mnoho let rozbuší srdce.</p>
     <div class="hero-cta-row">
-      <a href="portfolio.html" class="proof-teaser-link">Prohlédnout galerii</a>
+      <a href="portfolio.html" class="proof-teaser-link">Prohlédnout galerii →</a>
       <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary">Chci focení</a>
     </div>
   </div>
@@ -165,8 +160,8 @@
 </section>
 
 <section class="banner banner-video wrap">
-  <div class="video-embed video-bw" data-scroll-video>
-    <iframe src="https://player.vimeo.com/video/1175167077?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen title="Inna Guba — rodinná momentka"></iframe>
+  <div class="video-embed">
+    <video src="videos/banner-felsingerova.mp4" poster="images/banner-felsingerova-poster.jpg" muted loop playsinline preload="auto" autoplay aria-label="Inna Guba — rodinná momentka"></video>
   </div>
 </section>
 
@@ -265,6 +260,12 @@
       <div class="faq-question"><span>7. Kdy je nejlepší si focení rezervovat?</span><span class="plus">+</span></div>
       <div class="faq-answer"><div class="faq-answer-inner"><p>Ideální je ozvat se mi zhruba 4 týdny předem, obzvlášť pokud plánujete focení o víkendu. Termín si ale klidně rezervujte i dřív, třeba hned jak víte, že se blíží nějaká rodinná událost nebo hezké období. Vždycky se snažím vyjít vstříc i nečekaným nápadům, takže se nebojte napsat ani na poslední chvíli.</p></div></div>
     </div>
+  </div>
+</section>
+
+<section class="banner banner-video wrap">
+  <div class="video-embed">
+    <video src="videos/banner-michalkovi.mp4" poster="images/banner-michalkovi-poster.jpg" muted loop playsinline preload="auto" autoplay aria-label="Inna Guba — rodina Michalkových"></video>
   </div>
 </section>
 
@@ -384,7 +385,7 @@
   </div>
 </div>
 
-<script src="js/script.js?v=54" defer></script>
+<script src="js/script.js?v=56" defer></script>
 
 </body>
 </html>

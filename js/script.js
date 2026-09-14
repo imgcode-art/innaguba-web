@@ -82,23 +82,22 @@ document.querySelectorAll('[data-row]').forEach(row => {
 
   // ---------- Mobile hero video — self-hosted <video autoplay>, no JS needed to start it ----------
 
-  // ---------- Banner video — grayscale until scrolled into view, then fades to color and plays ----------
-  const scrollVideo = document.querySelector('[data-scroll-video]');
-  if (scrollVideo && window.Vimeo) {
-    const scrollVideoPlayer = new Vimeo.Player(scrollVideo.querySelector('iframe'));
-    scrollVideoPlayer.pause().catch(() => {});
+  // ---------- Banner videos — each stays grayscale until scrolled into view, then fades to color and plays ----------
+  document.querySelectorAll('[data-scroll-video]').forEach(scrollVideo => {
+    const scrollVideoEl = scrollVideo.querySelector('video');
+    if (!scrollVideoEl) return;
     let scrollVideoStarted = false;
     const scrollVideoObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !scrollVideoStarted) {
           scrollVideoStarted = true;
           scrollVideo.classList.remove('video-bw');
-          scrollVideoPlayer.play().catch(() => {});
+          scrollVideoEl.play().catch(() => {});
         }
       });
     }, { threshold: 0.5 });
     scrollVideoObserver.observe(scrollVideo);
-  }
+  });
 
   // ---------- Cookie consent bar ----------
   (() => {
