@@ -290,7 +290,12 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // finished loading — late-loading content above the form can otherwise push it down and
   // undo the browser's initial anchor jump. ----------
   if (location.hash === '#kontakt') {
-    const snapToTarget = () => document.getElementById('kontakt')?.scrollIntoView({ block: 'start' });
+    const snapToTarget = () => {
+      const target = document.getElementById('kontakt');
+      if (!target) return;
+      const top = target.getBoundingClientRect().top + window.scrollY - 24;
+      window.scrollTo(0, top);
+    };
     window.addEventListener('load', snapToTarget);
     setTimeout(snapToTarget, 600);
   }
