@@ -242,21 +242,32 @@ document.querySelectorAll('[data-row]').forEach(row => {
     const cursorDot = document.createElement('div');
     cursorDot.className = 'cursor-dot';
     document.body.appendChild(cursorDot);
+    const cursorPoint = document.createElement('div');
+    cursorPoint.className = 'cursor-point';
+    document.body.appendChild(cursorPoint);
     document.body.classList.add('has-custom-cursor');
 
     let mouseX = 0, mouseY = 0, curX = 0, curY = 0, started = false;
     window.addEventListener('mousemove', e => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      cursorPoint.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
       if (!started) {
         curX = mouseX;
         curY = mouseY;
         started = true;
         cursorDot.classList.add('is-visible');
+        cursorPoint.classList.add('is-visible');
       }
     });
-    document.addEventListener('mouseleave', () => cursorDot.classList.remove('is-visible'));
-    document.addEventListener('mouseenter', () => cursorDot.classList.add('is-visible'));
+    document.addEventListener('mouseleave', () => {
+      cursorDot.classList.remove('is-visible');
+      cursorPoint.classList.remove('is-visible');
+    });
+    document.addEventListener('mouseenter', () => {
+      cursorDot.classList.add('is-visible');
+      cursorPoint.classList.add('is-visible');
+    });
 
     const HOVER_TARGETS = 'a, button, .cf-radio, input, textarea, [role="button"], [data-row]';
     document.addEventListener('mouseover', e => {

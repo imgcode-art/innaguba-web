@@ -609,4 +609,10 @@
     }
     .cursor-dot.is-visible { opacity:1; }
     .cursor-dot.is-active { width:56px; height:56px; margin:-28px 0 0 -28px; }
+    .cursor-point {
+      position:fixed; top:0; left:0; width:4px; height:4px; margin:-2px 0 0 -2px;
+      background:#fff; border-radius:50%; pointer-events:none; z-index:9999;
+      mix-blend-mode:difference; opacity:0; transition: opacity .3s ease;
+    }
+    .cursor-point.is-visible { opacity:1; }
   }
