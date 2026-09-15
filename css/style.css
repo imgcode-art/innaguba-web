@@ -270,7 +270,6 @@
   .rg { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8) var(--space-6); }
   .rg .card { text-align:left; }
   .rg .card .thumb { width:150px; height:150px; border-radius:50%; overflow:hidden; margin:0 0 var(--space-4); }
-  .rg .card .thumb img { filter: grayscale(1) contrast(1.05); }
   .rg .card p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); max-width:360px; margin:0; }
   .rg .card p strong { font-weight:700; font-style:normal; }
   .rg .card .card-name { margin-top: var(--space-3); font-weight:700; color: var(--ink-heading); }
