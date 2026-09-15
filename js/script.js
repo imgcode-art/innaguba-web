@@ -184,7 +184,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
       } catch (err) {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Odeslat zprávu';
-        status.textContent = 'Něco se nepovedlo. Napište mi prosím přímo na ig.mimifoto@gmail.com.';
+        status.textContent = 'Něco se nepovedlo. Napište mi prosím přímo na innaguba@seznam.cz.';
         status.setAttribute('data-state', 'error');
       }
     });
