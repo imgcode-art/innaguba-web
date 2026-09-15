@@ -430,7 +430,7 @@
   .pricing-grid { padding: 0 0 50px; }
   .price-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-9) var(--space-7); }
   .price-bento-1 { grid-template-columns: 1fr; }
-  .price-bento-1 .pb-card { border:1px solid var(--line); padding: var(--space-4); }
+  .price-bento-1 .pb-card { border:1px solid var(--line); padding:0; }
   .pb-card { display:flex; flex-direction:column; min-width:0; }
   .pb-card.pb-featured { grid-column: 1 / -1; flex-direction:row; align-items:stretch; gap: var(--space-8); }
   /* position:absolute on the img keeps it out of the height calculation, so .pb-photo's own
@@ -438,7 +438,7 @@
      the photo ends up exactly as tall as the package description beside it, not the other way round */
   .pb-featured .pb-photo { position:relative; flex:1.1; order:2; margin-bottom:0; aspect-ratio:auto; }
   .pb-featured .pb-photo img, .pb-featured .pb-photo video { position:absolute; inset:0; }
-  .pb-featured .pb-content { flex:1; order:1; max-width:460px; min-height:438px; }
+  .pb-featured .pb-content { flex:1; order:1; max-width:460px; min-height:438px; padding: var(--space-4) 0 var(--space-4) var(--space-4); }
   .pb-photo { position:relative; aspect-ratio:4/5; overflow:hidden; margin-bottom: var(--space-4); }
   .pb-photo img, .pb-photo video { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   .pb-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-heading); }
@@ -457,7 +457,7 @@
   .pb-recommended { border:1px solid var(--ink); padding: var(--space-4); }
   .pb-recommended .pb-photo { margin-top: calc(var(--space-4) * -1); margin-left: calc(var(--space-4) * -1); margin-right: calc(var(--space-4) * -1); width: calc(100% + var(--space-4) * 2); }
   @media (min-width:901px){ .pb-recommended { transform: scale(1.03); } }
-  @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; margin-bottom: var(--space-3); aspect-ratio:4/5;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; max-width:none; min-height:auto;} .pb-recommended{transform:none;} }
+  @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; aspect-ratio:4/5;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; max-width:none; min-height:auto; padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4);} .pb-recommended{transform:none;} }
 
   .cenik-included { max-width:640px; margin:0 auto; padding: var(--space-8) 0 50px; text-align:center; }
   .cenik-included-title { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-4); }
