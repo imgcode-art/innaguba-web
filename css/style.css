@@ -465,6 +465,13 @@
   @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; aspect-ratio:4/5;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; flex:none; max-width:none; min-height:auto; padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4);} .pb-recommended{transform:none;} }
 
   .cenik-included { max-width:640px; margin:0 auto; padding: var(--space-8) 0 50px; text-align:left; }
+  .cenik-included-spacer { display:none; }
+  @media (min-width:901px){
+    .cenik-included { max-width:none; margin:0; }
+    .cenik-included-align { display:flex; gap: var(--space-8); }
+    .cenik-included-spacer { display:block; flex:1; max-width:460px; }
+    .cenik-included-body { flex:1.1; max-width:640px; }
+  }
   .cenik-included-title { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-4); }
   .cenik-included-list { list-style:none; text-align:left; display:inline-block; margin:0 auto var(--space-5); }
   .cenik-included-list li { font-size: var(--fs-body); line-height:2; color: var(--ink-body); }
