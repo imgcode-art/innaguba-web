@@ -217,7 +217,7 @@
   .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
   .memory-body-align .memory-body, .memory-body-align .memory-punch { grid-column: 2 / -1; }
   .memory-body p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-3); text-align:left; }
-  .memory-punch { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-heading); margin-top: var(--space-3); text-align:left; }
+  .memory-punch { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-heading); text-align:left; }
   @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-body, .memory-body-align .memory-punch { grid-column:1; } }
 
   /* ---------- Steps (jak focení probíhá) ---------- */
