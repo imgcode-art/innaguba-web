@@ -418,12 +418,12 @@
   .video-gallery .back, .photo-gallery .back { display:block; margin-top: var(--space-6); }
 
   /* ---------- Pricing (Ceník) ---------- */
-  .cenik-hero { padding: var(--space-10) 0 50px; text-align:center; }
+  .cenik-hero { padding: var(--space-10) 0 50px; text-align:left; }
   @media (max-width:900px){ .cenik-hero { padding-top: var(--space-8); padding-bottom: var(--space-8); } }
   .cenik-label { font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2); }
   .cenik-h1 { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
   @media (min-width:901px){ .cenik-h1 { white-space:nowrap; } }
-  .cenik-hero-narrow { max-width:640px; margin:0 auto; }
+  .cenik-hero-narrow { max-width:640px; margin:0; }
   .cenik-hero-narrow p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-3); }
   .cenik-hero-narrow p:last-of-type { margin-bottom: var(--space-2); }
 
