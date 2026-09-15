@@ -278,8 +278,8 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
 
     const renderCursor = () => {
-      curX += (mouseX - curX) * 0.45;
-      curY += (mouseY - curY) * 0.45;
+      curX += (mouseX - curX) * 0.7;
+      curY += (mouseY - curY) * 0.7;
       cursorDot.style.transform = `translate3d(${curX}px, ${curY}px, 0)`;
       requestAnimationFrame(renderCursor);
     };
