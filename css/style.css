@@ -435,6 +435,7 @@
   .price-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-9) var(--space-7); }
   .price-bento-1 { grid-template-columns: 1fr; }
   .price-bento-1 .pb-card { border:1px solid var(--line); padding:0; }
+  .price-bento-1 .pb-card.pb-standout { border-color: var(--ink); }
   .pb-card { display:flex; flex-direction:column; min-width:0; }
   .pb-card.pb-featured { grid-column: 1 / -1; flex-direction:row; align-items:stretch; gap: var(--space-8); }
   /* position:absolute on the img keeps it out of the height calculation, so .pb-photo's own
