@@ -286,3 +286,12 @@ document.querySelectorAll('[data-row]').forEach(row => {
     requestAnimationFrame(renderCursor);
   }
 
+  // ---------- Re-snap to a #kontakt link target after everything (images, widgets) has
+  // finished loading — late-loading content above the form can otherwise push it down and
+  // undo the browser's initial anchor jump. ----------
+  if (location.hash === '#kontakt') {
+    const snapToTarget = () => document.getElementById('kontakt')?.scrollIntoView({ block: 'start' });
+    window.addEventListener('load', snapToTarget);
+    setTimeout(snapToTarget, 600);
+  }
+

@@ -311,6 +311,7 @@
   .price-teaser + .closing { padding-top: 60px; }
   .my-story + .closing { padding-top: 0; }
   .closing .top { text-align:left; }
+  @media (min-width:901px){ .closing-secondary-link { display:block; width:fit-content; margin:var(--space-4) auto 0; } }
   .closing-footer { padding: 0 0 var(--space-5); }
   .closing-title { font-size: var(--fs-display); font-weight:700; line-height:0.9; letter-spacing:-0.025em; color: var(--ink-heading); padding-bottom: var(--space-4); border-bottom:1px solid var(--line); }
   .closing-note { font-size: var(--fs-body); color: var(--ink-body); margin: var(--space-4) 0 0; }
