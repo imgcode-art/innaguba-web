@@ -285,6 +285,7 @@
   .section-label:has(+ .faq-section) { padding-top: 130px; padding-bottom: var(--space-1); text-align:center; }
   @media (max-width:900px){ .section-label:has(+ .faq-section) { padding-top: var(--space-8); } }
   .section-label:has(+ .faq-section) .wrap { justify-content:center; }
+  .section-label:has(+ .faq-section) h2 { max-width:760px; width:100%; margin:0 auto; text-align:left; }
   .faq-section { padding: 0; text-align:center; }
   .faq-list { max-width:760px; margin:0 auto; text-align:left; }
   .faq-item { border-bottom:1px solid var(--line); cursor:pointer; }
