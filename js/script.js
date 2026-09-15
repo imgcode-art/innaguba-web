@@ -236,3 +236,42 @@ document.querySelectorAll('[data-row]').forEach(row => {
     updateOrbitStack();
   }
 
+  // ---------- Custom cursor — a circle that trails the pointer with a little lag, grows over
+  // links/buttons. Only on devices with a real mouse (hover:hover + pointer:fine), never on touch. ----------
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const cursorDot = document.createElement('div');
+    cursorDot.className = 'cursor-dot';
+    document.body.appendChild(cursorDot);
+    document.body.classList.add('has-custom-cursor');
+
+    let mouseX = 0, mouseY = 0, curX = 0, curY = 0, started = false;
+    window.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!started) {
+        curX = mouseX;
+        curY = mouseY;
+        started = true;
+        cursorDot.classList.add('is-visible');
+      }
+    });
+    document.addEventListener('mouseleave', () => cursorDot.classList.remove('is-visible'));
+    document.addEventListener('mouseenter', () => cursorDot.classList.add('is-visible'));
+
+    const HOVER_TARGETS = 'a, button, .cf-radio, input, textarea, [role="button"], [data-row]';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(HOVER_TARGETS)) cursorDot.classList.add('is-active');
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest(HOVER_TARGETS)) cursorDot.classList.remove('is-active');
+    });
+
+    const renderCursor = () => {
+      curX += (mouseX - curX) * 0.18;
+      curY += (mouseY - curY) * 0.18;
+      cursorDot.style.transform = `translate3d(${curX}px, ${curY}px, 0)`;
+      requestAnimationFrame(renderCursor);
+    };
+    requestAnimationFrame(renderCursor);
+  }
+

@@ -595,3 +595,18 @@
       transform: scale(1.06);
     }
   }
+
+  /* ---------- Custom cursor (desktop with a real mouse only) ---------- */
+  @media (hover:hover) and (pointer:fine) {
+    body.has-custom-cursor { cursor:none; }
+    body.has-custom-cursor a, body.has-custom-cursor button { cursor:none; }
+    .cursor-dot {
+      position:fixed; top:0; left:0; width:32px; height:32px; margin:-16px 0 0 -16px;
+      border:1px solid #fff; border-radius:50%; pointer-events:none; z-index:9999;
+      mix-blend-mode:difference; opacity:0;
+      transition: width .3s cubic-bezier(0.25,1,0.5,1), height .3s cubic-bezier(0.25,1,0.5,1),
+                  margin .3s cubic-bezier(0.25,1,0.5,1), opacity .3s ease;
+    }
+    .cursor-dot.is-visible { opacity:1; }
+    .cursor-dot.is-active { width:56px; height:56px; margin:-28px 0 0 -28px; }
+  }
