@@ -322,3 +322,26 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', alignCenikIncluded);
   }
 
+  // ---------- O mně: widen the "Svatba tety" polaroid photo (desktop only) so its right edge
+  // lines up with the "Proč právě já" photo further up the page — measured directly, same
+  // reasoning as the Ceník alignment above. ----------
+  const storyPhotoWide = document.querySelector('.story-photo-wide');
+  if (storyPhotoWide) {
+    const alignStoryPhotoWide = () => {
+      if (window.innerWidth < 901) {
+        storyPhotoWide.style.flex = '';
+        storyPhotoWide.style.width = '';
+        return;
+      }
+      const referencePhoto = document.querySelector('.proc-ja-photo');
+      const wrap = storyPhotoWide.closest('.wrap');
+      if (!referencePhoto || !wrap) return;
+      const width = referencePhoto.getBoundingClientRect().right - wrap.getBoundingClientRect().left;
+      storyPhotoWide.style.flex = 'none';
+      storyPhotoWide.style.width = `${width}px`;
+    };
+    alignStoryPhotoWide();
+    window.addEventListener('load', alignStoryPhotoWide);
+    window.addEventListener('resize', alignStoryPhotoWide);
+  }
+
