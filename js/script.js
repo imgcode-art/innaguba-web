@@ -345,14 +345,17 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', alignStoryPhotoWide);
   }
 
-  // ---------- Homepage: align the "Nemusí..." paragraph block with the same grid line as
-  // "Nejen fotografie..." further down (both under the Dětský portrét work-card), so the page
-  // keeps one consistent left-edge instead of following whatever's directly above it. ----------
+  // ---------- Homepage: align the "Nemusí..." paragraph block (and the "Bojíte se..." title above
+  // it) with the same grid line as "Nejen fotografie..." further down (both under the Dětský
+  // portrét work-card), so the page keeps one consistent left-edge instead of following whatever's
+  // directly above it. ----------
   const reassureNarrow = document.querySelector('.reassure-narrow');
+  const reassureTitle = document.querySelector('.reassure-title');
   if (reassureNarrow) {
     const alignReassureNarrow = () => {
       if (window.innerWidth < 901) {
         reassureNarrow.style.marginLeft = '';
+        if (reassureTitle) reassureTitle.style.marginLeft = '';
         return;
       }
       const cards = document.querySelectorAll('.pg .pcard');
@@ -361,6 +364,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
       if (!referenceCard || !wrap) return;
       const offset = referenceCard.getBoundingClientRect().left - wrap.getBoundingClientRect().left;
       reassureNarrow.style.marginLeft = `${Math.max(offset, 0)}px`;
+      if (reassureTitle) reassureTitle.style.marginLeft = `${Math.max(offset, 0)}px`;
     };
     alignReassureNarrow();
     window.addEventListener('load', alignReassureNarrow);
