@@ -198,7 +198,14 @@ document.querySelectorAll('[data-row]').forEach(row => {
   document.querySelectorAll('.orbit-tile-inner video').forEach((video, i) => {
     const tile = video.closest('.orbit-tile-inner');
     video.addEventListener('playing', () => tile.classList.add('is-playing'), { once: true });
-    setTimeout(() => video.play().catch(() => {}), ORBIT_REVEAL_DELAYS_MS[i] ?? 7500);
+    // wait until the video actually has enough buffered data to play smoothly — with several
+    // videos competing for bandwidth right after page load, calling play() too early made the
+    // earliest tiles stall for a beat and visibly skip frames once data caught up
+    const tryPlay = () => video.play().catch(() => {});
+    setTimeout(() => {
+      if (video.readyState >= 3) tryPlay();
+      else video.addEventListener('canplay', tryPlay, { once: true });
+    }, ORBIT_REVEAL_DELAYS_MS[i] ?? 7500);
   });
 
   // ---------- Hero orbit — pinned while it collapses into a stack on scroll, unstacks when scrolling back ----------
