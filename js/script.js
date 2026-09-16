@@ -345,3 +345,25 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', alignStoryPhotoWide);
   }
 
+  // ---------- Homepage: align the "Nemusí..." paragraph block with the same grid line as
+  // "Nejen fotografie..." further down (both under the Dětský portrét work-card), so the page
+  // keeps one consistent left-edge instead of following whatever's directly above it. ----------
+  const reassureNarrow = document.querySelector('.reassure-narrow');
+  if (reassureNarrow) {
+    const alignReassureNarrow = () => {
+      if (window.innerWidth < 901) {
+        reassureNarrow.style.marginLeft = '';
+        return;
+      }
+      const cards = document.querySelectorAll('.pg .pcard');
+      const referenceCard = cards[1];
+      const wrap = reassureNarrow.closest('.wrap');
+      if (!referenceCard || !wrap) return;
+      const offset = referenceCard.getBoundingClientRect().left - wrap.getBoundingClientRect().left;
+      reassureNarrow.style.marginLeft = `${Math.max(offset, 0)}px`;
+    };
+    alignReassureNarrow();
+    window.addEventListener('load', alignReassureNarrow);
+    window.addEventListener('resize', alignReassureNarrow);
+  }
+
