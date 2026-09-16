@@ -4,6 +4,7 @@
     --ink-body: rgba(17,17,17,0.85);
     --paper: #F5F3EF;
     --red: #7A2C1E;
+    --wine: #7A1E3A;
     --line: rgba(17,17,17,0.14);
     --sans: 'Archivo', sans-serif;
     --max-w: 1400px;
@@ -42,6 +43,9 @@
   header { position:relative; z-index:20; padding: var(--space-3) 0; border-bottom:1px solid var(--line); background: var(--paper); }
   .nav { position:relative; display:flex; justify-content:space-between; align-items:center; }
   .logo { font-weight:700; font-size: var(--fs-body); letter-spacing:0.06em; }
+  .logo-group { display:flex; flex-direction:column; gap:3px; }
+  .logo-claim { font-size:11px; font-weight:400; letter-spacing:0.03em; color: var(--ink-body); }
+  .claim-heart { color: var(--wine); font-weight:600; }
   .nav-links { display:flex; gap: var(--space-4); font-size: var(--fs-body); font-weight:500; }
   .nav-links a { color: rgba(17,17,17,0.55); transition: color 0.2s ease; }
   .nav-links a:hover { color: var(--ink); }
