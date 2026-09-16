@@ -201,8 +201,7 @@
   @media (min-width:901px){ .reassure-title { white-space:nowrap; } }
   .reassure-lead { font-size: var(--fs-heading); font-weight:700; color: var(--ink-heading); margin-bottom: var(--space-4); }
   .reassure-lead:first-of-type { margin-bottom: var(--space-1); }
-  .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); margin-left:20px; max-width:calc(100% - 20px); }
-  @media (max-width:900px){ .reassure-body { margin-left:0; max-width:none; } }
+  .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); }
   .reassure-section .proof-teaser-link { margin-top:0; }
   .reassure-body p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
 
