@@ -101,9 +101,9 @@
   .orbit-tile-inner { position:absolute; inset:0; overflow:hidden; background: var(--ink); animation: orbit-counter-spin 90s linear infinite; }
   /* the poster attribute shows instantly (no Vimeo handshake), and a slow breathing zoom keeps it
      from reading as a frozen/stuck photo for the moment before the video itself starts playing */
-  .orbit-tile-inner video { width:100%; height:100%; object-fit:cover; filter: contrast(1.1); animation: hero-photo-breathe 18s ease-in-out infinite; }
-  /* breathing zoom (photo feel) until playback actually starts (.is-playing, toggled by the 'playing' event in script.js), then the breathing stops — the video's own motion carries it from there */
-  .orbit-tile-inner.is-playing video { animation: none; }
+  .orbit-tile-inner video { width:100%; height:100%; object-fit:cover; filter: contrast(1.1); animation: hero-photo-breathe 18s ease-in-out infinite; transition: transform .6s ease; }
+  /* breathing zoom (photo feel) until playback actually starts (.is-playing, toggled by the 'playing' event in script.js), then the breathing stops and eases back to scale(1) instead of snapping — the video's own motion carries it from there */
+  .orbit-tile-inner.is-playing video { animation: none; transform: scale(1); }
   @keyframes hero-photo-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
   .ot-1 { --ox:74%; --oy:50%;   --tx:51%; --ty:48%; }
   .ot-2 { --ox:62%; --oy:70.8%; --tx:49%; --ty:52%; }
@@ -121,7 +121,7 @@
   .hc-orbit-wrap.is-stacked .orbit-ring, .hc-orbit-wrap.is-stacked .orbit-tile-inner { animation-play-state: paused; }
   @keyframes orbit-spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
   @keyframes orbit-counter-spin { from { transform:rotate(0deg) scaleX(0.606); } to { transform:rotate(-360deg) scaleX(0.606); } }
-  .hc-center { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:3; width:100%; display:flex; flex-direction:column; align-items:center; opacity: var(--claim-opacity, 1); transition: opacity .2s linear; }
+  .hc-center { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:3; width:100%; display:flex; flex-direction:column; align-items:center; opacity: var(--claim-opacity, 0); transition: opacity .2s linear; }
   .hc-eyebrow { display:block; width:100%; text-align:center; background: var(--paper); padding: var(--space-3) 0; font-size: var(--fs-display); font-weight:700; letter-spacing:-0.025em; text-transform:none; color: var(--ink-heading); }
   .hc-center-video { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:44%; aspect-ratio:800/340; }
   .hc-center-video .orbit-tile-inner { animation:none; }
