@@ -300,3 +300,25 @@ document.querySelectorAll('[data-row]').forEach(row => {
     setTimeout(snapToTarget, 600);
   }
 
+  // ---------- Ceník: align "V každém balíčku..." with the photo in the card above it (desktop
+  // only) — measured directly against the real rendered photo position rather than mirrored via
+  // CSS, since subtle flex differences made a pure-CSS mirror drift out of sync. ----------
+  const cenikIncludedBody = document.querySelector('.cenik-included-body');
+  if (cenikIncludedBody) {
+    const alignCenikIncluded = () => {
+      if (window.innerWidth < 901) {
+        cenikIncludedBody.style.marginLeft = '';
+        return;
+      }
+      const photos = document.querySelectorAll('.pb-featured .pb-photo');
+      const referencePhoto = photos[photos.length - 1];
+      const wrap = cenikIncludedBody.closest('.wrap');
+      if (!referencePhoto || !wrap) return;
+      const offset = referencePhoto.getBoundingClientRect().left - wrap.getBoundingClientRect().left;
+      cenikIncludedBody.style.marginLeft = `${Math.max(offset, 0)}px`;
+    };
+    alignCenikIncluded();
+    window.addEventListener('load', alignCenikIncluded);
+    window.addEventListener('resize', alignCenikIncluded);
+  }
+
