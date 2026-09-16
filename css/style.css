@@ -368,6 +368,7 @@
   @media (max-width:600px){ .cf-row{flex-direction:column;} .cf-submit{align-self:stretch; text-align:center;} .cf-booking{width:100%; max-width:480px; text-align:center;} .cf-row input, .contact-form textarea { font-size:16px; } }
   .footer-cols { display:flex; justify-content:space-between; align-items:flex-start; padding: var(--space-4) 0; border-top:1px solid var(--line); gap: var(--space-4); }
   .footer-col-group { display:flex; gap: var(--space-6); flex-wrap:wrap; }
+  @media (min-width:801px){ .footer-col-group { display:contents; } }
   .footer-col h5 { font-size: var(--fs-body); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; opacity:0.45; margin-bottom: var(--space-2); }
   .footer-col a, .footer-col p { display:block; font-size: var(--fs-body); font-weight:500; margin-bottom: var(--space-1); }
   @media (max-width:500px){ .footer-col-group { flex-direction:column; gap: var(--space-3); } }
@@ -423,7 +424,7 @@
   .cenik-hero { padding: var(--space-10) 0 50px; text-align:left; }
   @media (max-width:900px){ .cenik-hero { padding-top: var(--space-8); } }
   .cenik-label { font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2); }
-  .cenik-h1 { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
+  .cenik-h1 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
   @media (min-width:901px){ .cenik-h1 { white-space:nowrap; } }
   .cenik-hero-narrow { max-width:640px; margin:0; }
   .cenik-hero-narrow p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-3); }
