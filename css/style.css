@@ -186,11 +186,13 @@
   .hero-cta-row .proof-teaser-link { margin-top:0; align-self:center; }
   .proof-photo-2 { display:none; }
   @media (min-width:901px){
-    .proof-block { display:flex; align-items:center; gap: var(--space-8); }
-    .proof-photo { max-width:none; flex:1 1 48%; margin-bottom:0; }
-    .proof-stats-col { flex:0 1 auto; display:flex; flex-direction:column; align-items:flex-start; }
+    .proof-block { display:flex; align-items:center; gap: var(--space-8); position:relative; }
+    .proof-photo { max-width:none; flex:1 1 50%; margin-bottom:0; }
+    .proof-stats-col { flex:1 1 50%; display:flex; flex-direction:column; align-items:flex-start; }
     .proof-stats { max-width:none; width:fit-content; }
-    .proof-photo-2 { display:block; flex:1 1 auto; width:240px; aspect-ratio:2/3; overflow:hidden; background: var(--ink); align-self:flex-end; }
+    /* left is set by JS (script.js) so the gap to the stats text matches the gap on the other
+       side of the stats text exactly; right:0 keeps it flush with the row's right edge */
+    .proof-photo-2 { display:block; position:absolute; right:0; bottom:0; aspect-ratio:2/3; overflow:hidden; background: var(--ink); }
     .proof-photo-2 img { width:100%; height:100%; object-fit:cover; }
   }
 
