@@ -188,9 +188,9 @@
   @media (min-width:901px){
     .proof-block { display:flex; align-items:center; gap: var(--space-8); }
     .proof-photo { max-width:none; flex:1 1 48%; margin-bottom:0; }
-    .proof-stats-col { flex:1 1 34%; display:flex; flex-direction:column; align-items:flex-start; }
+    .proof-stats-col { flex:0 1 auto; display:flex; flex-direction:column; align-items:flex-start; }
     .proof-stats { max-width:none; width:fit-content; }
-    .proof-photo-2 { display:block; flex:0 0 160px; width:160px; aspect-ratio:2/3; overflow:hidden; background: var(--ink); align-self:flex-end; }
+    .proof-photo-2 { display:block; flex:1 1 auto; width:240px; aspect-ratio:2/3; overflow:hidden; background: var(--ink); align-self:flex-end; }
     .proof-photo-2 img { width:100%; height:100%; object-fit:cover; }
   }
 
