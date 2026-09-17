@@ -173,10 +173,13 @@
   .section-label .side { max-width:320px; font-size: var(--fs-body); line-height:1.5; text-align:right; font-weight:400; }
   .section-label .gallery-link { display:inline-block; font-size: var(--fs-body); white-space:nowrap; }
 
-  /* ---------- Proof block (photo + stats, between the hero quote and "Tři cesty") ---------- */
+  /* ---------- Proof block (two equal-weight photos of the same family, years apart, with
+     stats between them - between the hero quote and "Tři cesty") ---------- */
   .proof-block { padding: var(--space-8) 0 50px; }
-  .proof-photo { width:100%; aspect-ratio:4/3; overflow:hidden; background: var(--ink); margin-bottom: var(--space-4); }
+  .proof-photo-col { margin-bottom: var(--space-4); }
+  .proof-photo { width:100%; aspect-ratio:3/2; overflow:hidden; background: var(--ink); }
   .proof-photo img { width:100%; height:100%; object-fit:cover; }
+  .proof-photo-caption { margin-top: var(--space-2); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:center; }
   .proof-stats { list-style:none; max-width:460px; }
   .proof-stats li { display:flex; flex-direction:column; gap:4px; }
   .proof-stats li strong { font-size: var(--fs-display); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); line-height:1.15; }
@@ -184,16 +187,11 @@
   .proof-stats li + li { margin-top: var(--space-3); }
   .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
   .hero-cta-row .proof-teaser-link { margin-top:0; align-self:center; }
-  .proof-photo-2 { display:none; }
   @media (min-width:901px){
-    .proof-block { display:flex; align-items:center; gap: var(--space-8); position:relative; }
-    .proof-photo { max-width:none; flex:1 1 50%; margin-bottom:0; }
-    .proof-stats-col { flex:1 1 50%; display:flex; flex-direction:column; align-items:flex-start; }
-    .proof-stats { max-width:none; width:fit-content; }
-    /* left is set by JS (script.js) so the gap to the stats text matches the gap on the other
-       side of the stats text exactly; right:0 keeps it flush with the row's right edge */
-    .proof-photo-2 { display:block; position:absolute; right:0; bottom:0; aspect-ratio:2/3; overflow:hidden; background: var(--ink); }
-    .proof-photo-2 img { width:100%; height:100%; object-fit:cover; }
+    .proof-block { display:flex; align-items:flex-start; justify-content:space-between; gap: var(--space-6); }
+    .proof-photo-col { max-width:none; flex:0 1 42%; margin-bottom:0; }
+    .proof-stats-col { flex:0 0 auto; display:flex; flex-direction:column; align-items:center; padding-top: var(--space-4); }
+    .proof-stats { max-width:none; width:fit-content; text-align:left; }
   }
 
   /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */

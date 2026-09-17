@@ -374,33 +374,4 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', alignReassureNarrow);
   }
 
-  // ---------- Homepage: position the second proof-block photo so the gap between it and the
-  // stats text matches the gap between the stats text and the photo on the left — without
-  // disturbing the 50/50 photo/stats split (that split is what keeps this section's left/right
-  // edges lined up with the "Prohlédnout galerii" / "Chci focení" buttons above it). ----------
-  const proofPhoto2 = document.querySelector('.proof-photo-2');
-  if (proofPhoto2) {
-    const alignProofPhoto2 = () => {
-      if (window.innerWidth < 901) {
-        proofPhoto2.style.left = '';
-        proofPhoto2.style.bottom = '';
-        return;
-      }
-      const photo = document.querySelector('.proof-photo');
-      const statsList = document.querySelector('.proof-stats');
-      const block = proofPhoto2.closest('.proof-block');
-      if (!photo || !statsList || !block) return;
-      const photoRect = photo.getBoundingClientRect();
-      const statsRect = statsList.getBoundingClientRect();
-      const blockRect = block.getBoundingClientRect();
-      const gap = statsRect.left - photoRect.right;
-      proofPhoto2.style.left = `${statsRect.right - blockRect.left + gap}px`;
-      // .proof-block has its own bottom padding, so bottom:0 would sit below the photo's edge —
-      // measure the actual offset instead of hardcoding the padding value
-      proofPhoto2.style.bottom = `${blockRect.bottom - photoRect.bottom}px`;
-    };
-    alignProofPhoto2();
-    window.addEventListener('load', alignProofPhoto2);
-    window.addEventListener('resize', alignProofPhoto2);
-  }
 
