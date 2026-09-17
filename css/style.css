@@ -318,7 +318,9 @@
   .refs-grid + .closing { padding-top: 150px; }
   .price-teaser + .closing { padding-top: 60px; }
   .my-story + .closing { padding-top: 0; }
-  .cenik-included + .closing { padding-top: var(--space-10); }
+  .cenik-included + .closing { padding-top: 0; }
+  .portfolio-grid + .closing { padding-top: 0; }
+  .contact-info + .closing { padding-top: 0; }
   .closing .top { text-align:left; }
   @media (min-width:901px){ .closing-secondary-link { display:block; width:fit-content; margin:var(--space-4) auto 0; } }
   .closing-footer { padding: 0 0 var(--space-5); }
