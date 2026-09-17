@@ -352,9 +352,9 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', alignStoryPhotoWide);
   }
 
-  // ---------- Homepage: align the "Nemusí..." paragraph block with the same grid line as
-  // "Nejen fotografie..." further down (both under the Dětský portrét work-card), so the page
-  // keeps one consistent left-edge instead of following whatever's directly above it. ----------
+  // ---------- Homepage: align the "Nemusí..." paragraph block to start where the left photo
+  // of the proof-block section above ends (its right edge), so the page keeps one consistent
+  // left-edge instead of following whatever's directly above it. ----------
   const reassureNarrow = document.querySelector('.reassure-narrow');
   if (reassureNarrow) {
     const alignReassureNarrow = () => {
@@ -362,11 +362,10 @@ document.querySelectorAll('[data-row]').forEach(row => {
         reassureNarrow.style.marginLeft = '';
         return;
       }
-      const cards = document.querySelectorAll('.pg .pcard');
-      const referenceCard = cards[1];
+      const referencePhoto = document.querySelector('.proof-photo-col .proof-photo');
       const wrap = reassureNarrow.closest('.wrap');
-      if (!referenceCard || !wrap) return;
-      const offset = referenceCard.getBoundingClientRect().left - wrap.getBoundingClientRect().left;
+      if (!referencePhoto || !wrap) return;
+      const offset = referencePhoto.getBoundingClientRect().right - wrap.getBoundingClientRect().left;
       reassureNarrow.style.marginLeft = `${Math.max(offset, 0)}px`;
     };
     alignReassureNarrow();
@@ -374,4 +373,35 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', alignReassureNarrow);
   }
 
+  // ---------- Homepage: align the hero-cta-row buttons with the proof-block photos below —
+  // "Prohlédnout galerii" starts where the left photo ends, "Chci focení" ends where the right
+  // photo begins — so the buttons sit inside the same vertical channel as the gap between
+  // the two photos. Uses transform (not margin) because margin-left on a justify-self:end grid
+  // item just grows that 1fr track by the same amount and visually cancels itself out. ----------
+  const heroCtaRow = document.querySelector('.hero-cta-row');
+  if (heroCtaRow) {
+    const galleryLink = heroCtaRow.querySelector('.proof-teaser-link');
+    const ctaBtn = heroCtaRow.querySelector('.hero-cta-primary');
+    const alignHeroCtaRow = () => {
+      if (window.innerWidth < 901) {
+        if (galleryLink) galleryLink.style.transform = '';
+        if (ctaBtn) ctaBtn.style.transform = '';
+        return;
+      }
+      const photoLeft = document.querySelector('.proof-photo-col .proof-photo');
+      const photoRight = document.querySelector('.proof-photo-now');
+      if (!galleryLink || !ctaBtn || !photoLeft || !photoRight) return;
+      // reset first so repeated calls (resize) measure from the natural grid position,
+      // not from a transform already applied by a previous run
+      galleryLink.style.transform = 'none';
+      ctaBtn.style.transform = 'none';
+      const linkDelta = photoLeft.getBoundingClientRect().right - galleryLink.getBoundingClientRect().left;
+      const btnDelta = photoRight.getBoundingClientRect().left - ctaBtn.getBoundingClientRect().right;
+      galleryLink.style.transform = `translateX(${linkDelta}px)`;
+      ctaBtn.style.transform = `translateX(${btnDelta}px)`;
+    };
+    alignHeroCtaRow();
+    window.addEventListener('load', alignHeroCtaRow);
+    window.addEventListener('resize', alignHeroCtaRow);
+  }
 

@@ -188,14 +188,15 @@
   .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
   .hero-cta-row .proof-teaser-link { margin-top:0; align-self:center; }
   @media (min-width:901px){
-    .proof-block { display:flex; align-items:flex-start; justify-content:space-between; gap: var(--space-6); }
+    .proof-block { display:flex; align-items:center; justify-content:space-between; gap: var(--space-6); }
     .proof-photo-col { max-width:none; flex:0 1 42%; margin-bottom:0; }
-    .proof-stats-col { flex:0 0 auto; display:flex; flex-direction:column; align-items:center; padding-top: var(--space-4); }
+    .proof-stats-col { flex:0 0 auto; display:flex; flex-direction:column; align-items:center; }
     .proof-stats { max-width:none; width:fit-content; text-align:left; }
   }
 
   /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */
   .reassure-section { padding: var(--space-10) 0 50px; text-align:center; }
+  .proof-block + .reassure-section { padding-top: 0; }
   @media (max-width:900px){ .reassure-section { padding-top: var(--space-6); } }
   .reassure-narrow { max-width:640px; margin:0 auto; text-align:left; }
   .reassure-photo { width:min(50%, 230px); aspect-ratio:2/3; overflow:hidden; margin: 0 0 var(--space-4) auto; }
