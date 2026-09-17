@@ -175,7 +175,7 @@
 
   /* ---------- Proof block (photo + stats, between the hero quote and "Tři cesty") ---------- */
   .proof-block { padding: var(--space-8) 0 50px; }
-  .proof-photo { width:100%; aspect-ratio:4/3; overflow:hidden; background: var(--ink); margin-bottom: var(--space-4); border-radius:6px; }
+  .proof-photo { width:100%; aspect-ratio:4/3; overflow:hidden; background: var(--ink); margin-bottom: var(--space-4); }
   .proof-photo img { width:100%; height:100%; object-fit:cover; }
   .proof-stats { list-style:none; max-width:460px; }
   .proof-stats li { display:flex; flex-direction:column; gap:4px; }
@@ -192,7 +192,7 @@
     .proof-stats { max-width:none; width:fit-content; }
     /* left is set by JS (script.js) so the gap to the stats text matches the gap on the other
        side of the stats text exactly; right:0 keeps it flush with the row's right edge */
-    .proof-photo-2 { display:block; position:absolute; right:0; bottom:0; aspect-ratio:2/3; overflow:hidden; background: var(--ink); border-radius:6px; }
+    .proof-photo-2 { display:block; position:absolute; right:0; bottom:0; aspect-ratio:2/3; overflow:hidden; background: var(--ink); }
     .proof-photo-2 img { width:100%; height:100%; object-fit:cover; }
   }
 
@@ -563,7 +563,7 @@
   @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0 0 var(--space-9);} .contact-info-photo{flex-basis:auto; width:100%; height:auto; aspect-ratio:3234/1605;} .contact-info-text{max-width:none;} }
 
   .about-thanks-cta { display:flex; align-items:center; justify-content:center; gap: var(--space-4); flex-wrap:wrap; }
-  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); border-radius:6px; padding:16px 32px; transition: background .2s ease, color .2s ease; }
+  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:16px 32px; transition: background .2s ease, color .2s ease; }
   .about-cta-btn:hover { background: var(--ink); color:#fff; }
 
   /* ---------- Legal pages (GDPR / obchodní podmínky) ---------- */
