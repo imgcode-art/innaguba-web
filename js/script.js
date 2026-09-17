@@ -194,7 +194,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // just grayscale-filtered-but-secretly-playing) until its own scheduled moment, when it starts
   // playing for the first time — so the reveal is a real freeze-to-motion cut, not a color fade
   // over footage that was already running underneath. ----------
-  const ORBIT_REVEAL_DELAYS_MS = [300, 2500, 3500, 4500, 5500, 6500, 7500];
+  const ORBIT_REVEAL_DELAYS_MS = [300, 2000, 3500, 4500, 5500, 6500, 7500];
   document.querySelectorAll('.orbit-tile-inner video').forEach((video, i) => {
     const tile = video.closest('.orbit-tile-inner');
     video.addEventListener('playing', () => tile.classList.add('is-playing'), { once: true });
