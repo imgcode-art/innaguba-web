@@ -221,9 +221,10 @@
   @media (max-width:900px){ .memory-section { padding-top: var(--space-6); } }
   .memory-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
   @media (min-width:901px){ .memory-title { white-space:nowrap; } }
-  .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
+  .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); row-gap: var(--space-3); }
   .memory-body-align .memory-body, .memory-body-align .memory-punch { grid-column: 2 / -1; }
   .memory-body p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-3); text-align:left; }
+  .memory-body p:last-child { margin-bottom:0; }
   .memory-punch { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-heading); text-align:left; }
   @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-body, .memory-body-align .memory-punch { grid-column:1; } }
 
