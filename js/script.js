@@ -405,9 +405,9 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', alignHeroCtaRow);
   }
 
-  // ---------- Homepage: align the "Když se z malého světa..." line under the proof-block
-  // photos to start where the left photo ends (its right edge), same grid line as the
-  // "Nemusí..." paragraph and the hero-cta-row buttons above. ----------
+  // ---------- Homepage: align the "Příběh, když se z malého světa..." line under the
+  // proof-block photos to start at the same left edge as the "Děti rostou..." hero-lead
+  // paragraph above it. ----------
   const proofQuote = document.querySelector('.proof-quote');
   if (proofQuote) {
     const alignProofQuote = () => {
@@ -415,10 +415,10 @@ document.querySelectorAll('[data-row]').forEach(row => {
         proofQuote.style.marginLeft = '';
         return;
       }
-      const photoLeft = document.querySelector('.proof-photo-col .proof-photo');
+      const heroLead = document.querySelector('.hero-lead');
       const wrap = proofQuote.closest('.wrap');
-      if (!photoLeft || !wrap) return;
-      const offset = photoLeft.getBoundingClientRect().right - wrap.getBoundingClientRect().left;
+      if (!heroLead || !wrap) return;
+      const offset = heroLead.getBoundingClientRect().left - wrap.getBoundingClientRect().left;
       proofQuote.style.marginLeft = `${Math.max(offset, 0)}px`;
     };
     alignProofQuote();
