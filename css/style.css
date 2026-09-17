@@ -277,7 +277,7 @@
   .google-reviews .es-review-content-text-container,
   .google-reviews .es-text-shortener { text-align:left !important; font-family: var(--sans) !important; font-size: var(--fs-body) !important; font-style: normal !important; font-weight:400 !important; line-height:1.7 !important; color: var(--ink-body) !important; }
   .google-reviews .es-text-shortener-container { text-align:left !important; justify-content:flex-start !important; }
-  .google-reviews .es-text-shortener-control { font-family: var(--sans) !important; font-size: var(--fs-body) !important; font-weight:400 !important; font-style:normal !important; color: var(--ink) !important; text-decoration:underline; text-underline-offset:2px; }
+  .google-reviews .es-text-shortener-control { font-family: var(--sans) !important; font-size: var(--fs-body) !important; font-weight:400 !important; font-style:normal !important; color: var(--ink-body) !important; text-decoration:underline; text-underline-offset:2px; }
   .google-reviews .es-review-author-name { font-size: var(--fs-body) !important; font-weight:400 !important; letter-spacing:normal !important; text-transform:none !important; color: rgba(17,17,17,0.4) !important; }
   .google-reviews .es-review-info-date { font-size: var(--fs-body) !important; color: rgba(17,17,17,0.35) !important; }
   .google-reviews .es-review-author-block-container img { filter: grayscale(1) !important; border-radius:50% !important; }
@@ -391,7 +391,7 @@
   .footer-col-group { display:flex; gap: var(--space-6); flex-wrap:wrap; }
   @media (min-width:801px){ .footer-col-group { display:contents; } }
   .footer-col h5 { font-size: var(--fs-body); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; opacity:0.45; margin-bottom: var(--space-2); }
-  .footer-col a, .footer-col p { display:block; font-size: var(--fs-body); font-weight:500; margin-bottom: var(--space-1); }
+  .footer-col a, .footer-col p { display:block; font-size: var(--fs-body); font-weight:400; color: var(--ink-body); margin-bottom: var(--space-1); }
   @media (max-width:500px){ .footer-col-group { flex-direction:column; gap: var(--space-3); } }
   .footer-bottom { display:flex; justify-content:space-between; padding-top: var(--space-2); border-top:1px solid var(--line); font-size: var(--fs-body); opacity:0.5; flex-wrap:wrap; gap: var(--space-1); }
   .footer-legal { display:flex; gap: var(--space-3); flex-wrap:wrap; }
