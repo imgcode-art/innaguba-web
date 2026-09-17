@@ -184,11 +184,14 @@
   .proof-stats li + li { margin-top: var(--space-3); }
   .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
   .hero-cta-row .proof-teaser-link { margin-top:0; align-self:center; }
+  .proof-photo-2 { display:none; }
   @media (min-width:901px){
     .proof-block { display:flex; align-items:center; gap: var(--space-8); }
-    .proof-photo { max-width:none; flex:1 1 50%; margin-bottom:0; }
-    .proof-stats-col { flex:1 1 50%; display:flex; flex-direction:column; align-items:flex-start; }
+    .proof-photo { max-width:none; flex:1 1 46%; margin-bottom:0; }
+    .proof-stats-col { flex:1 1 28%; display:flex; flex-direction:column; align-items:flex-start; }
     .proof-stats { max-width:none; width:fit-content; }
+    .proof-photo-2 { display:block; flex:0 1 20%; aspect-ratio:2/3; overflow:hidden; background: var(--ink); align-self:flex-end; }
+    .proof-photo-2 img { width:100%; height:100%; object-fit:cover; }
   }
 
   /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */
@@ -585,6 +588,7 @@
 
   /* ---------- Sitewide photo hover zoom (homepage + other subpages, desktop only) ---------- */
   .proof-photo img,
+  .proof-photo-2 img,
   .reassure-photo img,
   .rg .card .thumb img,
   .pb-photo img,
@@ -597,6 +601,7 @@
   }
   @media (hover:hover) and (pointer:fine) {
     .proof-photo:hover img,
+    .proof-photo-2:hover img,
     .reassure-photo:hover img,
     .rg .card .thumb:hover img,
     .pb-photo:hover img,
