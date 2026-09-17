@@ -187,7 +187,8 @@
   .proof-stats li + li { margin-top: var(--space-3); }
   .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
   .hero-cta-row .proof-teaser-link { margin-top:0; align-self:center; }
-  .proof-quote { max-width:640px; margin: var(--space-6) auto 0; font-style:italic; font-size: var(--fs-heading); font-weight:500; line-height:1.5; color: var(--ink-heading); text-align:center; }
+  .proof-quote { max-width:640px; margin: var(--space-6) auto 0; font-size: var(--fs-heading); font-weight:500; line-height:1.5; color: var(--ink-heading); text-align:center; }
+  @media (min-width:901px){ .proof-quote { text-align:left; margin-left:0; margin-right:0; } }
   @media (min-width:901px){
     .proof-block-row { display:flex; align-items:center; justify-content:space-between; gap: var(--space-6); }
     .proof-photo-col { max-width:none; flex:0 1 42%; margin-bottom:0; }

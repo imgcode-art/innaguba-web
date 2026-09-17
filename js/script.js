@@ -405,3 +405,24 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', alignHeroCtaRow);
   }
 
+  // ---------- Homepage: align the "Když se z malého světa..." line under the proof-block
+  // photos to start where the left photo ends (its right edge), same grid line as the
+  // "Nemusí..." paragraph and the hero-cta-row buttons above. ----------
+  const proofQuote = document.querySelector('.proof-quote');
+  if (proofQuote) {
+    const alignProofQuote = () => {
+      if (window.innerWidth < 901) {
+        proofQuote.style.marginLeft = '';
+        return;
+      }
+      const photoLeft = document.querySelector('.proof-photo-col .proof-photo');
+      const wrap = proofQuote.closest('.wrap');
+      if (!photoLeft || !wrap) return;
+      const offset = photoLeft.getBoundingClientRect().right - wrap.getBoundingClientRect().left;
+      proofQuote.style.marginLeft = `${Math.max(offset, 0)}px`;
+    };
+    alignProofQuote();
+    window.addEventListener('load', alignProofQuote);
+    window.addEventListener('resize', alignProofQuote);
+  }
+
