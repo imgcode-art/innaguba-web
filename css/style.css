@@ -359,7 +359,7 @@
   .why-me-card p { max-width:440px; font-size: var(--fs-body); line-height:1.5; color: var(--ink-body); }
   @media (max-width:900px){
     .why-me-layout { grid-template-columns:1fr; align-items:start; gap: var(--space-6); }
-    .why-photo { width:min(100%, 460px); margin:0 auto; }
+    .why-photo { width:min(100%, 460px); margin:0 auto; order:-1; }
   }
 
   /* ---------- Contact form ---------- */
