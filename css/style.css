@@ -329,7 +329,7 @@
   .refs-grid + .closing { padding-top: 150px; }
   .price-teaser + .closing { padding-top: 60px; }
   .my-story + .closing { padding-top: 0; }
-  .cenik-included + .closing { padding-top: 0; }
+  .cenik-included + .closing { padding-top: var(--space-4); }
   .portfolio-grid + .closing { padding-top: 0; }
   .contact-info + .closing { padding-top: 0; }
   .closing .top { text-align:left; }
