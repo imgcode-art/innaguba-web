@@ -175,7 +175,8 @@
 
   /* ---------- Proof block (two equal-weight photos of the same family, years apart, with
      stats between them - between the hero quote and "Tři cesty") ---------- */
-  .proof-block { padding: var(--space-8) 0 50px; }
+  .proof-block { padding: var(--space-10) 0 0; }
+  @media (max-width:900px){ .proof-block { padding-top: var(--space-8); } }
   /* mobile/tablet: proofs first, then both photos, then the quote — order:-1 pulls the
      stats block ahead of the two photo-cols regardless of their HTML order (which stays
      photo/stats/photo, since that's what the desktop row layout needs) */
@@ -208,8 +209,8 @@
   }
 
   /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */
-  .reassure-section { padding: var(--space-10) 0 50px; text-align:center; }
-  @media (max-width:900px){ .reassure-section { padding-top: var(--space-6); } }
+  .reassure-section { padding: var(--space-10) 0 0; text-align:center; }
+  @media (max-width:900px){ .reassure-section { padding-top: var(--space-8); } }
   .reassure-narrow { max-width:640px; margin:0 auto; text-align:left; }
   .reassure-photo { width:min(50%, 230px); aspect-ratio:2/3; overflow:hidden; margin: 0 0 var(--space-4) auto; }
   .reassure-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
@@ -223,13 +224,13 @@
 
   /* ---------- Work cards ("Jak můžeme zachytit vaši rodinu?") — reuses .pg/.pcard from the
      portfolio page's gallery grid, plus a description and link line each card didn't need there ---------- */
-  .work-cards { padding: 0 0 50px; }
+  .work-cards { padding: 0; }
   .pg .pcard p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-top: var(--space-1); }
   .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
 
   /* ---------- Memory section ("Nejen fotografie. Vzpomínku na to, jaké to bylo.") ---------- */
-  .memory-section { padding: var(--space-10) 0 50px; text-align:center; }
-  @media (max-width:900px){ .memory-section { padding-top: var(--space-6); } }
+  .memory-section { padding: var(--space-10) 0 0; text-align:center; }
+  @media (max-width:900px){ .memory-section { padding-top: var(--space-8); } }
   .memory-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
   @media (min-width:901px){ .memory-title { white-space:nowrap; } }
   .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); row-gap: var(--space-3); }
@@ -240,7 +241,7 @@
   @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-body, .memory-body-align .memory-punch { grid-column:1; } }
 
   /* ---------- Steps (jak focení probíhá) ---------- */
-  .steps-section { padding: 0 0 50px; }
+  .steps-section { padding: 0; }
   .steps-list { display:flex; justify-content:space-between; }
   .step { flex:0 0 360px; }
   .step-num { display:block; font-size: var(--fs-body); font-weight:700; color: rgba(17,17,17,0.35); margin-bottom: var(--space-2); }
@@ -250,15 +251,15 @@
 
   /* ---------- Full photo banner ---------- */
   .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
-  .banner-video { margin-bottom:50px; }
-  .faq-section + .banner-video, .refs-grid + .banner-video { margin-top:50px; }
+  .banner-video { margin-top: var(--space-10); margin-bottom:0; }
+  @media (max-width:900px){ .banner-video { margin-top: var(--space-8); } }
   .banner-photo { margin-top: 50px; margin-bottom: 50px; }
   .banner-photo img { width:100%; height:100%; object-fit:cover; object-position:70% bottom; }
   @media (min-width:901px){ .banner-photo { height:65vh; min-height:420px; } }
 
   /* ---------- News / reference grid ---------- */
   .refs-grid { padding: 0; }
-  .google-reviews { padding: 0 0 var(--space-10); }
+  .google-reviews { padding: 0; }
 
   /* ---------- Google reviews (Elfsight) style override ---------- */
   .google-reviews, .google-reviews * { font-family: var(--sans) !important; }
@@ -300,8 +301,7 @@
   @media (max-width:900px){ .rg{grid-template-columns:1fr; gap: var(--space-8); max-width:400px; margin:0 auto;} }
 
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
-  .section-label:has(+ .faq-section) { padding-top: 130px; padding-bottom: var(--space-1); text-align:center; }
-  @media (max-width:900px){ .section-label:has(+ .faq-section) { padding-top: var(--space-8); } }
+  .section-label:has(+ .faq-section) { text-align:center; }
   .section-label:has(+ .faq-section) .wrap { justify-content:center; }
   .section-label:has(+ .faq-section) h2 { max-width:760px; width:100%; margin:0 auto; text-align:left; }
   .faq-section { padding: 0; text-align:center; }
@@ -313,11 +313,9 @@
   .faq-answer-inner { overflow:hidden; }
   .faq-item.open .faq-answer { grid-template-rows:1fr; }
   .faq-answer p { max-width:620px; padding: 0 0 var(--space-4); font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
-  .faq-section + .section-label { padding-top: 150px; }
-  @media (max-width:900px){ .faq-section + .section-label { padding-top: var(--space-8); } }
 
   /* ---------- Price teaser ("Kolik taková vzpomínka stojí?") ---------- */
-  .price-teaser { padding: 0 0 var(--space-9); text-align:center; }
+  .price-teaser { padding: 0; text-align:center; }
   .price-teaser-row { display:flex; justify-content:center; gap: var(--space-7); flex-wrap:wrap; margin-bottom: var(--space-4); }
   .price-teaser-item h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-1); }
   .price-teaser-item p { font-size: var(--fs-body); color: var(--ink-body); }
@@ -325,16 +323,12 @@
   @media (max-width:600px){ .price-teaser-row { flex-direction:column; gap: var(--space-4); } }
 
   /* ---------- Closing CTA ---------- */
-  .closing { padding: var(--space-7) 0 50px; }
-  .refs-grid + .closing { padding-top: 150px; }
-  .price-teaser + .closing { padding-top: 60px; }
-  .my-story + .closing { padding-top: 0; }
-  .cenik-included + .closing { padding-top: var(--space-4); }
-  .portfolio-grid + .closing { padding-top: 0; }
-  .contact-info + .closing { padding-top: 0; }
+  .closing { padding: var(--space-10) 0 0; }
+  @media (max-width:900px){ .closing { padding-top: var(--space-8); } }
   .closing .top { text-align:left; }
   @media (min-width:901px){ .closing-secondary-link { display:block; width:fit-content; margin:var(--space-4) auto 0; } }
-  .closing-footer { padding: 0 0 var(--space-5); }
+  .closing-footer { padding: var(--space-10) 0 var(--space-5); }
+  @media (max-width:900px){ .closing-footer { padding-top: var(--space-8); } }
   .closing-title { font-size: var(--fs-display); font-weight:700; line-height:0.9; letter-spacing:-0.025em; color: var(--ink-heading); padding-bottom: var(--space-4); border-bottom:1px solid var(--line); }
   .closing-note { font-size: var(--fs-body); color: var(--ink-body); margin: var(--space-4) 0 0; }
   .closing-lead { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); margin: var(--space-4) 0 0; }
@@ -346,7 +340,7 @@
   /* ---------- Why me (o-mne.html) — two columns stretched to the same height (the right one,
      with its big photo + two cards, is naturally taller); the left column's photo grows to fill
      whatever space is left under its two short cards, so both columns end on the same line. ---------- */
-  .why-me-layout { padding: 0 0 var(--space-9); display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items:stretch; }
+  .why-me-layout { padding: 0; display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items:stretch; }
   .why-col-left, .why-col-right { display:flex; flex-direction:column; gap: var(--space-6); }
   .why-left-top { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
   .why-right-bottom { display:flex; flex-direction:column; gap: var(--space-4); }
@@ -401,7 +395,7 @@
   [data-reveal].in { opacity:1; transform:translateY(0); }
 
   /* ---------- Portfolio grid ---------- */
-  .portfolio-grid { padding: 0 0 var(--space-10); }
+  .portfolio-grid { padding: 0; }
   .pg { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
   .pg .pcard { display:block; }
   .pg .pcard .thumb { aspect-ratio:3/4; overflow:hidden; margin-bottom: var(--space-3); }
@@ -417,7 +411,7 @@
   .gallery-soon p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-3); }
 
   /* ---------- Photo gallery (masonry) ---------- */
-  .photo-gallery { padding: 0 0 var(--space-11); }
+  .photo-gallery { padding: 0; }
   .pgg-series { margin-bottom: var(--space-10); }
   .pgg-series:last-of-type { margin-bottom: var(--space-6); }
   .pgg { columns:3; column-gap: var(--space-2); }
@@ -442,7 +436,7 @@
   .video-gallery .back, .photo-gallery .back { display:block; margin-top: var(--space-6); }
 
   /* ---------- Pricing (Ceník) ---------- */
-  .cenik-hero { padding: var(--space-10) 0 50px; text-align:left; }
+  .cenik-hero { padding: var(--space-10) 0 0; text-align:left; }
   @media (max-width:900px){ .cenik-hero { padding-top: var(--space-8); } }
   .cenik-label { font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2); }
   .cenik-h1 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
@@ -455,7 +449,7 @@
   .cenik-intro-lead { font-size: var(--fs-heading); font-weight:700; color: var(--ink-heading); margin-bottom: var(--space-2); }
   .cenik-intro p:not(.cenik-intro-lead) { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
 
-  .pricing-grid { padding: 0 0 50px; }
+  .pricing-grid { padding: 0; }
   .price-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-9) var(--space-7); }
   .price-bento-1 { grid-template-columns: 1fr; }
   .price-bento-1 .pb-card { border:1px solid var(--line); padding:0; }
@@ -488,7 +482,8 @@
   @media (min-width:901px){ .pb-recommended { transform: scale(1.03); } }
   @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; aspect-ratio:4/5;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; flex:none; max-width:none; min-height:auto; padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4);} .pb-recommended{transform:none;} }
 
-  .cenik-included { max-width:640px; margin:0 auto; padding: var(--space-8) 0 50px; text-align:left; }
+  .cenik-included { max-width:640px; margin:0 auto; padding: var(--space-10) 0 0; text-align:left; }
+  @media (max-width:900px){ .cenik-included { padding-top: var(--space-8); } }
   @media (min-width:901px){
     .cenik-included { max-width:none; margin:0; }
     .cenik-included-body { max-width:640px; }
@@ -504,7 +499,7 @@
   .cenik-help-alt a { text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
 
   /* ---------- Video gallery ---------- */
-  .video-gallery { padding: 0 0 var(--space-11); }
+  .video-gallery { padding: 0; }
   .vgg { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
   .vcard { cursor:pointer; }
   .vcard .thumb { position:relative; aspect-ratio:16/9; overflow:hidden; background:#0D0D0D; }
@@ -540,7 +535,7 @@
   .ab-hero-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
 
   /* ---------- My story ("A proč to vlastně dělám?") ---------- */
-  .my-story { padding: 0 0 var(--space-9); display:flex; flex-direction:column; gap: var(--space-9); }
+  .my-story { padding: 0; display:flex; flex-direction:column; gap: var(--space-9); }
   .story-row { display:grid; grid-template-columns: 1fr 1.3fr; gap: var(--space-6); align-items:center; }
   .story-photo { aspect-ratio:4/5; overflow:hidden; }
   @media (min-width:901px){
@@ -566,7 +561,7 @@
   @media (max-width:900px){ .story-card-grid { grid-template-columns:1fr; } }
 
   /* ---------- Contact page (business card + photo) ---------- */
-  .contact-info { display:flex; align-items:center; gap: var(--space-8); padding: 0 0 var(--space-11); }
+  .contact-info { display:flex; align-items:center; gap: var(--space-8); padding: 0; }
   .contact-info-photo { flex:0 1 560px; aspect-ratio:3234/1605; overflow:hidden; }
   .contact-info-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   .contact-info-text { flex:1; max-width:420px; }
@@ -574,7 +569,7 @@
   .contact-info-line { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
   .contact-info-line a { color: inherit; font-weight:inherit; transition: color 0.2s ease; }
   .contact-info-line a:hover { color: var(--red); }
-  @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0 0 var(--space-9);} .contact-info-photo{flex-basis:auto; width:100%; height:auto; aspect-ratio:3234/1605;} .contact-info-text{max-width:none;} }
+  @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0;} .contact-info-photo{flex-basis:auto; width:100%; height:auto; aspect-ratio:3234/1605;} .contact-info-text{max-width:none;} }
 
   .about-thanks-cta { display:flex; align-items:center; justify-content:center; gap: var(--space-4); flex-wrap:wrap; }
   .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:16px 32px; transition: background .2s ease, color .2s ease; }
