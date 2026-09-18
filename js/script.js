@@ -215,8 +215,8 @@ document.querySelectorAll('[data-row]').forEach(row => {
   const orbitViewport = document.querySelector('.hc-orbit-viewport');
   if (orbitWrap && scrollPin) {
     const STACK_END = 0.9;    // videos finish collapsing by 90% through the pinned scroll — almost no dead scroll left after
-    const CLAIM_START = 0.55; // claim starts fading in well after the stack begins collapsing
-    const CLAIM_END = 0.8;    // ...and is fully visible shortly before the stack finishes
+    const CLAIM_START = 0;    // claim starts fading in the instant the user begins scrolling, so it's never fully hidden from a scrolling visitor
+    const CLAIM_END = 0.35;   // ...and reaches full opacity well before the stack finishes collapsing
     const updateOrbitStack = () => {
       const scrollable = scrollPin.offsetHeight - window.innerHeight;
       const scrolled = -scrollPin.getBoundingClientRect().top;
