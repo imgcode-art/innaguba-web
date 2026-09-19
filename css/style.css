@@ -218,7 +218,7 @@
   .reassure-video video { width:100%; height:100%; object-fit:cover; }
   .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); text-align:left; }
   @media (min-width:901px){ .reassure-title { white-space:nowrap; } }
-  .reassure-lead { font-size: var(--fs-heading); font-weight:700; color: var(--ink-heading); margin-bottom: var(--space-4); }
+  .reassure-lead { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-heading); margin-bottom: var(--space-4); }
   .reassure-lead:first-of-type { margin-bottom: var(--space-1); }
   .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); }
   .reassure-section .proof-teaser-link { margin-top:0; }
