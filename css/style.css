@@ -211,7 +211,7 @@
   /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */
   .reassure-section { padding: 150px 0 0; text-align:center; }
   @media (max-width:900px){ .reassure-section { padding-top: var(--space-8); } }
-  .reassure-columns { display:grid; grid-template-columns: 35% 1fr 35%; gap: var(--space-8); align-items:start; text-align:left; }
+  .reassure-columns { display:grid; grid-template-columns: 35% 1fr 35%; gap: var(--space-6); align-items:start; text-align:left; }
   @media (max-width:900px){ .reassure-columns { grid-template-columns:1fr; gap: var(--space-6); } }
   @media (max-width:900px){ .reassure-columns .reassure-video:last-child { display:none; } }
   .reassure-video { aspect-ratio:3/2; overflow:hidden; }
@@ -219,7 +219,6 @@
   .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); text-align:left; }
   @media (min-width:901px){ .reassure-title { white-space:nowrap; } }
   .reassure-lead { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-heading); margin-bottom: var(--space-4); }
-  .reassure-lead:first-of-type { margin-bottom: var(--space-1); }
   .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); }
   .reassure-section .proof-teaser-link { margin-top:0; }
   .reassure-body p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
