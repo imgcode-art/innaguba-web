@@ -99,6 +99,15 @@ document.querySelectorAll('[data-row]').forEach(row => {
     scrollVideoObserver.observe(scrollVideo);
   });
 
+  // ---------- QR discount banner (shown only when arriving via ?vizitka link on the business card) ----------
+  (() => {
+    const banner = document.querySelector('#qr-banner');
+    if (!banner) return;
+    if (!new URLSearchParams(location.search).has('vizitka')) return;
+    banner.hidden = false;
+    banner.querySelector('.qr-banner-close')?.addEventListener('click', () => { banner.hidden = true; });
+  })();
+
   // ---------- Cookie consent bar ----------
   (() => {
     const KEY = 'cookie-consent';

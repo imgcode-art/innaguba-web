@@ -39,6 +39,16 @@
 
   .plus { font-size: var(--fs-body); font-weight:700; }
 
+  /* ---------- QR discount banner (shown only when arriving via ?vizitka link) ---------- */
+  .qr-banner { background: var(--wine); }
+  .qr-banner[hidden] { display:none; }
+  .qr-banner-inner { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap: var(--space-3); padding: var(--space-3) var(--space-5); }
+  .qr-banner p { color:#fff; font-size: var(--fs-body); margin:0; }
+  .qr-banner-actions { display:flex; align-items:center; gap: var(--space-4); }
+  .qr-banner-cta { color:#fff; font-size: var(--fs-body); font-weight:700; text-decoration:underline; text-underline-offset:3px; white-space:nowrap; }
+  .qr-banner-close { background:none; border:0; color:#fff; font-size:20px; line-height:1; cursor:pointer; padding:0 var(--space-1); }
+  @media (max-width:700px){ .qr-banner-inner { padding: var(--space-3); } }
+
   /* ---------- Header ---------- */
   header { position:relative; z-index:20; padding: var(--space-3) 0; border-bottom:1px solid var(--line); background: var(--paper); }
   .nav { position:relative; display:flex; justify-content:space-between; align-items:center; }
