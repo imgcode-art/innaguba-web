@@ -234,21 +234,24 @@
   @media (max-width:900px){ .memory-section { padding-top: var(--space-8); } }
   .memory-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
   @media (min-width:901px){ .memory-title { white-space:nowrap; } }
-  .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); row-gap: var(--space-3); }
-  .memory-body-align .memory-body, .memory-body-align .memory-punch { grid-column: 2 / 3; }
+  .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); row-gap: var(--space-3); align-items:center; }
+  .memory-body-align .memory-photo { grid-column: 1 / 2; }
+  .memory-body-align .memory-body { grid-column: 2 / 3; padding-right: var(--space-6); }
+  .memory-body-align .memory-punch { grid-column: 3 / 4; }
+  .memory-photo { aspect-ratio:3/2; overflow:hidden; }
+  .memory-photo img { width:100%; height:100%; object-fit:cover; }
   .memory-body p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-3); text-align:left; }
   .memory-body p:last-child { margin-bottom:0; }
-  .memory-punch { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-heading); text-align:left; }
-  @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-body, .memory-body-align .memory-punch { grid-column:1; } }
+  .memory-punch p { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-heading); text-align:left; }
+  @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-photo, .memory-body-align .memory-body, .memory-body-align .memory-punch { grid-column:1; } }
 
   /* ---------- Steps (jak focení probíhá) ---------- */
   .steps-section { padding: 0; }
-  .steps-list { display:flex; justify-content:space-between; }
-  .step { flex:0 0 360px; }
+  .steps-list { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); }
   .step-num { display:block; font-size: var(--fs-body); font-weight:700; color: rgba(17,17,17,0.35); margin-bottom: var(--space-2); }
   .step h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-heading); }
   .step p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
-  @media (max-width:900px){ .steps-list{flex-direction:column; gap: var(--space-5);} .step{flex:1 1 auto;} }
+  @media (max-width:900px){ .steps-list{grid-template-columns:1fr; row-gap: var(--space-5);} }
 
   /* ---------- Full photo banner ---------- */
   .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
@@ -288,17 +291,13 @@
   .google-reviews .es-carousel-arrow-control-icon path { fill: var(--ink) !important; }
   .google-reviews .es-bullets-control-item { background: var(--line) !important; box-shadow:none !important; transform: scale(0.75) !important; }
   .google-reviews .es-bullets-control-item-active { background: rgba(17,17,17,0.35) !important; }
-  .rg { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8) var(--space-6); }
+  .rg { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8) var(--space-4); }
   .rg .card { text-align:left; }
   .rg .card .thumb { width:150px; height:150px; border-radius:50%; overflow:hidden; margin:0 0 var(--space-4); }
-  .rg .card p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); max-width:360px; margin:0; }
+  .rg .card p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); margin:0; }
   .rg .card p strong { font-weight:700; font-style:normal; }
   .rg .card .card-name { margin-top: var(--space-3); font-weight:700; color: var(--ink-heading); }
   .rg .card .card-service { margin-top:2px; color: var(--ink-body); }
-  @media (min-width:901px){
-    .rg .card:nth-child(2) { width:fit-content; margin-left:auto; margin-right:auto; }
-    .rg .card:nth-child(3) { width:fit-content; margin-left:auto; }
-  }
   @media (max-width:900px){ .rg{grid-template-columns:1fr; gap: var(--space-8); max-width:400px; margin:0 auto;} }
 
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
