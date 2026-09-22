@@ -456,9 +456,10 @@
   .cenik-label { font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2); }
   .cenik-h1 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
   @media (min-width:901px){ .cenik-h1 { white-space:nowrap; } }
-  .cenik-hero-narrow { max-width:640px; margin:0; }
+  .cenik-hero-narrow { max-width:calc((100% - 2 * var(--space-7)) / 3); margin:0; }
   .cenik-hero-narrow p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-3); }
   .cenik-hero-narrow p:last-of-type { margin-bottom: 0; }
+  @media (max-width:900px){ .cenik-hero-narrow { max-width:none; } }
 
   .cenik-intro { max-width:640px; margin:0 auto var(--space-6); text-align:center; }
   .cenik-intro-lead { font-size: var(--fs-heading); font-weight:700; color: var(--ink-heading); margin-bottom: var(--space-2); }
