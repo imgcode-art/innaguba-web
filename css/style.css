@@ -40,7 +40,7 @@
   .plus { font-size: var(--fs-body); font-weight:700; }
 
   /* ---------- QR discount banner (shown only when arriving via ?vizitka link) ---------- */
-  .qr-banner { background: var(--ink); max-width: var(--max-w); margin:0 auto; }
+  .qr-banner { background: var(--ink-heading); max-width: var(--max-w); margin:0 auto; }
   .qr-banner[hidden] { display:none; }
   .qr-banner-inner { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap: var(--space-3); padding: var(--space-3) var(--space-5); }
   .qr-banner p { color:#fff; font-size: var(--fs-body); margin:0; }
