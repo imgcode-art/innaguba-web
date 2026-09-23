@@ -221,9 +221,9 @@
   /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */
   .reassure-section { padding: 150px 0 0; text-align:center; }
   @media (max-width:900px){ .reassure-section { padding-top: var(--space-8); } }
-  .reassure-columns { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-6); align-items:center; text-align:left; }
+  .reassure-columns { display:grid; grid-template-columns: calc(35.4375% - var(--space-6)) 1fr; gap: var(--space-6); align-items:center; text-align:left; }
   .reassure-columns .reassure-col { grid-column: 1 / 2; }
-  .reassure-columns .reassure-video { grid-column: 2 / 4; }
+  .reassure-columns .reassure-video { grid-column: 2 / 3; }
   @media (max-width:900px){ .reassure-columns { grid-template-columns:1fr; gap: var(--space-6); } .reassure-columns .reassure-col, .reassure-columns .reassure-video { grid-column:1; } }
   .reassure-video { aspect-ratio:16/9; overflow:hidden; }
   .reassure-video img { width:100%; height:100%; object-fit:cover; }
