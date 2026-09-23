@@ -617,7 +617,8 @@
   /* ---------- Sitewide photo hover zoom (homepage + other subpages, desktop only) ---------- */
   .proof-photo img,
   .proof-photo-2 img,
-  .reassure-photo img,
+  .reassure-video img,
+  .memory-photo img,
   .rg .card .thumb img,
   .pb-photo img,
   .pb-photo video,
@@ -630,7 +631,8 @@
   @media (hover:hover) and (pointer:fine) {
     .proof-photo:hover img,
     .proof-photo-2:hover img,
-    .reassure-photo:hover img,
+    .reassure-video:hover img,
+    .memory-photo:hover img,
     .rg .card .thumb:hover img,
     .pb-photo:hover img,
     .pb-photo:hover video,
