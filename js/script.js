@@ -236,13 +236,24 @@ document.querySelectorAll('[data-row]').forEach(row => {
       heroClaim?.style.setProperty('--claim-opacity', claimOpacity);
       // shrink the pinned viewport in lockstep with the collapse so no dead blank space is
       // left behind once the tiles have gathered into their small stacked cluster
+      const startH = Math.min(750, window.innerWidth * 0.55);
+      const endH = Math.min(340, window.innerWidth * 0.3);
       if (orbitViewport) {
-        const startH = Math.min(750, window.innerWidth * 0.55);
-        const endH = Math.min(340, window.innerWidth * 0.3);
         orbitViewport.style.height = stackProgress > 0
           ? `${startH - (startH - endH) * stackProgress}px`
           : '';
       }
+      // the sticky container's own height must shrink by the same amount as the viewport
+      // does, or the "stuck room" (container height minus current child height) keeps
+      // growing as the child shrinks — position:sticky only releases once that stuck room
+      // has been scrolled past, so a fixed container height turns the shrinking child into
+      // a growing dead scroll zone with nothing changing on screen
+      const pinStartH = window.innerHeight * 1.15;
+      const stuckRoom = pinStartH - startH;
+      const pinEndH = endH + stuckRoom;
+      scrollPin.style.height = stackProgress > 0
+        ? `${pinStartH - (pinStartH - pinEndH) * stackProgress}px`
+        : '';
     };
     window.addEventListener('scroll', updateOrbitStack, { passive: true });
     window.addEventListener('resize', updateOrbitStack);
