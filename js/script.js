@@ -224,16 +224,13 @@ document.querySelectorAll('[data-row]').forEach(row => {
   const orbitViewport = document.querySelector('.hc-orbit-viewport');
   if (orbitWrap && scrollPin) {
     const STACK_END = 0.9;    // videos finish collapsing by 90% through the pinned scroll — almost no dead scroll left after
-    const CLAIM_START = 0;    // claim starts fading in the instant the user begins scrolling, so it's never fully hidden from a scrolling visitor
-    const CLAIM_END = 0.05;    // ...and reaches full opacity almost as soon as scrolling begins
+    const CLAIM_FADE_PX = 60;    // claim fades in over the very first pixels of ANY page scroll — not gated behind the pin reaching the top, so it never feels late
     const updateOrbitStack = () => {
       const scrollable = scrollPin.offsetHeight - window.innerHeight;
       const scrolled = -scrollPin.getBoundingClientRect().top;
       const raw = scrollable > 0 ? Math.min(Math.max(scrolled / scrollable, 0), 1) : 0;
       const stackProgress = Math.min(raw / STACK_END, 1);
-      const claimOpacity = scrollable > 0
-        ? Math.min(Math.max((raw - CLAIM_START) / (CLAIM_END - CLAIM_START), 0), 1)
-        : 1;
+      const claimOpacity = Math.min(Math.max(window.scrollY / CLAIM_FADE_PX, 0), 1);
       orbitWrap.style.setProperty('--progress', stackProgress);
       orbitWrap.classList.toggle('is-stacked', stackProgress > 0);
       heroClaim?.style.setProperty('--claim-opacity', claimOpacity);
