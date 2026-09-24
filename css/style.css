@@ -13,7 +13,7 @@
     /* Three font sizes, used everywhere on the site — no other size is allowed. */
     --fs-display: clamp(34px, 4.4vw, 60px); /* hero + section headlines */
     --fs-heading: clamp(20px, 2.2vw, 28px); /* card/subsection titles */
-    --fs-body: 14px; /* everything else: nav, labels, paragraphs, buttons */
+    --fs-body: 16px; /* everything else: nav, labels, paragraphs, buttons */
 
     /* Spacing scale — every section padding, grid gap and stacked-block margin
        on the site resolves to one of these steps. No other spacing value is allowed
@@ -55,7 +55,7 @@
   .nav { position:relative; display:flex; justify-content:space-between; align-items:center; }
   .logo { font-weight:700; font-size: var(--fs-body); letter-spacing:0.06em; }
   .logo-group { display:flex; flex-direction:column; gap:0; }
-  .logo-claim { font-size:11px; font-weight:400; letter-spacing:0.03em; color: var(--ink-body); }
+  .logo-claim { font-size:13px; font-weight:400; letter-spacing:0.03em; color: var(--ink-body); }
   .nav-links { display:flex; gap: var(--space-4); font-size: var(--fs-body); font-weight:500; }
   .nav-links a { color: rgba(17,17,17,0.62); transition: color 0.2s ease; }
   .nav-links a:hover { color: var(--ink); }
