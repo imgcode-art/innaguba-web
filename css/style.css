@@ -116,12 +116,12 @@
   /* breathing zoom (photo feel) until playback actually starts (.is-playing, toggled by the 'playing' event in script.js), then the breathing stops and eases back to scale(1) instead of snapping — the video's own motion carries it from there */
   .orbit-tile-inner.is-playing video { animation: none; transform: scale(1); }
   @keyframes hero-photo-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-  .ot-1 { --ox:74%; --oy:50%;   --tx:51%; --ty:48%; }
-  .ot-2 { --ox:62%; --oy:70.8%; --tx:49%; --ty:52%; }
-  .ot-3 { --ox:38%; --oy:70.8%; --tx:52%; --ty:51%; }
-  .ot-4 { --ox:26%; --oy:50%;   --tx:48%; --ty:49%; }
-  .ot-5 { --ox:38%; --oy:29.2%; --tx:50%; --ty:47%; }
-  .ot-6 { --ox:62%; --oy:29.2%; --tx:53%; --ty:50%; }
+  .ot-1 { --ox:74%; --oy:50%;   --tx:56%; --ty:38%; }
+  .ot-2 { --ox:62%; --oy:70.8%; --tx:44%; --ty:62%; }
+  .ot-3 { --ox:38%; --oy:70.8%; --tx:62%; --ty:56%; }
+  .ot-4 { --ox:26%; --oy:50%;   --tx:38%; --ty:44%; }
+  .ot-5 { --ox:38%; --oy:29.2%; --tx:50%; --ty:32%; }
+  .ot-6 { --ox:62%; --oy:29.2%; --tx:68%; --ty:50%; }
   /* stagger the breathing so the six tiles don't all pulse in lockstep */
   .ot-1 .orbit-tile-inner video { animation-delay: -1s; }
   .ot-2 .orbit-tile-inner video { animation-delay: -4s; }
@@ -164,7 +164,7 @@
     .bottom-section { padding-top: var(--space-10); padding-bottom: 0; }
   }
   @media (min-width:901px){
-    .hc-scroll-pin { height: 115vh; }
+    .hc-scroll-pin { height: 108vh; }
     .hc-orbit-viewport { position:sticky; top:0; }
   }
 

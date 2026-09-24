@@ -221,7 +221,6 @@ document.querySelectorAll('[data-row]').forEach(row => {
   const orbitWrap = document.querySelector('.hc-orbit-wrap');
   const scrollPin = document.querySelector('.hc-scroll-pin');
   const heroClaim = document.querySelector('.hc-center');
-  const orbitViewport = document.querySelector('.hc-orbit-viewport');
   if (orbitWrap && scrollPin) {
     const STACK_END = 0.9;    // videos finish collapsing by 90% through the pinned scroll — almost no dead scroll left after
     const CLAIM_FADE_PX = 60;    // claim fades in over the very first pixels of ANY page scroll — not gated behind the pin reaching the top, so it never feels late
@@ -234,15 +233,13 @@ document.querySelectorAll('[data-row]').forEach(row => {
       orbitWrap.style.setProperty('--progress', stackProgress);
       orbitWrap.classList.toggle('is-stacked', stackProgress > 0);
       heroClaim?.style.setProperty('--claim-opacity', claimOpacity);
-      // shrink the pinned viewport in lockstep with the collapse so no dead blank space is
-      // left behind once the tiles have gathered into their small stacked cluster
-      if (orbitViewport) {
-        const startH = Math.min(750, window.innerWidth * 0.55);
-        const endH = Math.min(340, window.innerWidth * 0.3);
-        orbitViewport.style.height = stackProgress > 0
-          ? `${startH - (startH - endH) * stackProgress}px`
-          : '';
-      }
+      // orbitViewport's own box height stays fixed (set in CSS) — the tiles converge
+      // visually via their left/top interpolation, not by resizing the sticky box itself.
+      // A sticky element only releases once scroll has passed its FULL container height
+      // minus the sticky child's current height, so shrinking that child's box on every
+      // scroll tick actually widens the sticky range over time (more blank space, not
+      // less) instead of the shrinking gap it looks like — keeping the box height constant
+      // keeps the release point fixed and predictable.
     };
     window.addEventListener('scroll', updateOrbitStack, { passive: true });
     window.addEventListener('resize', updateOrbitStack);
