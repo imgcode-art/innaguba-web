@@ -142,7 +142,7 @@
   /* self-hosted <video> covers immediately via its own poster frame — no Vimeo loading chrome to
      hide, so (unlike the old iframe embed) it needs no opacity fade-in of its own */
   .hc-mobile-video-embed { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .bottom-section { padding-top: var(--space-1); padding-bottom: var(--space-9); text-align:center; }
+  .bottom-section { padding-top: var(--space-1); padding-bottom: 0; text-align:center; }
   .hero-lead { max-width:640px; margin:0 auto var(--space-3); font-size: var(--fs-heading); font-weight:700; line-height:1.3; color: var(--ink-heading); text-align:left; }
   .hero-note { max-width:640px; margin:0 auto var(--space-4); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:left; }
   .hero-cta-row { display:flex; justify-content:center; gap: var(--space-5); flex-wrap:wrap; }
@@ -681,7 +681,7 @@
   }
   .pg .pcard h4, .step h4, .price-teaser-item h4,
   .why-me-card h3, .pb-content h3, .story-text h3, .story-card h3, .legal-content h3 {
-    font-weight: 500;
+    font-weight: 400;
   }
   .hero-lead, .reassure-lead, .memory-body p:last-child, .proof-stats li strong {
     font-weight: 400;
