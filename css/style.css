@@ -203,9 +203,6 @@
   .proof-stats li + li { margin-top: var(--space-3); }
   .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
   .hero-cta-row .proof-teaser-link { margin-top:0; align-self:center; }
-  .proof-quote { max-width:640px; margin: var(--space-6) auto 0; font-size: var(--fs-heading); font-weight:700; line-height:1.5; color: var(--ink-heading); text-align:center; }
-  @media (max-width:900px){ .proof-quote { margin-top:0; } }
-  @media (min-width:901px){ .proof-quote { margin-top: var(--space-4); } }
   @media (min-width:901px){
     .proof-block-row { display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap: var(--space-6); }
     .proof-photo-col { max-width:none; flex:0 1 42%; margin-bottom:0; }
