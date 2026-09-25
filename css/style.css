@@ -175,7 +175,7 @@
        (stacked) video cluster — this nudges the lead paragraph up into that unused
        space so it reads as part of the hero, without touching the box/pin heights
        that the scroll-collapse timing depends on */
-    .bottom-section { margin-top: -170px; }
+    .bottom-section { margin-top: -155px; }
   }
 
   /* ---------- Belief list (standalone, after the banner video) ---------- */
