@@ -171,6 +171,11 @@
   @media (min-width:901px){
     .hc-scroll-pin { height: 108vh; }
     .hc-orbit-viewport { position:sticky; top:0; }
+    /* the fixed-height viewport box always leaves some blank room below the collapsed
+       (stacked) video cluster — this nudges the lead paragraph up into that unused
+       space so it reads as part of the hero, without touching the box/pin heights
+       that the scroll-collapse timing depends on */
+    .bottom-section { margin-top: -170px; }
   }
 
   /* ---------- Belief list (standalone, after the banner video) ---------- */
