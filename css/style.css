@@ -149,11 +149,11 @@
      fixed below it always, not per-slide, so it never needs swiping to be found ---------- */
   .hc-mobile-slideshow { display:none; }
   .hc-mobile-slides {
-    display:flex; gap: var(--space-2); overflow-x:auto; scroll-snap-type:x mandatory;
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
     scrollbar-width:none; -webkit-overflow-scrolling:touch;
   }
   .hc-mobile-slides::-webkit-scrollbar { display:none; }
-  .hc-mobile-slide { flex:0 0 88vw; scroll-snap-align:start; position:relative; overflow:hidden; background: var(--ink); }
+  .hc-mobile-slide { flex:0 0 100%; scroll-snap-align:start; position:relative; overflow:hidden; background: var(--ink); }
   .hc-mobile-slide video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .hc-mobile-slide::after { content:""; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 40%); pointer-events:none; }
   .hc-mobile-slide-caption { position:absolute; left: var(--space-3); right: var(--space-3); bottom: var(--space-3); z-index:2; color:#fff; font-size: var(--fs-body); font-weight:500; }
