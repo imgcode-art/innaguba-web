@@ -157,6 +157,14 @@
   .hc-mobile-slide video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .hc-mobile-slide::after { content:""; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 40%); pointer-events:none; }
   .hc-mobile-slide-caption { position:absolute; left: var(--space-3); right: var(--space-3); bottom: var(--space-3); z-index:2; color:#fff; font-size: var(--fs-body); font-weight:500; }
+  /* subtle prev/next hint — floats over whichever slide is current, not per-slide, so it
+     works no matter where the user is in the set; fades out at either end so it never
+     promises a direction that doesn't exist */
+  .hc-mobile-nav { position:absolute; top:50%; transform:translateY(-50%); z-index:3; width:36px; height:36px; border:0; border-radius:50%; background:rgba(255,255,255,0.3); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); color:#fff; font-size:18px; line-height:1; display:flex; align-items:center; justify-content:center; padding:0; transition:opacity .25s ease; }
+  .hc-mobile-nav-prev { left: var(--space-3); }
+  .hc-mobile-nav-next { right: var(--space-3); }
+  .hc-mobile-slideshow.at-start .hc-mobile-nav-prev,
+  .hc-mobile-slideshow.at-end .hc-mobile-nav-next { opacity:0; pointer-events:none; }
   .hero-lead { max-width:640px; margin:0 auto var(--space-3); font-size: var(--fs-heading); font-weight:700; line-height:1.3; color: var(--ink-heading); text-align:left; }
   .hero-note { max-width:640px; margin:0 auto var(--space-4); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:left; }
   .hero-cta-row { display:flex; justify-content:center; gap: var(--space-5); flex-wrap:wrap; }

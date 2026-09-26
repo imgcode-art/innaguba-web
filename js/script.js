@@ -49,6 +49,22 @@ document.querySelectorAll('[data-row]').forEach(row => {
   }, { threshold: 0, rootMargin: '0px 0px -5% 0px' });
   document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
 
+  // ---------- Mobile hero slideshow — prev/next hint arrows ----------
+  document.querySelectorAll('.hc-mobile-slideshow').forEach(wrap => {
+    const track = wrap.querySelector('.hc-mobile-slides');
+    const prev = wrap.querySelector('.hc-mobile-nav-prev');
+    const next = wrap.querySelector('.hc-mobile-nav-next');
+    const step = () => track.querySelector('.hc-mobile-slide').getBoundingClientRect().width + 16;
+    const update = () => {
+      wrap.classList.toggle('at-start', track.scrollLeft < 10);
+      wrap.classList.toggle('at-end', track.scrollLeft > track.scrollWidth - track.clientWidth - 10);
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    track.addEventListener('scroll', update, { passive: true });
+    update();
+  });
+
   // ---------- Video gallery lightbox ----------
   const lightbox = document.querySelector('.video-lightbox');
   if (lightbox) {
