@@ -161,8 +161,9 @@
   .hc-mobile-slides::-webkit-scrollbar { display:none; }
   .hc-mobile-slide { flex:0 0 100%; scroll-snap-align:start; position:relative; overflow:hidden; background: var(--ink); }
   .hc-mobile-slide video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .hc-mobile-slide::after { content:""; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 40%); pointer-events:none; }
-  .hc-mobile-slide-caption { position:absolute; left: var(--space-3); right: var(--space-3); bottom: var(--space-3); z-index:2; color:#fff; font-size: var(--fs-body); font-weight:500; }
+  /* a different headline per slide, sitting low over the video (not centered) — same pale
+     band + serif treatment as the desktop .hc-eyebrow, just anchored to the bottom */
+  .hc-mobile-slide-title { position:absolute; left:0; right:0; bottom:0; z-index:2; background: rgba(245,243,239,0.55); padding: var(--space-3); font-family: var(--serif); font-weight:700; font-size: clamp(18px, 6.2vw, 32px); line-height:1.15; letter-spacing:-0.02em; color: var(--ink); text-align:center; }
   /* subtle prev/next hint — floats over whichever slide is current, not per-slide, so it
      works no matter where the user is in the set; fades out at either end so it never
      promises a direction that doesn't exist */
