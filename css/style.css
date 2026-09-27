@@ -270,6 +270,13 @@
   .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); }
   .reassure-section .proof-teaser-link { margin-top:0; }
   .reassure-body p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
+  /* on mobile these three gaps (title→lead, lead→body, between the two body lines) were
+     48/32/16px — visibly uneven and the first one too wide; one consistent rhythm instead */
+  @media (max-width:900px){
+    .reassure-title { margin-bottom: var(--space-3); }
+    .reassure-lead { margin-bottom: var(--space-3); }
+    .reassure-body { gap: var(--space-3); }
+  }
 
   /* ---------- Work cards ("Jak můžeme zachytit vaši rodinu?") — reuses .pg/.pcard from the
      portfolio page's gallery grid, plus a description and link line each card didn't need there ---------- */
