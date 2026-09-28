@@ -472,7 +472,19 @@
   .pg .pcard .thumb img { transition: transform .6s cubic-bezier(0.25,1,0.5,1); }
   @media (hover:hover) and (pointer:fine) { .pg .pcard:hover .thumb img { transform: scale(1.06); } }
   .pg .pcard h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
-  @media (max-width:800px){ .pg{grid-template-columns:1fr; gap: var(--space-7);} }
+  @media (max-width:800px){
+    .pg { display:block; }
+    /* card-stack scroll effect: each card sticks at the same offset, so as you keep
+       scrolling the next card's solid background rides up and covers the one before it —
+       plain position:sticky, no scroll-timeline/JS needed */
+    .pg .pcard {
+      position: sticky;
+      top: var(--space-3);
+      background: var(--paper);
+      padding-bottom: var(--space-6);
+      box-shadow: 0 -16px 32px rgba(17,17,17,0.1);
+    }
+  }
 
   /* ---------- Gallery placeholder page ---------- */
   .gallery-soon { padding: var(--space-8) 0 var(--space-11); }
