@@ -235,10 +235,12 @@
   .proof-block-row { display:flex; flex-direction:column; }
   .proof-photo-col { margin-bottom: var(--space-4); position:relative; }
   /* mobile: same card-stack trick as the portfolio cards — "now" (DOM-later) rides up
-     and covers "tehdy" (DOM-first) as you scroll, echoing the time-has-passed message */
+     and covers "tehdy" (DOM-first) as you scroll, echoing the time-has-passed message.
+     Taller (4/5) than the desktop 3/2 crop so each photo is substantial enough to read
+     as a full takeover instead of a small sliver, with no artificial padding hack needed. */
   @media (max-width:900px){
     .proof-photo-col { position:sticky; top: var(--space-3); background: var(--paper); margin-bottom:0; }
-    .proof-photo-col:first-child { padding-bottom: calc(var(--space-11) + var(--space-8)); }
+    .proof-photo { aspect-ratio:4/5; }
   }
   .proof-photo { width:100%; aspect-ratio:3/2; overflow:hidden; background: var(--ink); }
   .proof-photo img { width:100%; height:100%; object-fit:cover; }
@@ -492,11 +494,12 @@
       top: var(--space-3);
       background: var(--paper);
     }
-    /* extra bottom padding = extra scroll distance the card stays fully stuck/readable
-       before the next one starts covering it, giving time to actually read the caption —
-       only between cards; the last one has no next card to stay stuck for, so it must
-       not carry this or it just becomes dead space before the following section */
-    .pg .pcard:not(:last-child) { padding-bottom: calc(var(--space-11) + var(--space-8)); }
+    /* deliberately no added padding/min-height here: for the sticky-stack to fully
+       cover each card, every card must be at least as tall as the one before it — an
+       artificial height on non-last cards (previous attempt) made the last, naturally
+       shorter card unable to fully cover the second-to-last one. Natural content height
+       (photo + heading + paragraph) is already close to full-viewport and gives plenty
+       of linger time on its own. */
   }
 
   /* ---------- Gallery placeholder page ---------- */
