@@ -484,10 +484,12 @@
       position: sticky;
       top: var(--space-3);
       background: var(--paper);
-      /* extra bottom padding = extra scroll distance the card stays fully stuck/readable
-         before the next one starts covering it, giving time to actually read the caption */
-      padding-bottom: calc(var(--space-11) + var(--space-8));
     }
+    /* extra bottom padding = extra scroll distance the card stays fully stuck/readable
+       before the next one starts covering it, giving time to actually read the caption —
+       only between cards; the last one has no next card to stay stuck for, so it must
+       not carry this or it just becomes dead space before the following section */
+    .pg .pcard:not(:last-child) { padding-bottom: calc(var(--space-11) + var(--space-8)); }
   }
 
   /* ---------- Gallery placeholder page ---------- */
