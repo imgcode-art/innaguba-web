@@ -35,6 +35,9 @@
     --space-11: 110px;
   }
   * { box-sizing: border-box; margin:0; padding:0; }
+  /* covers the rubber-band overscroll area on iOS Safari, which otherwise shows through
+     as plain white above/below the page instead of matching the site background */
+  html { background: var(--paper); }
   body { font-family: var(--sans); font-weight:400; background: var(--paper); color: var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased; font-size: var(--fs-body); padding:0 var(--space-5); }
   @media (max-width:700px){ body{padding:0 var(--space-3);} }
   img { display:block; width:100%; height:100%; object-fit:cover; }
@@ -481,8 +484,9 @@
       position: sticky;
       top: var(--space-3);
       background: var(--paper);
-      padding-bottom: var(--space-6);
-      box-shadow: 0 -16px 32px rgba(17,17,17,0.1);
+      /* extra bottom padding = extra scroll distance the card stays fully stuck/readable
+         before the next one starts covering it, giving time to actually read the caption */
+      padding-bottom: calc(var(--space-11) + var(--space-8));
     }
   }
 
