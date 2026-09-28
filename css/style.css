@@ -399,7 +399,7 @@
 
   /* ---------- Closing CTA ---------- */
   .closing { padding: 150px 0 0; }
-  @media (max-width:900px){ .closing { padding-top: var(--space-8); } }
+  @media (max-width:900px){ .closing { padding-top: var(--space-9); } }
   .closing .top { text-align:left; }
   @media (min-width:901px){ .closing-secondary-link { display:block; width:fit-content; margin:var(--space-4) auto 0; } }
   .closing-footer { padding: 150px 0 var(--space-5); }
@@ -455,6 +455,9 @@
   .cf-submit:hover { background: var(--ink-body); border-color: var(--ink-body); color:#fff; }
   .cf-submit:disabled:not([data-state="success"]) { opacity:0.5; cursor:default; }
   .cf-submit[data-state="success"] { background:#2f6b3a; border-color:#2f6b3a; color:#fff; opacity:1; }
+  /* empty until a submit attempt sets its text — :empty removes it from the flex layout
+     entirely so it doesn't add its own gap + margin-top as dead space under the button */
+  .cf-status:empty { display:none; }
   .cf-status { text-align:center; font-size: var(--fs-body); margin-top: var(--space-2); }
   .cf-status[data-state="error"] { color:#a13a3a; }
   .cf-divider { display:flex; align-items:center; gap: var(--space-3); margin: var(--space-5) auto; max-width:480px; }
