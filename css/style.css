@@ -373,7 +373,7 @@
     .rg { display:block; max-width:400px; margin:0 auto; }
     /* same card-stack trick as the portfolio cards — no artificial height added, since
        equal-ish natural heights are what let each card fully cover the one before it */
-    .rg .card { position:sticky; top: var(--space-3); background: var(--paper); }
+    .rg .card { position:sticky; top: var(--space-3); background: var(--paper); padding-bottom: var(--space-9); }
   }
 
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
@@ -501,13 +501,11 @@
       position: sticky;
       top: var(--space-3);
       background: var(--paper);
+      /* applied to every card equally (including the last) — that's what keeps each
+         card at least as tall as the one before it, so full coverage still works; giving
+         only non-last cards this padding (earlier attempt) broke that instead */
+      padding-bottom: var(--space-9);
     }
-    /* deliberately no added padding/min-height here: for the sticky-stack to fully
-       cover each card, every card must be at least as tall as the one before it — an
-       artificial height on non-last cards (previous attempt) made the last, naturally
-       shorter card unable to fully cover the second-to-last one. Natural content height
-       (photo + heading + paragraph) is already close to full-viewport and gives plenty
-       of linger time on its own. */
   }
 
   /* ---------- Gallery placeholder page ---------- */
