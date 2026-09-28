@@ -352,6 +352,7 @@
   .google-reviews .es-carousel-arrow-control-icon svg,
   .google-reviews .es-carousel-arrow-control-icon path { fill: var(--ink) !important; }
   .google-reviews .es-bullets-control-item { background: var(--line) !important; box-shadow:none !important; transform: scale(0.75) !important; }
+  .google-reviews .es-bullets-control-container { align-self:center !important; }
   .google-reviews .es-bullets-control-item-active { background: rgba(17,17,17,0.35) !important; }
   .rg { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8) var(--space-4); }
   .rg .card { text-align:left; }
