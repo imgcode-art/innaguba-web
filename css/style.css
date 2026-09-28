@@ -369,7 +369,12 @@
   .rg .card p strong { font-weight:700; font-style:normal; }
   .rg .card .card-name { margin-top: var(--space-3); font-weight:700; color: var(--ink-heading); }
   .rg .card .card-service { margin-top:2px; color: var(--ink-body); }
-  @media (max-width:900px){ .rg{grid-template-columns:1fr; gap: var(--space-8); max-width:400px; margin:0 auto;} }
+  @media (max-width:900px){
+    .rg { display:block; max-width:400px; margin:0 auto; }
+    /* same card-stack trick as the portfolio cards — no artificial height added, since
+       equal-ish natural heights are what let each card fully cover the one before it */
+    .rg .card { position:sticky; top: var(--space-3); background: var(--paper); }
+  }
 
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
   .section-label:has(+ .faq-section) { text-align:center; }
