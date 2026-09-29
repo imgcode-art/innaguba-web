@@ -304,7 +304,7 @@
 
   /* ---------- Memory section ("Nejen fotografie. Vzpomínku na to, jaké to bylo.") ---------- */
   .memory-section { padding: 150px 0 0; text-align:center; }
-  @media (max-width:900px){ .memory-section { padding-top: var(--space-8); } }
+  @media (max-width:900px){ .memory-section { padding-top: var(--space-9); } }
   .memory-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); text-align:left; }
   @media (min-width:901px){ .memory-title { white-space:nowrap; } }
   .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); row-gap: var(--space-3); align-items:center; }
@@ -501,6 +501,18 @@
   .pg .pcard .thumb { aspect-ratio:3/4; overflow:hidden; margin-bottom: var(--space-3); }
   .pg .pcard .thumb img { transition: transform .6s cubic-bezier(0.25,1,0.5,1); }
   @media (hover:hover) and (pointer:fine) { .pg .pcard:hover .thumb img { transform: scale(1.06); } }
+  /* "Rodinné video" card: photo on desktop, the actual video swapped in on mobile —
+     same breakpoint as the card-stack effect below, so the two changes land together */
+  .pg .pcard .thumb-video { display:none; }
+  @media (max-width:800px){
+    .pg .pcard .thumb-photo { display:none; }
+    .pg .pcard .thumb-video { display:block; width:100%; height:100%; object-fit:cover; }
+    /* video now lives in the card above, so the standalone banner right after this
+       section would just repeat it — drop it; the section-label after it already carries
+       the standard mobile section-gap (--space-9) in its own padding-top, so no extra
+       spacing fix is needed once this is gone */
+    #steps-video-banner { display:none; }
+  }
   .pg .pcard h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
   @media (max-width:800px){
     .pg { display:block; }
