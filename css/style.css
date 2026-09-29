@@ -338,6 +338,12 @@
      section, so tight gap above it. Only matters on desktop: on mobile this same video
      already lives inside the "Rodinné video" card instead, and this banner is display:none */
   #steps-video-banner { margin-top: var(--space-6); }
+  /* the Michalkovi video belongs to "Kolik taková vzpomínka stojí?" below it, not to the
+     FAQ above — so unlike the other two banners the tight gap goes on the section that
+     follows, not on the banner's own margin-top. Desktop only: on mobile this banner is
+     hidden (its video moved up to the "Jak focení probíhá" slot instead), and #price-label
+     needs its normal loose padding-top there since FAQ becomes its actual previous sibling */
+  @media (min-width:901px){ #price-label { padding-top: var(--space-6); } }
   .banner-photo { margin-top: 50px; margin-bottom: 50px; }
   .banner-photo img { width:100%; height:100%; object-fit:cover; object-position:70% bottom; }
   @media (min-width:901px){ .banner-photo { height:65vh; min-height:420px; } }
@@ -514,6 +520,12 @@
   /* "Rodinné video" card: photo on desktop, the actual video swapped in on mobile —
      same breakpoint as the card-stack effect below, so the two changes land together */
   .pg .pcard .thumb-video { display:none; }
+  /* mobile swap for the "Jak focení probíhá" video slot: desktop shows the brno video
+     right after steps-section (#steps-video-banner); mobile shows the Michalkovi video
+     instead (#steps-video-banner-mobile) — same video that on desktop belongs to the
+     price section further down the page. Hidden here by default (desktop); the mobile
+     media query below flips which of the two is shown. */
+  #steps-video-banner-mobile { display:none; }
   @media (max-width:800px){
     .pg .pcard .thumb-photo { display:none; }
     .pg .pcard .thumb-video { display:block; width:100%; height:100%; object-fit:cover; }
@@ -522,6 +534,12 @@
        the standard mobile section-gap (--space-9) in its own padding-top, so no extra
        spacing fix is needed once this is gone */
     #steps-video-banner { display:none; }
+    /* its mobile replacement belongs to the same "Jak focení probíhá" section, so it
+       gets the same tight top gap #steps-video-banner uses on desktop */
+    #steps-video-banner-mobile { display:block; margin-top: var(--space-6); }
+    /* this video now belongs to "Jak focení probíhá" instead — free it up for that on
+       mobile; desktop keeps it attached to the price section further down */
+    #price-video-banner { display:none; }
   }
   .pg .pcard h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
   @media (max-width:800px){
