@@ -328,6 +328,16 @@
   .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
   .banner-video { margin-top: 150px; margin-bottom:0; }
   @media (max-width:900px){ .banner-video { margin-top: var(--space-9); } }
+  /* this banner shows footage from the same shoots as the testimonials right above it —
+     it belongs to the "Důvěra" section, so its gap above (to refs-grid) should read as
+     tight/same-section while the gap below (to the next, unrelated section) stays the
+     standard section-to-section distance — same tight value the section-label itself
+     uses for its own bottom padding down to its content */
+  #reference-video-banner { margin-top: var(--space-6); }
+  /* same logic for the video right after "Jak focení probíhá" — it belongs to that
+     section, so tight gap above it. Only matters on desktop: on mobile this same video
+     already lives inside the "Rodinné video" card instead, and this banner is display:none */
+  #steps-video-banner { margin-top: var(--space-6); }
   .banner-photo { margin-top: 50px; margin-bottom: 50px; }
   .banner-photo img { width:100%; height:100%; object-fit:cover; object-position:70% bottom; }
   @media (min-width:901px){ .banner-photo { height:65vh; min-height:420px; } }
