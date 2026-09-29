@@ -267,7 +267,7 @@
 
   /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */
   .reassure-section { padding: 150px 0 0; text-align:center; }
-  @media (max-width:900px){ .reassure-section { padding-top: var(--space-8); } }
+  @media (max-width:900px){ .reassure-section { padding-top: var(--space-9); } }
   .reassure-columns { display:grid; grid-template-columns: calc(36.6691% - var(--space-6)) 1fr; gap: var(--space-6); align-items:center; text-align:left; }
   .reassure-columns .reassure-col { grid-column: 1 / 2; }
   .reassure-columns .reassure-video { grid-column: 2 / 3; }
@@ -294,6 +294,12 @@
   .work-cards { padding: 0; }
   .pg .pcard p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-top: var(--space-1); }
   @media (max-width:900px){ .br-desktop-only { display:none; } }
+
+  /* ---------- "Nejen fotografie." — on desktop the title is forced onto one line
+     (white-space:nowrap), where the period reads as normal punctuation; on mobile it wraps
+     and "Nejen fotografie." lands alone on its first line, isolating the dot as if it were
+     a stray mark — drop it there and let the sentence continue without it ---------- */
+  @media (max-width:900px){ .dot-desktop-only { display:none; } }
   .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
 
   /* ---------- Memory section ("Nejen fotografie. Vzpomínku na to, jaké to bylo.") ---------- */
@@ -307,7 +313,7 @@
   .memory-photo { aspect-ratio: 16/9; overflow:hidden; }
   .memory-photo img { width:100%; height:100%; object-fit:cover; }
   .memory-body p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-3); text-align:left; }
-  .memory-body p:last-child { margin-bottom:0; font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); }
+  .memory-body p:last-child { margin-bottom:0; font-size: var(--fs-heading); font-weight:700; line-height:1.4; color: var(--ink-subheading); }
   @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-photo, .memory-body-align .memory-body { grid-column:1; padding-left:0; } .memory-photo { aspect-ratio:3/2; } }
 
   /* ---------- Steps (jak focení probíhá) ---------- */
@@ -370,9 +376,13 @@
   .rg .card .card-name { margin-top: var(--space-3); font-weight:700; color: var(--ink-heading); }
   .rg .card .card-service { margin-top:2px; color: var(--ink-body); }
   @media (max-width:900px){
-    .rg { display:block; max-width:400px; margin:0 auto; }
+    .rg { display:block; max-width:400px; margin:0 auto; margin-bottom: calc(-1 * var(--space-9)); }
     /* same card-stack trick as the portfolio cards — no artificial height added, since
-       equal-ish natural heights are what let each card fully cover the one before it */
+       equal-ish natural heights are what let each card fully cover the one before it
+       (heights are equalized in JS since the testimonials' quotes differ in length —
+       see the .rg .card height-matching in script.js); margin-bottom cancels the last
+       card's own padding-bottom below once it stops being hidden under a following card,
+       so the gap before the next section matches every other section-to-section gap */
     .rg .card { position:sticky; top: var(--space-3); background: var(--paper); padding-bottom: var(--space-9); }
   }
 
@@ -506,6 +516,11 @@
          only non-last cards this padding (earlier attempt) broke that instead */
       padding-bottom: var(--space-9);
     }
+    /* the last card's own padding-bottom above is invisible while stacking, but once it's
+       the only card left it becomes real trailing space, stacking on top of whatever gap
+       the next section already adds — pull the next section back up by that same amount so
+       the gap matches every other section-to-section gap instead of doubling it */
+    .pg { margin-bottom: calc(-1 * var(--space-9)); }
   }
 
   /* ---------- Gallery placeholder page ---------- */

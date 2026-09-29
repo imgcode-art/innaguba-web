@@ -392,6 +392,23 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', alignReassureNarrow);
   }
 
+  // ---------- Reference cards (testimonials): mobile shows them as a sticky card-stack where
+  // each card must be at least as tall as the one before it to fully cover it while scrolling.
+  // Martina's shorter quote left her card ~1 line short of Hanka's, so Hanka's card peeked out
+  // from under it — equalize every card to the tallest one's natural height to guarantee coverage. ----------
+  const refCards = document.querySelectorAll('.rg .card');
+  if (refCards.length) {
+    const equalizeRefCards = () => {
+      refCards.forEach(c => { c.style.minHeight = ''; });
+      if (window.innerWidth > 900) return;
+      const max = Math.max(...[...refCards].map(c => c.getBoundingClientRect().height));
+      refCards.forEach(c => { c.style.minHeight = `${max}px`; });
+    };
+    equalizeRefCards();
+    window.addEventListener('load', equalizeRefCards);
+    window.addEventListener('resize', equalizeRefCards);
+  }
+
   // ---------- Homepage: align the hero-cta-row buttons with the proof-block photos below —
   // "Prohlédnout galerii" starts where the left photo ends, "Chci focení" ends where the right
   // photo begins — so the buttons sit inside the same vertical channel as the gap between
