@@ -471,7 +471,7 @@
   /* tighter than the usual section-label bottom gap (--space-6) — the price teaser row
      has no top padding/margin of its own, so the default gap read as too deep below the rule */
   .section-label:has(+ .price-teaser) { padding-bottom: var(--space-2); }
-  .section-label:has(+ .pricing-grid) { padding-bottom: var(--space-3); }
+  .section-label:has(+ .pricing-grid) { padding-bottom: var(--space-4); }
   .price-teaser { padding: 0; text-align:center; }
   .price-teaser-row { display:flex; justify-content:center; gap: var(--space-7); flex-wrap:wrap; margin-bottom: var(--space-4); }
   /* line-height:1.2 instead of body's inherited 1.5 — at --fs-heading size the extra
@@ -710,14 +710,19 @@
   .pb-photo { position:relative; aspect-ratio:4/5; overflow:hidden; margin-bottom: var(--space-4); }
   .pb-photo img, .pb-photo video { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   .pb-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
-  .pb-subtitle { font-size: var(--fs-body); line-height:1.6; font-style:italic; color: var(--ink-body); margin-bottom: var(--space-1); }
-  .pb-content p:not(.pb-subtitle):not(.pb-note) { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-2); }
+  .pb-subtitle { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-1); }
+  .pb-content p:not(.pb-subtitle):not(.pb-note) { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-1); }
   .price-list { list-style:none; margin-bottom: var(--space-1); }
   .price-list li { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-1); }
   .price-list li:last-child { margin-bottom:0; }
   .price-list li.strong { font-weight:700; color: var(--ink); }
-  .price-tag { display:block; font-size: var(--fs-body); font-weight:700; margin-top: var(--space-2); letter-spacing:0.02em; }
-  .pb-note { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-top: var(--space-2); }
+  /* gap above the price tag now matches the uniform var(--space-1) rhythm everywhere else
+     in the card — the one deliberately bigger gap is the button's own margin-top below,
+     not this one */
+  .price-tag { display:block; font-size: var(--fs-body); font-weight:700; margin-top:0; letter-spacing:0.02em; }
+  .pb-note { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-top: var(--space-1); }
+  /* the one deliberately bigger gap in the card — same var(--space-2) used above
+     .pcard-link, the matching "secondary link inside a card" on the homepage */
   .pb-content .proof-teaser-link { margin-top: var(--space-2); }
   .pb-badge { position:absolute; top: var(--space-3); left: var(--space-3); z-index:2; display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink); background: var(--paper); border-radius:20px; padding:6px 14px; }
   .price-bento-3 .pb-card:not(.pb-recommended) { border:1px solid var(--line); padding: var(--space-4); }
