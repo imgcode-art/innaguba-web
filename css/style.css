@@ -294,7 +294,13 @@
   @media (max-width:900px){ .reassure-columns { grid-template-columns:1fr; gap: var(--space-6); } .reassure-columns .reassure-col, .reassure-columns .reassure-video { grid-column:1; } }
   .reassure-video { aspect-ratio:16/9; overflow:hidden; }
   .reassure-video img { width:100%; height:100%; object-fit:cover; }
-  @media (max-width:900px){ .reassure-video { display:none; } }
+  /* mobile: photo sits right under the title's gray rule, same stacking as .memory-photo
+     in the next dark section — order flips it above the text column, which follows it in
+     the DOM (col 1/2 on desktop, so no visual change there) */
+  @media (max-width:900px){
+    .reassure-columns .reassure-video { order:1; aspect-ratio:3/2; }
+    .reassure-columns .reassure-col { order:2; }
+  }
   /* margin-bottom matches .reassure-section.dark-panel's own padding-bottom (home-theme.css)
      exactly — same symmetry fix as .memory-title */
   .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
