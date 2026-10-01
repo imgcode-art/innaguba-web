@@ -69,23 +69,26 @@ body { overflow-x: clip; }
 .steps-section.dark-panel::before { top: 0; }
 
 /* ---------- Exit transition (dark panel → light section) ----------
-   Same split as the entry transition, same numbers top and bottom (40px
-   dark / 110px light desktop, 54px/36px mobile) — each panel extends its
-   own dark fill (via padding-bottom, which ::before's bottom:0
-   automatically follows) into the gap that follows it, and the light
-   section after it has its own top padding trimmed to match. Targeted by
-   id/class rather than edited in style.css because .section-label is a
-   shared rule used by sections elsewhere too. .closing-footer needs none
-   of this — it's the last thing on the page, nothing to exit into. */
+   Same total gap as the entry transition (150px desktop / 90px mobile),
+   now split 64px dark / 86px light desktop (48px/42px mobile) — more dark
+   than the entry's 40px, since the exit was reading as abruptly cut off
+   next to the entry's own 40px dark fill PLUS the photo/content right
+   above it carrying extra visual weight. Each panel extends its own dark
+   fill (via padding-bottom, which ::before's bottom:0 automatically
+   follows) into the gap that follows it, and the light section after it
+   has its own top padding trimmed to match. Targeted by id/class rather
+   than edited in style.css because .section-label is a shared rule used
+   by sections elsewhere too. .closing-footer needs none of this — it's
+   the last thing on the page, nothing to exit into. */
 .reassure-section.dark-panel,
-.steps-section.dark-panel { padding-bottom: 40px; }
-#work { padding-top: 110px; }
-.steps-section.dark-panel + .section-label { padding-top: 110px; }
+.steps-section.dark-panel { padding-bottom: 64px; }
+#work { padding-top: 86px; }
+.steps-section.dark-panel + .section-label { padding-top: 86px; }
 @media (max-width:900px){
   .reassure-section.dark-panel,
-  .steps-section.dark-panel { padding-bottom: 36px; }
-  #work { padding-top: 54px; }
-  .steps-section.dark-panel + .section-label { padding-top: 54px; }
+  .steps-section.dark-panel { padding-bottom: 48px; }
+  #work { padding-top: 42px; }
+  .steps-section.dark-panel + .section-label { padding-top: 42px; }
 }
 
 /* o-mne.html only: same idea — .why-me-layout exits into the closing CTA
