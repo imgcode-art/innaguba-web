@@ -62,6 +62,12 @@ body { overflow-x: clip; }
    instead of splitting like every other entry transition. */
 .why-me-layout.dark-panel::before { top: 0; }
 
+/* homepage: "Jak focení probíhá" (#sluzby) + its three steps continue the same dark
+   panel as .memory-section right above them — one long panel, not three separate
+   ones — so both get a flush entry instead of the usual light-gap-above treatment. */
+#sluzby.dark-panel::before,
+.steps-section.dark-panel::before { top: 0; }
+
 /* ---------- Exit transition (dark panel → light section) ----------
    Same split as the entry transition, same numbers top and bottom (40px
    dark / 110px light desktop, 54px/36px mobile) — each panel extends its
@@ -72,14 +78,14 @@ body { overflow-x: clip; }
    shared rule used by sections elsewhere too. .closing-footer needs none
    of this — it's the last thing on the page, nothing to exit into. */
 .reassure-section.dark-panel,
-.memory-section.dark-panel { padding-bottom: 40px; }
-#work,
-#sluzby { padding-top: 110px; }
+.steps-section.dark-panel { padding-bottom: 40px; }
+#work { padding-top: 110px; }
+.steps-section.dark-panel + .section-label { padding-top: 110px; }
 @media (max-width:900px){
   .reassure-section.dark-panel,
-  .memory-section.dark-panel { padding-bottom: 36px; }
-  #work,
-  #sluzby { padding-top: 54px; }
+  .steps-section.dark-panel { padding-bottom: 36px; }
+  #work { padding-top: 54px; }
+  .steps-section.dark-panel + .section-label { padding-top: 54px; }
 }
 
 /* o-mne.html only: same idea — .why-me-layout exits into the closing CTA

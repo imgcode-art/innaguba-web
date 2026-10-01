@@ -259,35 +259,6 @@ document.querySelectorAll('[data-row]').forEach(row => {
     setTimeout(() => playSequenceVideo(0), 300);
   })();
 
-  // ---------- Hero orbit — pinned while it collapses into a stack on scroll, unstacks when scrolling back ----------
-  const orbitWrap = document.querySelector('.hc-orbit-wrap');
-  const scrollPin = document.querySelector('.hc-scroll-pin');
-  const heroClaim = document.querySelector('.hc-center');
-  if (orbitWrap && scrollPin) {
-    const STACK_END = 0.9;    // videos finish collapsing by 90% through the pinned scroll — almost no dead scroll left after
-    const CLAIM_FADE_PX = 60;    // claim fades in over the very first pixels of ANY page scroll — not gated behind the pin reaching the top, so it never feels late
-    const updateOrbitStack = () => {
-      const scrollable = scrollPin.offsetHeight - window.innerHeight;
-      const scrolled = -scrollPin.getBoundingClientRect().top;
-      const raw = scrollable > 0 ? Math.min(Math.max(scrolled / scrollable, 0), 1) : 0;
-      const stackProgress = Math.min(raw / STACK_END, 1);
-      const claimOpacity = Math.min(Math.max(window.scrollY / CLAIM_FADE_PX, 0), 1);
-      orbitWrap.style.setProperty('--progress', stackProgress);
-      orbitWrap.classList.toggle('is-stacked', stackProgress > 0);
-      heroClaim?.style.setProperty('--claim-opacity', claimOpacity);
-      // orbitViewport's own box height stays fixed (set in CSS) — the tiles converge
-      // visually via their left/top interpolation, not by resizing the sticky box itself.
-      // A sticky element only releases once scroll has passed its FULL container height
-      // minus the sticky child's current height, so shrinking that child's box on every
-      // scroll tick actually widens the sticky range over time (more blank space, not
-      // less) instead of the shrinking gap it looks like — keeping the box height constant
-      // keeps the release point fixed and predictable.
-    };
-    window.addEventListener('scroll', updateOrbitStack, { passive: true });
-    window.addEventListener('resize', updateOrbitStack);
-    updateOrbitStack();
-  }
-
   // ---------- Custom cursor — a circle that trails the pointer with a little lag, grows over
   // links/buttons. Only on devices with a real mouse (hover:hover + pointer:fine), never on touch. ----------
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
