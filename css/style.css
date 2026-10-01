@@ -239,6 +239,13 @@
      cascade and would otherwise win back over this. */
   #work,
   #reference { padding-bottom: var(--space-2); }
+  /* o-mne.html / kontakt.html: same var(--space-4) as Galerie/Ceník, not the homepage's
+     var(--space-2) — these pages read as needing the bigger gap, same as those two */
+  .section-label:has(+ .my-story),
+  .section-label:has(+ .contact-info) { padding-bottom: var(--space-4); }
+  /* Galerie's own grid feels like it needs more breathing room than the other
+     section-labels — same var(--space-4) the pricing-grid ended up at on cenik.html */
+  .section-label:has(+ .portfolio-grid) { padding-bottom: var(--space-4); }
   /* only needed once this wraps to 2 lines (narrower than desktop) — applied unconditionally
      it was adding extra line-box height even on one line, making the gap to the rule below
      read bigger here than on every other section-label at desktop widths */
@@ -511,7 +518,7 @@
   .about-intro { padding: 150px 0 0; text-align:left; }
   @media (max-width:900px){ .about-intro { padding-top: var(--space-8); } }
   .about-intro h1 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); }
-  .about-intro-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items:center; margin-top: var(--space-6); }
+  .about-intro-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items:center; margin-top: var(--space-4); }
   .about-intro-text { max-width:440px; }
   .about-intro p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); }
   .about-intro p + p { margin-top: var(--space-3); }
@@ -841,7 +848,8 @@
   /* styled like a section-label h2 (big serif, border-bottom) rather than a
      card-level h3 — this is its own new "chapter" of the page, not a
      subheading within the video story above it */
-  .story-card h3 { text-align:left; font-family: var(--serif); font-size: var(--fs-display); font-weight:400; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
+  .story-card h3 { text-align:left; font-family: var(--serif); font-size: var(--fs-display); font-weight:400; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-4); }
+  @media (max-width:900px){ .story-card h3 { line-height:1.05; } }
   .story-card-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6) var(--space-4); }
   .story-card-item .story-photo { aspect-ratio:4/5; margin-bottom: var(--space-3); }
   .story-card-item p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-2); }
