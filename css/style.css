@@ -104,12 +104,25 @@
 
   /* ---------- Hero — split layout: headline left, bento photo grid right ---------- */
   .hero-collage { display:block; min-height:0; background: var(--paper); padding: var(--space-8) 0 0; overflow-x:clip; }
-  /* text column width (465px) + gap lines the photo grid's left edge up with the right
-     edge of the proof-block's left photo below — a shared vertical line down the page.
-     Fixed px rather than % since the proof photo's own width is itself pinned by the
-     1400px .wrap, not fluid beyond it. */
-  .hc-split { display:grid; grid-template-columns: minmax(300px, 465px) 1fr; column-gap: var(--space-7); align-items:center; }
-  .hc-split-text { text-align:left; }
+  /* text column width (465px) lines the photo grid's left edge up with the right edge of
+     the proof-block's left photo below — a shared vertical line down the page. Fixed px
+     rather than % since the proof photo's own width is itself pinned by the 1400px .wrap,
+     not fluid beyond it. The 56px/24px gaps are explicit spacer columns (not `gap`, which
+     would apply one value to both) since the text-to-photos gap and the gap between the
+     two photo columns are deliberately different widths.
+     .hc-bento is display:contents — its 4 tiles + the caption block become direct items
+     of this same grid, sharing its row tracks, so .hc-split-text can span exactly the two
+     photo rows (not the caption row) and align-self:end to sit flush with their bottom
+     edge, matching "Chci focení" to the photos' bottom edge instead of the whole block's
+     (photos + caption) bottom edge. */
+  .hc-split {
+    display:grid;
+    grid-template-columns: minmax(300px, 465px) 56px 1fr 24px 1fr;
+    grid-template-rows: 1fr 1fr auto;
+    row-gap: var(--space-3);
+    height: min(620px, 58vh);
+  }
+  .hc-split-text { grid-column:1; grid-row:1 / 3; align-self:end; text-align:left; }
   /* line-height/color matched to the other --fs-display and --fs-heading text on the
      site (section-label h1/h2, memory-title, reassure-lead) instead of inheriting
      body's 1.5 line-height and full-strength --ink — those read as too loose and,
@@ -129,14 +142,15 @@
      circle. Each cell is close to the clips' own native 16:9 crop (prior versions with a
      tall tile spanning two rows squeezed the small cells down to a very wide sliver —
      fine for a wide establishing shot, but it cropped these close-up faces down to an
-     unrecognizable strip) — equal cells here so every clip keeps its framing. 3rd row is
-     text-height (auto), column 1 only, under hc-bento-d. */
-  .hc-bento { display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr auto; gap: var(--space-3); height:min(620px, 58vh); }
-  .hc-bento-a { grid-column:1; grid-row:1; }
-  .hc-bento-b { grid-column:2; grid-row:1; }
-  .hc-bento-c { grid-column:2; grid-row:2; }
-  .hc-bento-d { grid-column:1; grid-row:2; }
-  .hc-bento-below { grid-column:1; grid-row:4; align-self:start; }
+     unrecognizable strip) — equal cells here so every clip keeps its framing.
+     display:contents hands the 4 tiles + caption block up to .hc-split's own grid (see
+     above) instead of sizing its own box — .hc-bento no longer carries layout itself. */
+  .hc-bento { display:contents; }
+  .hc-bento-a { grid-column:3; grid-row:1; }
+  .hc-bento-b { grid-column:5; grid-row:1; }
+  .hc-bento-c { grid-column:5; grid-row:2; }
+  .hc-bento-d { grid-column:3; grid-row:2; }
+  .hc-bento-below { grid-column:3; grid-row:3; align-self:start; }
   .orbit-tile-inner { position:relative; overflow:hidden; background: var(--ink); box-shadow: 0 14px 30px -18px rgba(0,0,0,0.3); }
   /* the poster attribute shows instantly (no Vimeo handshake), and a slow breathing zoom keeps it
      from reading as a frozen/stuck photo for the moment before the video itself starts playing */
