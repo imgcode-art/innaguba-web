@@ -231,14 +231,14 @@
   @media (max-width:900px){ .section-label { padding-top: var(--space-9); } }
   .section-label .wrap { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid var(--line); padding-bottom: var(--space-3); flex-wrap:wrap; gap: var(--space-2); }
   .section-label h1, .section-label h2 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); }
-  /* line-to-content gap, unified to var(--space-4) across all five — these were a mix of
+  /* line-to-content gap, unified to var(--space-2) across all five — these were a mix of
      the default var(--space-6), var(--space-5)/var(--space-4)/var(--space-3), each tuned
      ad hoc per section at different times. #work/#reference get it here (no other
      override exists for them); .steps-section/.faq-section's own :has() rules are updated
      further down instead of being overridden again here, since those come later in the
      cascade and would otherwise win back over this. */
   #work,
-  #reference { padding-bottom: var(--space-3); }
+  #reference { padding-bottom: var(--space-2); }
   /* only needed once this wraps to 2 lines (narrower than desktop) — applied unconditionally
      it was adding extra line-box height even on one line, making the gap to the rule below
      read bigger here than on every other section-label at desktop widths */
@@ -449,7 +449,7 @@
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
   /* same line-to-content gap as the other section-labels (var(--space-4)) — see the
      comment by the base .section-label rule */
-  .section-label:has(+ .faq-section) { padding-bottom: var(--space-3); }
+  .section-label:has(+ .faq-section) { padding-bottom: var(--space-2); }
   .section-label:has(+ .faq-section) { text-align:center; }
   .section-label:has(+ .faq-section) .wrap { justify-content:center; }
   .section-label:has(+ .faq-section) h2 { max-width:760px; width:100%; margin:0 auto; text-align:left; }
@@ -470,7 +470,7 @@
   /* ---------- Price teaser ("Kolik taková vzpomínka stojí?") ---------- */
   /* tighter than the usual section-label bottom gap (--space-6) — the price teaser row
      has no top padding/margin of its own, so the default gap read as too deep below the rule */
-  .section-label:has(+ .price-teaser) { padding-bottom: var(--space-3); }
+  .section-label:has(+ .price-teaser) { padding-bottom: var(--space-2); }
   .price-teaser { padding: 0; text-align:center; }
   .price-teaser-row { display:flex; justify-content:center; gap: var(--space-7); flex-wrap:wrap; margin-bottom: var(--space-4); }
   /* line-height:1.2 instead of body's inherited 1.5 — at --fs-heading size the extra
