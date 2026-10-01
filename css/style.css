@@ -295,7 +295,10 @@
   /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */
   .reassure-section { padding: 150px 0 0; text-align:center; }
   @media (max-width:900px){ .reassure-section { padding-top: var(--space-9); } }
-  .reassure-columns { display:grid; grid-template-columns: calc(36.6691% - var(--space-6)) 1fr; gap: var(--space-6); align-items:center; text-align:left; }
+  /* fixed px (not %) left column — its right edge needs to land exactly where the
+     proof-block's left photo ends (same vertical line continuing down the page), which is
+     itself pinned to the 1400px .wrap rather than scaling with this row's own width */
+  .reassure-columns { display:grid; grid-template-columns: 473px 1fr; gap: var(--space-6); align-items:center; text-align:left; }
   .reassure-columns .reassure-col { grid-column: 1 / 2; }
   .reassure-columns .reassure-video { grid-column: 2 / 3; }
   @media (max-width:900px){ .reassure-columns { grid-template-columns:1fr; gap: var(--space-6); } .reassure-columns .reassure-col, .reassure-columns .reassure-video { grid-column:1; } }
