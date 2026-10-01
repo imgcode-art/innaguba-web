@@ -310,8 +310,12 @@
   }
   /* margin-bottom matches .reassure-section.dark-panel's own padding-bottom (home-theme.css)
      exactly — same symmetry fix as .memory-title */
-  .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
+  /* line-height:0.86 (not the looser 1.05) matches the gap above .section-label's own
+     titles — at desktop this never wraps anyway (white-space:nowrap below), so the extra
+     leading was only adding visible space above the rule, not helping readability */
+  .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
   @media (min-width:901px){ .reassure-title { white-space:nowrap; } }
+  @media (max-width:900px){ .reassure-title { line-height:1.05; } }
   .reassure-lead { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); margin-bottom: var(--space-4); }
   .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); }
   .reassure-section .proof-teaser-link { margin-top:0; }
@@ -348,9 +352,12 @@
   /* margin-bottom matches .memory-section.dark-panel's own padding-bottom (home-theme.css)
      exactly — the dark panel's gap above the photo (after the rule) should read the same
      as its gap below the content row, same desktop/mobile split (40px / 36px) */
-  .memory-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
+  /* line-height:0.86 (not the looser 1.05) matches the gap above .section-label's own
+     titles — at desktop this never wraps anyway (white-space:nowrap below), so the extra
+     leading was only adding visible space above the rule, not helping readability */
+  .memory-title { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
   @media (min-width:901px){ .memory-title { white-space:nowrap; } }
-  @media (max-width:900px){ .memory-title { margin-bottom: 36px; } }
+  @media (max-width:900px){ .memory-title { margin-bottom: 36px; line-height:1.05; } }
   .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); row-gap: var(--space-3); align-items:center; }
   .memory-body-align .memory-photo { grid-column: 1 / 3; }
   .memory-body-align .memory-body { grid-column: 3 / 4; }
