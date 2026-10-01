@@ -1,0 +1,116 @@
+/* ---------- Dark accent panels ----------
+   Homepage keeps its normal light palette everywhere; a handful of
+   "statement" moments (reassurance block, memory section, closing footer)
+   get a dark panel treatment, echoing houseofhoney.com's alternating
+   light/dark sections instead of recoloring the whole page. Background is
+   the site's own --ink (#111111) so it reads as "the heading colour,
+   inverted" rather than an unrelated new hue.
+
+   .dark-panel is applied directly to the existing <section> (alongside
+   its normal classes, e.g. class="closing-footer wrap dark-panel") rather
+   than wrapping the content in a new div. That's deliberate: every
+   spacing rule for that section (150px top rhythm, title padding-bottom,
+   etc.) already exists in style.css and applies correctly as long as
+   nothing sits between the section and its content — wrapping it would
+   mean re-deriving all of that by hand and risking it drifting from how
+   every light section on the page is spaced. Only the background needs
+   its own full-bleed layer, added via ::before so it doesn't touch the
+   box model (padding/margins) at all. */
+
+body { overflow-x: clip; }
+
+.dark-panel {
+  position: relative;
+  /* establishes its own stacking context so ::before's z-index:-1 below
+     is guaranteed to stay behind this section's own text (as intended)
+     and can't end up behind unrelated content elsewhere on the page */
+  z-index: 0;
+  --paper: #111111;
+  --ink: #F5F3EF;
+  --ink-heading: rgba(245,243,239,0.8);
+  --ink-subheading: #F5F3EF;
+  --ink-body: rgba(245,243,239,0.85);
+  --line: rgba(245,243,239,0.14);
+  color: var(--ink);
+}
+.dark-panel::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+  /* full-bleed breakout: bg spans the whole viewport width regardless of
+     the page's own 1400px .wrap / body side-padding, same technique this
+     codebase already uses for .hc-eyebrow */
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+  background: var(--paper);
+}
+
+/* ---------- Entry transition (light section → dark panel) ----------
+   Every gap between sections on this site is owned entirely by the
+   section that follows (its own top padding — the one before it never
+   adds bottom padding). Split 110px light / 40px dark — same split used
+   for the exit transition below, so the dark panel reads as an equal
+   amount of "black" above its heading and below its content. */
+.dark-panel::before { top: 110px; }
+@media (max-width:900px){ .dark-panel::before { top: 54px; } }
+
+/* o-mne.html only: #why-label (heading) flows straight into
+   .why-me-layout (cards + photo) with no light gap between them — one
+   panel, not two — so .why-me-layout's own fill starts flush at the top
+   instead of splitting like every other entry transition. */
+.why-me-layout.dark-panel::before { top: 0; }
+
+/* ---------- Exit transition (dark panel → light section) ----------
+   Same split as the entry transition, same numbers top and bottom (40px
+   dark / 110px light desktop, 54px/36px mobile) — each panel extends its
+   own dark fill (via padding-bottom, which ::before's bottom:0
+   automatically follows) into the gap that follows it, and the light
+   section after it has its own top padding trimmed to match. Targeted by
+   id/class rather than edited in style.css because .section-label is a
+   shared rule used by sections elsewhere too. .closing-footer needs none
+   of this — it's the last thing on the page, nothing to exit into. */
+.reassure-section.dark-panel,
+.memory-section.dark-panel { padding-bottom: 40px; }
+#work,
+#sluzby { padding-top: 110px; }
+@media (max-width:900px){
+  .reassure-section.dark-panel,
+  .memory-section.dark-panel { padding-bottom: 36px; }
+  #work,
+  #sluzby { padding-top: 54px; }
+}
+
+/* o-mne.html only: same idea — .why-me-layout exits into the closing CTA
+   right after it (the last section on that page). Targeted via the adjacent-
+   sibling selector (rather than .closing:not(.dark-panel), which used to also
+   catch every OTHER page's .closing — kontakt.html, cenik.html — shrinking
+   their entry gap too, since none of them have a dark-panel before .closing
+   either) so only the .closing that directly follows this dark panel gets
+   the shorter transition. */
+#why-label { padding-bottom: 0; }
+.why-me-layout.dark-panel { padding: 40px 0; }
+.why-me-layout.dark-panel + .closing { padding-top: 110px; }
+@media (max-width:900px){
+  .why-me-layout.dark-panel { padding: 36px 0; }
+  .why-me-layout.dark-panel + .closing { padding-top: 54px; }
+}
+
+.dark-panel .hero-cta-primary { background: var(--ink); color: var(--paper); }
+.dark-panel .about-cta-btn.hero-cta-primary:hover,
+.dark-panel .about-cta-btn:hover { background: var(--paper); color: var(--ink); }
+
+/* A sticky "curtain" cover effect (closing CTA riding up over the video
+   banner before it) was tried here and reverted — it relied on
+   position:sticky interacting correctly with the full-bleed breakout
+   above, which turned out to render differently in Safari (this site's
+   actual usage) than in the Chrome-based tool used to build it: the dark
+   background stopped reaching full width, and the section after it
+   overlapped instead of following normally. Not worth re-attempting
+   without a way to verify directly in Safari.
+
+   The CTA/"Google recenze"/review-carousel trio were also tried as a
+   merged dark block (like .why-me-layout on o-mne.html still is) and
+   reverted back to the site's normal light palette — only the footer
+   stayed dark. */

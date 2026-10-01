@@ -25,7 +25,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=417">
+<link rel="stylesheet" href="css/style.css?v=430">
+<link rel="stylesheet" href="css/home-theme.css?v=1">
 <!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
@@ -62,7 +63,7 @@
 
 <section class="contact-info wrap">
   <div class="contact-info-photo">
-    <img src="images/kontakt-atelier.jpg" alt="Ateliér Inna Guba" fetchpriority="high">
+    <img src="images/kontakt-atelier.jpg?v=1" alt="Ateliér Inna Guba" fetchpriority="high">
   </div>
   <div class="contact-info-text">
     <p class="contact-info-name">Mgr. Inna Macháč Guba</p>
@@ -92,23 +93,27 @@
           <input type="email" id="cf-email" name="email" placeholder="E-mail" autocomplete="email" required>
         </div>
       </div>
-      <div class="cf-field cf-choices">
-        <label>O co máte zájem?</label>
-        <div class="cf-radio-group">
-          <label class="cf-radio"><input type="radio" name="sluzba" value="Rodinné focení"><span>Rodinné focení</span></label>
-          <label class="cf-radio"><input type="radio" name="sluzba" value="Dětský portrét"><span>Dětský portrét</span></label>
-          <label class="cf-radio"><input type="radio" name="sluzba" value="Rodinné video"><span>Rodinné video</span></label>
-          <label class="cf-radio"><input type="radio" name="sluzba" value="Těhotenské / newborn"><span>Těhotenské / newborn</span></label>
-          <label class="cf-radio"><input type="radio" name="sluzba" value="Ještě nevím, potřebuji poradit"><span>Ještě nevím, potřebuji poradit</span></label>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label for="cf-sluzba">O co máte zájem?</label>
+          <select id="cf-sluzba" name="sluzba">
+            <option value="" selected disabled>Vyberte možnost</option>
+            <option value="Rodinné focení">Rodinné focení</option>
+            <option value="Dětský portrét">Dětský portrét</option>
+            <option value="Rodinné video">Rodinné video</option>
+            <option value="Těhotenské / newborn">Těhotenské / newborn</option>
+            <option value="Ještě nevím, potřebuji poradit">Ještě nevím, potřebuji poradit</option>
+          </select>
         </div>
-      </div>
-      <div class="cf-field cf-choices">
-        <label>Kdy přibližně byste chtěli fotit?</label>
-        <div class="cf-radio-group">
-          <label class="cf-radio"><input type="radio" name="termin" value="co nejdříve"><span>co nejdříve</span></label>
-          <label class="cf-radio"><input type="radio" name="termin" value="během příštího měsíce"><span>během příštího měsíce</span></label>
-          <label class="cf-radio"><input type="radio" name="termin" value="za 2–3 měsíce"><span>za 2–3 měsíce</span></label>
-          <label class="cf-radio"><input type="radio" name="termin" value="zatím nevím"><span>zatím nevím</span></label>
+        <div class="cf-field">
+          <label for="cf-termin">Kdy byste chtěli fotit?</label>
+          <select id="cf-termin" name="termin">
+            <option value="" selected disabled>Vyberte možnost</option>
+            <option value="co nejdříve">co nejdříve</option>
+            <option value="během příštího měsíce">během příštího měsíce</option>
+            <option value="za 2–3 měsíce">za 2–3 měsíce</option>
+            <option value="zatím nevím">zatím nevím</option>
+          </select>
         </div>
       </div>
       <div class="cf-field">
@@ -130,7 +135,7 @@
   <div class="elfsight-app-b5a4e129-1a73-4e0d-b3f6-891de58a3ffa" data-elfsight-app-lazy></div>
 </section>
 
-<section class="closing-footer wrap">
+<section class="closing-footer wrap dark-panel">
   <div class="footer-cols">
     <div class="footer-col-group">
       <div class="footer-col">
@@ -167,7 +172,7 @@
   </div>
 </div>
 
-<script src="js/script.js?v=93"></script>
+<script src="js/script.js?v=99"></script>
 
 </body>
 </html>

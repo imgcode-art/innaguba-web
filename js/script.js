@@ -96,7 +96,20 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
-  // ---------- Mobile hero video — self-hosted <video autoplay>, no JS needed to start it ----------
+  // ---------- Mobile hero slides — only the slide currently in view plays; the other two
+  // stay paused (not just muted) so the phone is never decoding 3 videos at once for a
+  // row the user can only ever look at one panel of ----------
+  document.querySelectorAll('[data-scroll-video-play] video').forEach(video => {
+    let hasFinished = false;
+    video.addEventListener('ended', () => { hasFinished = true; });
+    const slideObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { if (!hasFinished) video.play().catch(() => {}); }
+        else video.pause();
+      });
+    }, { threshold: 0.6 });
+    slideObserver.observe(video);
+  });
 
   // ---------- Banner videos — each stays grayscale until scrolled into view, then fades to color and plays ----------
   document.querySelectorAll('[data-scroll-video]').forEach(scrollVideo => {
@@ -170,8 +183,8 @@ document.querySelectorAll('[data-row]').forEach(row => {
       const name = form.querySelector('[name="jmeno"]').value.trim();
       const email = form.querySelector('[name="email"]').value.trim();
       const message = form.querySelector('[name="zprava"]').value.trim();
-      const sluzba = form.querySelector('[name="sluzba"]:checked')?.value;
-      const termin = form.querySelector('[name="termin"]:checked')?.value;
+      const sluzba = form.querySelector('[name="sluzba"]')?.value;
+      const termin = form.querySelector('[name="termin"]')?.value;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Odesílám…';
@@ -215,23 +228,36 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   });
 
-  // ---------- Hero orbit — each tile is a genuinely static poster (the <video> stays paused, not
-  // just grayscale-filtered-but-secretly-playing) until its own scheduled moment, when it starts
-  // playing for the first time — so the reveal is a real freeze-to-motion cut, not a color fade
-  // over footage that was already running underneath. ----------
-  const ORBIT_REVEAL_DELAYS_MS = [300, 2000, 3500, 4500, 5500, 6500, 7500];
-  document.querySelectorAll('.orbit-tile-inner video').forEach((video, i) => {
-    const tile = video.closest('.orbit-tile-inner');
-    video.addEventListener('playing', () => tile.classList.add('is-playing'), { once: true });
-    // wait until the video actually has enough buffered data to play smoothly — with several
-    // videos competing for bandwidth right after page load, calling play() too early made the
-    // earliest tiles stall for a beat and visibly skip frames once data caught up
-    const tryPlay = () => video.play().catch(() => {});
-    setTimeout(() => {
+  // ---------- Hero orbit — one tile plays at a time, in sequence, instead of all five running
+  // (and looping) simultaneously. Each clip has no loop attribute, so it naturally stops on its
+  // own last frame when it ends; that 'ended' event is what hands off to the next tile. Calmer,
+  // and actually followable — a wall of five looping videos reads as noise, one moment at a
+  // time reads as a story. Idle tiles keep the gentle breathing-zoom (is-playing is removed on
+  // 'ended') so the hero never looks fully frozen while waiting its turn. ----------
+  (() => {
+    const sequenceVideos = Array.from(document.querySelectorAll('.orbit-tile-inner video'));
+    if (!sequenceVideos.length) return;
+    const playSequenceVideo = (i) => {
+      const video = sequenceVideos[i];
+      const tile = video.closest('.orbit-tile-inner');
+      video.currentTime = 0;
+      video.addEventListener('playing', () => tile.classList.add('is-playing'), { once: true });
+      // wait until the video actually has enough buffered data to play smoothly — the later
+      // tiles only preload metadata, so the first time it's their turn the frames may not be
+      // ready yet
+      const tryPlay = () => video.play().catch(() => {});
       if (video.readyState >= 3) tryPlay();
       else video.addEventListener('canplay', tryPlay, { once: true });
-    }, ORBIT_REVEAL_DELAYS_MS[i] ?? 7500);
-  });
+    };
+    sequenceVideos.forEach((video, i) => {
+      const tile = video.closest('.orbit-tile-inner');
+      video.addEventListener('ended', () => {
+        tile.classList.remove('is-playing');
+        playSequenceVideo((i + 1) % sequenceVideos.length);
+      });
+    });
+    setTimeout(() => playSequenceVideo(0), 300);
+  })();
 
   // ---------- Hero orbit — pinned while it collapses into a stack on scroll, unstacks when scrolling back ----------
   const orbitWrap = document.querySelector('.hc-orbit-wrap');
@@ -407,38 +433,6 @@ document.querySelectorAll('[data-row]').forEach(row => {
     equalizeRefCards();
     window.addEventListener('load', equalizeRefCards);
     window.addEventListener('resize', equalizeRefCards);
-  }
-
-  // ---------- Homepage: align the hero-cta-row buttons with the proof-block photos below —
-  // "Prohlédnout galerii" starts where the left photo ends, "Chci focení" ends where the right
-  // photo begins — so the buttons sit inside the same vertical channel as the gap between
-  // the two photos. Uses transform (not margin) because margin-left on a justify-self:end grid
-  // item just grows that 1fr track by the same amount and visually cancels itself out. ----------
-  const heroCtaRow = document.querySelector('.hero-cta-row');
-  if (heroCtaRow) {
-    const galleryLink = heroCtaRow.querySelector('.proof-teaser-link');
-    const ctaBtn = heroCtaRow.querySelector('.hero-cta-primary');
-    const alignHeroCtaRow = () => {
-      if (window.innerWidth < 901) {
-        if (galleryLink) galleryLink.style.transform = '';
-        if (ctaBtn) ctaBtn.style.transform = '';
-        return;
-      }
-      const photoLeft = document.querySelector('.proof-photo-col .proof-photo');
-      const photoRight = document.querySelector('.proof-photo-now');
-      if (!galleryLink || !ctaBtn || !photoLeft || !photoRight) return;
-      // reset first so repeated calls (resize) measure from the natural grid position,
-      // not from a transform already applied by a previous run
-      galleryLink.style.transform = 'none';
-      ctaBtn.style.transform = 'none';
-      const linkDelta = photoLeft.getBoundingClientRect().right - galleryLink.getBoundingClientRect().left;
-      const btnDelta = photoRight.getBoundingClientRect().left - ctaBtn.getBoundingClientRect().right;
-      galleryLink.style.transform = `translateX(${linkDelta}px)`;
-      ctaBtn.style.transform = `translateX(${btnDelta}px)`;
-    };
-    alignHeroCtaRow();
-    window.addEventListener('load', alignHeroCtaRow);
-    window.addEventListener('resize', alignHeroCtaRow);
   }
 
   // ---------- Homepage: align the "Příběh, když se z malého světa..." line under the

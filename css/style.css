@@ -63,7 +63,7 @@
   .logo { font-weight:700; font-size: var(--fs-body); letter-spacing:0.06em; }
   .logo-group { display:flex; flex-direction:column; gap:0; }
   .logo-claim { font-size:13px; font-weight:400; letter-spacing:0.03em; color: var(--ink-body); }
-  .nav-links { display:flex; gap: var(--space-4); font-size: var(--fs-body); font-weight:500; }
+  .nav-links { display:flex; gap: var(--space-4); font-size: var(--fs-body); font-weight:400; }
   .nav-links a { color: rgba(17,17,17,0.62); transition: color 0.2s ease; }
   .nav-links a:hover { color: var(--ink); }
   .nav-links a.active { color: var(--ink); font-weight:700; }
@@ -108,7 +108,7 @@
   .hc-orbit-viewport { position:relative; width:100%; height:min(750px, 55vw); margin:0 auto; overflow:hidden; }
   .hc-orbit-wrap { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:min(1150px, 86vw); aspect-ratio:1/1; }
   .hc-orbit-scale { position:absolute; inset:0; transform: scaleX(1.65); }
-  .orbit-ring { position:absolute; inset:0; animation: orbit-spin 90s linear infinite; }
+  .orbit-ring { position:absolute; inset:0; animation: orbit-spin 130s linear infinite; }
   .orbit-tile {
     position:absolute; width:44%; aspect-ratio:800/340;
     left: calc(var(--ox) + (var(--tx) - var(--ox)) * var(--progress, 0));
@@ -116,26 +116,28 @@
     transform: translate(-50%,-50%);
     transition: left .1s linear, top .1s linear, transform .1s linear;
   }
-  .orbit-tile-inner { position:absolute; inset:0; overflow:hidden; background: var(--ink); animation: orbit-counter-spin 90s linear infinite; }
+  .orbit-tile-inner { position:absolute; inset:0; overflow:hidden; background: var(--ink); animation: orbit-counter-spin 130s linear infinite; }
   /* the poster attribute shows instantly (no Vimeo handshake), and a slow breathing zoom keeps it
      from reading as a frozen/stuck photo for the moment before the video itself starts playing */
-  .orbit-tile-inner video { width:100%; height:100%; object-fit:cover; filter: contrast(1.1); animation: hero-photo-breathe 18s ease-in-out infinite; transition: transform .6s ease; }
+  /* grayscale on the whole hero collage (orbit tiles + the center video) — a deliberate,
+     unified black-and-white treatment instead of a mix of color clips, so the hero reads as
+     one considered editorial moment rather than a slideshow of mismatched footage */
+  .orbit-tile-inner video { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.1); animation: hero-photo-breathe 18s ease-in-out infinite; transition: transform .6s ease; }
   /* breathing zoom (photo feel) until playback actually starts (.is-playing, toggled by the 'playing' event in script.js), then the breathing stops and eases back to scale(1) instead of snapping — the video's own motion carries it from there */
   .orbit-tile-inner.is-playing video { animation: none; transform: scale(1); }
   @keyframes hero-photo-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-  .ot-1 { --ox:74%; --oy:50%;   --tx:58.64%; --ty:50%; }
-  .ot-2 { --ox:62%; --oy:70.8%; --tx:54.32%; --ty:57.49%; }
-  .ot-3 { --ox:38%; --oy:70.8%; --tx:45.68%; --ty:57.49%; }
-  .ot-4 { --ox:26%; --oy:50%;   --tx:41.36%; --ty:50%; }
-  .ot-5 { --ox:38%; --oy:29.2%; --tx:45.68%; --ty:42.51%; }
-  .ot-6 { --ox:62%; --oy:29.2%; --tx:54.32%; --ty:42.51%; }
-  /* stagger the breathing so the six tiles don't all pulse in lockstep */
+  /* back to 4 tiles at the diagonals (45/135/225/315deg) now that a 4th black-and-white
+     clip (the vineyard family) joined the black-and-white trio — same radius/shrink-ratio
+     as the original 4-tile diamond */
+  .ot-1 { --ox:67%;   --oy:67%;   --tx:56.12%; --ty:56.12%; }
+  .ot-2 { --ox:33%;   --oy:67%;   --tx:43.88%; --ty:56.12%; }
+  .ot-3 { --ox:33%;   --oy:33%;   --tx:43.88%; --ty:43.88%; }
+  .ot-4 { --ox:67%;   --oy:33%;   --tx:56.12%; --ty:43.88%; }
+  /* stagger the breathing so the four tiles don't all pulse in lockstep */
   .ot-1 .orbit-tile-inner video { animation-delay: -1s; }
-  .ot-2 .orbit-tile-inner video { animation-delay: -4s; }
-  .ot-3 .orbit-tile-inner video { animation-delay: -7s; }
-  .ot-4 .orbit-tile-inner video { animation-delay: -10s; }
-  .ot-5 .orbit-tile-inner video { animation-delay: -13s; }
-  .ot-6 .orbit-tile-inner video { animation-delay: -16s; }
+  .ot-2 .orbit-tile-inner video { animation-delay: -5s; }
+  .ot-3 .orbit-tile-inner video { animation-delay: -9s; }
+  .ot-4 .orbit-tile-inner video { animation-delay: -13s; }
   /* freezing mid-spin (animation-play-state:paused) would leave the ring stopped at
      whatever random angle the 90s loop had reached, skewing the whole stacked layout
      differently every time — snapping both to a fixed neutral angle instead keeps the
@@ -150,8 +152,17 @@
      resolve against the right box */
   .hc-center { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:3; width:100%; display:flex; flex-direction:column; align-items:center; opacity:1; }
   /* full-bleed background regardless of the orbit-wrap's own (narrower, centered) width —
-     the text still lands at the same spot since orbit-wrap is itself viewport-centered */
-  .hc-eyebrow { display:block; align-self:flex-start; width:100vw; position:relative; left:50%; margin-left:-50vw; text-align:center; background: rgba(245,243,239,0.5); padding: var(--space-3) 0; font-size: var(--fs-display); font-weight:700; letter-spacing:-0.025em; text-transform:none; color: var(--ink); }
+     the text still lands at the same spot since orbit-wrap is itself viewport-centered.
+     Moved off .hc-eyebrow onto this wrapper so the subhead + CTA share the same readable
+     band instead of sitting directly on top of the moving video with no contrast. */
+  /* align-self:flex-start opts this out of .hc-center's align-items:center — without it, the
+     browser centers this 100vw-wide box within .hc-center's own (much narrower) content box
+     BEFORE the left:50%/margin-left:-50vw full-bleed trick runs, throwing the whole band
+     (and the text inside it) off to the right instead of spanning edge-to-edge */
+  .hc-center-band { display:flex; flex-direction:column; align-items:center; align-self:flex-start; width:100vw; position:relative; left:50%; margin-left:-50vw; background: rgba(245,243,239,0.6); padding: var(--space-4) 0; text-align:center; }
+  .hc-eyebrow { display:block; font-size: var(--fs-display); font-weight:700; letter-spacing:-0.025em; text-transform:none; color: var(--ink); }
+  .hc-hero-subhead { margin-top: var(--space-2); font-size: var(--fs-heading); color: var(--ink-subheading); }
+  .hc-hero-cta { margin-top: var(--space-4); }
   .hc-center-video { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:44%; aspect-ratio:800/340; }
   .hc-center-video .orbit-tile-inner { animation:none; }
   .hc-center-video .orbit-tile-inner video { animation-delay: -9s; }
@@ -167,10 +178,18 @@
   }
   .hc-mobile-slides::-webkit-scrollbar { display:none; }
   .hc-mobile-slide { flex:0 0 100%; scroll-snap-align:start; position:relative; overflow:hidden; background: var(--ink); }
-  .hc-mobile-slide video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  /* same unified black-and-white treatment as the desktop orbit */
+  .hc-mobile-slide video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.1); }
   /* a different headline per slide, sitting low over the video (not centered) — same pale
-     band + serif treatment as the desktop .hc-eyebrow, just anchored to the bottom */
-  .hc-mobile-slide-title { position:absolute; left:0; right:0; bottom:0; z-index:2; background: rgba(245,243,239,0.55); padding: var(--space-3); font-family: var(--serif); font-weight:700; font-size: clamp(18px, 6.2vw, 32px); line-height:1.15; letter-spacing:-0.02em; color: var(--ink); text-align:center; }
+     band + serif treatment as the desktop .hc-eyebrow, just anchored to the bottom.
+     Now also carries a CTA button + dot row per slide, so the offer is visible without
+     any scrolling and the dots need no JS — each slide's own row just marks its own index. */
+  .hc-mobile-slide-caption { position:absolute; left:0; right:0; bottom:0; z-index:2; background: rgba(245,243,239,0.6); padding: var(--space-4) var(--space-3) var(--space-3); display:flex; flex-direction:column; align-items:center; gap: var(--space-2); text-align:center; }
+  .hc-mobile-slide-title { font-family: var(--serif); font-weight:700; font-size: clamp(18px, 6.2vw, 32px); line-height:1.15; letter-spacing:-0.02em; color: var(--ink); }
+  .hc-mobile-cta { margin-top: var(--space-1); }
+  .hc-mobile-dots { display:flex; gap:8px; margin-top: var(--space-1); }
+  .hc-mobile-dots .dot { width:7px; height:7px; border-radius:50%; background: rgba(17,17,17,0.25); }
+  .hc-mobile-dots .dot.is-active { background: var(--ink); }
   /* subtle prev/next hint — floats over whichever slide is current, not per-slide, so it
      works no matter where the user is in the set; fades out at either end so it never
      promises a direction that doesn't exist */
@@ -181,14 +200,9 @@
   .hc-mobile-slideshow.at-end .hc-mobile-nav-next { opacity:0; pointer-events:none; }
   .hero-lead { max-width:640px; margin:0 auto var(--space-3); font-size: var(--fs-heading); font-weight:700; line-height:1.3; color: var(--ink-subheading); text-align:left; }
   .hero-note { max-width:640px; margin:0 auto var(--space-4); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:left; }
+  /* only "Prohlédnout galerii" lives here now, centered — "Chci focení" moved up into the
+     hero itself (.hc-hero-cta) so the offer is visible without scrolling */
   .hero-cta-row { display:flex; justify-content:center; gap: var(--space-5); flex-wrap:wrap; }
-  @media (min-width:901px){
-    /* mirror .proof-block's 50/50 grid so "Chci focení" starts at the exact same x as "12 let",
-       using justify-self (not flex-grow) so the button keeps its natural size, not stretched */
-    .hero-cta-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
-    .hero-cta-row a:first-child { justify-self:end; }
-    .hero-cta-row a:last-child { justify-self:start; }
-  }
   .hero-cta-primary { background:#2b2b2b; color:#fff; transition: background .25s ease, color .25s ease, transform .25s ease; }
   .about-cta-btn.hero-cta-primary:hover { background:#fff; color: var(--ink); transform: scale(1.04); }
   @media (max-width:900px){
@@ -198,6 +212,7 @@
     .hc-mobile-slideshow { display:block; width:100vw; position:relative; left:50%; margin-left:-50vw; }
     .hc-mobile-slide { height:72vh; }
     .bottom-section { padding-top: var(--space-6); padding-bottom: 0; }
+    .hero-lead { font-size: var(--fs-body); font-weight:400; line-height:1.5; }
   }
   @media (min-width:901px){
     .hc-scroll-pin { height: 108vh; }
@@ -254,6 +269,12 @@
   .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
   .hero-cta-row .proof-teaser-link { margin-top:0; align-self:center; }
   @media (min-width:901px){
+    /* the caption below each photo is position:absolute (see below), so it
+       doesn't count toward this section's own flow height — without this,
+       the next section's own top-padding gap is measured from the photo's
+       bottom edge, not the caption's, leaving almost no visible clearance
+       under the caption text before the next section starts */
+    .proof-block { padding-bottom: 40px; }
     .proof-block-row { display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap: var(--space-6); }
     .proof-photo-col { max-width:none; flex:0 1 42%; margin-bottom:0; }
     /* absolute + top:100% so the caption doesn't add to proof-photo-col's flex height —
@@ -275,12 +296,19 @@
   .reassure-video { aspect-ratio:16/9; overflow:hidden; }
   .reassure-video img { width:100%; height:100%; object-fit:cover; }
   @media (max-width:900px){ .reassure-video { display:none; } }
-  .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); text-align:left; }
+  /* margin-bottom matches .reassure-section.dark-panel's own padding-bottom (home-theme.css)
+     exactly — same symmetry fix as .memory-title */
+  .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
   @media (min-width:901px){ .reassure-title { white-space:nowrap; } }
   .reassure-lead { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); margin-bottom: var(--space-4); }
   .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); }
   .reassure-section .proof-teaser-link { margin-top:0; }
   .reassure-body p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
+  /* the closing line reads as a quiet punchline via size, not bold — same
+     technique as .memory-body p:last-child, so a bold whole-sentence
+     doesn't sit awkwardly between the lead (bigger) and the body (plain)
+     as a third, ad-hoc weight tier */
+  .reassure-body p:last-child { font-size: var(--fs-heading); line-height:1.2; color: var(--ink-subheading); }
   /* on mobile these three gaps (title→lead, lead→body, between the two body lines) were
      48/32/16px — visibly uneven and the first one too wide; one consistent rhythm instead */
   @media (max-width:900px){
@@ -305,21 +333,27 @@
   /* ---------- Memory section ("Nejen fotografie. Vzpomínku na to, jaké to bylo.") ---------- */
   .memory-section { padding: 150px 0 0; text-align:center; }
   @media (max-width:900px){ .memory-section { padding-top: var(--space-9); } }
-  .memory-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); text-align:left; }
+  /* margin-bottom matches .memory-section.dark-panel's own padding-bottom (home-theme.css)
+     exactly — the dark panel's gap above the photo (after the rule) should read the same
+     as its gap below the content row, same desktop/mobile split (40px / 36px) */
+  .memory-title { font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
   @media (min-width:901px){ .memory-title { white-space:nowrap; } }
+  @media (max-width:900px){ .memory-title { margin-bottom: 36px; } }
   .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); row-gap: var(--space-3); align-items:center; }
   .memory-body-align .memory-photo { grid-column: 1 / 3; }
   .memory-body-align .memory-body { grid-column: 3 / 4; }
   .memory-photo { aspect-ratio: 16/9; overflow:hidden; }
   .memory-photo img { width:100%; height:100%; object-fit:cover; }
   .memory-body p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-3); text-align:left; }
-  .memory-body p:last-child { margin-bottom:0; font-size: var(--fs-heading); font-weight:700; line-height:1.4; color: var(--ink-subheading); }
+  .memory-body p:last-child { margin-bottom:0; font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); }
   @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-photo, .memory-body-align .memory-body { grid-column:1; padding-left:0; } .memory-photo { aspect-ratio:3/2; } }
 
   /* ---------- Steps (jak focení probíhá) ---------- */
+  /* tighter than the usual section-label bottom gap (--space-6) — the steps have no
+     top padding/margin of their own, so the default gap read as too deep below the rule */
+  .section-label:has(+ .steps-section) { padding-bottom: var(--space-4); }
   .steps-section { padding: 0; }
   .steps-list { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); }
-  .step-num { display:block; font-size: var(--fs-body); font-weight:700; color: rgba(17,17,17,0.35); margin-bottom: var(--space-2); }
   .step h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
   .step p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
   @media (max-width:900px){ .steps-list{grid-template-columns:1fr; row-gap: var(--space-5);} }
@@ -402,13 +436,17 @@
   }
 
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
+  /* tighter than the usual section-label bottom gap (--space-6) — matches the --space-4
+     rhythm between each question below, so the first question doesn't sit further from
+     the rule than the others sit from each other */
+  .section-label:has(+ .faq-section) { padding-bottom: var(--space-3); }
   .section-label:has(+ .faq-section) { text-align:center; }
   .section-label:has(+ .faq-section) .wrap { justify-content:center; }
   .section-label:has(+ .faq-section) h2 { max-width:760px; width:100%; margin:0 auto; text-align:left; }
   .faq-section { padding: 0; text-align:center; }
   .faq-list { max-width:760px; margin:0 auto; text-align:left; }
   .faq-item { border-bottom:1px solid var(--line); cursor:pointer; }
-  .faq-question { display:flex; justify-content:space-between; align-items:center; gap: var(--space-4); padding: var(--space-4) 0; font-size: var(--fs-body); font-weight:600; color: var(--ink-heading); }
+  .faq-question { display:flex; justify-content:space-between; align-items:center; gap: var(--space-4); padding: var(--space-4) 0; font-size: var(--fs-body); font-weight:400; color: var(--ink-heading); }
   /* the section-label above already carries its own bottom padding as the "gap before
      content" — without this, the first question's own top padding stacks on top of it,
      landing noticeably deeper than every other section's first element */
@@ -420,6 +458,9 @@
   .faq-answer p { max-width:620px; padding: 0 0 var(--space-4); font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
 
   /* ---------- Price teaser ("Kolik taková vzpomínka stojí?") ---------- */
+  /* tighter than the usual section-label bottom gap (--space-6) — the price teaser row
+     has no top padding/margin of its own, so the default gap read as too deep below the rule */
+  .section-label:has(+ .price-teaser) { padding-bottom: var(--space-5); }
   .price-teaser { padding: 0; text-align:center; }
   .price-teaser-row { display:flex; justify-content:center; gap: var(--space-7); flex-wrap:wrap; margin-bottom: var(--space-4); }
   .price-teaser-item h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-1); }
@@ -435,7 +476,7 @@
   .closing-footer { padding: 150px 0 var(--space-5); }
   @media (max-width:900px){ .closing-footer { padding-top: var(--space-8); } }
   .closing-title { font-size: var(--fs-display); font-weight:700; line-height:0.9; letter-spacing:-0.025em; color: var(--ink-heading); padding-bottom: var(--space-4); border-bottom:1px solid var(--line); }
-  .closing-note { font-size: var(--fs-body); color: var(--ink-body); margin: var(--space-4) 0 0; }
+  .closing-note { font-size: var(--fs-body); color: var(--ink-body); margin: var(--space-5) 0 0; }
   .closing-lead { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin: var(--space-4) 0 0; }
   .closing-punch { font-size: var(--fs-body); font-style:italic; color: var(--ink-body); margin: var(--space-3) 0 0; }
   .closing .about-thanks-cta { margin-top: var(--space-4); }
@@ -453,11 +494,15 @@
   @media (max-width:900px){ .about-intro-text { max-width:none; } }
   @media (max-width:900px){ .about-intro-row { grid-template-columns:1fr; } }
 
-  /* ---------- Why me (o-mne.html) — two columns stretched to the same height (the right one,
-     with its big photo + two cards, is naturally taller); the left column's photo grows to fill
-     whatever space is left under its two short cards, so both columns end on the same line. ---------- */
+  /* ---------- Why me (o-mne.html) — reasons list on the left, one photo on
+     the right. The photo's grid column is whatever's left over (1fr) after
+     the narrower reasons column, which is much wider than the photo itself
+     should be — capped to max-width so a 4:5 ratio comes out a normal
+     photo size (matching the story-card-grid photos) instead of stretching
+     to fill that whole wide column, and justify-self:end keeps it flush
+     with the right edge rather than stranded in the middle of the gap. ---------- */
   .why-me-layout { padding: 0; display:grid; grid-template-columns: calc(48.2857% - var(--space-6)) 1fr; gap: var(--space-6); align-items:center; }
-  .why-photo { aspect-ratio:1/1; overflow:hidden; }
+  .why-photo { aspect-ratio:4/5; overflow:hidden; max-width:460px; justify-self:end; }
   .why-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
   .why-reasons { display:flex; flex-direction:column; gap: var(--space-3); }
   .why-me-card h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-2); }
@@ -472,15 +517,25 @@
   .cf-row { display:flex; gap: var(--space-3); }
   .cf-field { display:flex; flex-direction:column; gap: 6px; flex:1; }
   .cf-field > label { font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color: var(--ink-heading); }
-  .cf-row input, .contact-form textarea { width:100%; background: var(--paper); border:1px solid var(--line); padding: var(--space-3); font-family:var(--sans); font-size: var(--fs-body); color: var(--ink); }
+  /* "Kdy přibližně byste chtěli fotit?" wraps to 2 lines in its half-width row while
+     "O co máte zájem?" stays on 1 — reserving 2 lines' height on every select's label
+     keeps both selects starting at the same y regardless of which label wraps */
+  .cf-row .cf-field:has(select) > label { min-height:2.6em; }
+  .cf-row input, .cf-row select, .contact-form textarea { width:100%; background: var(--paper); border:1px solid var(--line); padding: var(--space-3); font-family:var(--sans); font-size: var(--fs-body); color: var(--ink); }
   .cf-row input::placeholder, .contact-form textarea::placeholder { color: rgba(17,17,17,0.35); }
-  .cf-row input:focus, .contact-form textarea:focus { outline:none; border-color: var(--ink); }
+  .cf-row input:focus, .cf-row select:focus, .contact-form textarea:focus { outline:none; border-color: var(--ink); }
   .cf-row input.cf-invalid, .contact-form textarea.cf-invalid { border-color:#a13a3a; }
   .contact-form textarea { resize:none; min-height:110px; line-height:1.5; }
-  .cf-radio-group { display:flex; flex-wrap:wrap; gap: var(--space-2); }
-  .cf-radio { display:inline-flex; align-items:center; gap:6px; font-size: var(--fs-body); font-weight:400; text-transform:none; letter-spacing:normal; color: var(--ink-body); border:1px solid var(--line); padding:8px 14px; cursor:pointer; transition: border-color .2s ease, color .2s ease; }
-  .cf-radio input { accent-color: var(--ink); }
-  .cf-radio:has(input:checked) { border-color: var(--ink); font-weight:700; color: var(--ink); }
+  .cf-row select {
+    appearance:none;
+    -webkit-appearance:none;
+    cursor:pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 5.5l4.5 4.5 4.5-4.5' fill='none' stroke='%23111111' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position: right var(--space-3) center;
+    background-size:12px;
+    padding-right: calc(var(--space-3) * 2 + 12px);
+  }
   .cf-submit { align-self:center; display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink); cursor:pointer; transition: background .2s ease, color .2s ease; }
   .cf-submit:hover { background: var(--ink-body); border-color: var(--ink-body); color:#fff; }
   .cf-submit:disabled:not([data-state="success"]) { opacity:0.5; cursor:default; }
@@ -555,11 +610,11 @@
   /* "Rodinné video" card: photo on desktop, the actual video swapped in on mobile —
      same breakpoint as the card-stack effect below, so the two changes land together */
   .pg .pcard .thumb-video { display:none; }
-  /* mobile swap for the "Jak focení probíhá" video slot: desktop shows the brno video
-     right after steps-section (#steps-video-banner); mobile shows the Michalkovi video
-     instead (#steps-video-banner-mobile) — same video that on desktop belongs to the
-     price section further down the page. Hidden here by default (desktop); the mobile
-     media query below flips which of the two is shown. */
+  /* mobile swap for the "Jak focení probíhá" video slot: both #steps-video-banner
+     (desktop) and #steps-video-banner-mobile (mobile) now show the same Michalkovi
+     video — separate elements only because mobile needs different markup/placement.
+     Hidden here by default (desktop); the mobile media query below flips which of
+     the two is shown. */
   #steps-video-banner-mobile { display:none; }
   @media (max-width:800px){
     .pg .pcard .thumb-photo { display:none; }
@@ -572,8 +627,8 @@
     /* its mobile replacement belongs to the same "Jak focení probíhá" section, so it
        gets the same tight top gap #steps-video-banner uses on desktop */
     #steps-video-banner-mobile { display:block; margin-top: var(--space-6); }
-    /* this video now belongs to "Jak focení probíhá" instead — free it up for that on
-       mobile; desktop keeps it attached to the price section further down */
+    /* the price section's own banner is unrelated to this card on mobile — stays hidden
+       here regardless of which video it shows on desktop */
     #price-video-banner { display:none; }
   }
   .pg .pcard h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
@@ -630,33 +685,33 @@
   .video-gallery .back, .photo-gallery .back { display:block; margin-top: var(--space-6); }
 
   /* ---------- Pricing (Ceník) ---------- */
-  .cenik-hero { padding: 150px 0 0; text-align:left; }
-  @media (max-width:900px){ .cenik-hero { padding-top: var(--space-8); } }
   .cenik-label { font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2); }
-  .cenik-h1 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-4); }
-  @media (min-width:901px){ .cenik-h1 { white-space:nowrap; } }
-  .cenik-hero-narrow { max-width:calc((100% - 2 * var(--space-7)) / 3); margin:0; }
-  .cenik-hero-narrow p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-3); }
-  .cenik-hero-narrow p:last-of-type { margin-bottom: 0; }
-  @media (max-width:900px){ .cenik-hero-narrow { max-width:none; } }
 
-  .cenik-intro { max-width:640px; margin:0 auto var(--space-6); text-align:center; }
+  .cenik-intro { max-width:640px; margin:0 auto; text-align:center; }
   .cenik-intro-lead { font-size: var(--fs-heading); font-weight:700; color: var(--ink-subheading); margin-bottom: var(--space-2); }
   .cenik-intro p:not(.cenik-intro-lead) { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
 
   .pricing-grid { padding: 0; }
+  /* on mobile the gap between the stacked single-card sections (Rodinné video,
+     Dětský portrét) comes from the sticky-card padding-bottom trick below; on
+     desktop that trick doesn't apply, so without this the 3 pricing-grid
+     sections sit flush against each other with no gap at all */
+  @media (min-width:901px){ .pricing-grid + .pricing-grid { margin-top: var(--space-9); } }
   .price-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-9) var(--space-7); }
   .price-bento-1 { grid-template-columns: 1fr; }
   .price-bento-1 .pb-card { border:1px solid var(--line); padding:0; }
   .price-bento-1 .pb-card.pb-standout { border-color: var(--ink); }
   .pb-card { display:flex; flex-direction:column; min-width:0; }
-  .pb-card.pb-featured { grid-column: 1 / -1; flex-direction:row; align-items:stretch; gap: var(--space-8); }
+  .pb-card.pb-featured { grid-column: 1 / -1; flex-direction:row; align-items:stretch; gap: var(--space-7); }
   /* position:absolute on the img keeps it out of the height calculation, so .pb-photo's own
      (pre-stretch) height is 0 and .pb-content's real content height drives the stretched row —
      the photo ends up exactly as tall as the package description beside it, not the other way round */
   .pb-featured .pb-photo { position:relative; flex:1.1; order:2; margin-bottom:0; aspect-ratio:auto; }
   .pb-featured .pb-photo img, .pb-featured .pb-photo video { position:absolute; inset:0; }
-  .pb-featured .pb-content { flex:1; order:1; max-width:460px; min-height:438px; padding: var(--space-4) 0 var(--space-4) var(--space-4); }
+  /* content width matches the top grid's own column width (same 3-col, same column-gap),
+     and the row gap above reuses that same column-gap — so the photo's left edge lands
+     exactly where the middle card of the 3-card row starts, lining the two rows up */
+  .pb-featured .pb-content { flex:0 0 calc((100% - 2 * var(--space-7)) / 3); order:1; min-height:438px; padding: var(--space-4) 0 var(--space-4) var(--space-4); }
   .pb-photo { position:relative; aspect-ratio:4/5; overflow:hidden; margin-bottom: var(--space-4); }
   .pb-photo img, .pb-photo video { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   .pb-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
@@ -675,19 +730,35 @@
   .pb-recommended { border:1px solid var(--ink); padding: var(--space-4); }
   .pb-recommended .pb-photo { margin-top: calc(var(--space-4) * -1); margin-left: calc(var(--space-4) * -1); margin-right: calc(var(--space-4) * -1); width: calc(100% + var(--space-4) * 2); }
   @media (min-width:901px){ .pb-recommended { transform: scale(1.03); } }
-  @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; aspect-ratio:4/5;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; flex:none; max-width:none; min-height:auto; padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4);} .pb-recommended{transform:none;} }
-
-  .cenik-included { max-width:640px; margin:0 auto; padding: 150px 0 0; text-align:left; }
-  @media (max-width:900px){ .cenik-included { padding-top: var(--space-8); } }
-  @media (min-width:901px){
-    .cenik-included { max-width:none; margin:0; }
-    .cenik-included-body { max-width:640px; }
+  @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; aspect-ratio:3/2;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; flex:none; max-width:none; min-height:auto; padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4);} .pb-recommended{transform:none;} }
+  /* mobile card-stack: same plain position:sticky trick already used for the
+     portfolio cards (.pg .pcard) and testimonials (.rg .card) — each card
+     sticks at the same offset, so scrolling further rides the next card's
+     own background up over the one before it. First tried across all 5
+     cards WITH a separate section-label heading in front of the two
+     single-featured cards ("Rodinné video"/"Dětský portrét") — that broke
+     the relay (a sticky element stuck permanently, or never stuck at all,
+     depending on which pieces were made sticky), because a non-adjacent
+     sibling (the standalone heading) sat between one sticky card and the
+     next, unlike Mini/Pohoda/Maxi which are direct siblings with nothing
+     between them. Fixed by moving each card's name to be its own <h3>
+     inside .pb-content (matching how "Rodinné Mini" etc. already work)
+     instead of a separate section-label before the card — now every
+     sticky participant is directly adjacent again. */
+  @media (max-width:900px){
+    .price-bento-3 .pb-card:not(.pb-recommended),
+    .price-bento-3 .pb-recommended,
+    .price-bento-1 .pb-featured {
+      position: sticky;
+      top: var(--space-3);
+      background: var(--paper);
+      padding-bottom: var(--space-9);
+    }
+    /* cancels the trailing padding-bottom of the LAST card in the whole
+       chain (Dětský portrét), so the gap before the next normal section
+       doesn't double up */
+    #detsky-grid { margin-bottom: calc(-1 * var(--space-9)); }
   }
-  .cenik-included-title { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-4); }
-  .cenik-included-list { list-style:none; text-align:left; display:inline-block; margin:0 auto var(--space-5); }
-  .cenik-included-list li { font-size: var(--fs-body); line-height:2; color: var(--ink-body); }
-  .cenik-included-list li::before { content:"✓ "; font-weight:700; color: var(--ink-heading); }
-  .cenik-included-note p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-2); }
 
   .cenik-help-cta { margin-top: var(--space-4); }
   .cenik-help-alt { font-size: var(--fs-body); color: var(--ink-body); margin-top: var(--space-3); }
@@ -726,7 +797,7 @@
   .lb-close { position:absolute; top:-40px; right:0; color:#fff; font-size: var(--fs-body); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; background:none; border:0; }
 
   /* ---------- O mně ---------- */
-  .ab-hero-photo { aspect-ratio:3234/1605; overflow:hidden; }
+  .ab-hero-photo { aspect-ratio:3/2; overflow:hidden; }
   .ab-hero-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
 
   /* ---------- My story ("A proč to vlastně dělám?") ---------- */
@@ -734,7 +805,10 @@
   .story-row { display:grid; grid-template-columns: 1fr 1.3fr; gap: var(--space-6); align-items:center; }
   .story-photo { aspect-ratio:4/5; overflow:hidden; }
   @media (min-width:901px){
-    .story-row:has(.story-photo-wide) { display:flex; align-items:center; }
+    /* row-reverse: photo on the right, text on the left — .about-intro-row
+       right above it is already photo-left/text-right, so without this the
+       two back-to-back sections would read as the same template repeated */
+    .story-row:has(.story-photo-wide) { display:flex; flex-direction:row-reverse; align-items:center; justify-content:space-between; }
     .story-row:has(.story-photo-wide) .story-photo-wide { flex:0 0 calc((100% - var(--space-6)) / 2); aspect-ratio:3/2; align-self:flex-start; }
     .story-row:has(.story-photo-wide) .story-text { flex:1; max-width:520px; }
   }
@@ -749,15 +823,35 @@
   .story-outro p { font-size: var(--fs-heading); line-height:1.8; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
   @media (max-width:900px){ .my-story { gap: var(--space-5); } }
   @media (max-width:900px){ .story-row { grid-template-columns:1fr; } .story-photo { aspect-ratio:3/2; } .story-photo-wide { height:auto; } }
-  .story-card h3 { text-align:left; font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-6); }
+  /* the story-card below reads as its own new "chapter", so the gap above it
+     needs to beat the standard section-to-section distance — on top of the
+     .my-story gap it already gets from flex gap */
+  .story-card { margin-top: var(--space-9); }
+  @media (max-width:900px){ .story-card { margin-top: var(--space-7); } }
+  /* styled like a section-label h2 (big serif, border-bottom) rather than a
+     card-level h3 — this is its own new "chapter" of the page, not a
+     subheading within the video story above it */
+  .story-card h3 { text-align:left; font-family: var(--serif); font-size: var(--fs-display); font-weight:400; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
   .story-card-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6) var(--space-4); }
   .story-card-item .story-photo { aspect-ratio:4/5; margin-bottom: var(--space-3); }
   .story-card-item p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-2); }
-  @media (max-width:900px){ .story-card-grid { grid-template-columns:1fr; } }
+  @media (max-width:900px){
+    .story-card-grid { grid-template-columns:1fr; }
+    /* same mobile card-stack trick as .pg .pcard / .rg .card / .pb-card —
+       each item sticks at the same offset so the next one's own background
+       rides up and covers the one before it as you keep scrolling */
+    .story-card-item {
+      position: sticky;
+      top: var(--space-3);
+      background: var(--paper);
+      padding-bottom: var(--space-9);
+    }
+    .story-card-grid { margin-bottom: calc(-1 * var(--space-9)); }
+  }
 
   /* ---------- Contact page (business card + photo) ---------- */
   .contact-info { display:flex; align-items:center; gap: var(--space-6); padding: 0; }
-  .contact-info-photo { flex:0 0 calc((100% - var(--space-6)) / 2); aspect-ratio:3234/1605; overflow:hidden; }
+  .contact-info-photo { flex:0 0 calc((100% - var(--space-6)) / 2); aspect-ratio:3/2; overflow:hidden; }
   .contact-info-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   .contact-info-text { flex:1; max-width:420px; }
   .contact-info-name { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-3); }
@@ -847,23 +941,22 @@
   /* placed at the very end of the file so it wins the cascade over the older
      per-component heading rules above (same selectors, same specificity —
      source order decides, and this needs to come last) */
-  .hc-eyebrow, .closing-title, .about-intro h1, .cenik-h1, .section-label h1 {
+  .hc-eyebrow, .closing-title, .about-intro h1, .cenik-h1, .section-label h1,
+  .memory-title, .reassure-title, .section-label h2, .hc-mobile-slide-title {
     font-family: var(--serif);
     font-weight: 400;
-  }
-  .memory-title, .reassure-title, .section-label h2 {
-    font-family: var(--serif);
-    font-weight: 300;
   }
   .hc-eyebrow em {
     font-style: italic;
     font-weight: 500;
   }
   .pg .pcard h4, .step h4, .price-teaser-item h4,
-  .why-me-card h3, .pb-content h3, .story-text h3, .story-card h3, .legal-content h3 {
+  .why-me-card h3, .pb-content h3, .story-text h3, .legal-content h3,
+  .belief-list li, .contact-info-name, .gallery-soon h2 {
     font-weight: 400;
   }
-  .hero-lead, .reassure-lead, .memory-body p:last-child, .proof-stats li strong {
+  .hero-lead, .reassure-lead, .memory-body p:last-child, .proof-stats li strong,
+  .closing-lead, .cenik-intro-lead, .my-story-intro, .my-story-close {
     font-weight: 400;
   }
 

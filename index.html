@@ -26,7 +26,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=417">
+<link rel="stylesheet" href="css/style.css?v=430">
+<link rel="stylesheet" href="css/home-theme.css?v=9">
 <!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
@@ -74,34 +75,32 @@
     <div class="hc-orbit-scale">
     <div class="orbit-ring">
       <div class="orbit-tile ot-1">
-        <div class="orbit-tile-inner"><video src="videos/bijovi.mp4" poster="images/hero/bijovi-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
+        <div class="orbit-tile-inner"><video src="videos/moment-portret.mp4?v=2" poster="images/hero/moment-portret-poster.jpg?v=2" muted playsinline preload="auto" aria-hidden="true"></video></div>
       </div>
       <div class="orbit-tile ot-2">
-        <div class="orbit-tile-inner"><video src="videos/bockovi.mp4" poster="images/hero/bockovi-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
+        <div class="orbit-tile-inner"><video src="videos/moment-novorozene.mp4?v=2" poster="images/hero/moment-novorozene-poster.jpg?v=2" muted playsinline preload="metadata" aria-hidden="true"></video></div>
       </div>
       <div class="orbit-tile ot-3">
-        <div class="orbit-tile-inner"><video src="videos/fels.mp4" poster="images/hero/fels-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
+        <div class="orbit-tile-inner"><video src="videos/moment-prvni-kroky.mp4?v=2" poster="images/hero/moment-prvni-kroky-poster.jpg?v=2" muted playsinline preload="metadata" aria-hidden="true"></video></div>
       </div>
       <div class="orbit-tile ot-4">
-        <div class="orbit-tile-inner"><video src="videos/julia.mp4" poster="images/hero/julia-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
-      </div>
-      <div class="orbit-tile ot-5">
-        <div class="orbit-tile-inner"><video src="videos/motorka.mp4" poster="images/hero/motorka-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
-      </div>
-      <div class="orbit-tile ot-6">
-        <div class="orbit-tile-inner"><video src="videos/strmiskovi.mp4" poster="images/hero/strmiskovi-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
+        <div class="orbit-tile-inner"><video src="videos/moment-rodina-vinice.mp4?v=1" poster="images/hero/moment-rodina-vinice-poster.jpg?v=1" muted playsinline preload="metadata" aria-hidden="true"></video></div>
       </div>
     </div>
     </div>
 
     <div class="hc-center-video">
-      <div class="orbit-tile-inner"><video src="videos/album.mp4" poster="images/hero/album-poster.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
+      <div class="orbit-tile-inner"><video src="videos/moment-srdicko.mp4?v=1" poster="images/hero/moment-srdicko-poster.jpg?v=1" muted playsinline preload="metadata" aria-hidden="true"></video></div>
     </div>
 
   </div>
 
   <div class="hc-center">
-    <h1 class="hc-eyebrow">Rodinné <em>focení a video</em> v Brně a okolí</h1>
+    <div class="hc-center-band">
+      <h1 class="hc-eyebrow">Rodinné <em>focení a video</em> v Brně a okolí</h1>
+      <p class="hc-hero-subhead">Beze spěchu. Beze stresu. Jen vy a vaše rodina.</p>
+      <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary hc-hero-cta">Chci focení →</a>
+    </div>
   </div>
 
   </div>
@@ -109,17 +108,29 @@
 
   <div class="hc-mobile-slideshow">
     <div class="hc-mobile-slides">
-      <div class="hc-mobile-slide">
-        <video src="videos/bockovi.mp4" poster="images/hero/bockovi-poster.jpg" muted loop playsinline preload="auto" autoplay aria-hidden="true"></video>
-        <p class="hc-mobile-slide-title">Rodinné focení a video v Brně</p>
+      <div class="hc-mobile-slide" data-scroll-video-play>
+        <video src="videos/moment-rodina-vinice.mp4?v=1" poster="images/hero/moment-rodina-vinice-poster.jpg?v=1" muted playsinline preload="auto" aria-hidden="true"></video>
+        <div class="hc-mobile-slide-caption">
+          <p class="hc-mobile-slide-title">Rodinné focení a video v Brně</p>
+          <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary hc-mobile-cta">Chci focení →</a>
+          <div class="hc-mobile-dots" aria-hidden="true"><span class="dot is-active"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
       </div>
-      <div class="hc-mobile-slide">
-        <video src="videos/julia.mp4" poster="images/hero/julia-poster.jpg" muted loop playsinline preload="auto" autoplay aria-hidden="true"></video>
-        <p class="hc-mobile-slide-title">Bez stresu a pózování</p>
+      <div class="hc-mobile-slide" data-scroll-video-play>
+        <video src="videos/moment-novorozene.mp4?v=2" poster="images/hero/moment-novorozene-poster.jpg?v=2" muted playsinline preload="metadata" aria-hidden="true"></video>
+        <div class="hc-mobile-slide-caption">
+          <p class="hc-mobile-slide-title">Bez stresu a pózování</p>
+          <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary hc-mobile-cta">Chci focení →</a>
+          <div class="hc-mobile-dots" aria-hidden="true"><span class="dot"></span><span class="dot is-active"></span><span class="dot"></span></div>
+        </div>
       </div>
-      <div class="hc-mobile-slide">
-        <video src="videos/strmiskovi.mp4" poster="images/hero/strmiskovi-poster.jpg" muted loop playsinline preload="auto" autoplay aria-hidden="true"></video>
-        <p class="hc-mobile-slide-title">Pro ty, na kterých záleží nejvíc</p>
+      <div class="hc-mobile-slide" data-scroll-video-play>
+        <video src="videos/moment-prvni-kroky.mp4?v=2" poster="images/hero/moment-prvni-kroky-poster.jpg?v=2" muted playsinline preload="metadata" aria-hidden="true"></video>
+        <div class="hc-mobile-slide-caption">
+          <p class="hc-mobile-slide-title">Pro ty, na kterých záleží nejvíc</p>
+          <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary hc-mobile-cta">Chci focení →</a>
+          <div class="hc-mobile-dots" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot is-active"></span></div>
+        </div>
       </div>
     </div>
     <button type="button" class="hc-mobile-nav hc-mobile-nav-prev" aria-label="Předchozí">‹</button>
@@ -130,7 +141,6 @@
     <p class="hero-lead">Děti rostou neuvěřitelně rychle. Zachytíme vaše společné chvíle, ke kterým se budete vracet znovu a znovu. Ke smíchu, objetím a pohledům, které vám i za mnoho let rozbuší srdce.</p>
     <div class="hero-cta-row">
       <a href="portfolio.html" class="proof-teaser-link">Prohlédnout galerii →</a>
-      <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary">Chci focení</a>
     </div>
   </div>
 </section>
@@ -139,7 +149,7 @@
   <div class="proof-block-row">
     <div class="proof-photo-col">
       <div class="proof-photo">
-        <img src="images/home-proof-photo-then.webp" width="1400" height="933" alt="Rodina, kterou fotím už 12 let - tehdy" loading="lazy">
+        <img src="images/home-proof-photo-then.webp?v=1" width="1400" height="933" alt="Rodina, kterou fotím už 12 let - tehdy" loading="lazy">
       </div>
       <p class="proof-photo-caption">Tehdy s prvním miminkem</p>
     </div>
@@ -152,26 +162,26 @@
     </div>
     <div class="proof-photo-col">
       <div class="proof-photo proof-photo-now">
-        <img src="images/home-proof-photo-now.webp" width="1400" height="933" alt="Ta samá rodina - dnes" loading="lazy">
+        <img src="images/home-proof-photo-now.webp?v=1" width="1400" height="933" alt="Ta samá rodina - dnes" loading="lazy">
       </div>
-      <p class="proof-photo-caption">O pár let později se z malého světa stal celý vesmír</p>
+      <p class="proof-photo-caption">O pár let později</p>
     </div>
   </div>
 </section>
 
-<section class="reassure-section wrap" data-reveal>
+<section class="reassure-section wrap dark-panel" data-reveal>
   <h2 class="reassure-title">Bojíte se, že děti nebudou spolupracovat?</h2>
   <div class="reassure-columns">
     <div class="reassure-col">
       <p class="reassure-lead">Nemusí. Focení nemusí být dokonalé,<br>aby bylo krásné.</p>
       <div class="reassure-body">
         <p>Foťák přepínám do tichého režimu. Děti tak brzy zapomenou, že je někdo fotí, a právě tehdy vznikají ty nejkrásnější fotky.</p>
-        <p><strong>Vy jen buďte spolu. O zbytek se postarám já.</strong></p>
+        <p>Vy jen buďte spolu. O zbytek se postarám já.</p>
       </div>
       <a href="o-mne.html" class="proof-teaser-link">Proč právě se mnou →</a>
     </div>
     <div class="reassure-video">
-      <img src="images/reassure-couple.jpg" alt="Rodiče a miminko" loading="lazy">
+      <img src="images/memory-family-cat.jpg?v=1" alt="Rodina s kočkou a miminkem" loading="lazy">
     </div>
   </div>
 </section>
@@ -185,21 +195,21 @@
 <section class="work-cards wrap">
   <div class="pg">
     <a href="galerie-rodinna-fotografie.html" class="pcard" data-reveal>
-      <div class="thumb"><img src="images/portfolio-rodinna-fotografie.jpg" alt="Rodinné focení" loading="lazy"></div>
+      <div class="thumb"><img src="images/portfolio-rodinna-fotografie.jpg?v=1" alt="Rodinné focení" loading="lazy"></div>
       <h4>Rodinné focení</h4>
       <p>Pokud chcete přirozené fotografie plné pohybu, smíchu, objetí a malých okamžiků, které vás spojují.</p>
       <span class="pcard-link">Prohlédnout rodinné focení →</span>
     </a>
     <a href="galerie-detsky-portret.html" class="pcard" data-reveal>
-      <div class="thumb"><img src="images/portfolio-detsky-portret.jpg" alt="Dětský portrét" loading="lazy"></div>
+      <div class="thumb"><img src="images/portfolio-detsky-portret.jpg?v=1" alt="Dětský portrét" loading="lazy"></div>
       <h4>Dětský portrét</h4>
       <p>Pokud chcete jednou znovu vidět jiskru v očích i osobnost, která se mění rychleji, než si stačíte uvědomit.</p>
       <span class="pcard-link">Prohlédnout portréty →</span>
     </a>
     <a href="galerie-video-pribeh.html" class="pcard" data-reveal>
       <div class="thumb">
-        <img src="images/video-gallery-03.jpg" alt="Rodinné video" loading="lazy" class="thumb-photo">
-        <video src="videos/card-rodinne-video.mp4" poster="images/card-rodinne-video-poster.jpg" muted loop playsinline preload="metadata" autoplay aria-label="Rodinné video" class="thumb-video"></video>
+        <img src="images/video-gallery-03.jpg?v=1" alt="Rodinné video" loading="lazy" class="thumb-photo">
+        <video src="videos/card-rodinne-video.mp4?v=1" poster="images/card-rodinne-video-poster.jpg?v=1" muted loop playsinline preload="metadata" autoplay aria-label="Rodinné video" class="thumb-video"></video>
       </div>
       <h4>Rodinné video</h4>
       <p>Pokud chcete vzpomínku, která se znovu rozpohybuje.<br class="br-desktop-only"> To, co fotografie zachytí v jediném okamžiku, video nechá znovu prožít – v pohybu, atmosféře a s hudbou.</p>
@@ -217,19 +227,19 @@
 <section class="refs-grid wrap">
   <div class="rg">
     <div class="card" data-reveal>
-      <div class="thumb"><img src="images/ref-dita-bednarova.jpg" alt="Dita Bednářová" loading="lazy"></div>
+      <div class="thumb"><img src="images/ref-dita-bednarova.jpg?v=1" alt="Dita Bednářová" loading="lazy"></div>
       <p>„Jak video, tak fotky jsou naprostá pecka a předčily mé očekávání. Miluji ty fotky, kde se Olivka bezděčně usmívá a tak nějak vím, že je jí s námi fajn. Je z nich cítit cit a jemnost. Děkuji za zachycení pro nás tolik vzácného.“</p>
       <p class="card-name">Dita Bednářová</p>
       <p class="card-service">Rodinné foto a video</p>
     </div>
     <div class="card" data-reveal>
-      <div class="thumb"><img src="images/ref-hanka-svobodova.jpg" alt="Hanka Svobodová" loading="lazy"></div>
+      <div class="thumb"><img src="images/ref-hanka-svobodova.jpg?v=1" alt="Hanka Svobodová" loading="lazy"></div>
       <p>„Inka má jedinečnou schopnost zachytit emoce. Z jejích fotek sálá nádherná energie. A její trpělivost a empatie při focení novorozence, 20měsíčního vzpurného batolete a manžela, který se nerad fotí, byla opravdu obdivuhodná.“</p>
       <p class="card-name">Hanka Svobodová</p>
       <p class="card-service">Rodinné foto</p>
     </div>
     <div class="card" data-reveal>
-      <div class="thumb"><img src="images/ref-martina-frankova.jpg" alt="Martina Franková" loading="lazy"></div>
+      <div class="thumb"><img src="images/ref-martina-frankova.jpg?v=1" alt="Martina Franková" loading="lazy"></div>
       <p>„Nádherné video, které nám bude živě stále připomínat první dny Amálky na světě. Fotky jsou báječné, nádherné, ale video je video. Doporučuji všema deseti!“</p>
       <p class="card-name">Martina Franková</p>
       <p class="card-service">Rodinné foto a video</p>
@@ -239,19 +249,18 @@
 
 <section class="banner banner-video wrap" id="reference-video-banner">
   <div class="video-embed">
-    <video src="videos/banner-rodinne-video.mp4" poster="images/banner-rodinne-video-poster.jpg" muted loop playsinline preload="metadata" autoplay aria-label="Inna Guba — rodinné video"></video>
+    <video src="videos/julia.mp4?v=1" poster="images/hero/julia-poster.jpg?v=1" muted loop playsinline preload="metadata" autoplay aria-label="Inna Guba — rodinné video"></video>
   </div>
 </section>
 
-<section class="memory-section wrap" data-reveal>
+<section class="memory-section wrap dark-panel" data-reveal>
   <h2 class="memory-title">Nejen fotografie<span class="dot-desktop-only">.</span> Vzpomínky na to, jaké to bylo</h2>
   <div class="memory-body-align">
     <div class="memory-photo">
-      <img src="images/memory-family-cat.jpg" alt="Rodina s kočkou a miminkem" loading="lazy">
+      <img src="images/reassure-couple.jpg?v=1" alt="Rodiče a miminko" loading="lazy">
     </div>
     <div class="memory-body">
-      <p>Za pár let už si možná nebudete pamatovat, jaké to doopravdy bylo být všichni spolu, když byly děti ještě malé.</p>
-      <p>Fotografie vám to připomenou a rodinné video vám to dovolí znovu prožít.</p>
+      <p>Za pár let už si možná nebudete pamatovat, jaké to doopravdy bylo být všichni spolu, když byly děti ještě malé. Fotografie vám to připomenou a rodinné video vám to dovolí znovu prožít.</p>
       <p>Dnešní investice do focení?<br>Za dvacet let ji budete držet v rukou jako kus svého života.</p>
     </div>
   </div>
@@ -266,17 +275,14 @@
 <section class="steps-section wrap">
   <div class="steps-list">
     <div class="step" data-reveal>
-      <span class="step-num">1</span>
       <h4>Vybereme termín</h4>
       <p>Najdeme čas, kdy nemusíte nikam spěchat.</p>
     </div>
     <div class="step" data-reveal>
-      <span class="step-num">2</span>
       <h4>Připravíme se</h4>
       <p>Poradím s oblečením, místem i vším, co potřebujete vědět před focením.</p>
     </div>
     <div class="step" data-reveal>
-      <span class="step-num">3</span>
       <h4>Přijdete a budete spolu</h4>
       <p>Nemusíte pózovat. Já vás provedu focením a zachytím to, co mezi vámi vzniká přirozeně.</p>
     </div>
@@ -285,13 +291,13 @@
 
 <section class="banner banner-video wrap" id="steps-video-banner">
   <div class="video-embed">
-    <video src="videos/banner-rodinne-video-brno.mp4" poster="images/banner-rodinne-video-brno-poster.jpg" muted loop playsinline preload="metadata" autoplay aria-label="Inna Guba — rodinná momentka"></video>
+    <video src="videos/banner-michalkovi.mp4?v=1" poster="images/banner-michalkovi-poster.jpg?v=1" muted loop playsinline preload="metadata" autoplay aria-label="Inna Guba — rodina Michalkových"></video>
   </div>
 </section>
 
 <section class="banner banner-video wrap" id="steps-video-banner-mobile">
   <div class="video-embed">
-    <video src="videos/banner-michalkovi.mp4" poster="images/banner-michalkovi-poster.jpg" muted loop playsinline preload="metadata" autoplay aria-label="Inna Guba — rodina Michalkových"></video>
+    <video src="videos/banner-michalkovi.mp4?v=1" poster="images/banner-michalkovi-poster.jpg?v=1" muted loop playsinline preload="metadata" autoplay aria-label="Inna Guba — rodina Michalkových"></video>
   </div>
 </section>
 
@@ -360,7 +366,7 @@
 
 <section class="banner banner-video wrap" id="price-video-banner">
   <div class="video-embed">
-    <video src="videos/banner-michalkovi.mp4" poster="images/banner-michalkovi-poster.jpg" muted loop playsinline preload="metadata" autoplay aria-label="Inna Guba — rodina Michalkových"></video>
+    <video src="videos/album.mp4?v=1" poster="images/hero/album-poster.jpg?v=1" muted loop playsinline preload="metadata" autoplay aria-label="Inna Guba — rodinné album"></video>
   </div>
 </section>
 
@@ -375,7 +381,7 @@
   </div>
 </section>
 
-<section class="section-label" data-reveal>
+<section class="section-label" id="reviews-label" data-reveal>
   <div class="wrap">
     <h2>Google recenze</h2>
   </div>
@@ -385,7 +391,7 @@
   <div class="elfsight-app-b5a4e129-1a73-4e0d-b3f6-891de58a3ffa" data-elfsight-app-lazy></div>
 </section>
 
-<section class="closing-footer wrap">
+<section class="closing-footer wrap dark-panel">
   <div class="footer-cols">
     <div class="footer-col-group">
       <div class="footer-col">
@@ -422,7 +428,7 @@
   </div>
 </div>
 
-<script src="js/script.js?v=93" defer></script>
+<script src="js/script.js?v=99" defer></script>
 
 </body>
 </html>
