@@ -363,7 +363,7 @@
   /* ---------- Steps (jak focení probíhá) ---------- */
   /* same line-to-content gap as the other section-labels (var(--space-4)) — see the
      comment by the base .section-label rule */
-  .section-label:has(+ .steps-section) { padding-bottom: var(--space-3); }
+  .section-label:has(+ .steps-section) { padding-bottom: var(--space-2); }
   .steps-section { padding: 0; }
   .steps-list { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); }
   .step h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
@@ -812,7 +812,7 @@
   .story-text { max-width:520px; }
   .story-text h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin: var(--space-4) 0 var(--space-3); }
   .story-text h3:first-child { margin-top:0; }
-  .story-text p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-2); }
+  .story-text p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-2); }
   .my-story-intro { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); line-height:1.5; margin-bottom: var(--space-4); }
   .my-story-close { font-size: var(--fs-heading); font-weight:700; color: var(--ink); }
   .story-outro { max-width:640px; margin:0 auto; text-align:center; }
@@ -830,7 +830,7 @@
   .story-card h3 { text-align:left; font-family: var(--serif); font-size: var(--fs-display); font-weight:400; line-height:1.05; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
   .story-card-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6) var(--space-4); }
   .story-card-item .story-photo { aspect-ratio:4/5; margin-bottom: var(--space-3); }
-  .story-card-item p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-2); }
+  .story-card-item p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-2); }
   @media (max-width:900px){
     .story-card-grid { grid-template-columns:1fr; }
     /* same mobile card-stack trick as .pg .pcard / .rg .card / .pb-card —
