@@ -384,7 +384,10 @@
      tight-gap-above logic as the other two banners, since it belongs to that section.
      On mobile it's display:none regardless (its video lives in the "Jak focení probíhá"
      slot instead), so this only ever shows on desktop. */
-  #price-video-banner { margin-top: var(--space-3); }
+  /* matches the gap above the link (.price-teaser-row's own margin-bottom) — same
+     var(--space-4) used around .proof-teaser-link elsewhere (e.g. .reassure-body's
+     margin-bottom before "Proč právě se mnou", .closing-secondary-link's own margin-top) */
+  #price-video-banner { margin-top: var(--space-4); }
   .banner-photo { margin-top: 50px; margin-bottom: 50px; }
   .banner-photo img { width:100%; height:100%; object-fit:cover; object-position:70% bottom; }
   @media (min-width:901px){ .banner-photo { height:65vh; min-height:420px; } }
