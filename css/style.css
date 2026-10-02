@@ -523,7 +523,10 @@
   .about-intro p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); }
   .about-intro p + p { margin-top: var(--space-3); }
   @media (max-width:900px){ .about-intro-text { max-width:none; } }
-  @media (max-width:900px){ .about-intro-row { grid-template-columns:1fr; } }
+  /* stacked to 1 column on mobile, so this gap becomes the vertical photo→text gap — matched
+     to .about-intro p + p's own var(--space-3) instead of the desktop column-gap (var(--space-6)),
+     which read as a mismatched bigger jump than the gap between paragraphs right below it */
+  @media (max-width:900px){ .about-intro-row { grid-template-columns:1fr; gap: var(--space-3); } }
 
   /* ---------- Why me (o-mne.html) — reasons list on the left, one photo on
      the right. The photo's grid column is whatever's left over (1fr) after
@@ -771,10 +774,13 @@
       background: var(--paper);
       padding-bottom: var(--space-9);
     }
-    /* cancels the trailing padding-bottom of the LAST card in the whole
-       chain (Dětský portrét), so the gap before the next normal section
-       doesn't double up */
-    #detsky-grid { margin-bottom: calc(-1 * var(--space-9)); }
+    /* Dětský portrét is the last card in the sticky chain — nothing slides over it,
+       so it doesn't need the trailing padding the others use to reveal the next card.
+       That padding sits inside this card's own visible border (.price-bento-1
+       .pb-card has border:1px solid), so the previous fix — canceling it via a
+       negative margin-bottom on the wrapping #detsky-grid section — pulled the next
+       section up flush against the card's border instead of leaving a real gap. */
+    #detsky-grid .pb-featured { padding-bottom: 0; }
   }
 
   .cenik-help-cta { margin-top: var(--space-4); }
@@ -839,7 +845,10 @@
   .story-outro { max-width:640px; margin:0 auto; text-align:center; }
   .story-outro p { font-size: var(--fs-heading); line-height:1.8; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
   @media (max-width:900px){ .my-story { gap: var(--space-5); } }
-  @media (max-width:900px){ .story-row { grid-template-columns:1fr; } .story-photo { aspect-ratio:3/2; } .story-photo-wide { height:auto; } }
+  /* stacked to 1 column on mobile, so this gap becomes the vertical photo→text gap — matched
+     to .story-text p's own var(--space-2) margin-bottom instead of the desktop column-gap
+     (var(--space-6)), which read as a mismatched bigger jump than the gap between paragraphs */
+  @media (max-width:900px){ .story-row { grid-template-columns:1fr; gap: var(--space-2); } .story-photo { aspect-ratio:3/2; } .story-photo-wide { height:auto; } }
   /* the story-card below reads as its own new "chapter", so the gap above it
      needs to beat the standard section-to-section distance — on top of the
      .my-story gap it already gets from flex gap */
