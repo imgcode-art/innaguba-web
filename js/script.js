@@ -15,12 +15,14 @@ document.querySelectorAll('.nav-toggle').forEach(btn => {
     const links = btn.closest('.nav').querySelector('.nav-links');
     const isOpen = links.classList.toggle('open');
     btn.setAttribute('aria-expanded', isOpen);
+    document.body.classList.toggle('nav-open', isOpen);
   });
 });
 document.querySelectorAll('.nav-links a').forEach(a => {
   a.addEventListener('click', () => {
     a.closest('.nav-links').classList.remove('open');
     a.closest('.nav').querySelector('.nav-toggle')?.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
   });
 });
 

@@ -39,6 +39,7 @@
      as plain white above/below the page instead of matching the site background */
   html { background: var(--paper); }
   body { font-family: var(--sans); font-weight:400; background: var(--paper); color: var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased; font-size: var(--fs-body); padding:0 var(--space-5); }
+  body.nav-open { overflow:hidden; }
   @media (max-width:700px){ body{padding:0 var(--space-3);} }
   img { display:block; width:100%; height:100%; object-fit:cover; }
   a { color:inherit; text-decoration:none; }
@@ -67,16 +68,37 @@
   .nav-links a { color: rgba(17,17,17,0.62); transition: color 0.2s ease; }
   .nav-links a:hover { color: var(--ink); }
   .nav-links a.active { color: var(--ink); font-weight:700; }
-  .nav-links .nav-call { display:none; }
-  .nav-toggle { display:none; flex-direction:column; justify-content:center; gap:5px; width:28px; height:28px; background:none; border:0; padding:0; cursor:pointer; }
-  .nav-toggle span { display:block; width:100%; height:2px; background: var(--ink); }
+  .nav-links .nav-call, .nav-links .nav-cta { display:none; }
+  .nav-toggle { display:none; position:relative; flex-direction:column; justify-content:center; gap:5px; width:28px; height:28px; background:none; border:0; padding:0; cursor:pointer; }
+  .nav-toggle span { display:block; width:100%; height:2px; background: var(--ink); transition: transform .25s ease, opacity .25s ease; }
   @media (max-width:800px){
-    .nav-toggle { display:flex; }
-    .nav-links { display:none; position:absolute; top:calc(100% + var(--space-3)); left:0; right:0; flex-direction:column; gap:0; background: var(--paper); border:1px solid var(--line); padding: var(--space-1) var(--space-3); z-index:10; }
-    .nav-links.open { display:flex; }
-    .nav-links a { padding: var(--space-1) 0; border-bottom:1px solid var(--line); }
-    .nav-links a:last-child { border-bottom:0; }
-    .nav-links .nav-call { display:block; color: var(--ink); font-weight:700; }
+    .nav-toggle { display:flex; z-index:31; }
+    /* X-morph instead of a plain hamburger→nothing swap — the toggle button itself
+       doubles as the close control once the full-screen menu is open */
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity:0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    /* full-screen takeover instead of the small dropdown box — that read as an
+       afterthought (four plain links in a thin bordered strip) rather than a
+       considered part of the site */
+    .nav-links {
+      display:flex; opacity:0; pointer-events:none;
+      position:fixed; inset:0; z-index:30;
+      flex-direction:column; align-items:center; justify-content:center; gap: var(--space-3);
+      background: var(--paper); border:0; padding: var(--space-6) var(--space-5);
+      transition: opacity .3s ease;
+    }
+    .nav-links.open { opacity:1; pointer-events:auto; }
+    .nav-links a {
+      padding:0; border-bottom:0;
+      font-family: var(--serif); font-size: var(--fs-display); font-weight:400;
+      letter-spacing:-0.02em; color: var(--ink);
+    }
+    .nav-links a.active { font-weight:400; font-style:italic; }
+    /* higher specificity than .nav-links a's own color rule, which otherwise wins and
+       renders this dark text on its own dark button background — unreadable */
+    .nav-links a.nav-cta { display:inline-block; margin-top: var(--space-4); color:#fff; }
+    .nav-links .nav-call { display:block; margin-top: var(--space-5); font-family: var(--serif); font-size: var(--fs-heading); font-weight:400; color: var(--ink); }
   }
 
   /* ---------- Background video embed (Vimeo, cropped to cover) — sized relative to its own container so it always fills it edge-to-edge, no letterboxing ---------- */
