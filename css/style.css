@@ -94,11 +94,16 @@
       font-family: var(--serif); font-size: var(--fs-display); font-weight:400;
       letter-spacing:-0.02em; color: var(--ink);
     }
-    .nav-links a.active { font-weight:400; font-style:italic; }
-    /* higher specificity than .nav-links a's own color rule, which otherwise wins and
-       renders this dark text on its own dark button background — unreadable */
-    .nav-links a.nav-cta { display:inline-block; margin-top: var(--space-4); color:#fff; }
-    .nav-links .nav-call { display:block; margin-top: var(--space-5); font-family: var(--serif); font-size: var(--fs-heading); font-weight:400; color: var(--ink); }
+    /* higher specificity than .nav-links a's own font/color rules above, which
+       otherwise win and leave this looking like a plain serif link in a huge
+       display size instead of the site's usual small/bold/uppercase/sans button
+       — same look .about-cta-btn has everywhere else it's used */
+    .nav-links a.nav-cta {
+      display:inline-block; margin-top: var(--space-4); color:#fff;
+      font-family: var(--sans); font-size: var(--fs-body); font-weight:700;
+      letter-spacing:0.1em; text-transform:uppercase;
+    }
+    .nav-links .nav-call { display:block; margin-top: var(--space-5); font-family: var(--serif); font-size: 28px; font-weight:400; color: var(--ink); }
   }
 
   /* ---------- Background video embed (Vimeo, cropped to cover) — sized relative to its own container so it always fills it edge-to-edge, no letterboxing ---------- */
