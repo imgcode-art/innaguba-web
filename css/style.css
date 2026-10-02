@@ -774,13 +774,17 @@
       background: var(--paper);
       padding-bottom: var(--space-9);
     }
-    /* Dětský portrét is the last card in the sticky chain — nothing slides over it,
-       so it doesn't need the trailing padding the others use to reveal the next card.
-       That padding sits inside this card's own visible border (.price-bento-1
-       .pb-card has border:1px solid), so the previous fix — canceling it via a
-       negative margin-bottom on the wrapping #detsky-grid section — pulled the next
-       section up flush against the card's border instead of leaving a real gap. */
-    #detsky-grid .pb-featured { padding-bottom: 0; }
+    /* cancels the trailing padding-bottom of the LAST card in the whole
+       chain (Dětský portrét), so the gap before the next normal section
+       doesn't double up */
+    #detsky-grid { margin-bottom: calc(-1 * var(--space-9)); }
+    /* ...but that padding sits inside the card's own visible border
+       (.price-bento-1 .pb-card has border:1px solid), so the cancel above pulls
+       .closing up flush against the card's border with no visible gap at all.
+       Push .closing back down by the same amount, on top of its own padding-top,
+       instead of touching the card's padding (which the slide-over-reveal timing
+       for Rodinné video → Dětský portrét depends on). */
+    #kontakt { margin-top: var(--space-9); }
   }
 
   .cenik-help-cta { margin-top: var(--space-4); }
