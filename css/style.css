@@ -201,12 +201,13 @@
   /* same unified black-and-white treatment as the desktop orbit */
   .hc-mobile-slide video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.1); }
   /* a different headline per slide, sitting low over the video (not centered) — same pale
-     band + serif treatment as the desktop .hc-eyebrow, just anchored to the bottom.
-     Now also carries a CTA button + dot row per slide, so the offer is visible without
-     any scrolling and the dots need no JS — each slide's own row just marks its own index. */
+     band + serif treatment as the desktop .hc-eyebrow, just anchored to the bottom. The
+     dots need no JS — each slide's own row just marks its own index. The CTA used to live
+     here too (one per slide), but that covered part of the photo/video on every slide and
+     repeated the same button three times — moved to a single shared button below the whole
+     slideshow instead (.hc-mobile-cta-row), so the photo stays uncluttered. */
   .hc-mobile-slide-caption { position:absolute; left:0; right:0; bottom:0; z-index:2; background: rgba(245,243,239,0.6); padding: var(--space-4) var(--space-3) var(--space-3); display:flex; flex-direction:column; align-items:center; gap: var(--space-2); text-align:center; }
   .hc-mobile-slide-title { font-family: var(--serif); font-weight:700; font-size: clamp(21px, 7vw, 34px); line-height:1.15; letter-spacing:-0.02em; color: var(--ink); }
-  .hc-mobile-cta { margin-top: var(--space-1); }
   .hc-mobile-dots { display:flex; gap:8px; margin-top: var(--space-1); }
   .hc-mobile-dots .dot { width:7px; height:7px; border-radius:50%; background: rgba(17,17,17,0.25); }
   .hc-mobile-dots .dot.is-active { background: var(--ink); }
@@ -220,9 +221,12 @@
   .hc-mobile-slideshow.at-end .hc-mobile-nav-next { opacity:0; pointer-events:none; }
   .hero-lead { max-width:640px; margin:0 auto var(--space-3); font-size: var(--fs-body); font-weight:400; line-height:1.5; color: var(--ink-subheading); text-align:left; }
   .hero-note { max-width:640px; margin:0 auto var(--space-4); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:left; }
-  /* only "Prohlédnout galerii" lives here now, centered — "Chci focení" moved up into the
-     hero itself (.hc-hero-cta) so the offer is visible without scrolling */
+  /* desktop: just "Prohlédnout galerii" here, centered — "Chci focení" lives up in the
+     hero itself instead (.hc-hero-cta), so the offer is visible without scrolling.
+     Mobile overrides this further down with its own shared .hc-mobile-cta-row button,
+     since the hero's own per-slide buttons were removed (see .hc-mobile-slide-caption). */
   .hero-cta-row { display:flex; justify-content:center; gap: var(--space-5); flex-wrap:wrap; }
+  .hc-mobile-cta-row { margin-top: var(--space-3); text-align:center; }
   .hero-cta-primary { background:#2b2b2b; color:#fff; transition: background .25s ease, color .25s ease, transform .25s ease; }
   .about-cta-btn.hero-cta-primary:hover { background:#fff; color: var(--ink); transform: scale(1.04); }
   @media (max-width:900px){
