@@ -206,7 +206,10 @@
      here too (one per slide), but that covered part of the photo/video on every slide and
      repeated the same button three times — moved to a single shared button below the whole
      slideshow instead (.hc-mobile-cta-row), so the photo stays uncluttered. */
-  .hc-mobile-slide-caption { position:absolute; left:0; right:0; bottom:0; z-index:2; background: rgba(245,243,239,0.6); padding: var(--space-4) var(--space-3) var(--space-3); display:flex; flex-direction:column; align-items:center; gap: var(--space-2); text-align:center; }
+  /* equal top/bottom padding (was var(--space-4) top, var(--space-3) bottom) — that extra
+     top padding read as a lopsided gap above the title with the band otherwise unchanged,
+     now also a touch narrower overall since the top side shrinks to match the bottom */
+  .hc-mobile-slide-caption { position:absolute; left:0; right:0; bottom:0; z-index:2; background: rgba(245,243,239,0.6); padding: var(--space-3); display:flex; flex-direction:column; align-items:center; gap: var(--space-2); text-align:center; }
   .hc-mobile-slide-title { font-family: var(--serif); font-weight:700; font-size: clamp(21px, 7vw, 34px); line-height:1.15; letter-spacing:-0.02em; color: var(--ink); }
   .hc-mobile-dots { display:flex; gap:8px; margin-top: var(--space-1); }
   .hc-mobile-dots .dot { width:7px; height:7px; border-radius:50%; background: rgba(17,17,17,0.25); }
