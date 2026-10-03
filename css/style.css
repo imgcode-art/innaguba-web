@@ -820,19 +820,19 @@
     /* Every card needs this trailing padding so it's tall enough to fully cover the
        one before it (same reasoning as .pg .pcard) — but for every card except the
        last, that dead space stays invisible, hidden under whichever card slides over
-       it next. Dětský portrét (#detsky-grid) is the last card, so nothing ever covers
-       its own trailing padding — it would sit there permanently as a big empty gap
-       below the button. Its real content (no next-card requirement of its own) is
-       already tall enough on its own to clear Rodinné video's full sticky height, so
-       it only needs a small buffer here instead of the full var(--space-9). */
-    #detsky-grid { padding-bottom: var(--space-8); }
-    /* Pulling the group back up by the LAST card's own trailing padding (whatever that
-       card actually uses, var(--space-8) here — not the shared var(--space-9) above)
-       cancels that padding out before the next section, so it doesn't also double up
-       as extra gap outside the card. #kontakt below then adds a normal section gap of
-       its own on top of that, instead of the two boundaries collapsing to nothing. */
-    .price-bento-3 { margin-bottom: calc(-1 * var(--space-8)); }
-    #kontakt { margin-top: var(--space-8); }
+       it next. Dětský portrét (#detsky-grid) is the last card, so its own var(--space-9)
+       trailing padding (shared rule above) would otherwise sit there permanently as a
+       visible empty gap below the button — its one-line copy isn't tall enough on its
+       own to drop that padding down to something smaller and still clear Rodinné
+       video's full sticky height (it was, back when this card's copy ran 2 lines; cut
+       that padding again only after re-checking both cards' heights, not just copying
+       the var(--space-8) value from before). Pulling the group back up by that same
+       var(--space-9) cancels the padding out before the next section, so it doesn't
+       also double up as extra gap outside the card. #kontakt below then adds a normal
+       section gap of its own on top of that, instead of the two boundaries collapsing
+       to nothing. */
+    .price-bento-3 { margin-bottom: calc(-1 * var(--space-9)); }
+    #kontakt { margin-top: var(--space-9); }
   }
 
   .cenik-help-cta { margin-top: var(--space-4); }
