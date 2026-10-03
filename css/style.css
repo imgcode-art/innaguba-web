@@ -230,6 +230,10 @@
      since the hero's own per-slide buttons were removed (see .hc-mobile-slide-caption). */
   .hero-cta-row { display:flex; justify-content:center; gap: var(--space-5); flex-wrap:wrap; }
   .hc-mobile-cta-row { margin-top: var(--space-3); text-align:center; }
+  /* .hero-cta-row's own .proof-teaser-link below zeroes its margin-top (desktop-era
+     assumption that nothing but it sits in that row) — on mobile .hc-mobile-cta-row now
+     sits right above it, so the two buttons had no gap between them without this */
+  .hc-mobile-cta-row + .hero-cta-row { margin-top: var(--space-3); }
   .hero-cta-primary { background:#2b2b2b; color:#fff; transition: background .25s ease, color .25s ease, transform .25s ease; }
   .about-cta-btn.hero-cta-primary:hover { background:#fff; color: var(--ink); transform: scale(1.04); }
   @media (max-width:900px){
