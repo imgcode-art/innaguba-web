@@ -205,7 +205,7 @@
      Now also carries a CTA button + dot row per slide, so the offer is visible without
      any scrolling and the dots need no JS — each slide's own row just marks its own index. */
   .hc-mobile-slide-caption { position:absolute; left:0; right:0; bottom:0; z-index:2; background: rgba(245,243,239,0.6); padding: var(--space-4) var(--space-3) var(--space-3); display:flex; flex-direction:column; align-items:center; gap: var(--space-2); text-align:center; }
-  .hc-mobile-slide-title { font-family: var(--serif); font-weight:700; font-size: clamp(18px, 6.2vw, 32px); line-height:1.15; letter-spacing:-0.02em; color: var(--ink); }
+  .hc-mobile-slide-title { font-family: var(--serif); font-weight:700; font-size: clamp(21px, 7vw, 34px); line-height:1.15; letter-spacing:-0.02em; color: var(--ink); }
   .hc-mobile-cta { margin-top: var(--space-1); }
   .hc-mobile-dots { display:flex; gap:8px; margin-top: var(--space-1); }
   .hc-mobile-dots .dot { width:7px; height:7px; border-radius:50%; background: rgba(17,17,17,0.25); }
@@ -232,6 +232,10 @@
     .hc-mobile-slideshow { display:block; width:100vw; position:relative; left:50%; margin-left:-50vw; }
     .hc-mobile-slide { height:72vh; }
     .bottom-section { padding-top: var(--space-6); padding-bottom: 0; }
+    /* a touch bigger than the shared var(--fs-body) elsewhere — this is the one paragraph
+       carrying the hero's own message on mobile (.hc-split's desktop copy is hidden above),
+       so it reads better with a little more presence than a regular body paragraph */
+    .bottom-section .hero-lead { font-size:18px; }
   }
   @media (min-width:901px){
     .bottom-section { display:none; }
@@ -299,6 +303,15 @@
   .proof-stats li + li { margin-top: var(--space-3); }
   .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
   .hero-cta-row .proof-teaser-link { margin-top:0; align-self:center; }
+  /* on mobile the stats block sits full-width (no fit-content/align-items:center from the
+     desktop column below yet), so its text defaulted to flush-left against the page edge —
+     out of step with the already-centered photo captions directly above/below it. Centered
+     to match. Desktop's own text-align:left (below) is untouched, already centered as a
+     tidy fit-content block instead. */
+  @media (max-width:900px){
+    .proof-stats { text-align:center; }
+    .proof-stats li { align-items:center; }
+  }
   @media (min-width:901px){
     /* the caption below each photo is position:absolute (see below), so it
        doesn't count toward this section's own flow height — without this,
