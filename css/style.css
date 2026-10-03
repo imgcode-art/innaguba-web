@@ -778,8 +778,13 @@
      the button actually land on screen together with the photo. .pb-featured's
      photo/video matches the same square so Rodinné video / Dětský portrét still
      look like one consistent set with Mini/Pohoda/Maxi (desktop keeps its own wide
-     3/2-ish stretch-to-row shape for .pb-featured, untouched by this). */
-  @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3); aspect-ratio:1/1;} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; aspect-ratio:1/1;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; flex:none; max-width:none; min-height:auto; padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4);} .pb-recommended{transform:none;} }
+     3/2-ish stretch-to-row shape for .pb-featured, untouched by this). .pb-content's
+     own bottom padding is zeroed here too — on desktop it's needed (.pb-content is a
+     flex sibling of the photo, not wrapped by it, so it carries its own spacing), but
+     on mobile the card's sticky padding-bottom below already reserves trailing space;
+     keeping both stacked Rodinné video / Dětský portrét with a visibly bigger gap
+     under their button than Mini/Pohoda/Maxi, which only ever had the one layer. */
+  @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3); aspect-ratio:1/1;} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; aspect-ratio:1/1;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; flex:none; max-width:none; min-height:auto; padding: var(--space-3) var(--space-4) 0 var(--space-4);} .pb-recommended{transform:none;} }
   /* Tighter line-height/gaps between the card's own text rows on mobile — a smaller
      assist alongside the square photo above, so the CTA button sits a bit higher
      still. Desktop keeps the airier 1.6/var(--space-2) rhythm (unchanged, still looks
