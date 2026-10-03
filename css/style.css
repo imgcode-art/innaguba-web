@@ -534,7 +534,11 @@
 
   /* ---------- About intro (o-mne.html) — page's own opening title, before "Proč právě se mnou?" ---------- */
   .about-intro { padding: 150px 0 0; text-align:left; }
-  @media (max-width:900px){ .about-intro { padding-top: var(--space-8); } }
+  /* same mobile top padding as .section-label's own var(--space-9) (used for this
+     same "page title under the header line" spot on every other page) — this was
+     out of sync at var(--space-8), making O mně's gap under the header line visibly
+     smaller than Ceník/Portfolio/Kontakt at mobile widths. */
+  @media (max-width:900px){ .about-intro { padding-top: var(--space-9); } }
   .about-intro h1 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); }
   .about-intro-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items:center; margin-top: var(--space-4); }
   .about-intro-text { max-width:440px; }
@@ -725,15 +729,13 @@
   .cenik-intro p:not(.cenik-intro-lead) { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
 
   .pricing-grid { padding: 0; }
-  /* on mobile the gap between the stacked single-card sections (Rodinné video,
-     Dětský portrét) comes from the sticky-card padding-bottom trick below; on
-     desktop that trick doesn't apply, so without this the 3 pricing-grid
-     sections sit flush against each other with no gap at all */
-  @media (min-width:901px){ .pricing-grid + .pricing-grid { margin-top: var(--space-9); } }
   .price-bento { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-9) var(--space-7); }
-  .price-bento-1 { grid-template-columns: 1fr; }
-  .price-bento-1 .pb-card { border:1px solid var(--line); padding:0; }
-  .price-bento-1 .pb-card.pb-standout { border-color: var(--ink); }
+  /* Rodinné video / Dětský portrét keep the "border, no padding" card chrome
+     their own .pb-featured row layout expects — the Mini/Pohoda/Maxi inset-photo
+     border treatment below (padding + negative-margin photo) is built for the
+     plain stacked-block cards and would conflict with .pb-featured's flex row. */
+  .price-bento-3 .pb-card.pb-featured { border:1px solid var(--line); padding:0; }
+  .price-bento-3 .pb-card.pb-featured.pb-standout { border-color: var(--ink); }
   .pb-card { display:flex; flex-direction:column; min-width:0; }
   .pb-card.pb-featured { grid-column: 1 / -1; flex-direction:row; align-items:stretch; gap: var(--space-7); }
   /* position:absolute on the img keeps it out of the height calculation, so .pb-photo's own
@@ -763,8 +765,8 @@
      .pcard-link, the matching "secondary link inside a card" on the homepage */
   .pb-content .proof-teaser-link { margin-top: var(--space-2); }
   .pb-badge { position:absolute; top: var(--space-3); left: var(--space-3); z-index:2; display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink); background: var(--paper); border-radius:20px; padding:6px 14px; }
-  .price-bento-3 .pb-card:not(.pb-recommended) { border:1px solid var(--line); padding: var(--space-4); }
-  .price-bento-3 .pb-card:not(.pb-recommended) .pb-photo { margin-top: calc(var(--space-4) * -1); margin-left: calc(var(--space-4) * -1); margin-right: calc(var(--space-4) * -1); width: calc(100% + var(--space-4) * 2); }
+  .price-bento-3 .pb-card:not(.pb-recommended):not(.pb-featured) { border:1px solid var(--line); padding: var(--space-4); }
+  .price-bento-3 .pb-card:not(.pb-recommended):not(.pb-featured) .pb-photo { margin-top: calc(var(--space-4) * -1); margin-left: calc(var(--space-4) * -1); margin-right: calc(var(--space-4) * -1); width: calc(100% + var(--space-4) * 2); }
   .pb-recommended { border:1px solid var(--ink); padding: var(--space-4); }
   .pb-recommended .pb-photo { margin-top: calc(var(--space-4) * -1); margin-left: calc(var(--space-4) * -1); margin-right: calc(var(--space-4) * -1); width: calc(100% + var(--space-4) * 2); }
   @media (min-width:901px){ .pb-recommended { transform: scale(1.03); } }
@@ -772,37 +774,31 @@
   /* mobile card-stack: same plain position:sticky trick already used for the
      portfolio cards (.pg .pcard) and testimonials (.rg .card) — each card
      sticks at the same offset, so scrolling further rides the next card's
-     own background up over the one before it. First tried across all 5
-     cards WITH a separate section-label heading in front of the two
-     single-featured cards ("Rodinné video"/"Dětský portrét") — that broke
-     the relay (a sticky element stuck permanently, or never stuck at all,
-     depending on which pieces were made sticky), because a non-adjacent
-     sibling (the standalone heading) sat between one sticky card and the
-     next, unlike Mini/Pohoda/Maxi which are direct siblings with nothing
-     between them. Fixed by moving each card's name to be its own <h3>
-     inside .pb-content (matching how "Rodinné Mini" etc. already work)
-     instead of a separate section-label before the card — now every
-     sticky participant is directly adjacent again. */
+     own background up over the one before it. Used to only cover Mini/Pohoda/Maxi,
+     because Rodinné video / Dětský portrét lived in their own separate
+     .price-bento-1/.pricing-grid sections and weren't DOM siblings of the other
+     cards — that cross-section version never actually stuck/rode over correctly
+     (tried and reverted a couple of times). All 5 cards are now direct siblings
+     in one shared .price-bento-3 (see cenik.html), so the same trick now runs
+     the whole chain. Each selector below is written to match the specificity of
+     that card type's own structural border/padding rule above, so the later,
+     equal-or-higher-specificity padding-bottom here reliably wins the cascade. */
   @media (max-width:900px){
-    .price-bento-3 .pb-card:not(.pb-recommended),
+    .price-bento-3 .pb-card:not(.pb-recommended):not(.pb-featured),
     .price-bento-3 .pb-recommended,
-    .price-bento-1 .pb-featured {
+    .price-bento-3 .pb-card.pb-featured {
       position: sticky;
       top: var(--space-3);
       background: var(--paper);
       padding-bottom: var(--space-9);
     }
-    /* cancels the trailing padding-bottom of the LAST card in the whole
-       chain (Dětský portrét), so the gap before the next normal section
-       doesn't double up */
-    #detsky-grid { margin-bottom: calc(-1 * var(--space-9)); }
-    /* ...but that padding sits inside the card's own visible border
-       (.price-bento-1 .pb-card has border:1px solid), so the cancel above pulls
-       .closing up flush against the card's border with no visible gap at all.
-       Push .closing back down by the same amount, on top of its own padding-top,
-       instead of touching the card's padding (which the slide-over-reveal timing
-       for Rodinné video → Dětský portrét depends on). */
-    #kontakt { margin-top: var(--space-9); }
+    /* Every card gets this same padding-bottom, including the last (Dětský portrét) —
+       that's what keeps each card at least as tall as the one before it, so full
+       coverage keeps working all the way down the chain (same reasoning as .pg
+       .pcard). Pulling the whole group back up by that same amount (below) cancels
+       the trailing padding out before the next section, so it doesn't show as an
+       empty gap inside the last card's border. */
+    .price-bento-3 { margin-bottom: calc(-1 * var(--space-9)); }
   }
 
   .cenik-help-cta { margin-top: var(--space-4); }
