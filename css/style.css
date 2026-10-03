@@ -427,7 +427,11 @@
   .steps-list { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); }
   .step h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
   .step p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
-  @media (max-width:900px){ .steps-list{grid-template-columns:1fr; row-gap: var(--space-5);} }
+  /* a little dark breathing room below the last step on mobile — .steps-section itself
+     has zero padding (desktop's dark panel hugs the 3-column grid tightly on purpose),
+     but on mobile the 3 steps stack into one tall column and the dark background cut off
+     right at the last paragraph, with no room before the next (light) section starts */
+  @media (max-width:900px){ .steps-list{grid-template-columns:1fr; row-gap: var(--space-5);} .steps-section{padding-bottom: var(--space-7);} }
 
   /* ---------- Full photo banner ---------- */
   .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
