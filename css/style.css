@@ -770,11 +770,27 @@
   .pb-recommended { border:1px solid var(--ink); padding: var(--space-4); }
   .pb-recommended .pb-photo { margin-top: calc(var(--space-4) * -1); margin-left: calc(var(--space-4) * -1); margin-right: calc(var(--space-4) * -1); width: calc(100% + var(--space-4) * 2); }
   @media (min-width:901px){ .pb-recommended { transform: scale(1.03); } }
-  /* .pb-featured's photo/video crops to the same 4/5 portrait as Mini/Pohoda/Maxi's
-     .pb-photo on mobile (desktop keeps its own wide 3/2-ish stretch-to-row shape) —
-     so Rodinné video / Dětský portrét match the other three cards' look instead of
-     standing out as landscape in the middle of an otherwise portrait card stack. */
-  @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3);} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; aspect-ratio:4/5;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; flex:none; max-width:none; min-height:auto; padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4);} .pb-recommended{transform:none;} }
+  /* All 5 cards' photos crop to a 1/1 square on mobile (down from the 4/5 portrait
+     used on desktop) — at phone widths 4/5 ran nearly the full viewport height on
+     its own, pushing the card's text and CTA button below the fold until the next
+     sticky card had already started covering it. Square crops comfortably without
+     losing anything important in any of the 5 photos (checked each one), and lets
+     the button actually land on screen together with the photo. .pb-featured's
+     photo/video matches the same square so Rodinné video / Dětský portrét still
+     look like one consistent set with Mini/Pohoda/Maxi (desktop keeps its own wide
+     3/2-ish stretch-to-row shape for .pb-featured, untouched by this). */
+  @media (max-width:900px){ .price-bento{grid-template-columns:1fr; gap: var(--space-6) var(--space-7);} .pb-photo{margin-bottom: var(--space-3); aspect-ratio:1/1;} .pb-card.pb-featured{flex-direction:column; gap:0;} .pb-featured .pb-photo{order:1; aspect-ratio:1/1;} .pb-featured .pb-photo img, .pb-featured .pb-photo video{position:static;} .pb-featured .pb-content{order:2; flex:none; max-width:none; min-height:auto; padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4);} .pb-recommended{transform:none;} }
+  /* Tighter line-height/gaps between the card's own text rows on mobile — a smaller
+     assist alongside the square photo above, so the CTA button sits a bit higher
+     still. Desktop keeps the airier 1.6/var(--space-2) rhythm (unchanged, still looks
+     right there with the wider 3-column layout). */
+  @media (max-width:900px){
+    .pb-subtitle,
+    .pb-content p:not(.pb-subtitle):not(.pb-note),
+    .price-list li,
+    .pb-note { line-height:1.4; }
+    .pb-content .proof-teaser-link { margin-top: var(--space-1); }
+  }
   /* mobile card-stack: same plain position:sticky trick already used for the
      portfolio cards (.pg .pcard) and testimonials (.rg .card) — each card
      sticks at the same offset, so scrolling further rides the next card's
