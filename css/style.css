@@ -148,14 +148,15 @@
   .hc-eyebrow { display:block; font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; text-transform:none; color: var(--ink-heading); }
   .hc-hero-subhead { margin-top: var(--space-2); font-size: var(--fs-heading); line-height:1.2; color: var(--ink-subheading); }
   .hc-hero-cta { margin-top: var(--space-4); }
-  /* lead line + gallery link sit under the small bottom-left photo (hc-bento-d), matching
-     its left/right edges, instead of in the text column — see .hc-bento-below.
+  /* lead line sits under the bottom-left photo (hc-bento-d), gallery link under the
+     bottom-right photo (hc-bento-c) — each matching its own photo's left/right edges,
+     instead of both living in the text column or stacked together under one photo.
      Targeted via the parent (not just the .hc-split-lead/-gallery-link classes alone) so
      these reliably win over .hero-lead's own margin-bottom and .proof-teaser-link's own
      margin-top — same specificity as those base rules otherwise, so source order alone
-     left both margins in place and stacked into a much bigger gap than intended. */
+     left both margins in place and stacked into a bigger gap than intended. */
   .hc-bento-below .hc-split-lead { margin:0; }
-  .hc-bento-below .hc-split-gallery-link { margin-top: var(--space-2); }
+  .hc-bento-gallery-link .hc-split-gallery-link { margin:0; }
   /* four prints, one clean 2x2 bento grid instead of the old ring that spun in a slow
      circle. Each cell is close to the clips' own native 16:9 crop (prior versions with a
      tall tile spanning two rows squeezed the small cells down to a very wide sliver —
@@ -169,6 +170,7 @@
   .hc-bento-c { grid-column:5; grid-row:2; }
   .hc-bento-d { grid-column:3; grid-row:2; }
   .hc-bento-below { grid-column:3; grid-row:3; align-self:start; }
+  .hc-bento-gallery-link { grid-column:5; grid-row:3; align-self:start; }
   .orbit-tile-inner { position:relative; overflow:hidden; background: var(--ink); box-shadow: 0 14px 30px -18px rgba(0,0,0,0.3); }
   /* the poster attribute shows instantly (no Vimeo handshake), and a slow breathing zoom keeps it
      from reading as a frozen/stuck photo for the moment before the video itself starts playing */
