@@ -458,6 +458,12 @@
   /* ---------- News / reference grid ---------- */
   .refs-grid { padding: 0; }
   .google-reviews { padding: 0; }
+  /* was defaulting to .section-label's widest gap (var(--space-6)); the Elfsight widget
+     already carries its own internal space above the review text, so the line-to-content
+     gap read much bigger here than the dots-to-section-end gap below (which is ~0, since
+     the carousel's bullets sit flush with the bottom of the widget). Same var(--space-2)
+     used for #work/#reference closes most of that difference. */
+  .section-label:has(+ .google-reviews) { padding-bottom: var(--space-2); }
 
   /* ---------- Google reviews (Elfsight) style override ---------- */
   .google-reviews, .google-reviews * { font-family: var(--sans) !important; }
@@ -667,6 +673,15 @@
     transform: translateY(18px);
     transition: opacity .7s cubic-bezier(0.16,1,0.3,1), transform .7s cubic-bezier(0.16,1,0.3,1);
   }
+  /* .in needs to win over the translateY(18px) above once revealed — same specificity,
+     but declared earlier (line 661) than this group's own rule, so without repeating
+     it here at matching specificity the transform never actually resets to 0 and the
+     element stays visibly offset below its line/heading even after .in is applied */
+  .pg .pcard[data-reveal].in,
+  .rg .card[data-reveal].in,
+  .step[data-reveal].in,
+  .faq-item[data-reveal].in,
+  .price-teaser-item[data-reveal].in { transform: translateY(0); }
   .pg .pcard:nth-child(1)[data-reveal], .rg .card:nth-child(1)[data-reveal], .step:nth-child(1)[data-reveal], .price-teaser-item:nth-child(1)[data-reveal] { transition-delay: 0s; }
   .pg .pcard:nth-child(2)[data-reveal], .rg .card:nth-child(2)[data-reveal], .step:nth-child(2)[data-reveal], .price-teaser-item:nth-child(2)[data-reveal] { transition-delay: .12s; }
   .pg .pcard:nth-child(3)[data-reveal], .rg .card:nth-child(3)[data-reveal], .step:nth-child(3)[data-reveal], .price-teaser-item:nth-child(3)[data-reveal] { transition-delay: .24s; }
@@ -777,6 +792,13 @@
   .pb-featured .pb-content { flex:0 0 calc((100% - 2 * var(--space-7)) / 3); order:1; min-height:438px; padding: var(--space-4) 0 var(--space-4) var(--space-4); }
   .pb-photo { position:relative; aspect-ratio:4/5; overflow:hidden; margin-bottom: var(--space-4); }
   .pb-photo img, .pb-photo video { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
+  /* Rodinné video's <video> sits inside the mobile sticky card-stack (see the
+     .price-bento-3 .pb-card.pb-featured rule below) — unlike the other cards' plain
+     <img>, a <video> decodes on its own thread, and without its own stable compositor
+     layer it can show a stale/torn frame right at the card's bottom border while the
+     next sticky card scrolls up over it. will-change promotes it to its own layer up
+     front so scrolling doesn't force a fresh composite each frame. */
+  .pb-photo video { will-change: transform; }
   .pb-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
   .pb-subtitle { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-1); }
   .pb-content p:not(.pb-subtitle):not(.pb-note) { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-1); }
