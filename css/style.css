@@ -264,14 +264,14 @@
   @media (max-width:900px){ .section-label { padding-top: var(--space-9); } }
   .section-label .wrap { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid var(--line); padding-bottom: var(--space-3); flex-wrap:wrap; gap: var(--space-2); }
   .section-label h1, .section-label h2 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); }
-  /* line-to-content gap, unified to var(--space-2) across all five — these were a mix of
-     the default var(--space-6), var(--space-5)/var(--space-4)/var(--space-3), each tuned
-     ad hoc per section at different times. #work/#reference get it here (no other
-     override exists for them); .steps-section/.faq-section's own :has() rules are updated
-     further down instead of being overridden again here, since those come later in the
-     cascade and would otherwise win back over this. */
+  /* line-to-content gap — same var(--space-4) as the other sections whose content below
+     the line carries real visual weight (photo cards here, same reasoning as FAQ/price
+     teaser below). #work/#reference get it here (no other override exists for them);
+     .steps-section/.faq-section's own :has() rules are updated further down instead of
+     being overridden again here, since those come later in the cascade and would
+     otherwise win back over this. */
   #work,
-  #reference { padding-bottom: var(--space-2); }
+  #reference { padding-bottom: var(--space-4); }
   /* o-mne.html / kontakt.html: same var(--space-4) as Galerie/Ceník, not the homepage's
      var(--space-2) — these pages read as needing the bigger gap, same as those two */
   .section-label:has(+ .my-story),
@@ -447,10 +447,9 @@
      tight-gap-above logic as the other two banners, since it belongs to that section.
      On mobile it's display:none regardless (its video lives in the "Jak focení probíhá"
      slot instead), so this only ever shows on desktop. */
-  /* matches the gap above the link (.price-teaser-row's own margin-bottom) — same
-     var(--space-4) used around .proof-teaser-link elsewhere (e.g. .reassure-body's
-     margin-bottom before "Proč právě se mnou", .closing-secondary-link's own margin-top) */
-  #price-video-banner { margin-top: var(--space-4); }
+  /* a bit more than the var(--space-3) gap above the link itself (.price-teaser-row's
+     own margin-bottom) — the link needs room to read as its own line before the photo */
+  #price-video-banner { margin-top: var(--space-6); }
   .banner-photo { margin-top: 50px; margin-bottom: 50px; }
   .banner-photo img { width:100%; height:100%; object-fit:cover; object-position:70% bottom; }
   @media (min-width:901px){ .banner-photo { height:65vh; min-height:420px; } }
@@ -502,7 +501,7 @@
   .rg .card .thumb { width:150px; height:150px; border-radius:50%; overflow:hidden; margin:0 0 var(--space-4); }
   .rg .card p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); margin:0; }
   .rg .card p strong { font-weight:700; font-style:normal; }
-  .rg .card .card-name { margin-top: var(--space-3); font-weight:700; color: var(--ink-heading); }
+  .rg .card .card-name { margin-top: var(--space-2); font-weight:700; color: var(--ink-heading); }
   .rg .card .card-service { margin-top:2px; color: var(--ink-body); }
   @media (max-width:900px){
     .rg { display:block; max-width:400px; margin:0 auto; margin-bottom: calc(-1 * var(--space-9)); }
@@ -518,7 +517,7 @@
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
   /* same line-to-content gap as the other section-labels (var(--space-4)) — see the
      comment by the base .section-label rule */
-  .section-label:has(+ .faq-section) { padding-bottom: var(--space-2); }
+  .section-label:has(+ .faq-section) { padding-bottom: var(--space-4); }
   .section-label:has(+ .faq-section) { text-align:center; }
   .section-label:has(+ .faq-section) .wrap { justify-content:center; }
   .section-label:has(+ .faq-section) h2 { max-width:760px; width:100%; margin:0 auto; text-align:left; }
@@ -537,12 +536,15 @@
   .faq-answer p { max-width:620px; padding: 0 0 var(--space-4); font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
 
   /* ---------- Price teaser ("Kolik taková vzpomínka stojí?") ---------- */
-  /* tighter than the usual section-label bottom gap (--space-6) — the price teaser row
-     has no top padding/margin of its own, so the default gap read as too deep below the rule */
-  .section-label:has(+ .price-teaser) { padding-bottom: var(--space-2); }
+  /* bigger than o-mne/kontakt/.portfolio-grid's var(--space-4) below — those three bold
+     item names read as needing more air under the rule than that group */
+  .section-label:has(+ .price-teaser) { padding-bottom: var(--space-5); }
   .section-label:has(+ .pricing-grid) { padding-bottom: var(--space-4); }
   .price-teaser { padding: 0; text-align:center; }
-  .price-teaser-row { display:flex; justify-content:center; gap: var(--space-7); flex-wrap:wrap; margin-bottom: var(--space-4); }
+  /* var(--space-4) matches .steps-list's own column-gap for the same "3 items in a row"
+     layout elsewhere on this page — was var(--space-7), wider than anything else on the
+     site uses for this pattern */
+  .price-teaser-row { display:flex; justify-content:center; gap: var(--space-4); flex-wrap:wrap; margin-bottom: var(--space-3); }
   /* line-height:1.2 instead of body's inherited 1.5 — at --fs-heading size the extra
      leading was adding visible space above the text itself, making the gap down from the
      section-label's rule read bigger than the other sections' same var(--space-3) gap */
