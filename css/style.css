@@ -182,7 +182,10 @@
   .orbit-tile-inner.is-playing video { animation: none; transform: scale(1); }
   @keyframes hero-photo-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
   /* stagger the breathing so the tiles don't all pulse in lockstep */
-  .hc-bento-a video { animation-delay: -1s; }
+  /* one deliberate color accent — the first clip read (top-left), a little warmth
+     against the subhead's "those you love" without losing the quiet, editorial mood
+     the rest of the grid carries. b/c/d stay grayscale. */
+  .hc-bento-a video { animation-delay: -1s; filter: contrast(1.1); }
   .hc-bento-b video { animation-delay: -5s; }
   .hc-bento-c video { animation-delay: -9s; }
   .hc-bento-d video { animation-delay: -13s; }
