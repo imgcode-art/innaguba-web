@@ -106,10 +106,6 @@ body { overflow-x: clip; }
   .why-me-layout.dark-panel + .closing { padding-top: 54px; }
 }
 
-.dark-panel .hero-cta-primary { background: var(--ink); color: var(--paper); }
-.dark-panel .about-cta-btn.hero-cta-primary:hover,
-.dark-panel .about-cta-btn:hover { background: var(--paper); color: var(--ink); }
-
 /* A sticky "curtain" cover effect (closing CTA riding up over the video
    banner before it) was tried here and reverted — it relied on
    position:sticky interacting correctly with the full-bleed breakout
@@ -123,3 +119,79 @@ body { overflow-x: clip; }
    merged dark block (like .why-me-layout on o-mne.html still is) and
    reverted back to the site's normal light palette — only the footer
    stayed dark. */
+
+/* ---------- Hero curtain reveal ----------
+   proof-block rides up and covers the hero as you scroll past it, instead
+   of just following it in the page's normal rhythm. Hero is position:sticky
+   (pinned at the top); proof-block is normal flow, scrolling up over it on a
+   higher stacking layer.
+
+   Whether proof-block fully covers hero before hero is done being relevant
+   depends entirely on proof-block's own height vs hero's: hero stays pinned
+   for exactly (margin-top + proof-block's height) of scrolling, regardless
+   of hero's OWN height — so if proof-block is shorter than hero, hero
+   un-pins while proof-block's top still hasn't reached the viewport top,
+   leaving hero peeking through above it.
+
+   A previous attempt tried making proof-block ALSO position:sticky, on the
+   theory that it would "lock" at the top the moment it got there. That
+   doesn't work here: sticky only has room to hold an element in place for
+   as long as its CONTAINER has space left after it, and proof-block is the
+   last child of .hero-curtain-stack — there's nothing left in the container
+   once it arrives, so it never actually gets to stick; it behaves exactly
+   like position:relative, overshooting straight through 0 with no dwell
+   time. The actual fix is a min-height on proof-block, guaranteeing it's
+   always at least as tall as hero actually is.
+
+   That height can't be known in CSS alone — hero's own height depends on
+   .hc-split's min(820px, 70vh) plus whatever the lead text wraps to, so any
+   fixed px guess is either too small on some screens (gap reopens) or too
+   big on others (empty tail below the content). script.js measures hero's
+   rendered height on load/resize and writes it to --hero-h; proof-block's
+   min-height just reads that, so the two are ALWAYS exactly equal — not
+   "probably close enough," actually equal, so neither a peek-through gap
+   nor a dead space in proof-block's own box is possible.
+
+   Hero does NOT have its own min-height (e.g. 100vh) forcing it to fill the
+   screen — that was tried, specifically to close a *different* gap (bare
+   page background below hero's photos, before proof-block had scrolled up
+   far enough to reach it, on any screen taller than hero's own content).
+   It backfired: it inflated hero's rendered height without inflating
+   proof-block to match (proof-block was deliberately kept at hero's
+   NATURAL content height, to avoid ITS OWN dead-space problem) — so the
+   two heights that this whole mechanism depends on being equal quietly
+   stopped being equal again, reopening the peek-through gap. .hc-split's
+   own height cap (style.css) was raised instead (620px → min(820px,70vh)),
+   which closes most of that same gap at its real source — hero's content
+   not filling the screen — without needing hero's box to be artificially
+   taller than its content.
+
+   This differs from the failed Safari attempt noted below in one deliberate
+   way: there, the SAME element was both sticky AND doing the 100vw
+   full-bleed breakout. Here the full-bleed breakout lives on proof-block,
+   which isn't sticky. Still verify directly in Safari before shipping. */
+.hero-curtain-stack { position: relative; }
+.hero-curtain-stack .hero-collage { position: sticky; top: 0; z-index: 1; }
+/* margin-top: small fixed buffer so proof-block doesn't start covering the
+   hero's secondary "Prohlédnout galerii" link on the very first scroll tick. */
+.hero-curtain-stack .proof-block {
+  position: relative;
+  z-index: 2;
+  background: var(--paper);
+  margin-top: 70px;
+  min-height: var(--hero-h, 700px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-curtain-stack .proof-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+  background: var(--paper);
+}

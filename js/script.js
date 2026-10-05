@@ -234,16 +234,13 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // (and looping) simultaneously. Each clip has no loop attribute, so it naturally stops on its
   // own last frame when it ends; that 'ended' event is what hands off to the next tile. Calmer,
   // and actually followable — a wall of five looping videos reads as noise, one moment at a
-  // time reads as a story. Idle tiles keep the gentle breathing-zoom (is-playing is removed on
-  // 'ended') so the hero never looks fully frozen while waiting its turn. ----------
+  // time reads as a story. ----------
   (() => {
     const sequenceVideos = Array.from(document.querySelectorAll('.orbit-tile-inner video'));
     if (!sequenceVideos.length) return;
     const playSequenceVideo = (i) => {
       const video = sequenceVideos[i];
-      const tile = video.closest('.orbit-tile-inner');
       video.currentTime = 0;
-      video.addEventListener('playing', () => tile.classList.add('is-playing'), { once: true });
       // wait until the video actually has enough buffered data to play smoothly — the later
       // tiles only preload metadata, so the first time it's their turn the frames may not be
       // ready yet
@@ -252,11 +249,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
       else video.addEventListener('canplay', tryPlay, { once: true });
     };
     sequenceVideos.forEach((video, i) => {
-      const tile = video.closest('.orbit-tile-inner');
-      video.addEventListener('ended', () => {
-        tile.classList.remove('is-playing');
-        playSequenceVideo((i + 1) % sequenceVideos.length);
-      });
+      video.addEventListener('ended', () => playSequenceVideo((i + 1) % sequenceVideos.length));
     });
     setTimeout(() => playSequenceVideo(0), 300);
   })();
@@ -427,5 +420,91 @@ document.querySelectorAll('[data-row]').forEach(row => {
     alignProofQuote();
     window.addEventListener('load', alignProofQuote);
     window.addEventListener('resize', alignProofQuote);
+  }
+
+  // ---------- Homepage: hero curtain reveal — proof-block's min-height (css/
+  // home-theme.css, .hero-curtain-stack .proof-block) needs to match hero's
+  // rendered height exactly, so proof-block always fully covers hero before
+  // hero stops being pinned, with no leftover gap on either side. CSS alone
+  // can't read a sibling's height, so this measures it and writes it to
+  // --hero-h on load/resize. ----------
+  const curtainHero = document.querySelector('.hero-curtain-stack .hero-collage');
+  if (curtainHero) {
+    const syncCurtainHeroHeight = () => {
+      document.documentElement.style.setProperty('--hero-h', `${curtainHero.getBoundingClientRect().height}px`);
+    };
+    syncCurtainHeroHeight();
+    window.addEventListener('load', syncCurtainHeroHeight);
+    window.addEventListener('resize', syncCurtainHeroHeight);
+  }
+
+  // ---------- Homepage: scroll-drift ("parallax") — shared helper for any image/video whose
+  // CSS already expects it (130%-tall, centered via top:50% + translateY(-50% + var(--parallax-y)),
+  // its container position:relative + overflow:hidden). This just computes, per matching element,
+  // how far its container has scrolled through the viewport (0 = container's top just entering
+  // from the bottom, 1 = its bottom just exiting at the top) and writes that as --parallax-y —
+  // a CUSTOM PROPERTY, not the `transform` itself, specifically so it can coexist with a separate
+  // :hover rule (on the same element, for the cards that have one) that writes --hover-scale;
+  // the CSS rule combines both into one transform, instead of the two fighting to own it outright.
+  // Skipped entirely under prefers-reduced-motion, matching [data-reveal]'s own handling. ----------
+  const initScrollDrift = (selector) => {
+    const els = [...document.querySelectorAll(selector)];
+    if (!els.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let ticking = false;
+    const update = () => {
+      const vh = window.innerHeight;
+      els.forEach(el => {
+        const rect = el.parentElement.getBoundingClientRect();
+        const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height)));
+        const range = rect.height * 0.15; // half of the 30% extra height, in each direction
+        el.style.setProperty('--parallax-y', `${(progress - 0.5) * range * 2}px`);
+      });
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  };
+  // "Nejen fotografie... Vzpomínky" photo, the two proof-block then/now photos, the 3
+  // "Jak můžeme zachytit vaši rodinu?" cards, and the 2 full-bleed video banners.
+  initScrollDrift('.memory-photo img');
+  initScrollDrift('.proof-photo img');
+  initScrollDrift('.work-cards .pcard .thumb img');
+  initScrollDrift('.video-embed video');
+  initScrollDrift('.reassure-video img');
+
+  // ---------- Homepage: hero bento grid — mouse parallax on the 4 video tiles.
+  // Scroll-tied movement doesn't work here (hero is pinned via position:sticky for
+  // the whole "curtain reveal" — see home-theme.css — so its own on-screen position
+  // barely changes while it's visible), but mouse-tied movement does: hero sticks
+  // around on screen for a while, giving a cursor-driven effect time to be noticed.
+  // Each tile moves by its own data-parallax-depth (closer tiles "layer" further
+  // than farther ones) instead of all 4 sliding together as one flat sheet. Desktop-
+  // with-a-mouse only (mousemove doesn't mean anything on touch), and skipped under
+  // prefers-reduced-motion. The videos' own breathing-zoom animation was removed
+  // (css/style.css) specifically so this wouldn't be competing with a second motion
+  // on the same tiles. ----------
+  const parallaxTiles = [...document.querySelectorAll('.hc-bento [data-parallax-depth]')];
+  if (parallaxTiles.length && window.matchMedia('(hover:hover) and (pointer:fine)').matches
+      && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const parallaxGrid = document.querySelector('.hc-split');
+    const maxShift = 14; // px, at the strongest (depth:1) tile
+    parallaxGrid.addEventListener('mousemove', e => {
+      const rect = parallaxGrid.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
+      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+      parallaxTiles.forEach(tile => {
+        const depth = parseFloat(tile.dataset.parallaxDepth) || 1;
+        tile.style.transform = `translate(${nx * maxShift * depth}px, ${ny * maxShift * depth}px)`;
+      });
+    });
+    parallaxGrid.addEventListener('mouseleave', () => {
+      parallaxTiles.forEach(tile => { tile.style.transform = ''; });
+    });
   }
 

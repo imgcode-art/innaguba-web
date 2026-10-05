@@ -117,7 +117,13 @@
       min-height:100vh; min-width:177.78vh;
     }
   }
-  .video-embed video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: filter .8s ease; }
+  /* Parallax drift (script.js initScrollDrift) — taller than its own container (130%,
+     centered) so it can be nudged up/down within that extra 30% as the banner scrolls
+     through the viewport, same technique as .memory-photo img. No hover-zoom to combine
+     with here (unlike .memory-photo/.proof-photo/.work-cards thumbs), so transform only
+     needs --parallax-y. */
+  .video-embed video { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); transition: filter .8s ease; will-change:transform; }
+  @media (prefers-reduced-motion: reduce) { .video-embed video { position:absolute; inset:0; height:100%; transform:none; } }
   .video-bw iframe, .video-bw video { filter: grayscale(1) contrast(1.1); }
 
   /* ---------- Hero — split layout: headline left, bento photo grid right ---------- */
@@ -138,7 +144,15 @@
     grid-template-columns: minmax(300px, 465px) 56px 1fr 24px 1fr;
     grid-template-rows: 1fr 1fr auto;
     row-gap: var(--space-3);
-    height: min(620px, 58vh);
+    /* was min(620px,58vh) — raised so the bento grid keeps growing on taller
+       screens instead of capping out early. The homepage hero is wrapped in
+       a sticky "curtain reveal" (see .hero-curtain-stack in home-theme.css):
+       proof-block rides up to cover it as you scroll, and needs hero to
+       actually fill the screen to do that without a long empty gap first on
+       a big monitor — padding/min-height tricks around the grid just moved
+       that empty space around instead of removing it; growing the grid
+       itself is what actually closes it. */
+    height: min(820px, 70vh);
   }
   .hc-split-text { grid-column:1; grid-row:1 / 3; align-self:end; text-align:left; }
   /* line-height/color matched to the other --fs-display and --fs-heading text on the
@@ -172,23 +186,25 @@
   .hc-bento-below { grid-column:3; grid-row:3; align-self:start; }
   .hc-bento-gallery-link { grid-column:5; grid-row:3; align-self:start; }
   .orbit-tile-inner { position:relative; overflow:hidden; background: var(--ink); box-shadow: 0 14px 30px -18px rgba(0,0,0,0.3); }
-  /* the poster attribute shows instantly (no Vimeo handshake), and a slow breathing zoom keeps it
-     from reading as a frozen/stuck photo for the moment before the video itself starts playing */
+  /* Mouse parallax (script.js, .hc-split mousemove): each tile gets a small JS-driven
+     translate based on cursor position, at its own depth (data-parallax-depth below) so
+     the grid reads as layered rather than sliding as one flat sheet. Desktop-with-a-mouse
+     only: hero stays on screen a while once pinned by the curtain reveal (home-theme.css),
+     which is exactly when this has time to be noticed, unlike a scroll-tied effect that
+     would freeze the instant hero sticks. The video's own breathing-zoom animation that
+     used to live here was removed — the two motions together (tile sliding with the mouse
+     AND the video pulsing inside it) read as unsettling rather than lively. */
+  @media (hover:hover) and (pointer:fine) {
+    .orbit-tile-inner { transition: transform .3s ease-out; }
+  }
   /* grayscale on the whole bento grid — a deliberate, unified black-and-white treatment
      instead of a mix of color clips, so the hero reads as one considered editorial
      moment rather than a slideshow of mismatched footage */
-  .orbit-tile-inner video { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.1); animation: hero-photo-breathe 18s ease-in-out infinite; transition: transform .6s ease; }
-  /* breathing zoom (photo feel) until playback actually starts (.is-playing, toggled by the 'playing' event in script.js), then the breathing stops and eases back to scale(1) instead of snapping — the video's own motion carries it from there */
-  .orbit-tile-inner.is-playing video { animation: none; transform: scale(1); }
-  @keyframes hero-photo-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-  /* stagger the breathing so the tiles don't all pulse in lockstep */
+  .orbit-tile-inner video { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.1); }
   /* one deliberate color accent — the first clip read (top-left), a little warmth
      against the subhead's "those you love" without losing the quiet, editorial mood
      the rest of the grid carries. b/c/d stay grayscale. */
-  .hc-bento-a video { animation-delay: -1s; filter: contrast(1.1); }
-  .hc-bento-b video { animation-delay: -5s; }
-  .hc-bento-c video { animation-delay: -9s; }
-  .hc-bento-d video { animation-delay: -13s; }
+  .hc-bento-a video { filter: contrast(1.1); }
   .bottom-section { padding-top: var(--space-1); padding-bottom: 0; text-align:center; }
 
   /* ---------- Mobile hero — swipeable, full-bleed video slideshow, one story
@@ -239,8 +255,8 @@
      assumption that nothing but it sits in that row) — on mobile .hc-mobile-cta-row now
      sits right above it, so the two buttons had no gap between them without this */
   .hc-mobile-cta-row + .hero-cta-row { margin-top: var(--space-3); }
-  .hero-cta-primary { background:#2b2b2b; color:#fff; transition: background .25s ease, color .25s ease, transform .25s ease; }
-  .about-cta-btn.hero-cta-primary:hover { background:#fff; color: var(--ink); transform: scale(1.04); }
+  .hero-cta-primary { transition: background .25s ease, color .25s ease, transform .25s ease; }
+  .about-cta-btn.hero-cta-primary:hover { transform: scale(1.04); }
   @media (max-width:900px){
     .hero-collage { padding:0; }
     .hc-split { display:none; }
@@ -308,8 +324,10 @@
     .proof-photo-col { position:sticky; top: var(--space-3); background: var(--paper); margin-bottom:0; }
     .proof-photo { aspect-ratio:4/5; }
   }
-  .proof-photo { width:100%; aspect-ratio:3/2; overflow:hidden; background: var(--ink); }
-  .proof-photo img { width:100%; height:100%; object-fit:cover; }
+  .proof-photo { position:relative; width:100%; aspect-ratio:3/2; overflow:hidden; background: var(--ink); }
+  /* Parallax only, no hover-zoom — same technique as .memory-photo img above. */
+  .proof-photo img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  @media (prefers-reduced-motion: reduce) { .proof-photo img { position:static; height:100%; transform:none; } }
   .proof-photo-caption { margin-top: var(--space-2); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:center; }
   .proof-stats-col { order:-1; margin-bottom: var(--space-9); }
   .proof-stats { list-style:none; max-width:460px; margin:0 auto; }
@@ -356,8 +374,10 @@
   .reassure-columns .reassure-col { grid-column: 1 / 2; }
   .reassure-columns .reassure-video { grid-column: 2 / 3; }
   @media (max-width:900px){ .reassure-columns { grid-template-columns:1fr; gap: var(--space-6); } .reassure-columns .reassure-col, .reassure-columns .reassure-video { grid-column:1; } }
-  .reassure-video { aspect-ratio:16/9; overflow:hidden; }
-  .reassure-video img { width:100%; height:100%; object-fit:cover; }
+  .reassure-video { position:relative; aspect-ratio:16/9; overflow:hidden; }
+  /* Parallax drift instead of hover-zoom — same technique as .memory-photo img. */
+  .reassure-video img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  @media (prefers-reduced-motion: reduce) { .reassure-video img { position:static; height:100%; transform:none; } }
   /* mobile: photo sits right under the title's gray rule, same stacking as .memory-photo
      in the next dark section — order flips it above the text column, which follows it in
      the DOM (col 1/2 on desktop, so no visual change there) */
@@ -418,8 +438,16 @@
   .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); row-gap: var(--space-3); align-items:center; }
   .memory-body-align .memory-photo { grid-column: 1 / 3; }
   .memory-body-align .memory-body { grid-column: 3 / 4; }
-  .memory-photo { aspect-ratio: 16/9; overflow:hidden; }
-  .memory-photo img { width:100%; height:100%; object-fit:cover; }
+  .memory-photo { position:relative; aspect-ratio: 16/9; overflow:hidden; }
+  /* Parallax + hover-zoom, combined in one transform via --parallax-y/--hover-scale custom
+     properties instead of each fighting to own the whole `transform` declaration: script.js
+     writes --parallax-y (scroll-driven drift — see initScrollDrift in script.js) and the
+     :hover rule below writes --hover-scale, and this one rule reads both. The img is taller
+     than its own container (130%, centered via top:50% + the -50% half of the translateY
+     below) and overflow:hidden on .memory-photo crops it, giving --parallax-y room to nudge
+     it within that extra 30% without ever revealing an edge. */
+  .memory-photo img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  @media (prefers-reduced-motion: reduce) { .memory-photo img { position:static; height:100%; transform:none; } }
   .memory-body p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-3); text-align:left; }
   .memory-body p:last-child { margin-bottom:0; font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); }
   @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-photo, .memory-body-align .memory-body { grid-column:1; padding-left:0; } .memory-photo { aspect-ratio:3/2; } }
@@ -710,9 +738,20 @@
   .portfolio-grid { padding: 0; }
   .pg { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
   .pg .pcard { display:block; }
-  .pg .pcard .thumb { aspect-ratio:3/4; overflow:hidden; margin-bottom: var(--space-3); }
+  .pg .pcard .thumb { position:relative; aspect-ratio:3/4; overflow:hidden; margin-bottom: var(--space-3); }
   .pg .pcard .thumb img { transition: transform .6s cubic-bezier(0.25,1,0.5,1); }
   @media (hover:hover) and (pointer:fine) { .pg .pcard:hover .thumb img { transform: scale(1.06); } }
+  /* Homepage-only ("Jak můžeme zachytit vaši rodinu?"): parallax only, no hover-zoom — scoped
+     to .work-cards specifically so the plain portfolio.html grid (many more cards, which DOES
+     keep the sitewide hover-zoom above) isn't affected. The :hover override below exists only
+     to CANCEL the generic .pg .pcard:hover rule above (same specificity, later in the file so
+     it wins) — without it, hovering would snap back to a plain scale(1.06) and lose the
+     translateY positioning that keeps the image centered within its 130%-tall box. */
+  .work-cards .pcard .thumb img { position:absolute; left:0; top:50%; width:100%; height:130%; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  @media (hover:hover) and (pointer:fine) {
+    .work-cards .pcard:hover .thumb img { transform: translateY(calc(-50% + var(--parallax-y, 0px))); }
+  }
+  @media (prefers-reduced-motion: reduce) { .work-cards .pcard .thumb img { position:static; height:100%; transform:none; } }
   @media (max-width:800px){
     /* the price section's own banner is unrelated to this card on mobile — stays hidden
        here regardless of which video it shows on desktop */
@@ -1000,8 +1039,8 @@
   @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0;} .contact-info-photo{flex-basis:auto; width:100%; height:auto; aspect-ratio:3234/1605;} .contact-info-text{max-width:none;} }
 
   .about-thanks-cta { display:flex; align-items:center; justify-content:center; gap: var(--space-4); flex-wrap:wrap; }
-  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:16px 32px; transition: background .2s ease, color .2s ease; }
-  .about-cta-btn:hover { background: var(--ink); color:#fff; }
+  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--paper); color: var(--ink); border:1px solid var(--ink); padding:16px 32px; transition: background .2s ease, color .2s ease; }
+  .about-cta-btn:hover { background: var(--ink); color: var(--paper); }
 
   /* ---------- Legal pages (GDPR / obchodní podmínky) ---------- */
   .legal-content { max-width:760px; margin:0 auto; padding: var(--space-6) 0 var(--space-10); text-align:left; }
@@ -1025,11 +1064,12 @@
   .cookie-accept:hover { background: var(--ink); color:#fff; }
   @media (max-width:700px){ .cookie-bar { padding: var(--space-3); flex-direction:column; align-items:flex-start; } .cookie-actions{ width:100%; justify-content:space-between; } }
 
-  /* ---------- Sitewide photo hover zoom (homepage + other subpages, desktop only) ---------- */
-  .proof-photo img,
+  /* ---------- Sitewide photo hover zoom (homepage + other subpages, desktop only) ----------
+     .proof-photo and .memory-photo are deliberately NOT in this list — they also have a
+     JS-driven scroll-drift ("parallax") effect, and no hover-zoom at all (removed; the two
+     together read as too busy). .reassure-video isn't here either — scroll-drift instead
+     of hover-zoom, same reasoning, see its own rule near .reassure-video above. */
   .proof-photo-2 img,
-  .reassure-video img,
-  .memory-photo img,
   .rg .card .thumb img,
   .pb-photo img,
   .pb-photo video,
@@ -1040,10 +1080,7 @@
     transition: transform .6s cubic-bezier(0.25,1,0.5,1);
   }
   @media (hover:hover) and (pointer:fine) {
-    .proof-photo:hover img,
     .proof-photo-2:hover img,
-    .reassure-video:hover img,
-    .memory-photo:hover img,
     .rg .card .thumb:hover img,
     .pb-photo:hover img,
     .pb-photo:hover video,
