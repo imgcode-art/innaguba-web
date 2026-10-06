@@ -1095,7 +1095,7 @@
        two back-to-back sections would read as the same template repeated */
     .story-row:has(.story-photo-wide) { display:flex; flex-direction:row-reverse; align-items:center; justify-content:space-between; }
     .story-row:has(.story-photo-wide) .story-photo-wide { flex:0 0 calc((100% - var(--space-6)) / 2); aspect-ratio:3/2; align-self:flex-start; }
-    .story-row:has(.story-photo-wide) .story-text { flex:1; max-width:520px; }
+    .story-row:has(.story-photo-wide) .story-text { flex:1; max-width:560px; }
   }
   .story-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   /* "Svatba tety" photo — a polaroid PRINT, white border and all, not a full-bleed shot
