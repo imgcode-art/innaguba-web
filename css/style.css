@@ -1096,6 +1096,14 @@
     .story-row:has(.story-photo-wide) { display:flex; flex-direction:row-reverse; align-items:center; justify-content:space-between; }
     .story-row:has(.story-photo-wide) .story-photo-wide { flex:0 0 calc((100% - var(--space-6)) / 2); aspect-ratio:3/2; align-self:flex-start; }
     .story-row:has(.story-photo-wide) .story-text { flex:1; max-width:560px; }
+    /* "Svatba tety" text specifically (o-mne.html, keyed off .story-photo-polaroid so
+       web-vizualni-tvorba.html's own two .story-row instances — same markup shape, still
+       the original full-width cropped photo — keep the 560px cap above instead): lines
+       run out to the exact same right edge as .ab-hero-photo in the section above, i.e.
+       calc(50% + var(--space-6)/2) of the row's own width, the same formula
+       .about-intro-row's grid column uses for that photo. Both rows share the same .wrap
+       width, so this matches at any viewport in this media query, not just one width. */
+    .story-row:has(.story-photo-polaroid) .story-text { max-width: calc(50% + var(--space-6) / 2); }
   }
   .story-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   /* "Svatba tety" photo — a polaroid PRINT, white border and all, not a full-bleed shot
