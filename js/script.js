@@ -471,14 +471,47 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', onScroll);
   };
   // "Nejen fotografie... Vzpomínky" photo, the two proof-block then/now photos, the 3
-  // "Jak můžeme zachytit vaši rodinu?" cards, and the 2 full-bleed video banners.
+  // "Jak můžeme zachytit vaši rodinu?" cards (same selector also matches portfolio.html's
+  // own 3 category cards — same .pg .pcard .thumb img markup), the 2 full-bleed video
+  // banners, the video gallery's thumbnails, and the "O mně" story photos.
   initScrollDrift('.memory-photo img');
   initScrollDrift('.proof-photo img');
-  initScrollDrift('.work-cards .pcard .thumb img');
+  initScrollDrift('.pg .pcard .thumb img');
   initScrollDrift('.video-embed video');
   initScrollDrift('.reassure-video img');
   initScrollDrift('.ab-hero-photo img');
   initScrollDrift('.story-photo-drift img');
+  initScrollDrift('.vcard .thumb img');
+
+  // ---------- Photo gallery masonry (.pgg-item) — same idea as initScrollDrift above, but
+  // each item keeps its own native aspect ratio (CSS multi-column masonry) instead of a
+  // fixed-ratio crop box, so there's no 130%-tall image to shift inside an overflow-hidden
+  // frame. Drifts the whole card by a small fixed amount instead — nothing is cropped, so
+  // there's no edge to reveal, and the range is a flat pixel amount (not a % of the item's
+  // own height) so tall portrait photos don't swing further than short ones. ----------
+  const initScrollFloat = (selector, maxRange) => {
+    const els = [...document.querySelectorAll(selector)];
+    if (!els.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let ticking = false;
+    const update = () => {
+      const vh = window.innerHeight;
+      els.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height)));
+        el.style.setProperty('--float-y', `${(progress - 0.5) * maxRange * 2}px`);
+      });
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  };
+  initScrollFloat('.pgg-item', 12);
 
   // ---------- Homepage: hero bento grid — mouse parallax on the 4 video tiles.
   // Scroll-tied movement doesn't work here (hero is pinned via position:sticky for

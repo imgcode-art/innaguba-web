@@ -805,19 +805,11 @@
   .pg { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
   .pg .pcard { display:block; }
   .pg .pcard .thumb { position:relative; aspect-ratio:3/4; overflow:hidden; margin-bottom: var(--space-3); }
-  .pg .pcard .thumb img { transition: transform .6s cubic-bezier(0.25,1,0.5,1); }
-  @media (hover:hover) and (pointer:fine) { .pg .pcard:hover .thumb img { transform: scale(1.06); } }
-  /* Homepage-only ("Jak můžeme zachytit vaši rodinu?"): parallax only, no hover-zoom — scoped
-     to .work-cards specifically so the plain portfolio.html grid (many more cards, which DOES
-     keep the sitewide hover-zoom above) isn't affected. The :hover override below exists only
-     to CANCEL the generic .pg .pcard:hover rule above (same specificity, later in the file so
-     it wins) — without it, hovering would snap back to a plain scale(1.06) and lose the
-     translateY positioning that keeps the image centered within its 130%-tall box. */
-  .work-cards .pcard .thumb img { position:absolute; left:0; top:50%; width:100%; height:130%; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
-  @media (hover:hover) and (pointer:fine) {
-    .work-cards .pcard:hover .thumb img { transform: translateY(calc(-50% + var(--parallax-y, 0px))); }
-  }
-  @media (prefers-reduced-motion: reduce) { .work-cards .pcard .thumb img { position:static; height:100%; transform:none; } }
+  /* drift only, no hover-zoom — shared by both .work-cards (homepage "Jak můžeme zachytit
+     vaši rodinu?") and portfolio.html's own .pg grid, same DOM shape in both (.pg .pcard
+     .thumb img) so one rule covers both instead of the old work-cards-only override. */
+  .pg .pcard .thumb img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  @media (prefers-reduced-motion: reduce) { .pg .pcard .thumb img { position:static; height:100%; transform:none; } }
   @media (max-width:800px){
     /* the price section's own banner is unrelated to this card on mobile — stays hidden
        here regardless of which video it shows on desktop */
@@ -856,9 +848,14 @@
   .pgg-series { margin-bottom: var(--space-10); }
   .pgg-series:last-of-type { margin-bottom: var(--space-6); }
   .pgg { columns:3; column-gap: var(--space-2); }
-  .pgg-item { display:block; margin-bottom: var(--space-2); break-inside:avoid; overflow:hidden; transform: translateZ(0); }
-  .pgg-item img { display:block; width:100%; transition: transform .6s cubic-bezier(0.25,1,0.5,1); }
-  @media (hover:hover) and (pointer:fine) { .pgg-item:hover img { transform: scale(1.06); } }
+  /* drift, not hover-zoom — but each photo here keeps its own native aspect ratio (CSS
+     multi-column masonry, not a uniform grid), so the usual "130%-tall image cropped inside
+     a fixed-ratio box" recipe used elsewhere (e.g. .pg .pcard .thumb img) isn't an option
+     without cropping these to a uniform shape. Instead the whole card drifts a few px as a
+     unit — nothing is cropped, so no edge ever needs hiding — translateZ(0) (its own existing
+     compositing hint) composed with the drift's translateY in one transform. */
+  .pgg-item { display:block; margin-bottom: var(--space-2); break-inside:avoid; overflow:hidden; transform: translateZ(0) translateY(var(--float-y, 0px)); will-change:transform; }
+  .pgg-item img { display:block; width:100%; }
   @media (max-width:900px){
     .pgg{columns:2; column-gap: var(--space-1);}
     .pgg-item{margin-bottom: var(--space-1);}
@@ -1009,12 +1006,15 @@
   .vgg { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
   .vcard { cursor:pointer; }
   .vcard .thumb { position:relative; aspect-ratio:16/9; overflow:hidden; background:#0D0D0D; }
-  .vcard .thumb img { filter: contrast(1.05); transition: transform .6s cubic-bezier(0.25,1,0.5,1); }
+  /* drift, not hover-zoom, same treatment as the rest of the site's photos now — the
+     play-button's own hover scale right below is a click affordance, not a photo zoom,
+     so it's untouched. */
+  .vcard .thumb img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; filter: contrast(1.05); transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  @media (prefers-reduced-motion: reduce) { .vcard .thumb img { position:static; height:100%; transform:none; } }
   .vcard-bw .thumb img { filter: grayscale(1) contrast(1.05); }
   .vcard .play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
   .vcard .play::before { content:""; width:52px; height:52px; border-radius:50%; background:rgba(245,243,239,0.94); display:block; transition: transform .25s ease; }
   @media (hover:hover) and (pointer:fine) {
-    .vcard:hover .thumb img { transform: scale(1.06); }
     .vcard:hover .play::before { transform: scale(1.1); }
   }
   .vcard .play::after { content:""; position:absolute; width:0; height:0; border-style:solid; border-width:8px 0 8px 13px; border-color:transparent transparent transparent var(--ink); margin-left:3px; }
@@ -1210,13 +1210,16 @@
     }
   }
 
-  /* .story-photo-drift ("Svatba tety" photo, top of "My story") — black & white like
-     the rest of the site's own photo treatment (this one shot wasn't), and scroll-drift
-     instead of the sitewide hover-zoom above, same "photo quietly drifts as you scroll
-     past it" treatment as .ab-hero-photo/.proof-photo, driven by script.js's shared
-     initScrollDrift(). */
+  /* .story-photo-drift — scroll-drift instead of the sitewide hover-zoom above, same "photo
+     quietly drifts as you scroll past it" treatment as .ab-hero-photo/.proof-photo, driven
+     by script.js's shared initScrollDrift(). Used by the "Svatba tety" photo (top of "My
+     story") and all 4 "A pak se po letech vrátil Polaroid" photos. Color stays as each photo
+     already was — .story-photo-bw is a separate modifier (just the "Svatba tety" photo,
+     which wasn't black & white like the rest of the site's own photo treatment) so adding
+     drift to the 4 Polaroid photos doesn't also greyscale them. */
   .story-photo-drift { position:relative; }
-  .story-photo-drift img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; filter: grayscale(1) contrast(1.05); transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  .story-photo-drift img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; filter: contrast(1.05); transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  .story-photo-drift.story-photo-bw img { filter: grayscale(1) contrast(1.05); }
   @media (prefers-reduced-motion: reduce) { .story-photo-drift img { position:static; height:100%; transform:none; } }
 
   /* ---------- Custom cursor (desktop with a real mouse only) ---------- */
