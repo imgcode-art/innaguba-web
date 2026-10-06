@@ -45,7 +45,12 @@
   html { background: var(--paper); }
   body { font-family: var(--sans); font-weight:400; background: var(--paper); color: var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased; font-size: var(--fs-body); padding:0 var(--space-5); padding-top: var(--header-h, 97px); }
   body.nav-open { overflow:hidden; }
-  @media (max-width:700px){ body{padding:0 var(--space-3);} }
+  /* longhand left/right only, not the `padding` shorthand — a shorthand here resets all
+     four sides, silently zeroing out the explicit padding-top above (the fixed header's
+     own clearance) along with it. That's what buried every page's h1 under the fixed
+     header on phones: this breakpoint fires well before .page-header/.section-label's
+     own mobile padding-top shrinks, so nothing else was covering for it. */
+  @media (max-width:700px){ body{padding-left: var(--space-3); padding-right: var(--space-3);} }
   img { display:block; width:100%; height:100%; object-fit:cover; }
   a { color:inherit; text-decoration:none; }
   .gallery-link { text-decoration:underline; text-underline-offset:3px; font-weight:400; letter-spacing:0.02em; color: var(--ink-body); }
