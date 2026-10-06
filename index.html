@@ -109,16 +109,21 @@
     <button type="button" class="hc-mobile-nav hc-mobile-nav-next" aria-label="Další">›</button>
   </div>
 
-  <div class="wrap bottom-section">
-    <div class="hc-mobile-cta-row">
-      <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary">Chci focení</a>
-    </div>
-  </div>
 </section>
 
 <section class="proof-block wrap" data-reveal>
   <div class="proof-lead-row">
     <p class="proof-lead">Děti rostou rychle. Zachytíme chvíle plné smíchu a objetí, které vám i za mnoho let rozbuší srdce.</p>
+    <!-- mobile-only primary CTA (hidden ≥901px via .hc-mobile-cta-row's own media query,
+         see style.css) — moved here from the sticky hero's own .bottom-section: that hero
+         is pinned via position:sticky (home-theme.css's "curtain reveal") while proof-block
+         scrolls up to cover it, and on mobile the slideshow + this button together ran
+         taller than the pinned viewport window, so the button sat below the visible area
+         and was never reachable. Living in proof-block's own normal document flow instead,
+         it just scrolls into view like everything else here. -->
+    <div class="hc-mobile-cta-row">
+      <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary">Chci focení</a>
+    </div>
     <a href="portfolio.html" class="proof-teaser-link">Prohlédnout galerii →</a>
   </div>
   <div class="proof-block-row">
