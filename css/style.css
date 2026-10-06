@@ -847,14 +847,19 @@
   .photo-gallery { padding: 0; }
   .pgg-series { margin-bottom: var(--space-10); }
   .pgg-series:last-of-type { margin-bottom: var(--space-6); }
-  .pgg { columns:3; column-gap: var(--space-2); }
   /* drift, not hover-zoom — but each photo here keeps its own native aspect ratio (CSS
      multi-column masonry, not a uniform grid), so the usual "130%-tall image cropped inside
      a fixed-ratio box" recipe used elsewhere (e.g. .pg .pcard .thumb img) isn't an option
-     without cropping these to a uniform shape. Instead the whole card drifts a few px as a
-     unit — nothing is cropped, so no edge ever needs hiding — translateZ(0) (its own existing
-     compositing hint) composed with the drift's translateY in one transform. */
-  .pgg-item { display:block; margin-bottom: var(--space-2); break-inside:avoid; overflow:hidden; transform: translateZ(0) translateY(var(--float-y, 0px)); will-change:transform; }
+     without cropping these to a different shape than the photographer actually composed —
+     the whole point of this masonry over a uniform grid. Drifting each *item* independently
+     was tried first and reverted: every item computes its own progress from its own height,
+     so same-row neighbors (different photo heights) drift by very slightly different
+     amounts — reads as the gaps between photos randomly changing rather than a floating
+     effect. Drifting the whole .pgg (one series' grid) as a single rigid unit instead means
+     every photo inside moves together, so the spacing between them literally never changes —
+     only the series as a whole floats a few px as you scroll past it. */
+  .pgg { columns:3; column-gap: var(--space-2); transform: translateY(var(--float-y, 0px)); will-change:transform; }
+  .pgg-item { display:block; margin-bottom: var(--space-2); break-inside:avoid; overflow:hidden; transform: translateZ(0); }
   .pgg-item img { display:block; width:100%; }
   @media (max-width:900px){
     .pgg{columns:2; column-gap: var(--space-1);}
@@ -1134,7 +1139,7 @@
      instead, so without clearance here it rides up underneath the last sticky card's
      opaque background instead of appearing below it. */
   @media (max-width:900px){ .story-outro { margin-top: var(--space-9); } }
-  .story-outro p { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.8; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
+  .story-outro p { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.4; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
   @media (max-width:900px){ .my-story { gap: var(--space-5); } }
   /* stacked to 1 column on mobile, so this gap becomes the vertical photo→text gap — matched
      to .story-text p's own var(--space-2) margin-bottom instead of the desktop column-gap

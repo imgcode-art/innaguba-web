@@ -483,12 +483,15 @@ document.querySelectorAll('[data-row]').forEach(row => {
   initScrollDrift('.story-photo-drift img');
   initScrollDrift('.vcard .thumb img');
 
-  // ---------- Photo gallery masonry (.pgg-item) — same idea as initScrollDrift above, but
-  // each item keeps its own native aspect ratio (CSS multi-column masonry) instead of a
+  // ---------- Photo gallery masonry (.pgg) — same idea as initScrollDrift above, but each
+  // photo keeps its own native aspect ratio (CSS multi-column masonry) instead of a
   // fixed-ratio crop box, so there's no 130%-tall image to shift inside an overflow-hidden
-  // frame. Drifts the whole card by a small fixed amount instead — nothing is cropped, so
-  // there's no edge to reveal, and the range is a flat pixel amount (not a % of the item's
-  // own height) so tall portrait photos don't swing further than short ones. ----------
+  // frame without cropping it to a different shape than composed. Drifts the whole .pgg grid
+  // (one photo series) as a single rigid unit instead of each item independently — items
+  // drifting on their own computed each from its own height, so same-row neighbors (different
+  // photo heights) drifted by very slightly different amounts, reading as the gaps between
+  // photos randomly changing rather than a floating effect. Moving the whole grid together
+  // means the spacing between photos never changes, only the series as a whole. ----------
   const initScrollFloat = (selector, maxRange) => {
     const els = [...document.querySelectorAll(selector)];
     if (!els.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -511,7 +514,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
   };
-  initScrollFloat('.pgg-item', 12);
+  initScrollFloat('.pgg', 14);
 
   // ---------- Homepage: hero bento grid — mouse parallax on the 4 video tiles.
   // Scroll-tied movement doesn't work here (hero is pinned via position:sticky for
