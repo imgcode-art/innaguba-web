@@ -477,6 +477,8 @@ document.querySelectorAll('[data-row]').forEach(row => {
   initScrollDrift('.work-cards .pcard .thumb img');
   initScrollDrift('.video-embed video');
   initScrollDrift('.reassure-video img');
+  initScrollDrift('.ab-hero-photo img');
+  initScrollDrift('.story-photo-drift img');
 
   // ---------- Homepage: hero bento grid — mouse parallax on the 4 video tiles.
   // Scroll-tied movement doesn't work here (hero is pinned via position:sticky for

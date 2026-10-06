@@ -661,7 +661,16 @@
   .about-intro { padding: var(--space-7) 0 0; text-align:left; }
   @media (max-width:900px){ .about-intro { padding-top: var(--space-6); } }
   .about-intro h1 { font-size:32px; line-height:1.2; letter-spacing:0.02em; color: var(--ink-heading); }
-  .about-intro-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items:center; margin-top: var(--space-4); }
+  /* photo column widened by half a gap-step so the front photo's own right edge lands
+     where the text column used to start — text column shifts right by the same amount,
+     keeping the var(--space-6) gap between them exactly as it was. */
+  .about-intro-row { display:grid; grid-template-columns: calc(50% + var(--space-6) / 2) 1fr; gap: var(--space-6); align-items:center; margin-top: var(--space-4); }
+  /* lives on the grid container, not a grid item — a margin here still reserves the same
+     clearance before the next section (collapses through .about-intro's own bottom edge,
+     which has no padding/border to stop it), but margin on an ITEM (.about-intro-photo-
+     stack, previously) stretches that item's own row-track taller, which is what was
+     pulling .about-intro-text's align-items:center down off the photo's actual center. */
+  @media (min-width:901px){ .about-intro-row { margin-bottom: var(--space-9); } }
   .about-intro-text { max-width:440px; }
   .about-intro p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); }
   .about-intro p + p { margin-top: var(--space-3); }
@@ -1023,8 +1032,53 @@
   .lb-close { position:absolute; top:-40px; right:0; color:#fff; font-size: var(--fs-body); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; background:none; border:0; }
 
   /* ---------- O mně ---------- */
-  .ab-hero-photo { aspect-ratio:3/2; overflow:hidden; }
-  .ab-hero-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
+  /* layered photo pair (desktop only) — a smaller wide establishing shot peeking out
+     top-left behind the main close-up, same two crops of one moment (.about-intro-photo-back
+     is the uncropped wide version .about-intro-photo/.ab-hero-photo is already cropped
+     from). Reads as a considered, dimensional composition instead of one flat photo —
+     grayscale kept on both, unlike the color/b&w pairing this idea is borrowed from, to
+     stay inside the site's own unified black-and-white photo treatment. */
+  /* margin-bottom (desktop only, see below) reserves room for .about-intro-photo-back's
+     own overflow — it's position:absolute, so it doesn't count toward this stack's (or
+     .about-intro's) flow height on its own; without this, the section after .about-intro
+     measured its own gap from the shorter front-photo height instead, and the back photo
+     visually ate most of that gap instead of leaving it clear. */
+  .about-intro-photo-stack { position:relative; }
+  .about-intro-photo-back {
+    display:none;
+    /* top:0 and left:0, not negative offsets — the stack sits flush with the page's own
+       content edge (same line as the h1/body text above and below it), and a negative
+       offset either direction pushed the photo out past that shared margin instead of
+       lining up with it. The "peeking out behind" effect still reads fine from the width
+       overlap alone (.ab-hero-photo starts well in from the stack's own left edge). */
+    position:absolute; top:0; left:0; z-index:1;
+    width:58%; aspect-ratio:4/5; overflow:hidden;
+    box-shadow: 0 14px 30px -18px rgba(0,0,0,0.3);
+  }
+  .about-intro-photo-back img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
+  /* scroll-drift, not hover-zoom — same "photo quietly drifts as you scroll past it"
+     treatment as .proof-photo/.reassure-video on the homepage, driven by script.js's
+     shared initScrollDrift(), instead of the sitewide hover-zoom .ab-hero-photo used to
+     share with .story-photo/.why-photo/etc. (now removed from that list below). */
+  .ab-hero-photo { position:relative; aspect-ratio:3/2; overflow:hidden; }
+  .ab-hero-photo img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; filter: grayscale(1) contrast(1.05); transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  @media (prefers-reduced-motion: reduce) { .ab-hero-photo img { position:static; height:100%; transform:none; } }
+  @media (min-width:901px){
+    .about-intro-photo-back { display:block; }
+    /* margin-left raised (not a width/right-margin) so the photo shrinks from its own
+       left edge only — its right edge stays anchored to the stack's own right edge
+       (and so to the text column's left edge), preserving that alignment. */
+    /* 88px (not var(--space-5)'s 40px) vertically centers the front photo within the
+       taller back photo behind it (measured: back photo 495.9px tall vs front 319.2px,
+       so an 88px top margin splits the leftover ~177px evenly, ~88px top and bottom). */
+    .about-intro-photo.ab-hero-photo { z-index:2; margin:88px 0 0 30%; box-shadow: 0 14px 30px -18px rgba(0,0,0,0.3); }
+    /* .about-intro-row's align-items:center centers .about-intro-text against the
+       *stack's* box, not the front photo's own — the stack's box includes the photo's
+       own margin-top as empty space above it, which align-items:center splits evenly.
+       Matching this margin-top to the front photo's own (both 88px) keeps the text
+       centered on the photo's actual visual center rather than the taller stack's. */
+    .about-intro-text { margin-top: 88px; }
+  }
 
   /* ---------- My story ("A proč to vlastně dělám?") ---------- */
   .my-story { padding: 0; display:flex; flex-direction:column; gap: var(--space-9); }
@@ -1046,6 +1100,11 @@
   .my-story-intro { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); line-height:1.5; margin-bottom: var(--space-4); }
   .my-story-close { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; color: var(--ink); }
   .story-outro { max-width:640px; margin:0 auto; text-align:center; }
+  /* .story-card-grid's own negative margin-bottom (mobile card-stack trick, above) was
+     tuned for whatever used to come right after .story-card — now that's .story-outro
+     instead, so without clearance here it rides up underneath the last sticky card's
+     opaque background instead of appearing below it. */
+  @media (max-width:900px){ .story-outro { margin-top: var(--space-9); } }
   .story-outro p { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.8; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
   @media (max-width:900px){ .my-story { gap: var(--space-5); } }
   /* stacked to 1 column on mobile, so this gap becomes the vertical photo→text gap — matched
@@ -1123,14 +1182,14 @@
      .proof-photo and .memory-photo are deliberately NOT in this list — they also have a
      JS-driven scroll-drift ("parallax") effect, and no hover-zoom at all (removed; the two
      together read as too busy). .reassure-video isn't here either — scroll-drift instead
-     of hover-zoom, same reasoning, see its own rule near .reassure-video above. */
+     of hover-zoom, same reasoning, see its own rule near .reassure-video above. .ab-hero-photo
+     moved to that same scroll-drift group too (see its own rule, "O mně" section above). */
   .proof-photo-2 img,
   .rg .card .thumb img,
   .pb-photo img,
   .pb-photo video,
-  .ab-hero-photo img,
   .why-photo img,
-  .story-photo img,
+  .story-photo:not(.story-photo-drift) img,
   .contact-info-photo img {
     transition: transform .6s cubic-bezier(0.25,1,0.5,1);
   }
@@ -1139,13 +1198,21 @@
     .rg .card .thumb:hover img,
     .pb-photo:hover img,
     .pb-photo:hover video,
-    .ab-hero-photo:hover img,
     .why-photo:hover img,
-    .story-photo:hover img,
+    .story-photo:not(.story-photo-drift):hover img,
     .contact-info-photo:hover img {
       transform: scale(1.06);
     }
   }
+
+  /* .story-photo-drift ("Svatba tety" photo, top of "My story") — black & white like
+     the rest of the site's own photo treatment (this one shot wasn't), and scroll-drift
+     instead of the sitewide hover-zoom above, same "photo quietly drifts as you scroll
+     past it" treatment as .ab-hero-photo/.proof-photo, driven by script.js's shared
+     initScrollDrift(). */
+  .story-photo-drift { position:relative; }
+  .story-photo-drift img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; filter: grayscale(1) contrast(1.05); transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  @media (prefers-reduced-motion: reduce) { .story-photo-drift img { position:static; height:100%; transform:none; } }
 
   /* ---------- Custom cursor (desktop with a real mouse only) ---------- */
   @media (hover:hover) and (pointer:fine) {
