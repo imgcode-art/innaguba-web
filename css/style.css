@@ -676,7 +676,7 @@
      stack, previously) stretches that item's own row-track taller, which is what was
      pulling .about-intro-text's align-items:center down off the photo's actual center. */
   @media (min-width:901px){ .about-intro-row { margin-bottom: var(--space-9); } }
-  .about-intro-text { max-width:440px; }
+  .about-intro-text { max-width:560px; }
   .about-intro p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); }
   .about-intro p + p { margin-top: var(--space-3); }
   @media (max-width:900px){ .about-intro-text { max-width:none; } }
