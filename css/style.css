@@ -1098,6 +1098,29 @@
     .story-row:has(.story-photo-wide) .story-text { flex:1; max-width:520px; }
   }
   .story-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
+  /* "Svatba tety" photo — a polaroid PRINT, white border and all, not a full-bleed shot
+     like every other .story-photo-wide (also used as-is by web-vizualni-tvorba.html's
+     case-study screenshots, which still want the plain 3/2 crop — hence overriding via
+     the extra .story-photo-polaroid class, not .story-photo-wide itself). Cropping it to
+     the usual fixed ratio would cut that border off, so this sizes the box to the photo's
+     own native ratio instead and lets it sit at a modest "found print" width rather than
+     stretching across the whole column. Two blank prints (.polaroid-behind) rotated and
+     peeking out from behind it complete the small-stack look — needs overflow:visible
+     (no ancestor clips it) for their corners to actually show past the real photo's edges. */
+  .story-photo-wide.story-photo-polaroid,
+  .story-row:has(.story-photo-wide) .story-photo-wide.story-photo-polaroid {
+    aspect-ratio: 775/944;
+    overflow: visible;
+    position: relative;
+    width: min(100%, 320px);
+    flex: 0 0 auto;
+    align-self: center;
+    margin: 0 auto;
+  }
+  .story-photo-polaroid img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:3; box-shadow: 0 16px 34px -16px rgba(0,0,0,0.35); filter: contrast(1.05); }
+  .polaroid-behind { position:absolute; inset:0; background: var(--paper); box-shadow: 0 10px 24px -14px rgba(0,0,0,0.3); }
+  .polaroid-behind-1 { transform: rotate(-7deg); z-index:1; }
+  .polaroid-behind-2 { transform: rotate(5deg); z-index:2; }
   .story-text { max-width:520px; }
   .story-text h3 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin: var(--space-4) 0 var(--space-3); }
   .story-text h3:first-child { margin-top:0; }
