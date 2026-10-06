@@ -1125,7 +1125,8 @@
     align-self: center;
     margin: 0 auto;
   }
-  .story-photo-polaroid img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:3; box-shadow: 0 16px 34px -16px rgba(0,0,0,0.35); filter: contrast(1.05); }
+  .story-photo-polaroid img,
+  .story-photo-polaroid video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:3; box-shadow: 0 16px 34px -16px rgba(0,0,0,0.35); filter: contrast(1.05); }
   .polaroid-behind { position:absolute; inset:0; background: var(--paper); box-shadow: 0 10px 24px -14px rgba(0,0,0,0.3); }
   .polaroid-behind-1 { transform: rotate(-7deg); z-index:1; }
   .polaroid-behind-2 { transform: rotate(5deg); z-index:2; }
