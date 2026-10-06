@@ -9,7 +9,12 @@
     --paper: #F5F3EF;
     --red: #7A2C1E;
     --wine: #7A1E3A;
+    --logo-accent: #59462D;
     --line: rgba(17,17,17,0.14);
+    /* fixed <header>'s own rendered height (padding + its tallest logo variant) — single
+       source of truth for the body padding-top and hero-curtain-stack sticky offset that
+       both need to clear it. Update here if the header's padding/content ever changes. */
+    --header-h: 96px;
     --sans: 'Jost', sans-serif;
     --serif: 'Cormorant Garamond', serif;
     --max-w: 1400px;
@@ -38,7 +43,7 @@
   /* covers the rubber-band overscroll area on iOS Safari, which otherwise shows through
      as plain white above/below the page instead of matching the site background */
   html { background: var(--paper); }
-  body { font-family: var(--sans); font-weight:400; background: var(--paper); color: var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased; font-size: var(--fs-body); padding:0 var(--space-5); }
+  body { font-family: var(--sans); font-weight:400; background: var(--paper); color: var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased; font-size: var(--fs-body); padding:0 var(--space-5); padding-top: var(--header-h, 97px); }
   body.nav-open { overflow:hidden; }
   @media (max-width:700px){ body{padding:0 var(--space-3);} }
   img { display:block; width:100%; height:100%; object-fit:cover; }
@@ -59,15 +64,29 @@
   @media (max-width:700px){ .qr-banner-inner { padding: var(--space-3); } }
 
   /* ---------- Header ---------- */
-  header { position:relative; z-index:20; padding: var(--space-3) 0; border-bottom:1px solid var(--line); background: var(--paper); }
+  /* fixed, full-viewport-width. header itself only carries the side gutter (matching
+     body's own padding below) — the actual max-width/centering lives on the inner
+     .nav.wrap instead, the same two-layer split body/.wrap uses everywhere else, so a
+     page's logo lines up pixel-for-pixel with its own H1/.wrap content at any viewport
+     width. (An earlier version put both the gutter AND .wrap on <header> itself, which
+     double-counted the inset and left the logo visibly right of H1 on wide screens.) */
+  header { position:fixed; top:0; left:0; right:0; z-index:20; padding: var(--space-3) var(--space-5); background: var(--paper); }
+  header::after { content:""; position:absolute; left:50%; bottom:0; width:100vw; margin-left:-50vw; height:1px; background: var(--line); }
+  @media (max-width:700px){ header { padding-left: var(--space-3); padding-right: var(--space-3); } }
   .nav { position:relative; display:flex; justify-content:space-between; align-items:center; }
   .logo { font-weight:700; font-size: var(--fs-body); letter-spacing:0.06em; }
   .logo-group { display:flex; flex-direction:column; gap:0; }
   .logo-claim { font-size:13px; font-weight:400; letter-spacing:0.03em; color: var(--ink-body); }
-  .nav-links { display:flex; gap: var(--space-4); font-size: var(--fs-body); font-weight:400; }
+  /* small-caps treatment, sitewide — was homepage-only (born on .home-header's grid
+     nav), now the standard look for every page's nav-links. */
+  .nav-links { display:flex; gap: var(--space-4); font-family: var(--sans); font-size:13px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; }
   .nav-links a { color: rgba(17,17,17,0.62); transition: color 0.2s ease; }
+  /* back to plain --ink — --logo-accent is reserved for the one primary CTA button now,
+     not spread across nav/titles/links too (that read as too much warm brown fighting
+     the site's otherwise black-and-white photo treatment). font-weight still marks
+     .active, just without the color. */
   .nav-links a:hover { color: var(--ink); }
-  .nav-links a.active { color: var(--ink); font-weight:700; }
+  .nav-links a.active { color: var(--ink); font-weight:600; }
   .nav-links .nav-call { display:none; }
   .nav-toggle { display:none; position:relative; flex-direction:column; justify-content:center; gap:5px; width:28px; height:28px; background:none; border:0; padding:0; cursor:pointer; }
   .nav-toggle span { display:block; width:100%; height:2px; background: var(--ink); transition: transform .25s ease, opacity .25s ease; }
@@ -92,9 +111,28 @@
     .nav-links a {
       padding:0; border-bottom:0;
       font-family: var(--serif); font-size: var(--fs-display); font-weight:400;
-      letter-spacing:-0.02em; color: var(--ink);
+      letter-spacing:-0.02em; text-transform:none; color: var(--ink);
     }
     .nav-links .nav-call { display:block; margin-top: var(--space-5); font-family: var(--serif); font-size: 28px; font-weight:400; color: var(--ink); }
+  }
+
+  /* ---------- Logo — same serif wordmark on every page now (was homepage-only,
+     other pages used a plain bold .logo + .logo-claim tagline instead). ---------- */
+  .home-logo { font-family: var(--serif); font-weight:500; font-size:32px; letter-spacing:0.02em; color: var(--logo-accent); }
+  .home-logo-surname { font-style:italic; }
+  /* Header grid, every page, desktop width — originally built just for the homepage to
+     line up with its hero bento grid (same column template as .hc-split: logo flush
+     with column 1's left edge, nav-links stretched via justify-content:space-between to
+     column 5's width instead of clustering as a tight right-aligned group). Kept as the
+     one shared header layout sitewide since it reads the same everywhere regardless of
+     what's below it — column 1 still starts flush with the page's own .wrap edge (same
+     edge any H1/.wrap content on that page starts from), column 5 still ends flush with
+     the wrap's right edge. Below 901px this grid isn't meaningful (nav collapses to the
+     mobile hamburger) — plain .nav flex layout applies instead. */
+  @media (min-width:901px){
+    header .nav { display:grid; grid-template-columns: minmax(300px, 465px) 56px 1fr 24px 1fr; align-items:center; }
+    header .home-logo { grid-column:1; }
+    header .nav-links { grid-column:5; justify-content:space-between; }
   }
 
   /* ---------- Background video embed (Vimeo, cropped to cover) — sized relative to its own container so it always fills it edge-to-edge, no letterboxing ---------- */
@@ -127,7 +165,7 @@
   .video-bw iframe, .video-bw video { filter: grayscale(1) contrast(1.1); }
 
   /* ---------- Hero — split layout: headline left, bento photo grid right ---------- */
-  .hero-collage { display:block; min-height:0; background: var(--paper); padding: var(--space-8) 0 0; overflow-x:clip; }
+  .hero-collage { display:block; min-height:0; background: var(--paper); padding: var(--space-5) 0 0; overflow-x:clip; }
   /* text column width (465px) lines the photo grid's left edge up with the right edge of
      the proof-block's left photo below — a shared vertical line down the page. Fixed px
      rather than % since the proof photo's own width is itself pinned by the 1400px .wrap,
@@ -142,7 +180,7 @@
   .hc-split {
     display:grid;
     grid-template-columns: minmax(300px, 465px) 56px 1fr 24px 1fr;
-    grid-template-rows: 1fr 1fr auto;
+    grid-template-rows: 1fr 1fr;
     row-gap: var(--space-3);
     /* was min(620px,58vh) — raised so the bento grid keeps growing on taller
        screens instead of capping out early. The homepage hero is wrapped in
@@ -154,23 +192,14 @@
        itself is what actually closes it. */
     height: min(820px, 70vh);
   }
-  .hc-split-text { grid-column:1; grid-row:1 / 3; align-self:end; text-align:left; }
+  .hc-split-text { grid-column:1; grid-row:1 / 3; align-self:center; text-align:left; }
   /* line-height/color matched to the other --fs-display and --fs-heading text on the
      site (section-label h1/h2, memory-title, reassure-lead) instead of inheriting
      body's 1.5 line-height and full-strength --ink — those read as too loose and,
      on the big display headline, too heavy */
   .hc-eyebrow { display:block; font-size: var(--fs-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; text-transform:none; color: var(--ink-heading); }
-  .hc-hero-subhead { margin-top: var(--space-2); font-size: var(--fs-heading); line-height:1.2; color: var(--ink-subheading); }
+  .hc-hero-subhead { margin-top: var(--space-2); font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.2; color: var(--ink-subheading); }
   .hc-hero-cta { margin-top: var(--space-4); }
-  /* lead line sits under the bottom-left photo (hc-bento-d), gallery link under the
-     bottom-right photo (hc-bento-c) — each matching its own photo's left/right edges,
-     instead of both living in the text column or stacked together under one photo.
-     Targeted via the parent (not just the .hc-split-lead/-gallery-link classes alone) so
-     these reliably win over .hero-lead's own margin-bottom and .proof-teaser-link's own
-     margin-top — same specificity as those base rules otherwise, so source order alone
-     left both margins in place and stacked into a bigger gap than intended. */
-  .hc-bento-below .hc-split-lead { margin:0; }
-  .hc-bento-gallery-link .hc-split-gallery-link { margin:0; }
   /* four prints, one clean 2x2 bento grid instead of the old ring that spun in a slow
      circle. Each cell is close to the clips' own native 16:9 crop (prior versions with a
      tall tile spanning two rows squeezed the small cells down to a very wide sliver —
@@ -183,8 +212,6 @@
   .hc-bento-b { grid-column:5; grid-row:1; }
   .hc-bento-c { grid-column:5; grid-row:2; }
   .hc-bento-d { grid-column:3; grid-row:2; }
-  .hc-bento-below { grid-column:3; grid-row:3; align-self:start; }
-  .hc-bento-gallery-link { grid-column:5; grid-row:3; align-self:start; }
   .orbit-tile-inner { position:relative; overflow:hidden; background: var(--ink); box-shadow: 0 14px 30px -18px rgba(0,0,0,0.3); }
   /* Mouse parallax (script.js, .hc-split mousemove): each tile gets a small JS-driven
      translate based on cursor position, at its own depth (data-parallax-depth below) so
@@ -210,8 +237,10 @@
   /* ---------- Mobile hero — swipeable, full-bleed video slideshow, one story
      per screen instead of a single static clip; .bottom-section (lead + gallery link)
      stays fixed below it always, not per-slide, so it never needs swiping to be found.
-     Desktop shows the same two lines inside .hc-split-text instead (continuing its
-     left-aligned column), so .bottom-section itself is mobile-only. ---------- */
+     Desktop also shows .bottom-section (minus its own "Chci focení" — that one lives up
+     in .hc-split-text instead, see .hc-mobile-cta-row's min-width:901px override below) —
+     it sits right after the bento photo grid as a quiet bridge line into proof-block,
+     rather than being squeezed under the photos themselves. ---------- */
   .hc-mobile-slideshow { display:none; }
   .hc-mobile-slides {
     display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
@@ -245,16 +274,7 @@
   .hc-mobile-slideshow.at-end .hc-mobile-nav-next { opacity:0; pointer-events:none; }
   .hero-lead { max-width:640px; margin:0 auto var(--space-3); font-size: var(--fs-body); font-weight:400; line-height:1.5; color: var(--ink-subheading); text-align:left; }
   .hero-note { max-width:640px; margin:0 auto var(--space-4); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:left; }
-  /* desktop: just "Prohlédnout galerii" here, centered — "Chci focení" lives up in the
-     hero itself instead (.hc-hero-cta), so the offer is visible without scrolling.
-     Mobile overrides this further down with its own shared .hc-mobile-cta-row button,
-     since the hero's own per-slide buttons were removed (see .hc-mobile-slide-caption). */
-  .hero-cta-row { display:flex; justify-content:center; gap: var(--space-5); flex-wrap:wrap; }
   .hc-mobile-cta-row { margin-top: var(--space-3); text-align:center; }
-  /* .hero-cta-row's own .proof-teaser-link below zeroes its margin-top (desktop-era
-     assumption that nothing but it sits in that row) — on mobile .hc-mobile-cta-row now
-     sits right above it, so the two buttons had no gap between them without this */
-  .hc-mobile-cta-row + .hero-cta-row { margin-top: var(--space-3); }
   .hero-cta-primary { transition: background .25s ease, color .25s ease, transform .25s ease; }
   .about-cta-btn.hero-cta-primary:hover { transform: scale(1.04); }
   @media (max-width:900px){
@@ -270,14 +290,16 @@
     .bottom-section .hero-lead { font-size:18px; }
   }
   @media (min-width:901px){
-    .bottom-section { display:none; }
+    /* "Chci focení" already lives up in .hc-split-text (.hc-hero-cta) — only the lead
+       line + "Prohlédnout galerii" repeat down here, so the primary button doesn't. */
+    .hc-mobile-cta-row { display:none; }
   }
 
   /* ---------- Belief list (standalone, after the banner video) ---------- */
   .belief-list-section { padding: var(--space-4) 0 50px; }
   .belief-list { list-style:none; max-width:640px; margin-left: 54.34%; margin-right:auto; }
   @media (max-width:900px){ .belief-list { margin-left:auto; } }
-  .belief-list li { font-size: var(--fs-heading); font-weight:700; line-height:1.4; letter-spacing:-0.01em; color: var(--ink-subheading); }
+  .belief-list li { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; line-height:1.4; letter-spacing:-0.01em; color: var(--ink-subheading); }
   .belief-list li + li { margin-top: var(--space-1); }
 
   /* ---------- Section label ---------- */
@@ -285,6 +307,22 @@
   @media (max-width:900px){ .section-label { padding-top: var(--space-9); } }
   .section-label .wrap { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid var(--line); padding-bottom: var(--space-3); flex-wrap:wrap; gap: var(--space-2); }
   .section-label h1, .section-label h2 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); }
+  /* ---------- Page header (trial, cenik.html) — same component, lighter touch for the
+     plain "this page is called X" title at the top of a subpage, now that the fixed nav's
+     own active-link color already answers "where am I" without needing this to announce
+     it as heavily too. Tighter top gap (now just clearing the fixed header, not a full
+     150px editorial pause) and no divider line under the title. ---------- */
+  .page-header { padding: var(--space-7) 0 var(--space-4); }
+  @media (max-width:900px){ .page-header { padding-top: var(--space-6); } }
+  .page-header .wrap { border-bottom:0; padding-bottom:0; }
+  /* .section-label h1's shared treatment (700 weight, -0.025em tracking, 0.86 line-height,
+     --ink-heading) is tuned for a big 60px display headline — bold and tight-tracked reads
+     as confident editorial type at that size, but carried down to 32px here it just reads
+     heavy and cramped next to the logo's own light hand. Echoes .home-logo's size and
+     weight instead (weight finished off further down, see "Brand type system") so the two
+     read as a considered pair, but keeps --ink-heading rather than the logo's own accent
+     color — that's reserved for the one primary CTA button now, not every title too. */
+  .page-header h1 { font-size:32px; line-height:1.2; letter-spacing:0.02em; color: var(--ink-heading); }
   /* line-to-content gap — same var(--space-4) as the other sections whose content below
      the line carries real visual weight (photo cards here, same reasoning as FAQ/price
      teaser below). #work/#reference get it here (no other override exists for them);
@@ -309,8 +347,15 @@
 
   /* ---------- Proof block (two equal-weight photos of the same family, years apart, with
      stats between them - between the hero quote and "Tři cesty") ---------- */
-  .proof-block { padding: 150px 0 0; }
-  @media (max-width:900px){ .proof-block { padding-top: var(--space-9); } }
+  .proof-block { padding: var(--space-7) 0 0; }
+  @media (max-width:900px){ .proof-block { padding-top: var(--space-6); } }
+  /* lead line + gallery link live in the wide pale band the curtain-reveal scroll exposes
+     above the photos/stats (see .hero-curtain-stack in home-theme.css) — same serif/
+     fs-heading treatment as .hc-hero-subhead, the site's other "middle tier" subhead style. */
+  .proof-lead-row { text-align:center; margin-bottom: var(--space-7); }
+  .proof-lead { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.2; color: var(--ink-subheading); max-width:640px; margin:0 auto var(--space-3); }
+  .proof-lead-row .proof-teaser-link { margin-top:0; }
+  @media (max-width:900px){ .proof-lead-row { margin-bottom: var(--space-6); } }
   /* mobile/tablet: proofs first, then both photos, then the quote — order:-1 pulls the
      stats block ahead of the two photo-cols regardless of their HTML order (which stays
      photo/stats/photo, since that's what the desktop row layout needs) */
@@ -335,8 +380,11 @@
   .proof-stats li strong { font-size: var(--fs-display); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); line-height:1.15; }
   .proof-stats li span { font-size: var(--fs-body); font-weight:400; color: var(--ink-body); }
   .proof-stats li + li { margin-top: var(--space-3); }
-  .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
-  .hero-cta-row .proof-teaser-link { margin-top:0; align-self:center; }
+  /* neutral at rest, brand accent only on hover/touch — the color is reserved for the
+     one primary CTA button as a constant, so here it shows up only as interaction
+     feedback instead of coloring the link permanently. */
+  .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease; }
+  .proof-teaser-link:hover { color: var(--logo-accent); }
   /* on mobile the stats block sits full-width (no fit-content/align-items:center from the
      desktop column below yet), so its text defaulted to flush-left against the page edge —
      out of step with the already-centered photo captions directly above/below it. Centered
@@ -393,7 +441,7 @@
   .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
   @media (min-width:901px){ .reassure-title { white-space:nowrap; } }
   @media (max-width:900px){ .reassure-title { line-height:1.05; } }
-  .reassure-lead { font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); margin-bottom: var(--space-4); }
+  .reassure-lead { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); margin-bottom: var(--space-4); }
   .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); }
   .reassure-section .proof-teaser-link { margin-top:0; }
   .reassure-body p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
@@ -401,7 +449,7 @@
      technique as .memory-body p:last-child, so a bold whole-sentence
      doesn't sit awkwardly between the lead (bigger) and the body (plain)
      as a third, ad-hoc weight tier */
-  .reassure-body p:last-child { font-size: var(--fs-heading); line-height:1.2; color: var(--ink-subheading); }
+  .reassure-body p:last-child { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.2; color: var(--ink-subheading); }
   /* on mobile these three gaps (title→lead, lead→body, between the two body lines) were
      48/32/16px — visibly uneven and the first one too wide; one consistent rhythm instead */
   @media (max-width:900px){
@@ -421,7 +469,11 @@
      and "Nejen fotografie." lands alone on its first line, isolating the dot as if it were
      a stray mark — drop it there and let the sentence continue without it ---------- */
   @media (max-width:900px){ .dot-desktop-only { display:none; } }
-  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); }
+  /* same "neutral at rest, brand accent on hover" treatment as .proof-teaser-link —
+     this is a plain <span> (the whole card is the real link), so the color change rides
+     on the card's own :hover instead of its own :hover pseudo-class. */
+  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease; }
+  .pg .pcard:hover .pcard-link { color: var(--logo-accent); }
 
   /* ---------- Memory section ("Nejen fotografie. Vzpomínku na to, jaké to bylo.") ---------- */
   .memory-section { padding: 150px 0 0; text-align:center; }
@@ -449,7 +501,7 @@
   .memory-photo img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
   @media (prefers-reduced-motion: reduce) { .memory-photo img { position:static; height:100%; transform:none; } }
   .memory-body p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-3); text-align:left; }
-  .memory-body p:last-child { margin-bottom:0; font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); }
+  .memory-body p:last-child { margin-bottom:0; font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); }
   @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-photo, .memory-body-align .memory-body { grid-column:1; padding-left:0; } .memory-photo { aspect-ratio:3/2; } }
 
   /* ---------- Steps (jak focení probíhá) ---------- */
@@ -458,7 +510,7 @@
   .section-label:has(+ .steps-section) { padding-bottom: var(--space-2); }
   .steps-section { padding: 0; }
   .steps-list { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); }
-  .step h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
+  .step h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
   .step p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
   /* a little dark breathing room below the last step on mobile — .steps-section itself
      has zero padding (desktop's dark panel hugs the 3-column grid tightly on purpose),
@@ -581,7 +633,7 @@
   /* line-height:1.2 instead of body's inherited 1.5 — at --fs-heading size the extra
      leading was adding visible space above the text itself, making the gap down from the
      section-label's rule read bigger than the other sections' same var(--space-3) gap */
-  .price-teaser-item h4 { font-size: var(--fs-heading); font-weight:700; line-height:1.2; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-1); }
+  .price-teaser-item h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; line-height:1.2; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-1); }
   .price-teaser-item p { font-size: var(--fs-body); color: var(--ink-body); }
   .price-teaser .proof-teaser-link { margin-top:0; }
   @media (max-width:600px){ .price-teaser-row { flex-direction:column; gap: var(--space-4); } }
@@ -595,20 +647,20 @@
   @media (max-width:900px){ .closing-footer { padding-top: var(--space-8); } }
   .closing-title { font-size: var(--fs-display); font-weight:700; line-height:0.9; letter-spacing:-0.025em; color: var(--ink-heading); padding-bottom: var(--space-3); border-bottom:1px solid var(--line); }
   .closing-note { font-size: var(--fs-body); color: var(--ink-body); margin: var(--space-3) 0 0; }
-  .closing-lead { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin: var(--space-4) 0 0; }
+  .closing-lead { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin: var(--space-4) 0 0; }
   .closing-punch { font-size: var(--fs-body); font-style:italic; color: var(--ink-body); margin: var(--space-3) 0 0; }
   .closing .about-thanks-cta { margin-top: var(--space-4); }
   .closing-form-lead { font-size: var(--fs-body); color: var(--ink-body); text-align:center; margin: var(--space-5) 0 0; }
   .closing-form-lead a { text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); font-weight:400; }
 
   /* ---------- About intro (o-mne.html) — page's own opening title, before "Proč právě se mnou?" ---------- */
-  .about-intro { padding: 150px 0 0; text-align:left; }
-  /* same mobile top padding as .section-label's own var(--space-9) (used for this
-     same "page title under the header line" spot on every other page) — this was
-     out of sync at var(--space-8), making O mně's gap under the header line visibly
-     smaller than Ceník/Portfolio/Kontakt at mobile widths. */
-  @media (max-width:900px){ .about-intro { padding-top: var(--space-9); } }
-  .about-intro h1 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); }
+  /* matches .page-header's own tightened gap/weight (style.css ~line 305) — same "page
+     title sitting right under the fixed header, echoing .home-logo" treatment as every
+     other page, just applied directly here since .about-intro combines the title with
+     the intro photo+text row in one section instead of a standalone label. */
+  .about-intro { padding: var(--space-7) 0 0; text-align:left; }
+  @media (max-width:900px){ .about-intro { padding-top: var(--space-6); } }
+  .about-intro h1 { font-size:32px; line-height:1.2; letter-spacing:0.02em; color: var(--ink-heading); }
   .about-intro-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items:center; margin-top: var(--space-4); }
   .about-intro-text { max-width:440px; }
   .about-intro p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); }
@@ -630,7 +682,7 @@
   .why-photo { aspect-ratio:4/5; overflow:hidden; max-width:460px; justify-self:end; }
   .why-photo img { width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.05); }
   .why-reasons { display:flex; flex-direction:column; gap: var(--space-3); }
-  .why-me-card h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-2); }
+  .why-me-card h3 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-2); }
   .why-me-card p { font-size: var(--fs-body); line-height:1.5; color: var(--ink-body); }
   @media (max-width:900px){
     .why-me-layout { grid-template-columns:1fr; align-items:start; gap: var(--space-6); }
@@ -757,7 +809,7 @@
        here regardless of which video it shows on desktop */
     #price-video-banner { display:none; }
   }
-  .pg .pcard h4 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
+  .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
   @media (max-width:800px){
     .pg { display:block; }
     /* card-stack scroll effect: each card sticks at the same offset, so as you keep
@@ -782,7 +834,7 @@
   /* ---------- Gallery placeholder page ---------- */
   .gallery-soon { padding: var(--space-8) 0 var(--space-11); }
   .gallery-soon .wrap { max-width:640px; }
-  .gallery-soon h2 { font-size: var(--fs-heading); font-weight:800; letter-spacing:-0.02em; margin-bottom: var(--space-2); color: var(--ink-subheading); }
+  .gallery-soon h2 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.02em; margin-bottom: var(--space-2); color: var(--ink-subheading); }
   .gallery-soon p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-3); }
 
   /* ---------- Photo gallery (masonry) ---------- */
@@ -814,7 +866,7 @@
   .cenik-label { font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2); }
 
   .cenik-intro { max-width:640px; margin:0 auto; text-align:center; }
-  .cenik-intro-lead { font-size: var(--fs-heading); font-weight:700; color: var(--ink-subheading); margin-bottom: var(--space-2); }
+  .cenik-intro-lead { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; color: var(--ink-subheading); margin-bottom: var(--space-2); }
   .cenik-intro p:not(.cenik-intro-lead) { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
 
   .pricing-grid { padding: 0; }
@@ -845,7 +897,7 @@
      next sticky card scrolls up over it. will-change promotes it to its own layer up
      front so scrolling doesn't force a fresh composite each frame. */
   .pb-photo video { will-change: transform; }
-  .pb-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
+  .pb-content h3 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
   .pb-subtitle { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-1); }
   .pb-content p:not(.pb-subtitle):not(.pb-note) { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-1); }
   .price-list { list-style:none; margin-bottom: var(--space-1); }
@@ -988,13 +1040,13 @@
   }
   .story-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   .story-text { max-width:520px; }
-  .story-text h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin: var(--space-4) 0 var(--space-3); }
+  .story-text h3 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin: var(--space-4) 0 var(--space-3); }
   .story-text h3:first-child { margin-top:0; }
   .story-text p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-2); }
-  .my-story-intro { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); line-height:1.5; margin-bottom: var(--space-4); }
-  .my-story-close { font-size: var(--fs-heading); font-weight:700; color: var(--ink); }
+  .my-story-intro { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); line-height:1.5; margin-bottom: var(--space-4); }
+  .my-story-close { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; color: var(--ink); }
   .story-outro { max-width:640px; margin:0 auto; text-align:center; }
-  .story-outro p { font-size: var(--fs-heading); line-height:1.8; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
+  .story-outro p { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.8; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
   @media (max-width:900px){ .my-story { gap: var(--space-5); } }
   /* stacked to 1 column on mobile, so this gap becomes the vertical photo→text gap — matched
      to .story-text p's own var(--space-2) margin-bottom instead of the desktop column-gap
@@ -1032,19 +1084,22 @@
   .contact-info-photo { flex:0 0 calc((100% - var(--space-6)) / 2); aspect-ratio:3/2; overflow:hidden; }
   .contact-info-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   .contact-info-text { flex:1; max-width:420px; }
-  .contact-info-name { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-3); }
+  .contact-info-name { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-3); }
   .contact-info-line { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
   .contact-info-line a { color: inherit; font-weight:inherit; transition: color 0.2s ease; }
   .contact-info-line a:hover { color: var(--red); }
   @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0;} .contact-info-photo{flex-basis:auto; width:100%; height:auto; aspect-ratio:3234/1605;} .contact-info-text{max-width:none;} }
 
   .about-thanks-cta { display:flex; align-items:center; justify-content:center; gap: var(--space-4); flex-wrap:wrap; }
-  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--paper); color: var(--ink); border:1px solid var(--ink); padding:16px 32px; transition: background .2s ease, color .2s ease; }
-  .about-cta-btn:hover { background: var(--ink); color: var(--paper); }
+  /* brand accent, not plain --ink — same brown as the logo/active nav/page titles, so the
+     one button actually asking for a click reads as part of that same accent thread
+     instead of a neutral black-and-white outline. */
+  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--paper); color: var(--logo-accent); border:1px solid var(--logo-accent); padding:16px 32px; transition: background .2s ease, color .2s ease; }
+  .about-cta-btn:hover { background: var(--logo-accent); color: var(--paper); }
 
   /* ---------- Legal pages (GDPR / obchodní podmínky) ---------- */
   .legal-content { max-width:760px; margin:0 auto; padding: var(--space-6) 0 var(--space-10); text-align:left; }
-  .legal-content h3 { font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin: var(--space-6) 0 var(--space-2); }
+  .legal-content h3 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin: var(--space-6) 0 var(--space-2); }
   .legal-content h3:first-child { margin-top:0; }
   .legal-content p, .legal-content li { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
   .legal-content p { margin-bottom: var(--space-2); }
@@ -1127,6 +1182,13 @@
     font-style: italic;
     font-weight: 500;
   }
+  /* .page-header h1 and .about-intro h1 both match a selector in the shared block above
+     too (.section-label h1 / .about-intro h1 itself) — same specificity, so its
+     font-weight:400 was winning here by sitting later in the file and silently
+     overriding the 500 meant to match .home-logo's own weight. Restated once more, after
+     it, for the same reason that block itself sits at the end: last same-specificity
+     declaration wins. */
+  .page-header h1, .about-intro h1 { font-weight: 500; }
   .pg .pcard h4, .step h4, .price-teaser-item h4,
   .why-me-card h3, .pb-content h3, .story-text h3, .legal-content h3,
   .belief-list li, .contact-info-name, .gallery-soon h2 {

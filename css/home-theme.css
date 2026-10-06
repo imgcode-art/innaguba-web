@@ -171,7 +171,9 @@ body { overflow-x: clip; }
    full-bleed breakout. Here the full-bleed breakout lives on proof-block,
    which isn't sticky. Still verify directly in Safari before shipping. */
 .hero-curtain-stack { position: relative; }
-.hero-curtain-stack .hero-collage { position: sticky; top: 0; z-index: 1; }
+/* top matches the fixed <header>'s own height (style.css, body's padding-top) — hero
+   docks flush under the header once pinned, instead of its top sliver sitting behind it. */
+.hero-curtain-stack .hero-collage { position: sticky; top: var(--header-h, 97px); z-index: 1; }
 /* margin-top: small fixed buffer so proof-block doesn't start covering the
    hero's secondary "Prohlédnout galerii" link on the very first scroll tick. */
 .hero-curtain-stack .proof-block {
@@ -188,7 +190,14 @@ body { overflow-x: clip; }
   content: "";
   position: absolute;
   top: 0;
-  bottom: 0;
+  /* -30px, not 0 — the hero bento tiles' own box-shadow (.orbit-tile-inner, style.css)
+     paints past their box's bottom edge, which sits right at hero's own bottom edge.
+     This layer is what covers hero during the curtain-reveal scroll (see above), so a
+     flush bottom:0 here left that shadow's last ~20px poking out beneath proof-block,
+     into the next section's own transparent entry-transition gap — reading as a stray,
+     unexplained shadow with no visible source. Overshooting past proof-block's own box
+     absorbs it; same --paper fill either way, so it's invisible everywhere else. */
+  bottom: -30px;
   z-index: -1;
   width: 100vw;
   left: 50%;
