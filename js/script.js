@@ -483,7 +483,6 @@ document.querySelectorAll('[data-row]').forEach(row => {
   initScrollDrift('.story-photo-drift img');
   initScrollDrift('.vcard .thumb img');
   initScrollDrift('.story-photo-polaroid img, .story-photo-polaroid video');
-  initScrollDrift('.why-photo img');
 
   // ---------- Photo gallery masonry (.pgg) — same idea as initScrollDrift above, but each
   // photo keeps its own native aspect ratio (CSS multi-column masonry) instead of a
@@ -552,4 +551,9 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // tiles above, so the back photo peeking out behind the front one reads as its own
   // depth layer rather than one flat composition.
   initMouseParallax('.about-intro-photo-stack', 10);
+  // O mně: "Proč právě já" photo — used to use scroll-drift like the other story photos,
+  // but this photo's face sits close enough to the frame edge that panning it on scroll
+  // cropped the face out at some scroll positions. Mouse parallax instead (css/style.css
+  // oversizes the img only under the same hover+pointer-fine media query this needs).
+  initMouseParallax('.why-photo', 8);
 
