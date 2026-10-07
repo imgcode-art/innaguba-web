@@ -482,6 +482,8 @@ document.querySelectorAll('[data-row]').forEach(row => {
   initScrollDrift('.ab-hero-photo img');
   initScrollDrift('.story-photo-drift img');
   initScrollDrift('.vcard .thumb img');
+  initScrollDrift('.story-photo-polaroid img, .story-photo-polaroid video');
+  initScrollDrift('.why-photo img');
 
   // ---------- Photo gallery masonry (.pgg) — same idea as initScrollDrift above, but each
   // photo keeps its own native aspect ratio (CSS multi-column masonry) instead of a
