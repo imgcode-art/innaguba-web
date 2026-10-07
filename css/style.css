@@ -400,6 +400,12 @@
      feedback instead of coloring the link permanently. */
   .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease, letter-spacing .2s ease; }
   .proof-teaser-link:hover, .proof-teaser-link:active { color: var(--logo-accent); letter-spacing: 0.04em; }
+  /* .dark-panel redefines --ink to a light tone (home-theme.css) for everything else in
+     it, but --logo-accent stays the same brown everywhere on purpose (reserved as a
+     constant for the primary CTA button) — on hover here that brown has almost no
+     contrast against the panel's near-black background. Light --ink instead, same as the
+     rest of the text in that panel, just with the letter-spacing still doing the work. */
+  .dark-panel .proof-teaser-link:hover, .dark-panel .proof-teaser-link:active { color: var(--ink); }
   /* on mobile the stats block sits full-width (no fit-content/align-items:center from the
      desktop column below yet), so its text defaulted to flush-left against the page edge —
      out of step with the already-centered photo captions directly above/below it. Centered
@@ -693,7 +699,13 @@
      stack, previously) stretches that item's own row-track taller, which is what was
      pulling .about-intro-text's align-items:center down off the photo's actual center. */
   @media (min-width:901px){ .about-intro-row { margin-bottom: var(--space-9); } }
-  .about-intro-text { max-width:560px; }
+  /* no cap — fills its own grid column (1fr, ~608px at typical widths) instead of an
+     artificial 560px stop short of it, for lines as long as this column structurally
+     allows. Still short of .story-text's 704px (the "video section" one line below this
+     one): that column is a flex item sized against the whole row, while this one is a
+     grid item sized against its own track (the photo column takes the rest) — matching it
+     exactly would mean narrowing the photo column too, not just this cap. */
+  .about-intro-text { max-width:none; }
   .about-intro p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); }
   .about-intro p + p { margin-top: var(--space-3); }
   @media (max-width:900px){ .about-intro-text { max-width:none; } }
@@ -836,10 +848,6 @@
     #price-video-banner { display:none; }
   }
   .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
-  /* text block centered within the card's own column (not just text-align) — kept narrower
-     than the full-width photo above it on purpose, so the block itself sits in the middle;
-     each line stays left-aligned inside that block rather than text-align:center. */
-  .pg .pcard h4, .pg .pcard p, .pg .pcard .pcard-link { max-width:85%; margin-left:auto; margin-right:auto; }
   @media (max-width:800px){
     .pg { display:block; }
     /* card-stack scroll effect: each card sticks at the same offset, so as you keep
