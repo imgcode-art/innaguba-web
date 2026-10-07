@@ -1141,6 +1141,14 @@
        .about-intro-row's grid column uses for that photo. Both rows share the same .wrap
        width, so this matches at any viewport in this media query, not just one width. */
     .story-row:has(.story-photo-polaroid) .story-text { max-width: calc(50% + var(--space-6) / 2); }
+    /* flex-start (not the general center above): the video is pulled up to straddle the
+       section-label's own divider line above it (see .story-photo-polaroid's own
+       margin-top below), which only works if the text's own top stays put at the row's
+       normal top edge — under center, both items float relative to the row's own cross
+       size, so pulling the video up would just re-center everything around a smaller
+       box instead of leaving the text where it already reads correctly (flush with the
+       line's own established gap, same as .section-label's padding-bottom everywhere else). */
+    .story-row:has(.story-photo-polaroid) { align-items: flex-start; }
   }
   .story-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
   /* "Svatba tety" slot — an archival video now, not a full-bleed shot like every other
@@ -1158,9 +1166,22 @@
     position: relative;
     width: 100%;
   }
+  /* pulled up so the section-label's own divider line (above this whole section) passes
+     through the middle of the video, not above it — -226.89px is measured specifically:
+     at the fixed 320px desktop width this box is always 775/944 * 320 = 389.77px tall, so
+     half (194.89px) plus the row's own 32px gap from the line (.section-label's own
+     padding-bottom) is exactly how far up it needs to move for the line to cross its
+     vertical center. .story-media (this box's own flex-item wrapper, not this box itself)
+     is what flex aligns against the row's top — flex items are their own block formatting
+     context for their children, so this negative margin doesn't collapse through to shift
+     .story-media's own position (and so .story-text next to it) the way it would on a
+     plain block parent; only this box moves, visibly overlapping the line above. */
+  @media (min-width:901px){
+    .story-row:has(.story-photo-polaroid) .story-photo-wide.story-photo-polaroid { margin-top: -226.89px; }
+  }
   .story-media { width:100%; margin:0 auto; }
   @media (min-width:901px){
-    .story-row:has(.story-photo-polaroid) .story-media { flex:0 0 auto; align-self:center; width:min(100%, 320px); margin:0 auto; }
+    .story-row:has(.story-photo-polaroid) .story-media { flex:0 0 auto; align-self:flex-start; width:min(100%, 320px); margin:0 auto; }
   }
   .story-media-caption { margin-top: var(--space-2); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:center; }
   /* drift, same as .story-photo-drift/.ab-hero-photo elsewhere — driven by script.js's
