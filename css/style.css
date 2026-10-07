@@ -1140,10 +1140,17 @@
   .story-row:has(.story-photo-wide) .story-photo-wide.story-photo-polaroid {
     aspect-ratio: 775/944;
     position: relative;
-    width: min(100%, 320px);
+    width: 100%;
     flex: 0 0 auto;
     align-self: center;
     margin: 0 auto;
+  }
+  /* 320px cap only once it's sitting beside the text (desktop's row-reverse layout above) —
+     on mobile it's its own full-width block like the text/divider line below it, not a
+     "found print" floating next to a column. */
+  @media (min-width:901px){
+    .story-photo-wide.story-photo-polaroid,
+    .story-row:has(.story-photo-wide) .story-photo-wide.story-photo-polaroid { width: min(100%, 320px); }
   }
   /* drift, same as .story-photo-drift/.ab-hero-photo elsewhere — driven by script.js's
      shared initScrollDrift(). */
