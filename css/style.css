@@ -1210,8 +1210,11 @@
   /* brand accent, not plain --ink — same brown as the logo/active nav/page titles, so the
      one button actually asking for a click reads as part of that same accent thread
      instead of a neutral black-and-white outline. */
-  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--paper); color: var(--logo-accent); border:1px solid var(--logo-accent); padding:16px 20px; transition: background .2s ease, color .2s ease; }
-  .about-cta-btn:hover { background: var(--logo-accent); color: var(--paper); }
+  /* --ink-heading (softened black, same tone as headings sitewide), not --logo-accent's
+     brown — reads as part of the site's own black-and-white photo treatment instead of a
+     separate accent color standing out on its own. */
+  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--paper); color: var(--ink-heading); border:1px solid var(--ink-heading); padding:16px 20px; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+  .about-cta-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
   /* ---------- Legal pages (GDPR / obchodní podmínky) ---------- */
   .legal-content { max-width:760px; margin:0 auto; padding: var(--space-6) 0 var(--space-10); text-align:left; }
