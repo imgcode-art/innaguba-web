@@ -398,8 +398,8 @@
   /* neutral at rest, brand accent only on hover/touch — the color is reserved for the
      one primary CTA button as a constant, so here it shows up only as interaction
      feedback instead of coloring the link permanently. */
-  .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease; }
-  .proof-teaser-link:hover { color: var(--logo-accent); }
+  .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease, letter-spacing .2s ease; }
+  .proof-teaser-link:hover, .proof-teaser-link:active { color: var(--logo-accent); letter-spacing: 0.04em; }
   /* on mobile the stats block sits full-width (no fit-content/align-items:center from the
      desktop column below yet), so its text defaulted to flush-left against the page edge —
      out of step with the already-centered photo captions directly above/below it. Centered
@@ -487,8 +487,8 @@
   /* same "neutral at rest, brand accent on hover" treatment as .proof-teaser-link —
      this is a plain <span> (the whole card is the real link), so the color change rides
      on the card's own :hover instead of its own :hover pseudo-class. */
-  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease; }
-  .pg .pcard:hover .pcard-link { color: var(--logo-accent); }
+  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease, letter-spacing .2s ease; }
+  .pg .pcard:hover .pcard-link, .pg .pcard:active .pcard-link { color: var(--logo-accent); letter-spacing: 0.04em; }
 
   /* ---------- Memory section ("Nejen fotografie. Vzpomínku na to, jaké to bylo.") ---------- */
   .memory-section { padding: 150px 0 0; text-align:center; }
@@ -836,6 +836,10 @@
     #price-video-banner { display:none; }
   }
   .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
+  /* text block centered within the card's own column (not just text-align) — kept narrower
+     than the full-width photo above it on purpose, so the block itself sits in the middle;
+     each line stays left-aligned inside that block rather than text-align:center. */
+  .pg .pcard h4, .pg .pcard p, .pg .pcard .pcard-link { max-width:85%; margin-left:auto; margin-right:auto; }
   @media (max-width:800px){
     .pg { display:block; }
     /* card-stack scroll effect: each card sticks at the same offset, so as you keep
@@ -1135,23 +1139,22 @@
      .story-photo-wide (also used as-is by web-vizualni-tvorba.html's case-study
      screenshots, which still want the plain 3/2 crop — hence overriding via the extra
      .story-photo-polaroid class, not .story-photo-wide itself). Sized to a modest "found
-     print" width/ratio rather than stretching across the whole column. */
+     print" width/ratio rather than stretching across the whole column. The flex-item sizing
+     (width/flex/align-self) lives on .story-media, the wrapper around both this box and its
+     caption below — not on this box itself — so the caption can sit in normal flow right
+     under the box without being clipped by the box's own overflow:hidden (position:absolute
+     would be clipped; a sibling in a correctly-sized wrapper isn't). */
   .story-photo-wide.story-photo-polaroid,
   .story-row:has(.story-photo-wide) .story-photo-wide.story-photo-polaroid {
     aspect-ratio: 775/944;
     position: relative;
     width: 100%;
-    flex: 0 0 auto;
-    align-self: center;
-    margin: 0 auto;
   }
-  /* 320px cap only once it's sitting beside the text (desktop's row-reverse layout above) —
-     on mobile it's its own full-width block like the text/divider line below it, not a
-     "found print" floating next to a column. */
+  .story-media { width:100%; margin:0 auto; }
   @media (min-width:901px){
-    .story-photo-wide.story-photo-polaroid,
-    .story-row:has(.story-photo-wide) .story-photo-wide.story-photo-polaroid { width: min(100%, 320px); }
+    .story-row:has(.story-photo-polaroid) .story-media { flex:0 0 auto; align-self:center; width:min(100%, 320px); margin:0 auto; }
   }
+  .story-media-caption { margin-top: var(--space-2); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:center; }
   /* drift, same as .story-photo-drift/.ab-hero-photo elsewhere — driven by script.js's
      shared initScrollDrift(). */
   .story-photo-polaroid img,
