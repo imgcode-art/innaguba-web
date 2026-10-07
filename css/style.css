@@ -370,7 +370,10 @@
   .proof-lead-row { text-align:center; margin-bottom: var(--space-7); }
   .proof-lead { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.2; color: var(--ink-subheading); max-width:640px; margin:0 auto var(--space-3); }
   .proof-lead-row .proof-teaser-link { margin-top:0; }
-  @media (max-width:900px){ .proof-lead-row { margin-bottom: var(--space-6); } }
+  /* matches .proof-stats-col's own margin-bottom (var(--space-9), the gap from the stats
+     block down to the photo below it) — was var(--space-6), visibly tighter right after
+     the CTA button than the equivalent gap further down the same block. */
+  @media (max-width:900px){ .proof-lead-row { margin-bottom: var(--space-9); } }
   /* mobile/tablet: proofs first, then both photos, then the quote — order:-1 pulls the
      stats block ahead of the two photo-cols regardless of their HTML order (which stays
      photo/stats/photo, since that's what the desktop row layout needs) */
@@ -1200,7 +1203,14 @@
      tuned for whatever used to come right after .story-card — now that's .story-outro
      instead, so without clearance here it rides up underneath the last sticky card's
      opaque background instead of appearing below it. */
-  @media (max-width:900px){ .story-outro { margin-top: var(--space-9); } }
+  /* margin-bottom matches .my-story's own mobile flex-gap (var(--space-5)) — .story-outro
+     is .my-story's last child, so that gap (which only applies BETWEEN flex children)
+     never reaches after it the way it does before .story-outro itself (gap + this same
+     margin-top, 130px total) or before .story-card. Without this, the space above
+     .story-outro read as visibly bigger than the space below it before "Proč právě se
+     mnou?" (130px vs 90px, just the next section's own entry padding with nothing to
+     compensate for the missing gap) — this restores the same 130px both sides. */
+  @media (max-width:900px){ .story-outro { margin-top: var(--space-9); margin-bottom: var(--space-5); } }
   .story-outro p { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.4; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
   @media (max-width:900px){ .my-story { gap: var(--space-5); } }
   /* stacked to 1 column on mobile, so this gap becomes the vertical photo→text gap — matched
