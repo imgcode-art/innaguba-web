@@ -555,5 +555,5 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // but this photo's face sits close enough to the frame edge that panning it on scroll
   // cropped the face out at some scroll positions. Mouse parallax instead (css/style.css
   // oversizes the img only under the same hover+pointer-fine media query this needs).
-  initMouseParallax('.why-photo', 8);
+  initMouseParallax('.why-photo', 5);
 
