@@ -562,12 +562,10 @@
      standard section-to-section distance — same tight value the section-label itself
      uses for its own bottom padding down to its content */
   #reference-video-banner { margin-top: var(--space-6); }
-  /* now sits right after price-teaser (below the "Zobrazit celý ceník" link) — same
-     tight-gap-above logic as the other two banners, since it belongs to that section.
-     On mobile it's display:none regardless (its video lives in the "Jak focení probíhá"
-     slot instead), so this only ever shows on desktop. */
-  /* a bit more than the var(--space-3) gap above the link itself (.price-teaser-row's
-     own margin-bottom) — the link needs room to read as its own line before the photo */
+  /* sits right after the FAQ section (shown on mobile too, unlike before) — same
+     tight-gap-above logic as the other two banners. Below it, .section-label's own
+     padding-top (150px / var(--space-9) mobile) already reads as the standard
+     section-to-section gap, so no margin-bottom is needed here. */
   #price-video-banner { margin-top: var(--space-6); }
   .banner-photo { margin-top: 50px; margin-bottom: 50px; }
   .banner-photo img { width:100%; height:100%; object-fit:cover; object-position:70% bottom; }
@@ -868,11 +866,6 @@
      .thumb img) so one rule covers both instead of the old work-cards-only override. */
   .pg .pcard .thumb img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
   @media (prefers-reduced-motion: reduce) { .pg .pcard .thumb img { position:static; height:100%; transform:none; } }
-  @media (max-width:800px){
-    /* the price section's own banner is unrelated to this card on mobile — stays hidden
-       here regardless of which video it shows on desktop */
-    #price-video-banner { display:none; }
-  }
   .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
   @media (max-width:800px){
     .pg { display:block; }
@@ -1302,6 +1295,14 @@
      separate accent color standing out on its own. */
   .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--paper); color: var(--ink-heading); border:1px solid var(--ink-heading); padding:16px 24px; transition: background .2s ease, color .2s ease, border-color .2s ease; }
   .about-cta-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  /* mobile: no hover state to signal interactivity, so the button starts in the same dark
+     fill used for .dark-panel backgrounds (var(--ink), #111111) instead of a plain outline
+     — reads as a solid, tappable button rather than a quiet bordered box. Tapping it then
+     flips to the light fill with an underline, standing in for the desktop hover swap. */
+  @media (max-width:900px){
+    .about-cta-btn { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .about-cta-btn:hover, .about-cta-btn:active { background: var(--paper); color: var(--ink-heading); border-color: var(--ink-heading); text-decoration: underline; text-underline-offset: 3px; }
+  }
 
   /* ---------- Legal pages (GDPR / obchodní podmínky) ---------- */
   .legal-content { max-width:760px; margin:0 auto; padding: var(--space-6) 0 var(--space-10); text-align:left; }
