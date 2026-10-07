@@ -1159,14 +1159,11 @@
     .story-row:has(.story-photo-wide) { display:flex; flex-direction:row-reverse; align-items:center; justify-content:space-between; }
     .story-row:has(.story-photo-wide) .story-photo-wide { flex:0 0 calc((100% - var(--space-6)) / 2); aspect-ratio:3/2; align-self:flex-start; }
     .story-row:has(.story-photo-wide) .story-text { flex:1; max-width:560px; }
-    /* "Svatba tety" text specifically (o-mne.html, keyed off .story-photo-polaroid so
-       web-vizualni-tvorba.html's own two .story-row instances — same markup shape, still
-       the original full-width cropped photo — keep the 560px cap above instead): lines
-       run out to the exact same right edge as .ab-hero-photo in the section above, i.e.
-       calc(50% + var(--space-6)/2) of the row's own width, the same formula
-       .about-intro-row's grid column uses for that photo. Both rows share the same .wrap
-       width, so this matches at any viewport in this media query, not just one width. */
-    .story-row:has(.story-photo-polaroid) .story-text { max-width: calc(50% + var(--space-6) / 2); }
+    /* "Svatba tety" text specifically: capped narrower than the photo's own right edge
+       (which the old calc(50% + var(--space-6)/2) matched) — at that width the lines ran
+       long and ragged. Matched instead to roughly the "Jedno video z celého dětství"
+       label's own line length above it. */
+    .story-row:has(.story-photo-polaroid) .story-text { max-width: 660px; }
     /* flex-start (not the general center above): the video is pulled up to straddle the
        section-label's own divider line above it (see .story-photo-polaroid's own
        margin-top below), which only works if the text's own top stays put at the row's
@@ -1221,20 +1218,35 @@
   .story-text p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-2); }
   .my-story-intro { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); line-height:1.5; margin-bottom: var(--space-4); }
   .my-story-close { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; color: var(--ink); }
-  .story-outro { max-width:640px; margin:0 auto; text-align:center; }
+  .story-outro { max-width:640px; margin:0 auto; text-align:center; position:relative; }
   /* .story-card-grid's own negative margin-bottom (mobile card-stack trick, above) was
      tuned for whatever used to come right after .story-card — now that's .story-outro
      instead, so without clearance here it rides up underneath the last sticky card's
      opaque background instead of appearing below it. */
-  /* margin-bottom matches .my-story's own mobile flex-gap (var(--space-5)) — .story-outro
-     is .my-story's last child, so that gap (which only applies BETWEEN flex children)
-     never reaches after it the way it does before .story-outro itself (gap + this same
-     margin-top, 130px total) or before .story-card. Without this, the space above
-     .story-outro read as visibly bigger than the space below it before "Proč právě se
-     mnou?" (130px vs 90px, just the next section's own entry padding with nothing to
-     compensate for the missing gap) — this restores the same 130px both sides. */
-  @media (max-width:900px){ .story-outro { margin-top: var(--space-9); margin-bottom: var(--space-5); } }
+  /* deliberately smaller than the matching 90px margin-bottom gets paired with below (the
+     90px .section-label padding-top after it) — this side only has the 40px flex gap to
+     pair with, and at 90px that combination read as too large a jump from the card grid's
+     text right above it. 40px (matching that flex gap, so the two add up to a single even
+     step) reads as a tighter, more deliberate pause instead. */
+  @media (max-width:900px){ .story-outro { margin-top: var(--space-5); margin-bottom: var(--space-5); } }
+  /* oversized opening quote mark — on narrow viewports --fs-heading clamps down to its
+     20px floor, just 4px off --fs-body, so without some other distinguishing treatment
+     this pull-quote read as just another paragraph instead of the "distilled takeaway" it's
+     meant to be. Sized off --fs-display (the scale's top step, not a one-off size) so it
+     stays inside the site's three-size system. */
+  .story-outro::before {
+    content: "\201C";
+    display:block;
+    font-family: var(--serif);
+    font-size: var(--fs-display);
+    font-weight:700;
+    line-height:0.6;
+    color: var(--logo-accent);
+    opacity:0.55;
+    margin-bottom: var(--space-1);
+  }
   .story-outro p { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.4; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
+  .story-outro p em { font-style:normal; color:inherit; }
   @media (max-width:900px){ .my-story { gap: var(--space-5); } }
   /* stacked to 1 column on mobile, so this gap becomes the vertical photo→text gap — matched
      to .story-text p's own var(--space-2) margin-bottom instead of the desktop column-gap
@@ -1242,8 +1254,11 @@
   @media (max-width:900px){ .story-row { grid-template-columns:1fr; gap: var(--space-2); } .story-photo { aspect-ratio:3/2; } .story-photo-wide { height:auto; } }
   /* the story-card below reads as its own new "chapter", so the gap above it
      needs to beat the standard section-to-section distance — on top of the
-     .my-story gap it already gets from flex gap */
-  .story-card { margin-top: var(--space-9); }
+     .my-story gap it already gets from flex gap. Matched (on top of that same
+     90px flex gap) to the 150px gap between the about-intro photo and the
+     "Jedno video z celého dětství" label above (the closest step on the
+     spacing scale to the 60px that would land exactly on it). */
+  .story-card { margin-top: var(--space-8); }
   @media (max-width:900px){ .story-card { margin-top: var(--space-7); } }
   /* styled like a section-label h2 (big serif, border-bottom) rather than a
      card-level h3 — this is its own new "chapter" of the page, not a
@@ -1285,7 +1300,7 @@
   /* --ink-heading (softened black, same tone as headings sitewide), not --logo-accent's
      brown — reads as part of the site's own black-and-white photo treatment instead of a
      separate accent color standing out on its own. */
-  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--paper); color: var(--ink-heading); border:1px solid var(--ink-heading); padding:16px 20px; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--paper); color: var(--ink-heading); border:1px solid var(--ink-heading); padding:16px 24px; transition: background .2s ease, color .2s ease, border-color .2s ease; }
   .about-cta-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
   /* ---------- Legal pages (GDPR / obchodní podmínky) ---------- */
