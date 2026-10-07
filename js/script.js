@@ -518,33 +518,38 @@ document.querySelectorAll('[data-row]').forEach(row => {
   };
   initScrollFloat('.pgg', 14);
 
-  // ---------- Homepage: hero bento grid — mouse parallax on the 4 video tiles.
-  // Scroll-tied movement doesn't work here (hero is pinned via position:sticky for
-  // the whole "curtain reveal" — see home-theme.css — so its own on-screen position
-  // barely changes while it's visible), but mouse-tied movement does: hero sticks
-  // around on screen for a while, giving a cursor-driven effect time to be noticed.
-  // Each tile moves by its own data-parallax-depth (closer tiles "layer" further
-  // than farther ones) instead of all 4 sliding together as one flat sheet. Desktop-
+  // ---------- Mouse parallax — tiles/photos tagged [data-parallax-depth] inside
+  // gridSelector shift toward the cursor, closer ones (higher depth) moving further
+  // than farther ones, instead of the whole group sliding as one flat sheet. Desktop-
   // with-a-mouse only (mousemove doesn't mean anything on touch), and skipped under
-  // prefers-reduced-motion. The videos' own breathing-zoom animation was removed
-  // (css/style.css) specifically so this wouldn't be competing with a second motion
-  // on the same tiles. ----------
-  const parallaxTiles = [...document.querySelectorAll('.hc-bento [data-parallax-depth]')];
-  if (parallaxTiles.length && window.matchMedia('(hover:hover) and (pointer:fine)').matches
-      && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const parallaxGrid = document.querySelector('.hc-split');
-    const maxShift = 14; // px, at the strongest (depth:1) tile
-    parallaxGrid.addEventListener('mousemove', e => {
-      const rect = parallaxGrid.getBoundingClientRect();
+  // prefers-reduced-motion. Originally built for the homepage hero bento grid, where
+  // scroll-tied movement doesn't work (hero is pinned via position:sticky for the
+  // whole "curtain reveal" — see home-theme.css — so its own on-screen position barely
+  // changes while visible) but mouse-tied movement does, since hero sticks around on
+  // screen for a while, giving a cursor-driven effect time to be noticed. ----------
+  const initMouseParallax = (gridSelector, maxShift) => {
+    const grid = document.querySelector(gridSelector);
+    const tiles = [...document.querySelectorAll(`${gridSelector} [data-parallax-depth]`)];
+    if (!grid || !tiles.length || !window.matchMedia('(hover:hover) and (pointer:fine)').matches
+        || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    grid.addEventListener('mousemove', e => {
+      const rect = grid.getBoundingClientRect();
       const nx = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
       const ny = (e.clientY - rect.top) / rect.height - 0.5;
-      parallaxTiles.forEach(tile => {
+      tiles.forEach(tile => {
         const depth = parseFloat(tile.dataset.parallaxDepth) || 1;
         tile.style.transform = `translate(${nx * maxShift * depth}px, ${ny * maxShift * depth}px)`;
       });
     });
-    parallaxGrid.addEventListener('mouseleave', () => {
-      parallaxTiles.forEach(tile => { tile.style.transform = ''; });
+    grid.addEventListener('mouseleave', () => {
+      tiles.forEach(tile => { tile.style.transform = ''; });
     });
-  }
+  };
+  // The videos' own breathing-zoom animation was removed (css/style.css) specifically
+  // so this wouldn't be competing with a second motion on the same hero tiles.
+  initMouseParallax('.hc-split', 14);
+  // O mně: the two stacked intro photos — same layered "floating" feel as the hero
+  // tiles above, so the back photo peeking out behind the front one reads as its own
+  // depth layer rather than one flat composition.
+  initMouseParallax('.about-intro-photo-stack', 10);
 
