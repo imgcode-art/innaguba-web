@@ -513,6 +513,13 @@
   /* same line-to-content gap as the other section-labels (var(--space-4)) — see the
      comment by the base .section-label rule */
   .section-label:has(+ .steps-section) { padding-bottom: var(--space-2); }
+  /* heading starts flush with "Připravíme se" (.steps-list's own middle column) instead of
+     the section's left edge — same "column width + one gap" formula .steps-list's grid
+     itself resolves to, so it tracks correctly at any viewport, not just one width. Desktop
+     only: steps stack to one column on mobile, so there's no second column to align to. */
+  @media (min-width:901px){
+    #sluzby h2 { margin-left: calc((100% - 2 * var(--space-4)) / 3 + var(--space-4)); }
+  }
   .steps-section { padding: 0; }
   .steps-list { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); }
   .step h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
