@@ -783,7 +783,10 @@
     background-size:12px;
     padding-right: calc(var(--space-3) * 2 + 12px);
   }
-  .cf-submit { align-self:center; display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink); cursor:pointer; transition: background .2s ease, color .2s ease; }
+  /* font-weight:400 + --ink-heading (softened black), not bold pure --ink — matches the
+     softer tone of .about-cta-btn elsewhere instead of reading as the loudest thing on
+     the page. */
+  .cf-submit { align-self:center; display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink-heading); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink-heading); cursor:pointer; transition: background .2s ease, color .2s ease, border-color .2s ease; }
   .cf-submit:hover { background: var(--ink-body); border-color: var(--ink-body); color:#fff; }
   .cf-submit:disabled:not([data-state="success"]) { opacity:0.5; cursor:default; }
   .cf-submit[data-state="success"] { background:#2f6b3a; border-color:#2f6b3a; color:#fff; opacity:1; }
@@ -1287,21 +1290,15 @@
   @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0;} .contact-info-photo{flex-basis:auto; width:100%; height:auto; aspect-ratio:3234/1605;} .contact-info-text{max-width:none;} }
 
   .about-thanks-cta { display:flex; align-items:center; justify-content:center; gap: var(--space-4); flex-wrap:wrap; }
-  /* brand accent, not plain --ink — same brown as the logo/active nav/page titles, so the
-     one button actually asking for a click reads as part of that same accent thread
-     instead of a neutral black-and-white outline. */
-  /* --ink-heading (softened black, same tone as headings sitewide), not --logo-accent's
-     brown — reads as part of the site's own black-and-white photo treatment instead of a
-     separate accent color standing out on its own. */
-  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--paper); color: var(--ink-heading); border:1px solid var(--ink-heading); padding:16px 24px; transition: background .2s ease, color .2s ease, border-color .2s ease; }
-  .about-cta-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  /* mobile: no hover state to signal interactivity, so the button starts in the same dark
-     fill used for .dark-panel backgrounds (var(--ink), #111111) instead of a plain outline
-     — reads as a solid, tappable button rather than a quiet bordered box. Tapping it then
-     flips to the light fill with an underline, standing in for the desktop hover swap. */
+  /* dark fill everywhere now (was a light outline on desktop, which read as too faint next
+     to the photos) — same solid --ink fill as the old mobile-only treatment, so there's one
+     consistent look instead of two. Hover swaps to the light outline as the interaction cue. */
+  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--ink); color: var(--paper); border:1px solid var(--ink); padding:16px 24px; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+  .about-cta-btn:hover { background: var(--paper); color: var(--ink-heading); border-color: var(--ink-heading); }
+  /* mobile: no hover state to signal interactivity, so tapping adds an underline on top of
+     the same light-outline swap hover already does on desktop. */
   @media (max-width:900px){
-    .about-cta-btn { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-    .about-cta-btn:hover, .about-cta-btn:active { background: var(--paper); color: var(--ink-heading); border-color: var(--ink-heading); text-decoration: underline; text-underline-offset: 3px; }
+    .about-cta-btn:hover, .about-cta-btn:active { text-decoration: underline; text-underline-offset: 3px; }
   }
 
   /* ---------- Legal pages (GDPR / obchodní podmínky) ---------- */
