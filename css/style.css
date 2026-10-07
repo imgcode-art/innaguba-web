@@ -581,7 +581,9 @@
      gap read much bigger here than the dots-to-section-end gap below (which is ~0, since
      the carousel's bullets sit flush with the bottom of the widget). Same var(--space-2)
      used for #work/#reference closes most of that difference. */
-  .section-label:has(+ .google-reviews) { padding-bottom: var(--space-2); }
+  .section-label:has(+ .google-reviews) { padding-bottom: var(--space-2); text-align:center; }
+  .section-label:has(+ .google-reviews) .wrap { justify-content:center; }
+  .section-label:has(+ .google-reviews) h2 { text-align:center; }
 
   /* ---------- Google reviews (Elfsight) style override ---------- */
   .google-reviews, .google-reviews * { font-family: var(--sans) !important; }
@@ -677,7 +679,7 @@
   /* ---------- Closing CTA ---------- */
   .closing { padding: 150px 0 0; }
   @media (max-width:900px){ .closing { padding-top: var(--space-9); } }
-  .closing .top { text-align:left; }
+  .closing .top { text-align:center; }
   @media (min-width:901px){ .closing-secondary-link { display:block; width:fit-content; margin:var(--space-4) auto 0; } }
   .closing-footer { padding: 150px 0 var(--space-5); }
   @media (max-width:900px){ .closing-footer { padding-top: var(--space-8); } }
