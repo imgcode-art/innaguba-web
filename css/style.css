@@ -639,7 +639,7 @@
   .section-label:has(+ .faq-section) { padding-bottom: var(--space-4); }
   .section-label:has(+ .faq-section) { text-align:center; }
   .section-label:has(+ .faq-section) .wrap { justify-content:center; }
-  .section-label:has(+ .faq-section) h2 { max-width:760px; width:100%; margin:0 auto; text-align:left; }
+  .section-label:has(+ .faq-section) h2 { max-width:760px; width:100%; margin:0 auto; text-align:center; }
   .faq-section { padding: 0; text-align:center; }
   .faq-list { max-width:760px; margin:0 auto; text-align:left; }
   .faq-item { border-bottom:1px solid var(--line); cursor:pointer; }
@@ -657,7 +657,9 @@
   /* ---------- Price teaser ("Kolik taková vzpomínka stojí?") ---------- */
   /* bigger than o-mne/kontakt/.portfolio-grid's var(--space-4) below — those three bold
      item names read as needing more air under the rule than that group */
-  .section-label:has(+ .price-teaser) { padding-bottom: var(--space-5); }
+  .section-label:has(+ .price-teaser) { padding-bottom: var(--space-5); text-align:center; }
+  .section-label:has(+ .price-teaser) .wrap { justify-content:center; }
+  .section-label:has(+ .price-teaser) h2 { text-align:center; }
   .section-label:has(+ .pricing-grid) { padding-bottom: var(--space-4); }
   .price-teaser { padding: 0; text-align:center; }
   /* var(--space-4) matches .steps-list's own column-gap for the same "3 items in a row"
