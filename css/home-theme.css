@@ -68,6 +68,18 @@ body { overflow-x: clip; }
 #sluzby.dark-panel::before,
 .steps-section.dark-panel::before { top: 0; }
 
+/* homepage only, desktop only: .proof-block breaks the "previous section owns no
+   bottom padding" rule above on purpose (style.css, @media min-width:901px) — its photo
+   caption is position:absolute so the section's own flow height ends at the photo, not
+   the caption below it; without 40px of its own padding-bottom the next section's dark
+   fill would start right under the photo, clipping into the caption. That extra 40px
+   stacks on top of this entry transition's usual 110px, reading as a visibly bigger gap
+   than every other light→dark transition on the page. Trimmed back out here instead, so
+   the two together land on the same 150px total every other transition uses. */
+@media (min-width:901px){
+  .proof-block + .reassure-section.dark-panel::before { top: 70px; }
+}
+
 /* ---------- Exit transition (dark panel → light section) ----------
    Same total gap as the entry transition (150px desktop / 90px mobile),
    now split 64px dark / 86px light desktop (48px/42px mobile) — more dark
@@ -174,17 +186,29 @@ body { overflow-x: clip; }
 /* top matches the fixed <header>'s own height (style.css, body's padding-top) — hero
    docks flush under the header once pinned, instead of its top sliver sitting behind it. */
 .hero-curtain-stack .hero-collage { position: sticky; top: var(--header-h, 97px); z-index: 1; }
-/* margin-top: small fixed buffer so proof-block doesn't start covering the
-   hero's secondary "Prohlédnout galerii" link on the very first scroll tick. */
+/* margin-top: was 70px, protecting the hero's old secondary "Prohlédnout galerii" link
+   from being covered on the very first scroll tick — that link doesn't exist in the hero
+   anymore, so trimmed down to just a small breathing buffer.
+   min-height matches hero's own rendered height exactly (JS-measured, see below) so
+   proof-block can never be shorter than the hero it needs to fully cover — the hero's own
+   height is off-limits to change for this, and the photos inside proof-block keep their
+   fixed 3:2 crop (no stretching, no scroll-drift — both tried and reverted too), so hero
+   being taller than that photo content is simply a given here, not something to fix.
+   justify-content:flex-end (not center) is what actually matters for where that leftover
+   height goes: pushed above the content instead of split evenly above and below it, so it
+   lands inside the curtain-reveal scroll (hero still sliding away, proof-block still
+   sliding up to cover it) where extra distance already reads as part of the transition,
+   rather than after the photos as a dead gap with nothing happening in it right before
+   the next section starts. */
 .hero-curtain-stack .proof-block {
   position: relative;
   z-index: 2;
   background: var(--paper);
-  margin-top: 70px;
+  margin-top: 24px;
   min-height: var(--hero-h, 700px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
 }
 .hero-curtain-stack .proof-block::before {
   content: "";

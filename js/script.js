@@ -114,6 +114,21 @@ document.querySelectorAll('[data-row]').forEach(row => {
     slideObserver.observe(video);
   });
 
+  // ---------- Desktop hero video — plays through once, then just sits on its last frame
+  // (no loop) instead of jumping back to the start or flashing black. Restarts from 0 the
+  // next time it scrolls back into view (page load counts as the first entry, same as
+  // [data-scroll-video-play] above) — but unlike that one, every re-entry replays it, not
+  // just the first. ----------
+  document.querySelectorAll('[data-replay-on-enter] video').forEach(video => {
+    const replayObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { video.currentTime = 0; video.play().catch(() => {}); }
+        else video.pause();
+      });
+    }, { threshold: 0.6 });
+    replayObserver.observe(video);
+  });
+
   // ---------- Banner videos — each stays grayscale until scrolled into view, then fades to color and plays ----------
   document.querySelectorAll('[data-scroll-video]').forEach(scrollVideo => {
     const scrollVideoEl = scrollVideo.querySelector('video');
@@ -230,30 +245,6 @@ document.querySelectorAll('[data-row]').forEach(row => {
       }
     });
   });
-
-  // ---------- Hero orbit — one tile plays at a time, in sequence, instead of all five running
-  // (and looping) simultaneously. Each clip has no loop attribute, so it naturally stops on its
-  // own last frame when it ends; that 'ended' event is what hands off to the next tile. Calmer,
-  // and actually followable — a wall of five looping videos reads as noise, one moment at a
-  // time reads as a story. ----------
-  (() => {
-    const sequenceVideos = Array.from(document.querySelectorAll('.orbit-tile-inner video'));
-    if (!sequenceVideos.length) return;
-    const playSequenceVideo = (i) => {
-      const video = sequenceVideos[i];
-      video.currentTime = 0;
-      // wait until the video actually has enough buffered data to play smoothly — the later
-      // tiles only preload metadata, so the first time it's their turn the frames may not be
-      // ready yet
-      const tryPlay = () => video.play().catch(() => {});
-      if (video.readyState >= 3) tryPlay();
-      else video.addEventListener('canplay', tryPlay, { once: true });
-    };
-    sequenceVideos.forEach((video, i) => {
-      video.addEventListener('ended', () => playSequenceVideo((i + 1) % sequenceVideos.length));
-    });
-    setTimeout(() => playSequenceVideo(0), 300);
-  })();
 
   // ---------- Custom cursor — a circle that trails the pointer with a little lag, grows over
   // links/buttons. Only on devices with a real mouse (hover:hover + pointer:fine), never on touch. ----------
@@ -475,8 +466,9 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // "Jak můžeme zachytit vaši rodinu?" cards (same selector also matches portfolio.html's
   // own 3 category cards — same .pg .pcard .thumb img markup), the 2 full-bleed video
   // banners, the video gallery's thumbnails, and the "O mně" story photos.
+  // .proof-photo img used to be in this list too — dropped per direct instruction, the
+  // 130%-tall overscan the effect needs was cropping into the photo itself.
   initScrollDrift('.memory-photo img');
-  initScrollDrift('.proof-photo img');
   initScrollDrift('.pg .pcard .thumb img');
   initScrollDrift('.video-embed video');
   initScrollDrift('.reassure-video img');
@@ -545,12 +537,9 @@ document.querySelectorAll('[data-row]').forEach(row => {
       tiles.forEach(tile => { tile.style.transform = ''; });
     });
   };
-  // The videos' own breathing-zoom animation was removed (css/style.css) specifically
-  // so this wouldn't be competing with a second motion on the same hero tiles.
-  initMouseParallax('.hc-split', 14);
-  // O mně: the two stacked intro photos — same layered "floating" feel as the hero
-  // tiles above, so the back photo peeking out behind the front one reads as its own
-  // depth layer rather than one flat composition.
+  // O mně: the two stacked intro photos — same layered "floating" feel the homepage
+  // hero bento grid used to have, so the back photo peeking out behind the front one
+  // reads as its own depth layer rather than one flat composition.
   initMouseParallax('.about-intro-photo-stack', 10);
   // O mně: "Proč právě já" photo — used to use scroll-drift like the other story photos,
   // but this photo's face sits close enough to the frame edge that panning it on scroll
