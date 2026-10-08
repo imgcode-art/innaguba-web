@@ -193,10 +193,12 @@
   @media (prefers-reduced-motion: reduce) { .video-embed video { position:absolute; inset:0; height:100%; transform:none; } }
   .video-bw iframe, .video-bw video { filter: grayscale(1) contrast(1.1); }
 
-  /* ---------- Hero — full-height video left, left-aligned text right ----------
-     Modeled directly on a reference site the client pointed to (derfleratelier.cz): photo
-     flush to the true screen edge and flush top-to-bottom of the first screen, no inset —
-     not the earlier version that kept the video inside the page's own .wrap content line.
+  /* ---------- Hero — square video left (flush to the screen edge), text right ----------
+     Flush to the true left screen edge per a reference site the client pointed to
+     (derfleratelier.cz) — not the earlier version that kept the video inside the page's
+     own .wrap content line. Unlike that reference's own photo, though, this panel is a
+     fixed square rather than stretching to fill the full first-screen height: see
+     .hc-split-stage's own --hc-split-size comment below for why.
      Desktop gets its own video (videos/video-hero.mp4, edited separately as a near-square
      crop) rather than reusing .hc-mobile-slideshow's 9:16 clip below — that one's title
      cards already carry "Rodinné focení a video" / "Zastavte čas s těmi, které milujete",
@@ -210,23 +212,19 @@
      comment: combining sticky and the 100vw breakout on the SAME element broke in Safari). */
   .hc-split-stage {
     position:relative; width:100vw; left:50%; margin-left:-50vw;
-    display:flex;
-    height: calc(100vh - var(--header-h, 96px));
-    min-height:480px; max-height:700px;
+    display:flex; align-items:center;
     background: var(--paper);
+    /* square, sized off viewport WIDTH only (not stage height / 100vh) — a version of this
+       panel sized by height:100% of a calc(100vh - header) stage (so its shape came out
+       however wide-vs-tall that particular browser window happened to be) was tried and
+       reverted: on a shorter/wider window the same 50/50 split row came out visibly
+       shorter, cropping noticeably more off the top of the video and cutting into heads —
+       exactly what was reported comparing the live site to a local window of a different
+       shape. Tied to vw instead, this comes out the same regardless of window height.
+       Declared here, not :root, since it's only ever read inside this component. */
+    --hc-split-size: clamp(460px, 42vw, 700px);
   }
-  /* flush top-to-bottom of the stage (no vertical padding, unlike the earlier "square card"
-     version) and flush to the screen's left edge — matches the reference's photo panel.
-     Width is a plain 1fr grid-style share of the row, not forced to any particular ratio;
-     the video's own near-square edit (1440×1430) means whatever rectangle this column ends
-     up being, object-fit:cover only trims a modest amount off one axis, not a severe crop. */
-  /* warm, slightly desaturated "aged film" grade, per direct instruction — also the fix for
-     the cool/blue cast the raw footage was reading as in-browser (sepia's warmth cancels it
-     out rather than chasing it as a color-profile bug in the file itself). Lives on this
-     container, not the <video> itself, so the background-image poster underneath gets the
-     exact same grade — otherwise the poster would flash at a different, unfiltered tone for
-     the instant before the (filtered) video itself paints over it. */
-  .hc-split-media { position:relative; overflow:hidden; flex:1 1 0; height:100%; background: #000 center/cover no-repeat; filter: sepia(0.3) saturate(0.85) contrast(1.08) brightness(0.97); }
+  .hc-split-media { position:relative; overflow:hidden; flex:0 0 auto; width: var(--hc-split-size); height: var(--hc-split-size); background: #000 center/cover no-repeat; filter: sepia(0.3) saturate(0.85) contrast(1.08) brightness(0.97); }
   .hc-split-media video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   /* left-aligned (not centered) and pulled further from the video (space-9=90px, not
      space-6's 48px) — both per direct instruction, both matching how the reference's own
