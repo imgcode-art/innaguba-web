@@ -183,48 +183,55 @@ body { overflow-x: clip; }
    full-bleed breakout. Here the full-bleed breakout lives on proof-block,
    which isn't sticky. Still verify directly in Safari before shipping. */
 .hero-curtain-stack { position: relative; }
-/* top matches the fixed <header>'s own height (style.css, body's padding-top) — hero
-   docks flush under the header once pinned, instead of its top sliver sitting behind it. */
-.hero-curtain-stack .hero-collage { position: sticky; top: var(--header-h, 97px); z-index: 1; }
-/* margin-top: was 70px, protecting the hero's old secondary "Prohlédnout galerii" link
-   from being covered on the very first scroll tick — that link doesn't exist in the hero
-   anymore, so trimmed down to just a small breathing buffer.
-   min-height matches hero's own rendered height exactly (JS-measured, see below) so
-   proof-block can never be shorter than the hero it needs to fully cover — the hero's own
-   height is off-limits to change for this, and the photos inside proof-block keep their
-   fixed 3:2 crop (no stretching, no scroll-drift — both tried and reverted too), so hero
-   being taller than that photo content is simply a given here, not something to fix.
-   justify-content:flex-end (not center) is what actually matters for where that leftover
-   height goes: pushed above the content instead of split evenly above and below it, so it
-   lands inside the curtain-reveal scroll (hero still sliding away, proof-block still
-   sliding up to cover it) where extra distance already reads as part of the transition,
-   rather than after the photos as a dead gap with nothing happening in it right before
-   the next section starts. */
-.hero-curtain-stack .proof-block {
-  position: relative;
-  z-index: 2;
-  background: var(--paper);
-  margin-top: 24px;
-  min-height: var(--hero-h, 700px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+/* Mobile only now — on desktop this whole curtain-reveal mechanism (hero pinned via
+   sticky, proof-block riding up to cover it) was dropped per direct instruction: it was
+   the source of every proof-block height/gap issue this file's comments above document
+   (min-height tied to hero's own height, content centered/end-aligned inside that forced
+   box, entry-transition compensation for the leftover padding, …). Simpler to just not
+   have hero pinned at all on desktop — hero and proof-block sit in normal flow, one after
+   the other, with a plain section-gap between them (below). Mobile keeps the original
+   curtain-reveal exactly as it was. */
+@media (max-width:900px){
+  /* top matches the fixed <header>'s own height (style.css, body's padding-top) — hero
+     docks flush under the header once pinned, instead of its top sliver sitting behind it. */
+  .hero-curtain-stack .hero-collage { position: sticky; top: var(--header-h, 97px); z-index: 1; }
+  /* margin-top: was 70px, protecting the hero's old secondary "Prohlédnout galerii" link
+     from being covered on the very first scroll tick — that link doesn't exist in the hero
+     anymore, so trimmed down to just a small breathing buffer.
+     min-height matches hero's own rendered height exactly (JS-measured, see below) so
+     proof-block can never be shorter than the hero it needs to fully cover. */
+  .hero-curtain-stack .proof-block {
+    position: relative;
+    z-index: 2;
+    background: var(--paper);
+    margin-top: 24px;
+    min-height: var(--hero-h, 700px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .hero-curtain-stack .proof-block::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    /* -30px, not 0 — the hero bento tiles' own box-shadow (.orbit-tile-inner, style.css)
+       paints past their box's bottom edge, which sits right at hero's own bottom edge.
+       This layer is what covers hero during the curtain-reveal scroll (see above), so a
+       flush bottom:0 here left that shadow's last ~20px poking out beneath proof-block,
+       into the next section's own transparent entry-transition gap — reading as a stray,
+       unexplained shadow with no visible source. Overshooting past proof-block's own box
+       absorbs it; same --paper fill either way, so it's invisible everywhere else. */
+    bottom: -30px;
+    z-index: -1;
+    width: 100vw;
+    left: 50%;
+    margin-left: -50vw;
+    background: var(--paper);
+  }
 }
-.hero-curtain-stack .proof-block::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  /* -30px, not 0 — the hero bento tiles' own box-shadow (.orbit-tile-inner, style.css)
-     paints past their box's bottom edge, which sits right at hero's own bottom edge.
-     This layer is what covers hero during the curtain-reveal scroll (see above), so a
-     flush bottom:0 here left that shadow's last ~20px poking out beneath proof-block,
-     into the next section's own transparent entry-transition gap — reading as a stray,
-     unexplained shadow with no visible source. Overshooting past proof-block's own box
-     absorbs it; same --paper fill either way, so it's invisible everywhere else. */
-  bottom: -30px;
-  z-index: -1;
-  width: 100vw;
-  left: 50%;
-  margin-left: -50vw;
-  background: var(--paper);
+/* Desktop: plain stacked flow, same section-gap rhythm (150px) the rest of the page uses
+   between major sections — overrides style.css's own smaller .proof-block top padding
+   (var(--space-7), 56px) just for this one transition. */
+@media (min-width:901px){
+  .hero-curtain-stack .proof-block { padding-top: 150px; }
 }

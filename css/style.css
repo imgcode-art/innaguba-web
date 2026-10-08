@@ -222,19 +222,22 @@
        exactly what was reported comparing the live site to a local window of a different
        shape. Tied to vw instead, this comes out the same regardless of window height.
        Declared here, not :root, since it's only ever read inside this component. */
-    --hc-split-size: clamp(500px, 46vw, 780px);
+    --hc-split-size: clamp(560px, 50vw, 860px);
   }
   .hc-split-media { position:relative; overflow:hidden; flex:0 0 auto; width: var(--hc-split-size); height: var(--hc-split-size); background: #000 center/cover no-repeat; filter: sepia(0.3) saturate(0.85) contrast(1.08) brightness(0.97); }
   .hc-split-media video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   /* left-aligned (not centered) and pulled further from the video (space-9=90px, not
      space-6's 48px) — both per direct instruction, both matching how the reference's own
      text column sits well clear of its photo rather than butting up against it.
-     padding-right: the larger of the usual space-6 gutter or however much inset .wrap
-     itself has from the true viewport edge at this width — .hc-split-stage breaks out to
-     full 100vw (so the video can reach the left screen edge), but this text column still
-     needs to end flush with the header nav's own right edge (nav lives inside .wrap,
-     max-width 1400px), not stretch out to the true right screen edge past it. */
-  .hc-split-content { flex:1 1 0; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap: var(--space-4); text-align:left; padding: 0 max(var(--space-6), calc((100vw - var(--max-w)) / 2)) 0 var(--space-9); }
+     padding-right: however much inset .wrap itself has from the true viewport edge at
+     this width, floored at space-5 (not space-6) — .hc-split-stage breaks out to full
+     100vw (so the video can reach the left screen edge), but this text column still needs
+     to end flush with the header nav's own right edge (nav lives inside body's own
+     side-padding + .wrap's max-width:1400px). space-5 is body's own side padding, the
+     actual floor nav's edge can never come in past; space-6 was 8px too far, a visible
+     mismatch exactly in the common ≤1480px-wide laptop range where .wrap is pinned to
+     that floor rather than centering with more room on each side. */
+  .hc-split-content { flex:1 1 0; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap: var(--space-4); text-align:left; padding: 0 max(var(--space-5), calc((100vw - var(--max-w)) / 2)) 0 var(--space-9); }
   /* light by default, dark on hover — the opposite of .about-cta-btn's own base styling
      (dark fill, light text) — plus the soft offset shadow, both per direct reference
      (derfleratelier.cz's own CTA button). Scoped to the hero's button rather than every
