@@ -56,6 +56,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
     const track = wrap.querySelector('.hc-mobile-slides');
     const prev = wrap.querySelector('.hc-mobile-nav-prev');
     const next = wrap.querySelector('.hc-mobile-nav-next');
+    if (!prev || !next) return;
     const step = () => track.querySelector('.hc-mobile-slide').getBoundingClientRect().width;
     const update = () => {
       wrap.classList.toggle('at-start', track.scrollLeft < 10);

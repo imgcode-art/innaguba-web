@@ -256,7 +256,7 @@
      rather than being squeezed under the photos themselves. ---------- */
   .hc-mobile-slideshow { display:none; }
   .hc-mobile-slides {
-    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+    display:flex; align-items:flex-start; overflow-x:auto; scroll-snap-type:x mandatory;
     scrollbar-width:none; -webkit-overflow-scrolling:touch;
   }
   .hc-mobile-slides::-webkit-scrollbar { display:none; }
@@ -301,7 +301,7 @@
     .hc-split { display:none; }
     /* full-bleed regardless of body's own side padding, independent of the padding breakpoint at 700px */
     .hc-mobile-slideshow { display:block; width:100vw; position:relative; left:50%; margin-left:-50vw; }
-    .hc-mobile-slide { height:72vh; }
+    .hc-mobile-slide { aspect-ratio: 9 / 16; height:auto; max-height:100vh; }
     .bottom-section { padding-top: var(--space-6); padding-bottom: 0; }
     /* a touch bigger than the shared var(--fs-body) elsewhere — this is the one paragraph
        carrying the hero's own message on mobile (.hc-split's desktop copy is hidden above),
