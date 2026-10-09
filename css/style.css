@@ -531,14 +531,15 @@
   /* same "neutral at rest, brand accent on hover" treatment as .proof-teaser-link —
      this is a plain <span> (the whole card is the real link), so the color change rides
      on the card's own :hover instead of its own :hover pseudo-class.
-     Same serif as the card's own h4 (not the site's default sans), uppercase + tracked
-     wide for an airy, premium label instead of a plain inline sentence — the trailing
-     "→" that used to be part of the text itself (HTML) is gone too, per direct
-     instruction, all three per the client's own spec for this component. */
-  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-family: var(--serif); font-size: var(--fs-body); text-transform:uppercase; letter-spacing:0.1em; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease, letter-spacing .2s ease; }
-  /* widens further on hover, same interaction cue as before — just re-based off the new
-     wider resting letter-spacing above instead of overriding back down below it. */
-  .pg .pcard:hover .pcard-link, .pg .pcard:active .pcard-link { color: var(--logo-accent); letter-spacing: 0.16em; }
+     Same sans/uppercase/tracked treatment as .about-cta-btn (the site's main CTA) per
+     direct instruction — a first pass used the card's own serif instead and read wrong;
+     this is meant to echo the main button, just smaller and quieter (13px vs the
+     button's 16px, no box/border around it), not to match the card's own heading. The
+     trailing "→" that used to be part of the text itself (HTML) is gone too. */
+  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size:13px; text-transform:uppercase; letter-spacing:0.1em; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease; }
+  /* color only on hover now — the letter-spacing widen a first pass also had here read as
+     an unwanted "zoom" per direct instruction, removed. */
+  .pg .pcard:hover .pcard-link, .pg .pcard:active .pcard-link { color: var(--logo-accent); }
 
   /* ---------- Memory section ("Nejen fotografie. Vzpomínku na to, jaké to bylo.") ---------- */
   .memory-section { padding: 150px 0 0; text-align:center; }
@@ -907,7 +908,10 @@
      .thumb img) so one rule covers both instead of the old work-cards-only override. */
   .pg .pcard .thumb img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
   @media (prefers-reduced-motion: reduce) { .pg .pcard .thumb img { position:static; height:100%; transform:none; } }
-  .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
+  /* var(--ink) — fully solid, darker than the paragraph right under it (var(--ink-body),
+     85% opacity) per direct instruction: the title needs to read as darker/heavier than
+     its own description, not just bigger. */
+  .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink); }
   @media (max-width:800px){
     .pg { display:block; }
     /* --fs-heading clamps to its own 20px floor at phone widths (2.2vw never reaches its
