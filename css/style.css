@@ -1324,8 +1324,11 @@
   .about-thanks-cta { display:flex; align-items:center; justify-content:center; gap: var(--space-4); flex-wrap:wrap; }
   /* dark fill everywhere now (was a light outline on desktop, which read as too faint next
      to the photos) — same solid --ink fill as the old mobile-only treatment, so there's one
-     consistent look instead of two. Hover swaps to the light outline as the interaction cue. */
-  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--ink); color: var(--paper); border:1px solid var(--ink); padding:16px 24px; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+     consistent look instead of two. Hover swaps to the light outline as the interaction cue.
+     Soft offset shadow — same treatment the hero's own CTA already had (its own, lighter-
+     by-default button; this is the shared dark-by-default one every other CTA on the site
+     uses), added here per direct instruction. */
+  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--ink); color: var(--paper); border:1px solid var(--ink); padding:16px 24px; box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.35); transition: background .2s ease, color .2s ease, border-color .2s ease; }
   .about-cta-btn:hover { background: var(--paper); color: var(--ink-heading); border-color: var(--ink-heading); }
   /* mobile: no hover state to signal interactivity, so tapping adds an underline on top of
      the same light-outline swap hover already does on desktop. */
