@@ -128,24 +128,23 @@
      other pages used a plain bold .logo + .logo-claim tagline instead). ---------- */
   .home-logo { font-family: var(--serif); font-weight:500; font-size:32px; letter-spacing:0.02em; color: var(--logo-accent); }
   .home-logo-surname { font-style:italic; }
-  /* every page, desktop only — per direct reference (derfleratelier.cz), plain-weight
-     uppercase sans instead of the serif/italic wordmark the base rule above still sets
-     (that one keeps serving mobile headers, everywhere). Not bold — the reference's own
-     wordmark isn't either, just regular weight with wide letter-spacing. Desktop-only
-     because .nav-links a has a separate, much bigger full-screen-menu style below 800px
-     (mobile nav override) that this would otherwise outrank and squash back down to a tiny
-     14px link.
+  /* every page, every width — per direct reference (derfleratelier.cz), plain-weight
+     uppercase sans instead of the serif/italic wordmark the base rule above used to set.
+     Not bold — the reference's own wordmark isn't either, just regular weight with wide
+     letter-spacing.
      line-height:48px explicitly, matching the old 32px serif logo's own rendered line box
      (32px × body's inherited 1.5) — without it, this much smaller 18px logo shrinks the
      header's own total height, which --header-h (a fixed value, not JS-measured) doesn't
-     know about, so the sticky hero below (homepage only, but this rule isn't) ends up
-     docked that many px too low, opening a gap under the header's bottom line instead of
-     sitting flush against it. */
+     know about, so the sticky hero below (mobile only now, see home-theme.css's "Hero
+     curtain reveal") ends up docked that many px too low, opening a gap under the
+     header's bottom line instead of sitting flush against it. */
+  header .home-logo { font-family: var(--sans); font-weight:400; font-size:18px; line-height:48px; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink); }
+  header .home-logo-surname { font-style:normal; }
+  /* nav links a touch bigger/darker to sit level with that logo instead of reading quiet
+     and secondary next to it, same as the reference's own nav. Desktop-only — .nav-links a
+     has a separate, much bigger full-screen-menu style below 800px (mobile nav override)
+     that this would otherwise outrank and squash back down to a tiny 14px link. */
   @media (min-width:901px){
-    header .home-logo { font-family: var(--sans); font-weight:400; font-size:18px; line-height:48px; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink); }
-    header .home-logo-surname { font-style:normal; }
-    /* nav links a touch bigger/darker to sit level with that logo instead of reading quiet
-       and secondary next to it, same as the reference's own nav. */
     header .nav-links a { font-size:14px; color: rgba(17,17,17,0.75); }
     header .nav-links a:hover, header .nav-links a.active { color: var(--ink); }
   }
