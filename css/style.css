@@ -403,7 +403,14 @@
      Taller (4/5) than the desktop 3/2 crop so each photo is substantial enough to read
      as a full takeover instead of a small sliver, with no artificial padding hack needed. */
   @media (max-width:900px){
-    .proof-photo-col { position:sticky; top: var(--space-3); background: var(--paper); margin-bottom:0; }
+    /* margin-bottom: was 0 — with no gap, the "now" card's opaque background caught up to
+       and started covering "tehdy"'s caption almost immediately, before there was ever a
+       moment where the caption clearly read as belonging to the photo sitting right above
+       it instead of the next card arriving underneath. The gap doesn't break the stacking
+       effect itself (that comes from the sticky top:space-3 each card shares, and from "now"
+       simply being later in the DOM) — it just gives "tehdy" a beat to be fully visible,
+       caption included, before "now" rides up over it. */
+    .proof-photo-col { position:sticky; top: var(--space-3); background: var(--paper); margin-bottom: var(--space-6); }
     .proof-photo { aspect-ratio:4/5; }
   }
   .proof-photo { position:relative; width:100%; aspect-ratio:3/2; overflow:hidden; background: var(--ink); }
