@@ -530,9 +530,15 @@
   @media (max-width:900px){ .dot-desktop-only { display:none; } }
   /* same "neutral at rest, brand accent on hover" treatment as .proof-teaser-link —
      this is a plain <span> (the whole card is the real link), so the color change rides
-     on the card's own :hover instead of its own :hover pseudo-class. */
-  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size: var(--fs-body); text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease, letter-spacing .2s ease; }
-  .pg .pcard:hover .pcard-link, .pg .pcard:active .pcard-link { color: var(--logo-accent); letter-spacing: 0.04em; }
+     on the card's own :hover instead of its own :hover pseudo-class.
+     Same serif as the card's own h4 (not the site's default sans), uppercase + tracked
+     wide for an airy, premium label instead of a plain inline sentence — the trailing
+     "→" that used to be part of the text itself (HTML) is gone too, per direct
+     instruction, all three per the client's own spec for this component. */
+  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-family: var(--serif); font-size: var(--fs-body); text-transform:uppercase; letter-spacing:0.1em; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease, letter-spacing .2s ease; }
+  /* widens further on hover, same interaction cue as before — just re-based off the new
+     wider resting letter-spacing above instead of overriding back down below it. */
+  .pg .pcard:hover .pcard-link, .pg .pcard:active .pcard-link { color: var(--logo-accent); letter-spacing: 0.16em; }
 
   /* ---------- Memory section ("Nejen fotografie. Vzpomínku na to, jaké to bylo.") ---------- */
   .memory-section { padding: 150px 0 0; text-align:center; }
@@ -904,6 +910,11 @@
   .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
   @media (max-width:800px){
     .pg { display:block; }
+    /* --fs-heading clamps to its own 20px floor at phone widths (2.2vw never reaches its
+       28px ceiling below ~1270px) — too close to the 16px body paragraph right under it
+       to read as a clear title, per direct instruction. Fixed, bigger size here instead of
+       leaning on that same fluid clamp. */
+    .pg .pcard h4 { font-size: 28px; line-height:1.2; }
     /* card-stack scroll effect: each card sticks at the same offset, so as you keep
        scrolling the next card's solid background rides up and covers the one before it —
        plain position:sticky, no scroll-timeline/JS needed */
