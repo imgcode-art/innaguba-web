@@ -433,17 +433,15 @@
   .proof-stats li strong { font-size: var(--fs-display); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); line-height:1.15; }
   .proof-stats li span { font-size: var(--fs-body); font-weight:400; color: var(--ink-body); }
   .proof-stats li + li { margin-top: var(--space-3); }
-  /* neutral at rest, brand accent only on hover/touch — the color is reserved for the
-     one primary CTA button as a constant, so here it shows up only as interaction
-     feedback instead of coloring the link permanently. */
-  .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size: var(--fs-body); font-weight:400; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease, letter-spacing .2s ease; }
-  .proof-teaser-link:hover, .proof-teaser-link:active { color: var(--logo-accent); letter-spacing: 0.04em; }
-  /* .dark-panel redefines --ink to a light tone (home-theme.css) for everything else in
-     it, but --logo-accent stays the same brown everywhere on purpose (reserved as a
-     constant for the primary CTA button) — on hover here that brown has almost no
-     contrast against the panel's near-black background. Light --ink instead, same as the
-     rest of the text in that panel, just with the letter-spacing still doing the work. */
-  .dark-panel .proof-teaser-link:hover, .dark-panel .proof-teaser-link:active { color: var(--ink); }
+  /* same sitewide "secondary button" treatment as .pg .pcard-link (work-cards): quiet
+     sans, uppercase, tracked wide, neutral at rest. Hover goes to var(--ink) (not
+     --logo-accent, the brown reserved for the primary button) — per direct instruction,
+     that brown didn't read as part of this site's palette anywhere else. var(--ink) also
+     means no separate .dark-panel override is needed the way the old brown version
+     needed one: .dark-panel already redefines --ink to its own light tone for everything
+     else in it (home-theme.css), so this hover rule inherits that automatically. */
+  .proof-teaser-link { display:inline-block; margin-top: var(--space-4); font-size:13px; font-weight:400; text-transform:uppercase; letter-spacing:0.14em; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease; }
+  .proof-teaser-link:hover, .proof-teaser-link:active { color: var(--ink); }
   /* on mobile the stats block sits full-width (no fit-content/align-items:center from the
      desktop column below yet), so its text defaulted to flush-left against the page edge —
      out of step with the already-centered photo captions directly above/below it. Centered
@@ -536,10 +534,11 @@
      this is meant to echo the main button, just smaller and quieter (13px vs the
      button's 16px, no box/border around it), not to match the card's own heading. The
      trailing "→" that used to be part of the text itself (HTML) is gone too. */
-  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size:13px; text-transform:uppercase; letter-spacing:0.1em; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease; }
-  /* color only on hover now — the letter-spacing widen a first pass also had here read as
-     an unwanted "zoom" per direct instruction, removed. */
-  .pg .pcard:hover .pcard-link, .pg .pcard:active .pcard-link { color: var(--logo-accent); }
+  .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size:13px; text-transform:uppercase; letter-spacing:0.14em; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease; }
+  /* color only on hover (the letter-spacing widen a first pass also had here read as an
+     unwanted "zoom", removed) — var(--ink), not --logo-accent (the brown reserved for the
+     primary button): that brown didn't read as part of this site's palette anywhere else. */
+  .pg .pcard:hover .pcard-link, .pg .pcard:active .pcard-link { color: var(--ink); }
 
   /* ---------- Memory section ("Nejen fotografie. Vzpomínku na to, jaké to bylo.") ---------- */
   .memory-section { padding: 150px 0 0; text-align:center; }
