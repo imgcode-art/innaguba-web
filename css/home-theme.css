@@ -194,7 +194,7 @@ body { overflow-x: clip; }
 @media (max-width:900px){
   /* top matches the fixed <header>'s own height (style.css, body's padding-top) — hero
      docks flush under the header once pinned, instead of its top sliver sitting behind it. */
-  .hero-curtain-stack .hero-collage { position: sticky; top: var(--header-h, 97px); z-index: 1; }
+  .hero-curtain-stack .hero-collage { position: sticky; top: var(--header-h, 72px); z-index: 1; }
   /* margin-top: was 70px, protecting the hero's old secondary "Prohlédnout galerii" link
      from being covered on the very first scroll tick — that link doesn't exist in the hero
      anymore, so trimmed down to just a small breathing buffer.

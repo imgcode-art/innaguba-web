@@ -13,8 +13,9 @@
     --line: rgba(17,17,17,0.14);
     /* fixed <header>'s own rendered height (padding + its tallest logo variant) — single
        source of truth for the body padding-top and hero-curtain-stack sticky offset that
-       both need to clear it. Update here if the header's padding/content ever changes. */
-    --header-h: 96px;
+       both need to clear it. Update here if the header's padding/content ever changes.
+       16px top/bottom padding + the logo's own 40px line-height = 72px. */
+    --header-h: 72px;
     --sans: 'Jost', sans-serif;
     --serif: 'Cormorant Garamond', serif;
     --max-w: 1400px;
@@ -43,7 +44,7 @@
   /* covers the rubber-band overscroll area on iOS Safari, which otherwise shows through
      as plain white above/below the page instead of matching the site background */
   html { background: var(--paper); }
-  body { font-family: var(--sans); font-weight:400; background: var(--paper); color: var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased; font-size: var(--fs-body); padding:0 var(--space-5); padding-top: var(--header-h, 97px); }
+  body { font-family: var(--sans); font-weight:400; background: var(--paper); color: var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased; font-size: var(--fs-body); padding:0 var(--space-5); padding-top: var(--header-h, 72px); }
   body.nav-open { overflow:hidden; }
   /* longhand left/right only, not the `padding` shorthand — a shorthand here resets all
      four sides, silently zeroing out the explicit padding-top above (the fixed header's
@@ -75,7 +76,10 @@
      page's logo lines up pixel-for-pixel with its own H1/.wrap content at any viewport
      width. (An earlier version put both the gutter AND .wrap on <header> itself, which
      double-counted the inset and left the logo visibly right of H1 on wide screens.) */
-  header { position:fixed; top:0; left:0; right:0; z-index:20; padding: var(--space-3) var(--space-5); background: var(--paper); }
+  /* top/bottom padding trimmed from space-3 (24px) to space-2 (16px), per direct
+     instruction — the fixed bar read as taking up too much room sitewide; see
+     --header-h above for the matching height recalculation this requires. */
+  header { position:fixed; top:0; left:0; right:0; z-index:20; padding: var(--space-2) var(--space-5); background: var(--paper); }
   /* darker/more solid than the shared var(--line) hairline used elsewhere (faq items,
      section-label underlines) — this one's meant to read as a deliberate rule under the
      nav, not a quiet divider, per direct reference (derfleratelier.cz's own nav border). */
@@ -132,13 +136,13 @@
      uppercase sans instead of the serif/italic wordmark the base rule above used to set.
      Not bold — the reference's own wordmark isn't either, just regular weight with wide
      letter-spacing.
-     line-height:48px explicitly, matching the old 32px serif logo's own rendered line box
-     (32px × body's inherited 1.5) — without it, this much smaller 18px logo shrinks the
-     header's own total height, which --header-h (a fixed value, not JS-measured) doesn't
-     know about, so the sticky hero below (mobile only now, see home-theme.css's "Hero
-     curtain reveal") ends up docked that many px too low, opening a gap under the
-     header's bottom line instead of sitting flush against it. */
-  header .home-logo { font-family: var(--sans); font-weight:400; font-size:18px; line-height:48px; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink); }
+     line-height:40px explicitly (not a value this font-size would land on by itself) —
+     deliberately sized, together with header's own trimmed padding, to make --header-h's
+     72px (above) exact: without an explicit value here, --header-h (a fixed value, not
+     JS-measured) and the header's real rendered height can drift apart, opening a gap
+     under the header's bottom line (body padding-top / the sticky mobile hero both read
+     --header-h directly) instead of sitting flush against it. */
+  header .home-logo { font-family: var(--sans); font-weight:400; font-size:18px; line-height:40px; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink); }
   header .home-logo-surname { font-style:normal; }
   /* nav links a touch bigger/darker to sit level with that logo instead of reading quiet
      and secondary next to it, same as the reference's own nav. Desktop-only — .nav-links a
