@@ -790,6 +790,9 @@
   .closing-row { display:grid; grid-template-columns: 1fr 460px; gap: var(--space-6); align-items:center; }
   .closing-row .top { text-align:left; }
   .closing-photo { position:relative; aspect-ratio:4/3; overflow:hidden; }
+  /* the global img reset (width/height/object-fit, top of file) only targets <img> — a
+     <video> here needs the same fill-the-box treatment spelled out explicitly. */
+  .closing-photo video { display:block; width:100%; height:100%; object-fit:cover; }
   @media (max-width:900px){
     /* photo first, text second — same stacking order .reassure-columns already uses for
        its own video/text pair on mobile. */
