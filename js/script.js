@@ -546,4 +546,9 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // cropped the face out at some scroll positions. Mouse parallax instead (css/style.css
   // oversizes the img only under the same hover+pointer-fine media query this needs).
   initMouseParallax('.why-photo', 5);
+  // Homepage proof block: "Tehdy" / "O pár let později" photos — same quiet cursor-nudge
+  // as the O mně intro photo (per direct instruction), one grid per photo since they sit
+  // in separate columns rather than a stacked pair.
+  initMouseParallax('.proof-photo:not(.proof-photo-now)', 8);
+  initMouseParallax('.proof-photo-now', 8);
 

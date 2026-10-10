@@ -241,6 +241,14 @@
      mismatch exactly in the common ≤1480px-wide laptop range where .wrap is pinned to
      that floor rather than centering with more room on each side. */
   .hc-split-content { flex:1 1 0; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap: var(--space-4); text-align:left; padding: 0 max(var(--space-5), calc((100vw - var(--max-w)) / 2)) 0 var(--space-9); }
+  /* a quiet kicker label identifying what this is, read before the big emotional
+     headline — tucked closer to it than a full flex gap (negative margin pulls it in
+     from the column's shared var(--space-4) down to var(--space-3)), but not as tight
+     as var(--space-1) read as cramped. */
+  .hc-kicker { font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color: var(--ink-body); margin-bottom: calc(var(--space-3) - var(--space-4)); }
+  /* closing aside under the CTA — same italic/quiet treatment as .closing-note,
+     answering "why act now" after the button has already made the ask. */
+  .hc-subnote { font-style:italic; font-size: var(--fs-body); color: var(--ink-body); }
   /* light by default, dark on hover — the opposite of .about-cta-btn's own base styling
      (dark fill, light text) — plus the soft offset shadow, both per direct reference
      (derfleratelier.cz's own CTA button). Scoped to the hero's button rather than every
@@ -430,8 +438,15 @@
   }
   .proof-photo { position:relative; width:100%; aspect-ratio:3/2; overflow:hidden; background: var(--ink); }
   /* plain static cover — no scroll-drift here (removed per direct instruction: the
-     130%-tall overscan that effect needs was cropping into the photo itself). */
+     130%-tall overscan that effect needs was cropping into the photo itself). Mouse
+     parallax instead (script.js's shared initMouseParallax(), desktop-with-a-mouse only,
+     same "O mně" intro-photo treatment) — a few-px nudge toward the cursor, not a pan,
+     so it never crops into either photo. */
   .proof-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  @media (hover:hover) and (pointer:fine) {
+    .proof-photo img { inset:-3%; width:106%; height:106%; will-change:transform; }
+  }
+  @media (prefers-reduced-motion: reduce) { .proof-photo img { inset:0; width:100%; height:100%; } }
   /* the "then" photo on its own — its black-and-white edit runs much higher-contrast/
      punchier than the hero video's own softer, faded grade (muted grays, no true black).
      Flattened to sit closer to that same tone instead of clashing with it. .proof-photo-now
@@ -500,6 +515,10 @@
   @media (max-width:900px){
     .reassure-columns .reassure-video { order:1; aspect-ratio:3/2; }
     .reassure-columns .reassure-col { order:2; }
+    /* drift effect zooms past this particular photo's edges (130%-tall crop), cropping
+       out the kids on each side as it scrolls — static on mobile instead, same treatment
+       as prefers-reduced-motion above. */
+    .reassure-video img { position:static; height:100%; transform:none; }
   }
   /* margin-bottom matches .reassure-section.dark-panel's own padding-bottom (home-theme.css)
      exactly — same symmetry fix as .memory-title */
@@ -922,9 +941,24 @@
   /* site's largest type size + var(--ink-heading) — same treatment as every other
      heading on the page (.section-label h1/h2, .reassure-title, .memory-title),
      per direct instruction. */
-  .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); }
+  /* var(--ink-subheading) (solid #111, darkest on the page), not var(--ink-heading)
+     (rgba 0.8) — this thin serif at 0.8 opacity read as less prominent than the
+     description below it (sans-serif, var(--ink-body) 0.85), backwards from the
+     intended title/body hierarchy, per direct instruction. */
+  .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); }
   @media (max-width:800px){
     .pg { display:block; }
+    /* quieter than var(--ink-body) specifically here, now that the title above went
+       darker — same muted tone as .nav-links a / review meta text, per direct
+       instruction (title should read as the prominent one, not the description). */
+    .pg .pcard p { color: rgba(17,17,17,0.62); }
+    /* at this width the link (13px, uppercase+tracked) and the paragraph above it (16px)
+       read as nearly the same size — uppercase tracking optically inflates small type.
+       Dropping a size and matching the paragraph's own muted tone (was var(--ink-body),
+       darker than the text it's meant to sit below) restores a clear 3-step hierarchy:
+       bold title, quieter body, quietest/smallest link. Hover/active above still darkens
+       it on interaction. */
+    .pg .pcard .pcard-link { font-size:12px; color: rgba(17,17,17,0.62); }
     /* card-stack scroll effect: each card sticks at the same offset, so as you keep
        scrolling the next card's solid background rides up and covers the one before it —
        plain position:sticky, no scroll-timeline/JS needed */
@@ -1454,7 +1488,11 @@
      it, for the same reason that block itself sits at the end: last same-specificity
      declaration wins. */
   .page-header h1, .about-intro h1 { font-weight: 500; }
-  .pg .pcard h4, .step h4, .price-teaser-item h4,
+  /* .pg .pcard h4 deliberately excluded here — kept bold (own rule above), per direct
+     instruction: it needs to stand out from the card's body text, especially on mobile
+     where the regular-weight serif at this size read as too quiet next to the paragraph
+     below it. */
+  .step h4, .price-teaser-item h4,
   .why-me-card h3, .pb-content h3, .story-text h3, .legal-content h3,
   .belief-list li, .contact-info-name, .gallery-soon h2 {
     font-weight: 400;
