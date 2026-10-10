@@ -1321,6 +1321,24 @@
        long and ragged. Matched instead to roughly the "Jedno video z celého dětství"
        label's own line length above it. */
     .story-row:has(.story-photo-polaroid) .story-text { max-width: 660px; }
+    /* normal row, not the row-reverse every other .story-photo-wide uses above — this
+       section now sits directly under "Proč právě se mnou?" (why-me-layout, text-left/
+       photo-right), after being reordered up the page per direct instruction. Keeping
+       row-reverse here would repeat that exact same left-text/right-photo template two
+       sections in a row; flipping just this one back to media-left/text-right restores
+       the alternation .story-row:has(.story-photo-wide)'s own row-reverse was originally
+       written for for (back when this section's neighbor was .about-intro-row instead). */
+    .story-row:has(.story-photo-polaroid) { flex-direction: row; }
+    /* the section-label heading right above this row moves to the row's right edge to
+       match — it was left-aligned (this file's sitewide default), clearing the video
+       fine back when the video itself was on the right. Now that the video's flipped to
+       the left, a left-aligned heading sits directly behind/under it instead (the video
+       is pulled up to straddle this exact heading's own divider line, see margin-top
+       below); scoped to :has(+ .my-story .story-photo-polaroid) specifically so
+       web-vizualni-tvorba.html's own section-label + .my-story pairing (no polaroid
+       video, no collision) keeps its normal left-aligned heading. */
+    .section-label:has(+ .my-story .story-photo-polaroid) .wrap { justify-content: flex-end; }
+    .section-label:has(+ .my-story .story-photo-polaroid) h2 { text-align: right; }
     /* flex-start (not the general center above): the video is pulled up to straddle the
        section-label's own divider line above it (see .story-photo-polaroid's own
        margin-top below), which only works if the text's own top stays put at the row's
@@ -1347,23 +1365,28 @@
     width: 100%;
   }
   /* pulled up so the section-label's own divider line (above this whole section) passes
-     through the middle of the video, not above it — -312.15px is measured specifically:
-     at the 460px desktop width this box is always 775/944 * 460 = 560.31px tall, so
-     half (280.15px) plus the row's own 32px gap from the line (.section-label's own
-     padding-bottom) is exactly how far up it needs to move for the line to cross its
-     vertical center. .story-media (this box's own flex-item wrapper, not this box itself)
-     is what flex aligns against the row's top — flex items are their own block formatting
-     context for their children, so this negative margin doesn't collapse through to shift
-     .story-media's own position (and so .story-text next to it) the way it would on a
-     plain block parent; only this box moves, visibly overlapping the line above. */
+     through the middle of the video, not above it — -171.67px is measured specifically:
+     at the 340px desktop width (shrunk from 460px — see .story-media below) this box is
+     always 775/944 * 340 = 279.34px tall, so half (139.67px) plus the row's own 32px gap
+     from the line (.section-label's own padding-bottom) is exactly how far up it needs to
+     move for the line to cross its vertical center. .story-media (this box's own flex-item
+     wrapper, not this box itself) is what flex aligns against the row's top — flex items
+     are their own block formatting context for their children, so this negative margin
+     doesn't collapse through to shift .story-media's own position (and so .story-text next
+     to it) the way it would on a plain block parent; only this box moves, visibly
+     overlapping the line above. */
   @media (min-width:901px){
-    .story-row:has(.story-photo-polaroid) .story-photo-wide.story-photo-polaroid { margin-top: -312.15px; }
+    .story-row:has(.story-photo-polaroid) .story-photo-wide.story-photo-polaroid { margin-top: -171.67px; }
   }
   .story-media { width:100%; margin:0 auto; }
   @media (min-width:901px){
-    /* 460px, not wider — the video file itself is only 640px wide, so anything past
-       that starts upscaling and softening it; 460px is comfortably under that ceiling */
-    .story-row:has(.story-photo-polaroid) .story-media { flex:0 0 auto; align-self:flex-start; width:min(100%, 460px); margin:0 auto; }
+    /* 340px, not 460px like before the reorder above — this section's neighbor used to
+       be plain light content, so the -312.15px pull-up (below) only ever overlapped
+       empty-ish space; now that neighbor is the dark .why-me-layout panel's own photo,
+       the same pull-up reached past this section's own section-label and into that
+       photo. Shrinking the box shrinks the pull-up it needs (half its own height) to
+       match, keeping the overlap inside this section's own section-label as intended. */
+    .story-row:has(.story-photo-polaroid) .story-media { flex:0 0 auto; align-self:flex-start; width:min(100%, 340px); margin:0 auto; }
   }
   .story-media-caption { margin-top: var(--space-2); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:center; }
   /* drift, same as .story-photo-drift/.ab-hero-photo elsewhere — driven by script.js's
