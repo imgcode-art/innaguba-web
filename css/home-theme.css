@@ -234,4 +234,10 @@ body { overflow-x: clip; }
    (var(--space-7), 56px) just for this one transition. */
 @media (min-width:901px){
   .hero-curtain-stack .proof-block { padding-top: 150px; }
+  /* proof-block now sometimes follows a .section-label heading instead of hero directly
+     (homepage's "Nezáleží na tom..." line) — that section-label already carries its own
+     150px top gap, so the 150px above stacks a second 150px-scale gap on top of it.
+     Same line-to-content gap as #work/#reference above (var(--space-4)) instead, since
+     this is the same "line directly above photo content" pattern. */
+  .section-label + .proof-block { padding-top: var(--space-4); }
 }

@@ -258,7 +258,7 @@
      here is the smallest nudge that reliably pulls it back up onto the line above instead,
      landing on 4 lines without changing anything else about the layout (video size, text
      column's own alignment to the nav). */
-  .hc-split-content .hc-eyebrow { font-size: clamp(34px, 4.4vw, 55px); line-height:1.2; letter-spacing:-0.01em; color: var(--ink-heading); max-width:720px; }
+  .hc-split-content .hc-eyebrow { font-size: clamp(34px, 4.4vw, 55px); line-height:0.95; letter-spacing:-0.01em; color: var(--ink-heading); max-width:720px; }
   .bottom-section { padding-top: var(--space-1); padding-bottom: 0; text-align:center; }
 
   /* ---------- Mobile hero — swipeable, full-bleed video slideshow, one story
@@ -339,7 +339,7 @@
   .section-label { padding: 150px 0 var(--space-6); }
   @media (max-width:900px){ .section-label { padding-top: var(--space-9); } }
   .section-label .wrap { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid var(--line); padding-bottom: var(--space-3); flex-wrap:wrap; gap: var(--space-2); }
-  .section-label h1, .section-label h2 { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); }
+  .section-label h1, .section-label h2 { font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink-heading); }
   /* ---------- Page header (trial, cenik.html) — same component, lighter touch for the
      plain "this page is called X" title at the top of a subpage, now that the fixed nav's
      own active-link color already answers "where am I" without needing this to announce
@@ -371,6 +371,11 @@
   /* Galerie's own grid feels like it needs more breathing room than the other
      section-labels — same var(--space-4) the pricing-grid ended up at on cenik.html */
   .section-label:has(+ .portfolio-grid) { padding-bottom: var(--space-4); }
+  /* proof-block already carries its own top gap (var(--space-7)/var(--space-6) below
+     900px) for when it opens the homepage directly below the hero — stacking this
+     section-label's own default var(--space-6) bottom padding on top of that doubled
+     the gap to the photos/stats row */
+  .section-label:has(+ .proof-block) { padding-bottom: 0; }
   /* only needed once this wraps to 2 lines (narrower than desktop) — applied unconditionally
      it was adding extra line-box height even on one line, making the gap to the rule below
      read bigger here than on every other section-label at desktop widths */
@@ -498,21 +503,17 @@
   }
   /* margin-bottom matches .reassure-section.dark-panel's own padding-bottom (home-theme.css)
      exactly — same symmetry fix as .memory-title */
-  /* line-height:0.86 (not the looser 1.05) matches the gap above .section-label's own
+  /* line-height:0.95 (not the looser 1.05) matches the gap above .section-label's own
      titles — at desktop this never wraps anyway (white-space:nowrap below), so the extra
      leading was only adding visible space above the rule, not helping readability */
-  .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
+  .reassure-title { font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
   @media (min-width:901px){ .reassure-title { white-space:nowrap; } }
   @media (max-width:900px){ .reassure-title { line-height:1.05; } }
-  .reassure-lead { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); margin-bottom: var(--space-4); }
+  .reassure-lead { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); margin-bottom: var(--space-4); }
   .reassure-body { text-align:left; display:flex; flex-direction:column; gap: var(--space-2); margin-bottom: var(--space-4); }
   .reassure-section .proof-teaser-link { margin-top:0; }
   .reassure-body p { font-size: var(--fs-body); line-height:1.7; color: var(--ink-body); }
-  /* the closing line reads as a quiet punchline via size, not bold — same
-     technique as .memory-body p:last-child, so a bold whole-sentence
-     doesn't sit awkwardly between the lead (bigger) and the body (plain)
-     as a third, ad-hoc weight tier */
-  .reassure-body p:last-child { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.2; color: var(--ink-subheading); }
+  .reassure-body p:last-child { color: var(--ink-body); }
   /* on mobile these three gaps (title→lead, lead→body, between the two body lines) were
      48/32/16px — visibly uneven and the first one too wide; one consistent rhythm instead */
   @media (max-width:900px){
@@ -552,10 +553,10 @@
   /* margin-bottom matches .memory-section.dark-panel's own padding-bottom (home-theme.css)
      exactly — the dark panel's gap above the photo (after the rule) should read the same
      as its gap below the content row, same desktop/mobile split (40px / 36px) */
-  /* line-height:0.86 (not the looser 1.05) matches the gap above .section-label's own
+  /* line-height:0.95 (not the looser 1.05) matches the gap above .section-label's own
      titles — at desktop this never wraps anyway (white-space:nowrap below), so the extra
      leading was only adding visible space above the rule, not helping readability */
-  .memory-title { font-size: var(--fs-display); font-weight:700; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
+  .memory-title { font-size: var(--fs-display); font-weight:700; line-height:0.95; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: 40px; text-align:left; }
   @media (min-width:901px){ .memory-title { white-space:nowrap; } }
   @media (max-width:900px){ .memory-title { margin-bottom: 36px; line-height:1.05; } }
   .memory-body-align { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); row-gap: var(--space-3); align-items:center; }
@@ -572,7 +573,7 @@
   .memory-photo img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
   @media (prefers-reduced-motion: reduce) { .memory-photo img { position:static; height:100%; transform:none; } }
   .memory-body p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-3); text-align:left; }
-  .memory-body p:last-child { margin-bottom:0; font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; line-height:1.2; color: var(--ink-subheading); }
+  .memory-body p:last-child { margin-bottom:0; font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); }
   @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-photo, .memory-body-align .memory-body { grid-column:1; padding-left:0; } .memory-photo { aspect-ratio:3/2; } }
 
   /* ---------- Steps (jak focení probíhá) ---------- */
@@ -588,7 +589,7 @@
   }
   .steps-section { padding: 0; }
   .steps-list { display:grid; grid-template-columns: repeat(3,1fr); column-gap: var(--space-4); }
-  .step h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; margin-bottom: var(--space-1); color: var(--ink-subheading); }
+  .step h4 { font-family: var(--serif); font-size: var(--fs-heading); letter-spacing:0.02em; margin-bottom: var(--space-2); color: var(--ink-body); }
   .step p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
   /* a little dark breathing room below the last step on mobile — .steps-section itself
      has zero padding (desktop's dark panel hugs the 3-column grid tightly on purpose),
@@ -713,8 +714,9 @@
   /* line-height:1.2 instead of body's inherited 1.5 — at --fs-heading size the extra
      leading was adding visible space above the text itself, making the gap down from the
      section-label's rule read bigger than the other sections' same var(--space-3) gap */
-  .price-teaser-item h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; line-height:1.2; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-1); }
-  .price-teaser-item p { font-size: var(--fs-body); color: var(--ink-body); }
+  .price-teaser-item { display:flex; align-items:baseline; gap: var(--space-1); }
+  .price-teaser-item h4 { font-size: var(--fs-body); color: var(--ink-body); }
+  .price-teaser-item p { font-size: var(--fs-body); color: var(--ink-body); white-space:nowrap; }
   .price-teaser .proof-teaser-link { margin-top:0; }
   @media (max-width:600px){ .price-teaser-row { flex-direction:column; gap: var(--space-4); } }
 
@@ -801,6 +803,10 @@
   @media (max-width:900px){
     .why-me-layout { grid-template-columns:1fr; align-items:start; gap: var(--space-6); }
     .why-photo { width:min(100%, 460px); margin:0 auto; order:-1; }
+    /* --fs-heading clamps to its own 20px floor at phone widths, too close to the 16px
+       body paragraph right under it to read as a clear title — same fix already used
+       for .pg .pcard h4 / #work h2's own mobile override. */
+    .why-me-card h3 { font-size: 28px; line-height:1.2; }
   }
 
   /* ---------- Contact form ---------- */
@@ -913,17 +919,12 @@
      .thumb img) so one rule covers both instead of the old work-cards-only override. */
   .pg .pcard .thumb img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
   @media (prefers-reduced-motion: reduce) { .pg .pcard .thumb img { position:static; height:100%; transform:none; } }
-  /* var(--ink) — fully solid, darker than the paragraph right under it (var(--ink-body),
-     85% opacity) per direct instruction: the title needs to read as darker/heavier than
-     its own description, not just bigger. */
-  .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink); }
+  /* site's largest type size + var(--ink-heading) — same treatment as every other
+     heading on the page (.section-label h1/h2, .reassure-title, .memory-title),
+     per direct instruction. */
+  .pg .pcard h4 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); }
   @media (max-width:800px){
     .pg { display:block; }
-    /* --fs-heading clamps to its own 20px floor at phone widths (2.2vw never reaches its
-       28px ceiling below ~1270px) — too close to the 16px body paragraph right under it
-       to read as a clear title, per direct instruction. Fixed, bigger size here instead of
-       leaning on that same fluid clamp. */
-    .pg .pcard h4 { font-size: 28px; line-height:1.2; }
     /* card-stack scroll effect: each card sticks at the same offset, so as you keep
        scrolling the next card's solid background rides up and covers the one before it —
        plain position:sticky, no scroll-timeline/JS needed */
@@ -1238,9 +1239,9 @@
     width: 100%;
   }
   /* pulled up so the section-label's own divider line (above this whole section) passes
-     through the middle of the video, not above it — -226.89px is measured specifically:
-     at the fixed 320px desktop width this box is always 775/944 * 320 = 389.77px tall, so
-     half (194.89px) plus the row's own 32px gap from the line (.section-label's own
+     through the middle of the video, not above it — -312.15px is measured specifically:
+     at the 460px desktop width this box is always 775/944 * 460 = 560.31px tall, so
+     half (280.15px) plus the row's own 32px gap from the line (.section-label's own
      padding-bottom) is exactly how far up it needs to move for the line to cross its
      vertical center. .story-media (this box's own flex-item wrapper, not this box itself)
      is what flex aligns against the row's top — flex items are their own block formatting
@@ -1248,11 +1249,13 @@
      .story-media's own position (and so .story-text next to it) the way it would on a
      plain block parent; only this box moves, visibly overlapping the line above. */
   @media (min-width:901px){
-    .story-row:has(.story-photo-polaroid) .story-photo-wide.story-photo-polaroid { margin-top: -226.89px; }
+    .story-row:has(.story-photo-polaroid) .story-photo-wide.story-photo-polaroid { margin-top: -312.15px; }
   }
   .story-media { width:100%; margin:0 auto; }
   @media (min-width:901px){
-    .story-row:has(.story-photo-polaroid) .story-media { flex:0 0 auto; align-self:flex-start; width:min(100%, 320px); margin:0 auto; }
+    /* 460px, not wider — the video file itself is only 640px wide, so anything past
+       that starts upscaling and softening it; 460px is comfortably under that ceiling */
+    .story-row:has(.story-photo-polaroid) .story-media { flex:0 0 auto; align-self:flex-start; width:min(100%, 460px); margin:0 auto; }
   }
   .story-media-caption { margin-top: var(--space-2); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:center; }
   /* drift, same as .story-photo-drift/.ab-hero-photo elsewhere — driven by script.js's
@@ -1293,27 +1296,21 @@
     opacity:0.55;
     margin-bottom: var(--space-1);
   }
-  .story-outro p { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.4; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
+  .story-outro p { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.2; letter-spacing:-0.01em; color: var(--ink-body); margin-bottom: var(--space-2); }
   .story-outro p em { font-style:normal; color:inherit; }
   @media (max-width:900px){ .my-story { gap: var(--space-5); } }
   /* stacked to 1 column on mobile, so this gap becomes the vertical photo→text gap — matched
      to .story-text p's own var(--space-2) margin-bottom instead of the desktop column-gap
      (var(--space-6)), which read as a mismatched bigger jump than the gap between paragraphs */
   @media (max-width:900px){ .story-row { grid-template-columns:1fr; gap: var(--space-2); } .story-photo { aspect-ratio:3/2; } .story-photo-wide { height:auto; } }
-  /* the story-card below reads as its own new "chapter", so the gap above it
-     needs to beat the standard section-to-section distance — on top of the
-     .my-story gap it already gets from flex gap. Matched (on top of that same
-     90px flex gap) to the 150px gap between the about-intro photo and the
-     "Jedno video z celého dětství" label above (the closest step on the
-     spacing scale to the 60px that would land exactly on it). */
-  .story-card { margin-top: var(--space-8); }
+  .story-card { margin-top: var(--space-4); }
   @media (max-width:900px){ .story-card { margin-top: var(--space-7); } }
   /* styled like a section-label h2 (big serif, border-bottom) rather than a
      card-level h3 — this is its own new "chapter" of the page, not a
      subheading within the video story above it */
-  .story-card h3 { text-align:left; font-family: var(--serif); font-size: var(--fs-display); font-weight:400; line-height:0.86; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-4); }
+  .story-card h3 { text-align:left; font-family: var(--serif); font-size: var(--fs-display); font-weight:400; line-height:0.95; letter-spacing:-0.025em; color: var(--ink-heading); border-bottom:1px solid var(--line); padding-bottom: var(--space-3); margin-bottom: var(--space-4); }
   @media (max-width:900px){ .story-card h3 { line-height:1.05; } }
-  .story-card-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6) var(--space-4); }
+  .story-card-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6) var(--space-4); }
   .story-card-item .story-photo { aspect-ratio:4/5; margin-bottom: var(--space-3); }
   .story-card-item p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-bottom: var(--space-2); }
   @media (max-width:900px){
