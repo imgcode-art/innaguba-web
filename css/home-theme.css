@@ -114,19 +114,23 @@ body { overflow-x: clip; }
   .closing.dark-panel + .section-label { padding-top: 42px; }
 }
 
-/* o-mne.html only: same idea — .why-me-layout exits into the closing CTA
-   right after it (the last section on that page). Targeted via the adjacent-
-   sibling selector (rather than .closing:not(.dark-panel), which used to also
-   catch every OTHER page's .closing — kontakt.html, cenik.html — shrinking
-   their entry gap too, since none of them have a dark-panel before .closing
-   either) so only the .closing that directly follows this dark panel gets
-   the shorter transition. */
+/* o-mne.html only: "Proč právě se mnou?" now sits right after the intro (moved up,
+   per direct instruction, so it's no longer back-to-back with the also-dark closing
+   CTA — "Jedno video z celého dětství" swapped down to sit between them instead,
+   restoring a normal light/dark alternation). #why-label still flows flush into
+   .why-me-layout with no light gap (one panel, not two) — that part is unchanged by
+   the reorder. Exit transition now targets the section-label that actually follows
+   it post-swap ("Jedno video z celého dětství"), same 64px-dark/86px-light split
+   .closing.dark-panel/.steps-section.dark-panel use for their own exits above —
+   this used to target + .closing directly, back when why-me-layout and closing were
+   adjacent; left pointed at the old sibling, that rule would just silently stop
+   matching anything rather than error, so it had to move with the reorder. */
 #why-label { padding-bottom: 0; }
-.why-me-layout.dark-panel { padding: 40px 0; }
-.why-me-layout.dark-panel + .closing { padding-top: 110px; }
+.why-me-layout.dark-panel { padding-top: 40px; padding-bottom: 64px; }
+.why-me-layout.dark-panel + .section-label { padding-top: 86px; }
 @media (max-width:900px){
-  .why-me-layout.dark-panel { padding: 36px 0; }
-  .why-me-layout.dark-panel + .closing { padding-top: 54px; }
+  .why-me-layout.dark-panel { padding-top: 36px; padding-bottom: 48px; }
+  .why-me-layout.dark-panel + .section-label { padding-top: 42px; }
 }
 
 /* A sticky "curtain" cover effect (closing CTA riding up over the video
