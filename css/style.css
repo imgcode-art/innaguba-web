@@ -646,6 +646,15 @@
   .section-label:has(+ .google-reviews) { padding-bottom: var(--space-2); text-align:center; }
   .section-label:has(+ .google-reviews) .wrap { justify-content:center; }
   .section-label:has(+ .google-reviews) h2 { text-align:center; }
+  /* aggregate rating, stacked on its own line under the "Google recenze" heading — the
+     one piece of social proof a visitor can take in without reading a single review.
+     flex-basis:100% forces it onto a new line inside .section-label .wrap's flex-wrap
+     row (that wrap normally just holds the heading), instead of sitting beside the
+     heading on the same line. Stars are plain text characters colored with var(--ink-body),
+     not Elfsight's own yellow icons (see the .es-rating-container comment below for why
+     those stay hidden) — this way the rating stays in this site's own monochrome palette. */
+  .reviews-rating { flex-basis:100%; margin: var(--space-2) 0 0; font-size: var(--fs-body); color: var(--ink-body); }
+  .reviews-rating .reviews-stars { letter-spacing:0.08em; }
 
   /* ---------- Google reviews (Elfsight) style override ---------- */
   .google-reviews, .google-reviews * { font-family: var(--sans) !important; }
@@ -663,6 +672,13 @@
   .google-reviews .es-review-align-container { align-items:flex-start !important; }
   .google-reviews .es-review-author-block-container { align-items:flex-start !important; text-align:left !important; margin-left:0 !important; margin-right:0 !important; }
   .google-reviews .es-review-author-block-info-container { justify-content:flex-start !important; align-items:flex-start !important; }
+  /* still hidden, not re-colored — Elfsight renders this as its own yellow star icons,
+     which per earlier direct instruction didn't read as part of this site's monochrome
+     palette anywhere else (same reasoning --logo-accent's brown got turned down for
+     hover states sitewide, see .proof-teaser-link/.pg .pcard-link comments above). The
+     aggregate rating now shown in the heading above (.reviews-rating, in the site's own
+     type/color) carries that trust signal instead, without touching the widget's own
+     rendering. */
   .google-reviews .es-rating-container { display:none !important; }
   .google-reviews .es-review-container { padding: 0 var(--space-5) !important; max-width:640px !important; margin-left:auto !important; margin-right:auto !important; }
   .google-reviews .es-review-content,
@@ -726,31 +742,70 @@
   .section-label:has(+ .price-teaser) h2 { text-align:center; }
   .section-label:has(+ .pricing-grid) { padding-bottom: var(--space-4); }
   .price-teaser { padding: 0; text-align:center; }
-  /* var(--space-4) matches .steps-list's own column-gap for the same "3 items in a row"
-     layout elsewhere on this page — was var(--space-7), wider than anything else on the
-     site uses for this pattern */
-  .price-teaser-row { display:flex; justify-content:center; gap: var(--space-4); flex-wrap:wrap; margin-bottom: var(--space-3); }
-  /* line-height:1.2 instead of body's inherited 1.5 — at --fs-heading size the extra
-     leading was adding visible space above the text itself, making the gap down from the
-     section-label's rule read bigger than the other sections' same var(--space-3) gap */
-  .price-teaser-item { display:flex; align-items:baseline; gap: var(--space-1); }
-  .price-teaser-item h4 { font-size: var(--fs-body); color: var(--ink-body); }
-  .price-teaser-item p { font-size: var(--fs-body); color: var(--ink-body); white-space:nowrap; }
+  /* was a flex row of inline label+price pairs — at in-between widths the pairs wrapped
+     unevenly, stranding the third item alone on its own line. A fixed 3-column grid holds
+     all three the same width down to the stack breakpoint, so the row never breaks
+     unevenly. var(--space-4) column-gap matches .steps-list's own gap for the same
+     "3 items in a row" layout elsewhere on this page. Vertical dividers (below) now do
+     the job the old pairs' own whitespace used to, of separating the three items from
+     each other. Stack breakpoint is 900px, not the old layout's 600px — three columns of
+     a heading + a serif price + a detail line need more elbow room per column than three
+     bare label/price pairs did, and 900px is this site's own standard tablet breakpoint
+     (.steps-list, the nav, etc.) rather than a one-off value for this section alone. */
+  .price-teaser-row { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); margin-bottom: var(--space-4); }
+  .price-teaser-item { display:flex; flex-direction:column; align-items:center; gap: var(--space-1); padding: 0 var(--space-3); }
+  /* hairline divider between columns, same var(--line) treatment .faq-item already uses
+     for its own row dividers — quiet separation, no boxes/shadows, keeps this reading as
+     the site's plain editorial palette rather than a pricing-table UI. */
+  .price-teaser-item + .price-teaser-item { border-left:1px solid var(--line); }
+  .price-teaser-item h4 { font-size:13px; font-weight:400; text-transform:uppercase; letter-spacing:0.12em; color: var(--ink-body); }
+  /* the figure is the one thing in this row that should read like an actual price tag —
+     bumped up to --fs-heading in the serif, the same move .proof-stats li strong already
+     makes for its own headline numbers, so the price is the payoff instead of same-weight
+     body text as its own label above it. */
+  .price-teaser-amount { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); }
+  /* one line of what's actually included, pulled from cenik.html's own package copy —
+     answers "what do I get for that" right where the price is instead of making it a
+     click away. Quieter than the two lines above (13px, reduced opacity) since it's
+     supporting detail, not the headline. */
+  .price-teaser-detail { font-size:13px; line-height:1.4; color: var(--ink-body); opacity:0.75; }
   .price-teaser .proof-teaser-link { margin-top:0; }
-  @media (max-width:600px){ .price-teaser-row { flex-direction:column; gap: var(--space-4); } }
+  @media (max-width:900px){
+    .price-teaser-row { grid-template-columns:1fr; gap: var(--space-5); }
+    .price-teaser-item + .price-teaser-item { border-left:0; border-top:1px solid var(--line); padding-top: var(--space-5); }
+  }
 
   /* ---------- Closing CTA ---------- */
   .closing { padding: 150px 0 0; }
   @media (max-width:900px){ .closing { padding-top: var(--space-9); } }
   .closing .top { text-align:center; }
+  /* this is the site's actual conversion moment, repeated identically at the bottom of
+     every page — before this it was pure text, the exact same weight as any other
+     .section-label block (FAQ, steps…), with nothing marking it as more important than
+     them. A photo (same narrow-text-column + wide-photo-column grid .reassure-columns
+     already uses elsewhere on this page) gives it the one thing none of the other
+     text-only sections have, instead of inventing a new layout pattern for it. Text goes
+     left-aligned to match .reassure-columns' own paired-with-a-photo treatment — centered
+     reads right for a lone block of text, not once it's sitting next to an image. */
+  .closing-row { display:grid; grid-template-columns: 1fr 460px; gap: var(--space-6); align-items:center; }
+  .closing-row .top { text-align:left; }
+  .closing-photo { position:relative; aspect-ratio:4/3; overflow:hidden; }
+  @media (max-width:900px){
+    /* photo first, text second — same stacking order .reassure-columns already uses for
+       its own video/text pair on mobile. */
+    .closing-row { grid-template-columns:1fr; gap: var(--space-5); }
+    .closing-row .closing-photo { order:-1; }
+    .closing-row .top { text-align:center; }
+  }
   @media (min-width:901px){ .closing-secondary-link { display:block; width:fit-content; margin:var(--space-4) auto 0; } }
+  .closing-row .closing-secondary-link { margin-left:0; margin-right:0; }
   .closing-footer { padding: 150px 0 var(--space-5); }
   @media (max-width:900px){ .closing-footer { padding-top: var(--space-8); } }
   .closing-title { font-size: var(--fs-display); font-weight:700; line-height:0.9; letter-spacing:-0.025em; color: var(--ink-heading); padding-bottom: var(--space-3); border-bottom:1px solid var(--line); }
   .closing-note { font-size: var(--fs-body); color: var(--ink-body); margin: var(--space-3) 0 0; }
   .closing-lead { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin: var(--space-4) 0 0; }
   .closing-punch { font-size: var(--fs-body); font-style:italic; color: var(--ink-body); margin: var(--space-3) 0 0; }
-  .closing .about-thanks-cta { margin-top: var(--space-4); }
+  .closing .about-thanks-cta { margin-top: var(--space-3); }
   .closing-form-lead { font-size: var(--fs-body); color: var(--ink-body); text-align:center; margin: var(--space-5) 0 0; }
   .closing-form-lead a { text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); font-weight:400; }
 
