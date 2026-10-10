@@ -103,6 +103,17 @@ body { overflow-x: clip; }
   .steps-section.dark-panel + .section-label { padding-top: 42px; }
 }
 
+/* Homepage: closing CTA exits into the "Google recenze" label right after it — same
+   64px-dark/86px-light exit split as above. .closing's own entry (price-teaser before
+   it) needed no override: .closing's existing 150px top padding already matches the
+   default .dark-panel::before split (110px light / 40px dark) this file sets up top. */
+.closing.dark-panel { padding-bottom: 64px; }
+.closing.dark-panel + .section-label { padding-top: 86px; }
+@media (max-width:900px){
+  .closing.dark-panel { padding-bottom: 48px; }
+  .closing.dark-panel + .section-label { padding-top: 42px; }
+}
+
 /* o-mne.html only: same idea — .why-me-layout exits into the closing CTA
    right after it (the last section on that page). Targeted via the adjacent-
    sibling selector (rather than .closing:not(.dark-panel), which used to also

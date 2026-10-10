@@ -894,6 +894,11 @@
   .cf-row .cf-field:has(select) > label { min-height:2.6em; }
   .cf-row input, .cf-row select, .contact-form textarea { width:100%; background: var(--paper); border:1px solid var(--line); padding: var(--space-3); font-family:var(--sans); font-size: var(--fs-body); color: var(--ink); }
   .cf-row input::placeholder, .contact-form textarea::placeholder { color: rgba(17,17,17,0.35); }
+  /* kontakt.html's form fields inherit --paper/--ink from .dark-panel automatically (the
+     field backgrounds/text already use those variables above), but this placeholder
+     color and the select arrow's stroke below are hardcoded to the light-panel values —
+     near-invisible dark-on-dark once the panel flips. Light counterparts for each. */
+  .dark-panel .cf-row input::placeholder, .dark-panel .contact-form textarea::placeholder { color: rgba(245,243,239,0.35); }
   .cf-row input:focus, .cf-row select:focus, .contact-form textarea:focus { outline:none; border-color: var(--ink); }
   .cf-row input.cf-invalid, .contact-form textarea.cf-invalid { border-color:#a13a3a; }
   .contact-form textarea { resize:none; min-height:110px; line-height:1.5; }
@@ -907,11 +912,22 @@
     background-size:12px;
     padding-right: calc(var(--space-3) * 2 + 12px);
   }
+  /* the select's own background (above) flips dark via --paper on a dark-panel, but this
+     arrow icon is a data-URI SVG with a hardcoded stroke — can't reference a CSS
+     variable, so it needs its own light-colored copy here instead. */
+  .dark-panel .cf-row select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 5.5l4.5 4.5 4.5-4.5' fill='none' stroke='%23F5F3EF' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
   /* font-weight:400 + --ink-heading (softened black), not bold pure --ink — matches the
      softer tone of .about-cta-btn elsewhere instead of reading as the loudest thing on
      the page. */
   .cf-submit { align-self:center; display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink-heading); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink-heading); cursor:pointer; transition: background .2s ease, color .2s ease, border-color .2s ease; }
   .cf-submit:hover { background: var(--ink-body); border-color: var(--ink-body); color:#fff; }
+  /* hover's own fill/text above is hardcoded for the light panel (near-black bg -> white
+     text); on a dark-panel --ink-body is already the light tone, so hover's background
+     comes out near-white — #fff text on that is invisible. var(--paper) gives the
+     correct dark text for a dark-panel's now-light hover fill. */
+  .dark-panel .cf-submit:hover { color: var(--paper); }
   .cf-submit:disabled:not([data-state="success"]) { opacity:0.5; cursor:default; }
   .cf-submit[data-state="success"] { background:#2f6b3a; border-color:#2f6b3a; color:#fff; opacity:1; }
   /* empty until a submit attempt sets its text — :empty removes it from the flex layout
@@ -1441,6 +1457,14 @@
   @media (max-width:900px){
     .about-cta-btn:hover, .about-cta-btn:active { text-decoration: underline; text-underline-offset: 3px; }
   }
+  /* .dark-panel's own --ink/--paper swap (home-theme.css) would otherwise flip this
+     button to a light fill AT REST and a dark fill on hover — backwards from "dark at
+     rest, reveals light on hover," the interaction direction every .about-cta-btn on a
+     normal light panel uses. Spelled out explicitly here (rather than leaning on the
+     inherited swap) so the closing CTA's dark panel keeps the same hover direction as
+     every other button on the site, per direct instruction after seeing it inverted. */
+  .dark-panel .about-cta-btn { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .dark-panel .about-cta-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
   /* ---------- Legal pages (GDPR / obchodní podmínky) ---------- */
   .legal-content { max-width:760px; margin:0 auto; padding: var(--space-6) 0 var(--space-10); text-align:left; }
