@@ -252,7 +252,13 @@
      headline) instead of a small supporting line, per direct instruction. Capped width so
      it breaks into a readable paragraph instead of stretching edge-to-edge of the whole
      column on wide screens. */
-  .hc-split-content .hc-eyebrow { font-size: var(--fs-display); line-height:1.2; letter-spacing:-0.01em; color: var(--ink-heading); max-width:720px; }
+  /* own clamp, not var(--fs-display) directly — capped 5px under its 60px ceiling.
+     "Děti rostou neuvěřitelně rychle..." (added word, per direct instruction) pushed this
+     to 5 lines at the full 60px size, with "srdce." stranded alone on the last one; capped
+     here is the smallest nudge that reliably pulls it back up onto the line above instead,
+     landing on 4 lines without changing anything else about the layout (video size, text
+     column's own alignment to the nav). */
+  .hc-split-content .hc-eyebrow { font-size: clamp(34px, 4.4vw, 55px); line-height:1.2; letter-spacing:-0.01em; color: var(--ink-heading); max-width:720px; }
   .bottom-section { padding-top: var(--space-1); padding-bottom: 0; text-align:center; }
 
   /* ---------- Mobile hero — swipeable, full-bleed video slideshow, one story
