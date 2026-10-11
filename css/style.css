@@ -1339,8 +1339,8 @@
     .pb-recommended { transform:none; }
   }
 
-  /* Everything below (price typography, per-photo price, badge fill, button shapes)
-     now runs sitewide, mobile included — none of it changes which elements are
+  /* Everything below (price typography, badge fill, button shapes) now runs
+     sitewide, mobile included — none of it changes which elements are
      .pb-card/sticky or touches .price-bento-3's own padding-bottom/margin math, it
      only adds modest height inside each card's existing content, well inside the
      var(--space-9) trailing buffer that same math already reserves per card. Checked
@@ -1351,7 +1351,6 @@
      match every other headline on the site, a full step up in size, tabular
      figures so the three cards' prices line up on the same baseline */
   .price-tag { font-family: var(--serif); font-size: var(--fs-heading); font-variant-numeric: tabular-nums; margin-top: var(--space-1); }
-  .price-per-unit { display:block; font-family: var(--sans); font-size:13px; font-weight:400; letter-spacing:0.02em; color: var(--ink-body); opacity:0.65; margin-top:2px; }
 
   /* confident ink-filled pill instead of a pale outline chip — matches the fill-on-
      interact language already established by .nav-links a:hover / .about-cta-btn,
