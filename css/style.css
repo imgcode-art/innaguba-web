@@ -380,6 +380,15 @@
      read as a considered pair, but keeps --ink-heading rather than the logo's own accent
      color — that's reserved for the one primary CTA button now, not every title too. */
   .page-header h1 { font-size:32px; line-height:1.2; letter-spacing:0.02em; color: var(--ink-heading); }
+  /* real social proof right where the pricing decision happens, not buried below the
+     closing CTA — reuses the exact copy/markup already vetted on index.html's own
+     .reviews-rating (same ★★★★★ 5,0 claim), just inline under the H1 instead */
+  /* .page-header .wrap inherits .section-label .wrap's flex row (space-between,
+     align-items:flex-end) — flex-basis:100% forces this onto its own line under the
+     H1 instead of floating up beside it as a second flex item, same trick
+     .reviews-rating already uses for the identical "line under a flex heading" case */
+  .cenik-trust { flex-basis:100%; margin-top: var(--space-2); font-size: var(--fs-body); color: var(--ink-body); }
+  .cenik-trust .reviews-stars { letter-spacing:0.08em; }
   /* line-to-content gap — same var(--space-4) as the other sections whose content below
      the line carries real visual weight (photo cards here, same reasoning as FAQ/price
      teaser below). #work/#reference get it here (no other override exists for them);
@@ -1273,6 +1282,70 @@
        into a visibly huge gap that has nothing to do with this card-stack fix. */
     .price-bento-3 { margin-bottom: calc(-1 * var(--space-9)); }
     .pricing-grid + #kontakt { margin-top: var(--space-9); }
+  }
+
+  /* ---------- Desktop-only pricing polish (cenik.html) ----------
+     Scoped to min-width:901px throughout: the mobile layout below that breakpoint
+     runs a hand-tuned position:sticky card-stack (see the big comment above this
+     block) where every extra pixel of card height and every non-.pb-card sibling in
+     .price-bento-3 was already accounted for. Nothing here touches that — the two
+     category headings are plain `display:none` until desktop so they sit in the DOM
+     (valid grid children, grid-column:1/-1, don't break the 3-col flow) without ever
+     joining the mobile sticky chain, and every other rule below only fires past the
+     breakpoint. */
+  .cenik-category { display:none; }
+  .price-per-unit { display:none; }
+  @media (min-width:901px){
+    .cenik-category { display:block; grid-column: 1 / -1; font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); padding-bottom: var(--space-2); border-bottom: 1px solid var(--line); margin-bottom: calc(-1 * var(--space-9) + var(--space-4)); }
+    .cenik-category-2 { margin-top: calc(-1 * var(--space-9) + var(--space-4)); }
+
+    /* price, upgraded from blending into the body-copy list above it to reading as
+       the one number on the card a visitor actually needs to remember — serif to
+       match every other headline on the site, a full step up in size, tabular
+       figures so the three cards' prices line up on the same baseline */
+    .price-tag { font-family: var(--serif); font-size: var(--fs-heading); font-variant-numeric: tabular-nums; margin-top: var(--space-1); }
+    .price-per-unit { display:block; font-family: var(--sans); font-size:13px; font-weight:400; letter-spacing:0.02em; color: var(--ink-body); opacity:0.65; margin-top:2px; }
+
+    /* confident ink-filled pill instead of a pale outline chip — matches the fill-on-
+       interact language already established by .nav-links a:hover / .about-cta-btn,
+       just resting instead of on hover */
+    .pb-badge { background: var(--ink); color: var(--paper); border-radius:2px; }
+
+    /* the bestseller card: a real shadow (same recipe as .about-cta-btn, the site's
+       one other "lifted" surface) on top of the scale(1.03) it already had, so it
+       reads as physically raised off the page rather than just outlined differently */
+    .pb-recommended { box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.25); }
+
+    /* every card gets a quiet hover lift — purely a desktop pointer affordance, so it's
+       gated on hover:hover too (no accidental sticky "lifted" state on touch) */
+    @media (hover:hover){
+      .pb-card { transition: transform .25s ease, box-shadow .25s ease; }
+      .pb-card:hover { transform: translateY(-4px); box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.18); }
+      .pb-recommended:hover { transform: scale(1.03) translateY(-4px); box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.3); }
+    }
+
+    /* the recommended package and the video card's own CTA become the filled buttons
+       on the grid (reusing .about-cta-btn's own ink/paper/shadow recipe) — every other
+       card keeps the quieter underlined link, so the two visual "press here" moments
+       point at the bestseller package and the one standalone service on the page */
+    /* Hover deliberately does NOT invert either variant's fill/border colors — with
+       filled (black) and outlined (white) buttons sitting side by side in the same
+       row, a hover that flips a white button to black makes it momentarily
+       indistinguishable from the real black button right next to it. Both variants
+       instead just lift (translateY + deeper shadow), so a button's own black-or-
+       white identity stays put no matter which one the cursor is on. */
+    .pb-recommended .proof-teaser-link,
+    .pb-standout .proof-teaser-link { display:inline-block; font-size: var(--fs-body); font-weight:400; text-transform:uppercase; letter-spacing:0.1em; text-decoration:none; background: var(--ink); color: var(--paper); border:1px solid var(--ink); padding:14px 22px; box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.35); transition: box-shadow .2s ease, transform .2s ease; }
+    .pb-recommended .proof-teaser-link:hover,
+    .pb-standout .proof-teaser-link:hover { transform: translateY(-2px); box-shadow: 10px 18px 28px -8px rgba(17,17,17,0.45); text-decoration: underline; text-underline-offset: 4px; }
+
+    /* the three remaining cards get a real (outlined, not filled) button too — same
+       box shape as the two above so all five cards read as one consistent button row,
+       just the quieter "white/outline" variant (reuses .cookie-accept's own outline
+       recipe, the site's other already-established secondary-button look) instead of
+       a plain underlined text link */
+    .pb-card:not(.pb-recommended):not(.pb-standout) .proof-teaser-link { display:inline-block; font-size: var(--fs-body); font-weight:400; text-transform:uppercase; letter-spacing:0.1em; text-decoration:none; background: var(--paper); color: var(--ink); border:1px solid var(--ink); padding:14px 22px; transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease; }
+    .pb-card:not(.pb-recommended):not(.pb-standout) .proof-teaser-link:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.2); text-decoration: underline; text-underline-offset: 4px; }
   }
 
   .cenik-help-cta { margin-top: var(--space-4); }
