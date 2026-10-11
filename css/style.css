@@ -54,7 +54,6 @@
   @media (max-width:700px){ body{padding-left: var(--space-3); padding-right: var(--space-3);} }
   img { display:block; width:100%; height:100%; object-fit:cover; }
   a { color:inherit; text-decoration:none; }
-  .gallery-link { text-decoration:underline; text-underline-offset:3px; font-weight:400; letter-spacing:0.02em; color: var(--ink-body); }
   .wrap { max-width: var(--max-w); margin:0 auto; }
 
   .plus { font-size: var(--fs-body); font-weight:700; }
@@ -91,14 +90,26 @@
   .logo-claim { font-size:13px; font-weight:400; letter-spacing:0.03em; color: var(--ink-body); }
   /* small-caps treatment, sitewide — was homepage-only (born on .home-header's grid
      nav), now the standard look for every page's nav-links. */
-  .nav-links { display:flex; gap: var(--space-4); font-family: var(--sans); font-size:13px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; }
-  .nav-links a { color: rgba(17,17,17,0.62); transition: color 0.2s ease; }
-  /* back to plain --ink — --logo-accent is reserved for the one primary CTA button now,
-     not spread across nav/titles/links too (that read as too much warm brown fighting
-     the site's otherwise black-and-white photo treatment). font-weight still marks
-     .active, just without the color. */
-  .nav-links a:hover { color: var(--ink); }
-  .nav-links a.active { color: var(--ink); font-weight:600; }
+  /* align-items:center — without it, a flex row with mixed one-/two-word links (e.g.
+     "O MNĚ" wrapping under the extra padding below) stretches every sibling's
+     background box to match the tallest wrapped item's height instead of each link
+     sizing to its own line. gap/padding below kept close to the old --space-4 (32px)
+     gap-only total width (8px+8px padding + 8px gap = 24px between words, was 32px)
+     so this doesn't overflow its grid column on real laptop widths (~1024-1280px,
+     where the 5-column header grid leaves it a narrower 1fr share than --max-w's
+     full 1400px implies) and wrap "O mně" onto two lines. */
+  .nav-links { display:flex; align-items:center; gap: var(--space-1); font-family: var(--sans); font-size:13px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; }
+  /* solid ink-filled rectangle on hover/current page — per direct reference
+     (derfleratelier.cz's own nav), same fill-on-interact language the site already
+     uses for its primary buttons (cookie-accept, hero-cta-primary), just applied to
+     nav links too. Desktop/tablet only: the mobile full-screen menu below resets this
+     back to a plain color change — a black box behind giant serif overlay text didn't
+     read as the same component at all. white-space:nowrap keeps two-word links like
+     "O mně" on one line so the box stays a single-line pill, not a stretched block.
+     Vertical padding shorter than the horizontal — a flatter, wider pill than the
+     first symmetric pass, per direct feedback. */
+  .nav-links a { display:inline-block; padding:3px 8px; white-space:nowrap; color: rgba(17,17,17,0.62); transition: color 0.2s ease, background-color 0.2s ease; }
+  .nav-links a:hover, .nav-links a.active { color: var(--paper); background: var(--ink); }
   .nav-links .nav-call { display:none; }
   .nav-toggle { display:none; position:relative; flex-direction:column; justify-content:center; gap:5px; width:28px; height:28px; background:none; border:0; padding:0; cursor:pointer; }
   .nav-toggle span { display:block; width:100%; height:2px; background: var(--ink); transition: transform .25s ease, opacity .25s ease; }
@@ -121,10 +132,11 @@
     }
     .nav-links.open { opacity:1; pointer-events:auto; }
     .nav-links a {
-      padding:0; border-bottom:0;
+      padding:0; border-bottom:0; background:none;
       font-family: var(--serif); font-size: var(--fs-display); font-weight:400;
       letter-spacing:-0.02em; text-transform:none; color: var(--ink);
     }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); background:none; }
     .nav-links .nav-call { display:block; margin-top: var(--space-5); font-family: var(--serif); font-size: 28px; font-weight:400; color: var(--ink); }
   }
 
@@ -150,7 +162,7 @@
      that this would otherwise outrank and squash back down to a tiny 14px link. */
   @media (min-width:901px){
     header .nav-links a { font-size:14px; color: rgba(17,17,17,0.75); }
-    header .nav-links a:hover, header .nav-links a.active { color: var(--ink); }
+    header .nav-links a:hover, header .nav-links a.active { color: var(--paper); background: var(--ink); }
   }
   /* Header grid, every page, desktop width — originally built just for the homepage to
      line up with its hero bento grid (same column template as .hc-split: logo flush
@@ -412,7 +424,6 @@
      read bigger here than on every other section-label at desktop widths */
   @media (max-width:900px){ #work h2 { line-height:1.1; } }
   .section-label .side { max-width:320px; font-size: var(--fs-body); line-height:1.5; text-align:right; font-weight:400; }
-  .section-label .gallery-link { display:inline-block; font-size: var(--fs-body); white-space:nowrap; }
 
   /* ---------- Proof block (two equal-weight photos of the same family, years apart, with
      stats between them - between the hero quote and "Tři cesty") ---------- */
@@ -1110,8 +1121,17 @@
     }
   }
   @media (max-width:560px){ .pgg{columns:1;} }
-  .back { display:inline-block; font-size: var(--fs-body); }
-  .video-gallery .back, .photo-gallery .back { display:block; margin-top: var(--space-6); }
+  /* unified with .proof-teaser-link's sitewide "secondary button" treatment (same
+     uppercase/tracked/underline look as the CTA links in pricing cards etc.) — used to
+     be its own plain, non-uppercase underlined link with a literal "←" character, which
+     read as an older, different button style from the rest of the site. display:flex
+     keeps the own-line block placement the old display:block gave it while also letting
+     the icon sit inline with the text; width:max-content stops the flex row from
+     stretching the underline/click target across the full section width. */
+  .back { display:flex; align-items:center; gap:7px; width:max-content; }
+  .back-icon { width:13px; height:13px; flex-shrink:0; }
+  .back-icon path { fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .video-gallery .back, .photo-gallery .back { margin-top: var(--space-6); }
 
   /* ---------- Pricing (Ceník) ---------- */
   .cenik-label { font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2); }
@@ -1274,7 +1294,11 @@
   .lb-inner { position:relative; width:100%; max-width:1040px; }
   .lb-frame { position:relative; width:100%; aspect-ratio:16/9; background:#000; }
   .lb-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
-  .lb-close { position:absolute; top:-40px; right:0; color:#fff; font-size: var(--fs-body); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; background:none; border:0; }
+  /* icon swapped from a literal "×" character to the site's own SVG icon language
+     (same stroke-width/line-cap as .like-btn's heart) — same reasoning as .back above */
+  .lb-close { position:absolute; top:-40px; right:0; display:flex; align-items:center; gap:7px; color:#fff; font-size: var(--fs-body); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; background:none; border:0; }
+  .lb-close-icon { width:14px; height:14px; }
+  .lb-close-icon path { fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 
   /* ---------- O mně ---------- */
   /* layered photo pair (desktop only) — a smaller wide establishing shot peeking out
