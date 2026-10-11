@@ -1662,7 +1662,11 @@
   .contact-info-line { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
   .contact-info-line a { color: inherit; font-weight:inherit; transition: color 0.2s ease; }
   .contact-info-line a:hover { color: var(--red); }
-  @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0;} .contact-info-photo{flex-basis:auto; width:100%; height:auto; aspect-ratio:3234/1605;} .contact-info-text{max-width:none;} }
+  /* 3/2, not the source photo's own native ~2/1 — that read as an odd, overly
+     panoramic strip next to the 3/2 every other full-width mobile photo on the site
+     uses (.story-photo-wide, .memory-photo, .reassure-video, .ab-hero-photo), per
+     direct feedback. object-fit:cover on the img (set above) crops to this instead. */
+  @media (max-width:900px){ .contact-info{flex-direction:column; align-items:flex-start; gap: var(--space-4); padding: 0;} .contact-info-photo{flex-basis:auto; width:100%; height:auto; aspect-ratio:3/2;} .contact-info-text{max-width:none;} }
 
   .about-thanks-cta { display:flex; align-items:center; justify-content:center; gap: var(--space-4); flex-wrap:wrap; }
   /* dark fill everywhere now (was a light outline on desktop, which read as too faint next
