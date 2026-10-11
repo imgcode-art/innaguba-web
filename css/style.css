@@ -1305,6 +1305,40 @@
     .cenik-category-2 { margin-top: calc(-1 * var(--space-9) + var(--space-4)); }
   }
 
+  /* Desktop: all 5 cards become full-width horizontal rows (photo beside content) —
+     matches how Rodinné video / Dětský portrét already looked, per direct request,
+     instead of the 3-up grid of vertical cards. Switching .price-bento to a single
+     column means every card just stacks top-to-bottom using the grid's own existing
+     row-gap (var(--space-9)) — the same gap that already separated Rodinné video
+     from Dětský portrét, now carried through for every card, so no new spacing value
+     is needed. The photo/content split below reuses .pb-featured's own values
+     verbatim (same selectors' worth of specificity, just later in the cascade, so it
+     wins without !important) and extends them to every card, not just the featured
+     two. Mobile is untouched: this whole block only fires at min-width:901px, so the
+     already-verified vertical sticky-stack layout below that breakpoint is unaffected. */
+  @media (min-width:901px){
+    .price-bento { grid-template-columns: 1fr; }
+    .pb-card { flex-direction:row; gap: var(--space-7); }
+
+    /* cancel the "inset bleed" photo treatment (negative-margin photo wider than its
+       padded card) the vertical 3-up shape needed — same selectors as the rules being
+       cancelled, so this wins on specificity alone */
+    .price-bento-3 .pb-card:not(.pb-recommended):not(.pb-featured) { padding:0; }
+    .price-bento-3 .pb-card:not(.pb-recommended):not(.pb-featured) .pb-photo { margin:0; width:auto; }
+    .pb-recommended { padding:0; }
+    .pb-recommended .pb-photo { margin:0; width:auto; }
+
+    .pb-card .pb-photo { position:relative; flex:1.1; order:2; margin-bottom:0; aspect-ratio:auto; }
+    .pb-card .pb-photo img, .pb-card .pb-photo video { position:absolute; inset:0; }
+    .pb-card .pb-content { flex:0 0 calc((100% - 2 * var(--space-7)) / 3); order:1; min-height:438px; padding: var(--space-4) 0 var(--space-4) var(--space-4); }
+
+    /* a full-width row can't grow 3% wider without overflowing .wrap's own edges (the
+       old scale(1.03) only worked back when this card was one of 3 narrower grid
+       columns with room to grow into) — the ink border + shadow carry the
+       bestseller's emphasis instead now */
+    .pb-recommended { transform:none; }
+  }
+
   /* Everything below (price typography, per-photo price, badge fill, button shapes)
      now runs sitewide, mobile included — none of it changes which elements are
      .pb-card/sticky or touches .price-bento-3's own padding-bottom/margin math, it
@@ -1326,15 +1360,20 @@
 
   /* the bestseller card: a real shadow (same recipe as .about-cta-btn, the site's
      one other "lifted" surface) — box-shadow doesn't take up layout space, so this
-     is free on mobile too, on top of the desktop-only scale(1.03) below */
+     is free on mobile too */
   .pb-recommended { box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.25); }
 
   /* every card gets a quiet hover lift — purely a desktop pointer affordance, so it's
-     gated on hover:hover too (no accidental sticky "lifted" state on touch) */
+     gated on hover:hover too (no accidental sticky "lifted" state on touch). No
+     scale() on the bestseller card any more — every card is now a full-width row at
+     desktop (see the horizontal-layout block above), and a row can't grow 3% wider
+     without overflowing .wrap's own edges the way it could back when it was one of
+     3 narrower grid columns with room to grow into; the deeper shadow alone carries
+     the lift now. */
   @media (hover:hover){
     .pb-card { transition: transform .25s ease, box-shadow .25s ease; }
     .pb-card:hover { transform: translateY(-4px); box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.18); }
-    .pb-recommended:hover { transform: scale(1.03) translateY(-4px); box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.3); }
+    .pb-recommended:hover { transform: translateY(-4px); box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.3); }
   }
 
   /* the recommended package and the video card's own CTA become the filled buttons
