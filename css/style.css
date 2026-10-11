@@ -387,8 +387,8 @@
      align-items:flex-end) — flex-basis:100% forces this onto its own line under the
      H1 instead of floating up beside it as a second flex item, same trick
      .reviews-rating already uses for the identical "line under a flex heading" case */
-  .cenik-trust { flex-basis:100%; margin-top: var(--space-2); font-size: var(--fs-body); color: var(--ink-body); }
-  .cenik-trust .reviews-stars { letter-spacing:0.08em; }
+  .page-trust { flex-basis:100%; margin-top: var(--space-2); font-size: var(--fs-body); color: var(--ink-body); }
+  .page-trust .reviews-stars { letter-spacing:0.08em; }
   /* line-to-content gap — same var(--space-4) as the other sections whose content below
      the line carries real visual weight (photo cards here, same reasoning as FAQ/price
      teaser below). #work/#reference get it here (no other override exists for them);
@@ -869,6 +869,16 @@
   .closing .about-thanks-cta { margin-top: var(--space-3); }
   .closing-form-lead { font-size: var(--fs-body); color: var(--ink-body); text-align:center; margin: var(--space-5) 0 0; }
   .closing-form-lead a { text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); font-weight:400; }
+  /* kontakt.html's own version, sitting inside .closing-row .top. Left-aligned only at
+     desktop, where that column sits beside the photo and every other line in it is
+     left-aligned too — .closing-row .top flips back to center below 900px (same mobile
+     override every other .closing-row page already gets), and this should follow suit
+     there rather than being the one left-aligned line in an otherwise centered stack.
+     margin-top trimmed since .about-thanks-cta right above it already carries its own
+     var(--space-3) gap, the fuller var(--space-5) above was tuned for following a bare
+     headline, not a button. */
+  .closing-form-lead-row { margin-top: var(--space-3); }
+  @media (min-width:901px){ .closing-form-lead-row { text-align:left; } }
 
   /* ---------- About intro (o-mne.html) — page's own opening title, before "Proč právě se mnou?" ---------- */
   /* matches .page-header's own tightened gap/weight (style.css ~line 305) — same "page
