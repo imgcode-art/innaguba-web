@@ -419,9 +419,14 @@
     /* lives inside .proof-block-row now, ordered (see .proof-stats-col's order:-2 below)
        to land right after the stats block instead of after .proof-lead-row — the stats
        block's own margin-bottom already supplies the gap above it, so no padding-top of
-       its own is needed here; padding-bottom stays 0, same tight relationship to the
-       photos right below it as before. */
-    #proof-intro-mobile-2 { order:-1; padding-top:0; padding-bottom:0; }
+       its own is needed here. padding-bottom was 0 (tight relationship to the photo right
+       below it) but that put the divider line right up against the photo's own top edge —
+       against a dark photo the line visually read as part of the photo's edge instead of
+       a distinct divider, per direct feedback. var(--space-3) breathing room added below
+       the line instead, same as the gap already sitting above it (between the heading
+       text and the line itself), so the line floats clearly in the paper background on
+       both sides. */
+    #proof-intro-mobile-2 { order:-1; padding-top:0; padding-bottom: var(--space-3); }
     /* .section-label .wrap's shared divider (var(--line), 14% black) reads fine against
        the other section-labels sitewide, but here it sits right on the plain paper
        background with nothing else around it to anchor it, and washed out to the point of
