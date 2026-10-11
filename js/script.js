@@ -104,10 +104,26 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // row the user can only ever look at one panel of ----------
   document.querySelectorAll('[data-scroll-video-play] video').forEach(video => {
     let hasFinished = false;
+    let retryQueued = false;
     video.addEventListener('ended', () => { hasFinished = true; });
+    // on a slow mobile connection the video can still be buffering when it scrolls into
+    // view, so play() silently rejects and it's stuck on the poster frame until the user
+    // scrolls it out and back in — retrying once it's actually ready to play fixes that
+    // without needing the user to re-trigger the intersection themselves.
+    const tryPlay = () => {
+      if (hasFinished) return;
+      video.play().catch(() => {
+        if (retryQueued) return;
+        retryQueued = true;
+        video.addEventListener('canplay', () => {
+          retryQueued = false;
+          if (!hasFinished) video.play().catch(() => {});
+        }, { once: true });
+      });
+    };
     const slideObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) { if (!hasFinished) video.play().catch(() => {}); }
+        if (entry.isIntersecting) tryPlay();
         else video.pause();
       });
     }, { threshold: 0.6 });
