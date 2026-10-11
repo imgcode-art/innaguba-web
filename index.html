@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=566">
+<link rel="stylesheet" href="css/style.css?v=567">
 <link rel="stylesheet" href="css/home-theme.css?v=35">
 <!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -89,15 +89,28 @@
 
 </section>
 
-<section class="section-label" data-reveal>
+<!-- desktop: hero already carries its own "Děti rostou..." headline (.hc-eyebrow), so this
+     is the one reading as the lead-in to the then/now photos below. Hidden on mobile —
+     mobile needs the opposite order (see #proof-intro-mobile below), per direct
+     instruction: "Děti rostou..." first, right under the hero video, then the CTA
+     button, then this heading just before the photos. -->
+<section class="section-label" id="proof-intro-desktop" data-reveal>
   <div class="wrap">
     <h2>Ty nejkrásnější momenty vašeho života nevyblednou</h2>
   </div>
 </section>
 
+<!-- mobile-only counterpart to .hc-eyebrow (hidden on mobile, see .hc-split-stage) — this
+     is the first readable headline on mobile, where the hero itself only shows the
+     slideshow + torn-paper label, not the real "Děti rostou..." sentence. -->
+<section class="section-label" id="proof-intro-mobile" data-reveal>
+  <div class="wrap">
+    <h2>Děti rostou neuvěřitelně rychle. Zachytíme chvíle plné lásky a objetí, které vám i za mnoho let rozbuší srdce.</h2>
+  </div>
+</section>
+
 <section class="proof-block wrap" data-reveal>
   <div class="proof-lead-row">
-    <p class="proof-lead">Děti rostou neuvěřitelně rychle. Zachytíme chvíle plné lásky a objetí, které vám i za mnoho let rozbuší srdce.</p>
     <!-- mobile-only primary CTA (hidden ≥901px via .hc-mobile-cta-row's own media query,
          see style.css) — moved here from the sticky hero's own .bottom-section: that hero
          is pinned via position:sticky (home-theme.css's "curtain reveal") while proof-block
@@ -109,6 +122,14 @@
       <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary">Chci zachytit náš příběh</a>
     </div>
   </div>
+  <!-- mobile-only: "Ty nejkrásnější..." repositioned here (after the button, right before
+       the then/now photos it actually introduces) — on desktop #proof-intro-desktop above
+       already fills this role; hidden here so desktop doesn't show it twice. -->
+  <section class="section-label" id="proof-intro-mobile-2" data-reveal>
+    <div class="wrap">
+      <h2>Ty nejkrásnější momenty vašeho života nevyblednou</h2>
+    </div>
+  </section>
   <div class="proof-block-row">
     <div class="proof-photo-col">
       <div class="proof-photo">

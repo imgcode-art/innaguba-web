@@ -315,7 +315,11 @@
   .hc-mobile-slideshow.at-end .hc-mobile-nav-next { opacity:0; pointer-events:none; }
   .hero-lead { max-width:640px; margin:0 auto var(--space-3); font-size: var(--fs-body); font-weight:400; line-height:1.5; color: var(--ink-subheading); text-align:left; }
   .hero-note { max-width:640px; margin:0 auto var(--space-4); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:left; }
-  .hc-mobile-cta-row { margin-top: var(--space-3); text-align:center; }
+  /* margin-top:0 — was var(--space-3), spacing this row below the .proof-lead paragraph
+     that used to sit above it in the same .proof-lead-row; that text moved up to
+     #proof-intro-mobile, so this button is now .proof-lead-row's only child and needs no
+     top margin of its own (the gap above it is .proof-block's own top padding instead). */
+  .hc-mobile-cta-row { margin-top: 0; text-align:center; }
   .hero-cta-primary { transition: background .25s ease, color .25s ease, transform .25s ease; }
   .about-cta-btn.hero-cta-primary:hover { transform: scale(1.04); }
   @media (max-width:900px){
@@ -382,8 +386,27 @@
   /* proof-block already carries its own top gap (var(--space-7)/var(--space-6) below
      900px) for when it opens the homepage directly below the hero — stacking this
      section-label's own default var(--space-6) bottom padding on top of that doubled
-     the gap to the photos/stats row */
-  .section-label:has(+ .proof-block) { padding-bottom: 0; }
+     the gap to the photos/stats row. #proof-intro-desktop listed explicitly alongside
+     the :has() selector — it's visually "right before .proof-block" on desktop, but
+     #proof-intro-mobile (see below) now actually sits between them in the DOM, so the
+     :has() match alone no longer reaches it. */
+  .section-label:has(+ .proof-block),
+  #proof-intro-desktop { padding-bottom: 0; }
+  /* #proof-intro-desktop / #proof-intro-mobile: same heading slot right after the hero,
+     different sentence per viewport, same idea as .hc-eyebrow/.hc-mobile-slideshow
+     splitting the hero itself. Order swaps on mobile per direct instruction: "Děti
+     rostou..." reads first there (the hero's own copy of that line is hidden on mobile,
+     see .hc-split-stage), with "Ty nejkrásnější..." moved down to #proof-intro-mobile-2,
+     right before the photos it actually introduces, instead of sitting before the CTA
+     button like it used to. */
+  #proof-intro-mobile, #proof-intro-mobile-2 { display:none; }
+  @media (max-width:900px){
+    #proof-intro-desktop { display:none; }
+    #proof-intro-mobile, #proof-intro-mobile-2 { display:block; }
+    /* nested inside .proof-block, after its own top padding has already been spent on
+       .proof-lead-row above it — needs its own top gap instead of inheriting one. */
+    #proof-intro-mobile-2 { padding-top: var(--space-6); padding-bottom: 0; }
+  }
   /* only needed once this wraps to 2 lines (narrower than desktop) — applied unconditionally
      it was adding extra line-box height even on one line, making the gap to the rule below
      read bigger here than on every other section-label at desktop widths */
@@ -395,19 +418,16 @@
      stats between them - between the hero quote and "Tři cesty") ---------- */
   .proof-block { padding: var(--space-7) 0 0; }
   @media (max-width:900px){ .proof-block { padding-top: var(--space-6); } }
-  /* lead line + gallery link live in the wide pale band the curtain-reveal scroll exposes
-     above the photos/stats (see .hero-curtain-stack in home-theme.css). */
+  /* button lives in the wide pale band the curtain-reveal scroll exposes above the
+     photos/stats (see .hero-curtain-stack in home-theme.css). Text content that used to
+     live here (.proof-lead, "Děti rostou...") moved up to #proof-intro-mobile instead —
+     desktop never showed this row at all (its own min-width:901px rule below), and on
+     mobile the sentence now reads better as the section's own heading than as a quiet
+     paragraph sandwiched between two headings. */
   .proof-lead-row { text-align:center; margin-bottom: var(--space-7); }
-  .proof-lead { font-family: var(--serif); font-weight:500; font-size: var(--fs-heading); line-height:1.2; color: var(--ink-subheading); max-width:640px; margin:0 auto var(--space-3); }
   .proof-lead-row .proof-teaser-link { margin-top:0; }
-  /* desktop hero's own H1 (.hc-split-content .hc-eyebrow) now carries this exact sentence —
-     keeping it here too, one scroll-tick below, read as a glitchy repeat rather than
-     emphasis. Mobile hero carries a different message (its video's own title cards), so
-     this is still the only place that line appears there — stays visible below 901px.
-     Hiding the whole row, not just .proof-lead itself — .hc-mobile-cta-row right below it
-     is already hidden at this width (its own rule, further down), so with .proof-lead also
-     gone the row had nothing left in it but was still reserving its own margin-bottom:
-     var(--space-7) as a block of dead white space in the curtain-reveal. */
+  /* Hiding the whole row — mobile-only to begin with (desktop's own lead-in text lives in
+     .hc-split-content .hc-eyebrow instead), now holding only the CTA button. */
   @media (min-width:901px){ .proof-lead-row { display:none; } }
   /* var(--space-9) minus a 16px optical nudge — box-model-equal to .proof-stats-col's own
      margin-bottom (the gap from the stats block down to the photo) read as visibly bigger
