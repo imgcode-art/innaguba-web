@@ -409,15 +409,25 @@
      splitting the hero itself. Order swaps on mobile per direct instruction: "Děti
      rostou..." reads first there (the hero's own copy of that line is hidden on mobile,
      see .hc-split-stage), with "Ty nejkrásnější..." moved down to #proof-intro-mobile-2,
-     right before the photos it actually introduces, instead of sitting before the CTA
+     ordered to sit right before the photos it actually introduces (after the stats block,
+     see .proof-stats-col/.proof-block-row below), instead of sitting before the CTA
      button like it used to. */
   #proof-intro-mobile, #proof-intro-mobile-2 { display:none; }
   @media (max-width:900px){
     #proof-intro-desktop { display:none; }
     #proof-intro-mobile, #proof-intro-mobile-2 { display:block; }
-    /* nested inside .proof-block, after its own top padding has already been spent on
-       .proof-lead-row above it — needs its own top gap instead of inheriting one. */
-    #proof-intro-mobile-2 { padding-top: var(--space-6); padding-bottom: 0; }
+    /* lives inside .proof-block-row now, ordered (see .proof-stats-col's order:-2 below)
+       to land right after the stats block instead of after .proof-lead-row — the stats
+       block's own margin-bottom already supplies the gap above it, so no padding-top of
+       its own is needed here; padding-bottom stays 0, same tight relationship to the
+       photos right below it as before. */
+    #proof-intro-mobile-2 { order:-1; padding-top:0; padding-bottom:0; }
+    /* .section-label .wrap's shared divider (var(--line), 14% black) reads fine against
+       the other section-labels sitewide, but here it sits right on the plain paper
+       background with nothing else around it to anchor it, and washed out to the point of
+       being invisible per direct feedback — darkened just for this instance instead of
+       the shared var(--line) value everywhere else uses. */
+    #proof-intro-mobile-2 .wrap { border-bottom-color: rgba(17,17,17,0.3); }
   }
   /* only needed once this wraps to 2 lines (narrower than desktop) — applied unconditionally
      it was adding extra line-box height even on one line, making the gap to the rule below
@@ -447,9 +457,12 @@
      descenders) carries below its glyph, so the same technical gap reads as more empty
      space on this side. Trimmed here instead of padding the other gap out to match it. */
   @media (max-width:900px){ .proof-lead-row { margin-bottom: calc(var(--space-9) - var(--space-2)); } }
-  /* mobile/tablet: proofs first, then both photos, then the quote — order:-1 pulls the
-     stats block ahead of the two photo-cols regardless of their HTML order (which stays
-     photo/stats/photo, since that's what the desktop row layout needs) */
+  /* mobile/tablet: proofs first (own section, gap below via margin-bottom), then the
+     "Ty nejkrásnější..." heading + its divider line, then both photos — order:-2 pulls
+     the stats block ahead of both the heading (order:-1, see #proof-intro-mobile-2 above)
+     and the two photo-cols, regardless of their HTML order (which stays heading/photo/
+     stats/photo, since that's what the desktop row layout needs — heading itself is
+     display:none there) */
   .proof-block-row { display:flex; flex-direction:column; }
   .proof-photo-col { margin-bottom: var(--space-4); position:relative; }
   /* mobile: same card-stack trick as the portfolio cards — "now" (DOM-later) rides up
@@ -484,7 +497,7 @@
      is unaffected — that one stays full color. */
   .proof-photo:not(.proof-photo-now) img { filter: contrast(0.8) brightness(1.06); }
   .proof-photo-caption { margin-top: var(--space-2); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); text-align:center; }
-  .proof-stats-col { order:-1; margin-bottom: var(--space-9); }
+  .proof-stats-col { order:-2; margin-bottom: var(--space-9); }
   .proof-stats { list-style:none; max-width:460px; margin:0 auto; }
   .proof-stats li { display:flex; flex-direction:column; gap:4px; }
   .proof-stats li strong { font-size: var(--fs-display); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); line-height:1.15; }
@@ -1637,12 +1650,13 @@
      it, for the same reason that block itself sits at the end: last same-specificity
      declaration wins. */
   .page-header h1, .about-intro h1 { font-weight: 500; }
-  /* .pg .pcard h4 deliberately excluded here — kept bold (own rule above), per direct
-     instruction: it needs to stand out from the card's body text, especially on mobile
-     where the regular-weight serif at this size read as too quiet next to the paragraph
-     below it. */
+  /* .pg .pcard h4 / .pb-content h3 deliberately excluded here — kept bold (own rules
+     above), per direct instruction: card titles need to stand out from the card's body
+     text, especially on mobile where the regular-weight serif at this size read as too
+     quiet next to the paragraph below it. Ceník's .pb-content h3 now matches the same
+     treatment as the gallery cards. */
   .step h4, .price-teaser-item h4,
-  .why-me-card h3, .pb-content h3, .story-text h3, .legal-content h3,
+  .why-me-card h3, .story-text h3, .legal-content h3,
   .belief-list li, .contact-info-name, .gallery-soon h2 {
     font-weight: 400;
   }

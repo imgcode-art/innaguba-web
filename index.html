@@ -122,15 +122,18 @@
       <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary">Chci zachytit náš příběh</a>
     </div>
   </div>
-  <!-- mobile-only: "Ty nejkrásnější..." repositioned here (after the button, right before
-       the then/now photos it actually introduces) — on desktop #proof-intro-desktop above
-       already fills this role; hidden here so desktop doesn't show it twice. -->
-  <section class="section-label" id="proof-intro-mobile-2" data-reveal>
-    <div class="wrap">
-      <h2>Ty nejkrásnější momenty vašeho života nevyblednou</h2>
-    </div>
-  </section>
+  <!-- mobile-only: "Ty nejkrásnější..." lives inside .proof-block-row now (ordered via CSS,
+       see .proof-stats-col/#proof-intro-mobile-2 order rules in style.css) so it reliably
+       sits right before the then/now photos it introduces, with the stats block (.proof-stats-col)
+       pulled ahead of it as its own section-like block, gap and all — on desktop
+       #proof-intro-desktop above already fills this heading's role; hidden here so desktop
+       doesn't show it twice. -->
   <div class="proof-block-row">
+    <section class="section-label" id="proof-intro-mobile-2" data-reveal>
+      <div class="wrap">
+        <h2>Ty nejkrásnější momenty vašeho života nevyblednou</h2>
+      </div>
+    </section>
     <div class="proof-photo-col">
       <div class="proof-photo">
         <img src="images/home-proof-photo-then.webp?v=1" width="1400" height="933" alt="Rodina, kterou fotím už 12 let - tehdy" loading="lazy" data-parallax-depth="1">
