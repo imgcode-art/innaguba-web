@@ -1218,7 +1218,6 @@
      border treatment below (padding + negative-margin photo) is built for the
      plain stacked-block cards and would conflict with .pb-featured's flex row. */
   .price-bento-3 .pb-card.pb-featured { border:1px solid var(--line); padding:0; }
-  .price-bento-3 .pb-card.pb-featured.pb-standout { border-color: var(--ink); }
   .pb-card { display:flex; flex-direction:column; min-width:0; }
   .pb-card.pb-featured { grid-column: 1 / -1; flex-direction:row; align-items:stretch; gap: var(--space-7); }
   /* position:absolute on the img keeps it out of the height calculation, so .pb-photo's own
@@ -1261,9 +1260,8 @@
   .pb-badge { position:absolute; top: var(--space-3); left: var(--space-3); z-index:2; display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink); background: var(--paper); border-radius:20px; padding:6px 14px; }
   .price-bento-3 .pb-card:not(.pb-recommended):not(.pb-featured) { border:1px solid var(--line); padding: var(--space-4); }
   .price-bento-3 .pb-card:not(.pb-recommended):not(.pb-featured) .pb-photo { margin-top: calc(var(--space-4) * -1); margin-left: calc(var(--space-4) * -1); margin-right: calc(var(--space-4) * -1); width: calc(100% + var(--space-4) * 2); }
-  .pb-recommended { border:1px solid var(--ink); padding: var(--space-4); }
+  .pb-recommended { border:1px solid var(--line); padding: var(--space-4); }
   .pb-recommended .pb-photo { margin-top: calc(var(--space-4) * -1); margin-left: calc(var(--space-4) * -1); margin-right: calc(var(--space-4) * -1); width: calc(100% + var(--space-4) * 2); }
-  @media (min-width:901px){ .pb-recommended { transform: scale(1.03); } }
   /* All 5 cards' photos crop to a 1/1 square on mobile (down from the 4/5 portrait
      used on desktop) — at phone widths 4/5 ran nearly the full viewport height on
      its own, pushing the card's text and CTA button below the fold until the next
@@ -1349,7 +1347,7 @@
      anyway — the stack only ever shows one card at a time, already titled on its own. */
   .cenik-category { display:none; }
   @media (min-width:901px){
-    .cenik-category { display:block; grid-column: 1 / -1; font-family: var(--serif); font-size: var(--fs-display); font-weight:700; letter-spacing:-0.025em; color: var(--ink-heading); padding-bottom: var(--space-2); border-bottom: 1px solid var(--line); margin-bottom: calc(-1 * var(--space-9) + var(--space-4)); }
+    .cenik-category { display:block; grid-column: 1 / -1; font-family: var(--serif); font-size: var(--fs-display); font-weight:700; letter-spacing:-0.025em; color: var(--ink-heading); padding-bottom: var(--space-2); margin-bottom: calc(-1 * var(--space-9) + var(--space-4)); }
     .cenik-category-2 { margin-top: calc(-1 * var(--space-9) + var(--space-4)); }
   }
 
@@ -1379,12 +1377,6 @@
     .pb-card .pb-photo { position:relative; flex:1.1; order:2; margin-bottom:0; aspect-ratio:auto; }
     .pb-card .pb-photo img, .pb-card .pb-photo video { position:absolute; inset:0; }
     .pb-card .pb-content { flex:0 0 calc((100% - 2 * var(--space-7)) / 3); order:1; min-height:438px; padding: var(--space-4) 0 var(--space-4) var(--space-4); }
-
-    /* a full-width row can't grow 3% wider without overflowing .wrap's own edges (the
-       old scale(1.03) only worked back when this card was one of 3 narrower grid
-       columns with room to grow into) — the ink border + shadow carry the
-       bestseller's emphasis instead now */
-    .pb-recommended { transform:none; }
   }
 
   /* Everything below (price typography, badge fill, button shapes) now runs
@@ -1405,22 +1397,13 @@
      just resting instead of on hover */
   .pb-badge { background: var(--ink); color: var(--paper); border-radius:2px; }
 
-  /* the bestseller card: a real shadow (same recipe as .about-cta-btn, the site's
-     one other "lifted" surface) — box-shadow doesn't take up layout space, so this
-     is free on mobile too */
-  .pb-recommended { box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.25); }
-
   /* every card gets a quiet hover lift — purely a desktop pointer affordance, so it's
-     gated on hover:hover too (no accidental sticky "lifted" state on touch). No
-     scale() on the bestseller card any more — every card is now a full-width row at
-     desktop (see the horizontal-layout block above), and a row can't grow 3% wider
-     without overflowing .wrap's own edges the way it could back when it was one of
-     3 narrower grid columns with room to grow into; the deeper shadow alone carries
-     the lift now. */
+     gated on hover:hover too (no accidental sticky "lifted" state on touch). All 5
+     cards share one plain frame now — the badge + dark CTA button alone carry the
+     bestseller's emphasis, instead of also differing the border/shadow/scale. */
   @media (hover:hover){
     .pb-card { transition: transform .25s ease, box-shadow .25s ease; }
     .pb-card:hover { transform: translateY(-4px); box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.18); }
-    .pb-recommended:hover { transform: translateY(-4px); box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.3); }
   }
 
   /* the recommended package and the video card's own CTA become the filled buttons
