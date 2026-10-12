@@ -844,10 +844,13 @@
      own background, so it reads as one cinematic banner instead of a boxed thumbnail. */
   /* margin-top (not more padding/darker scrim on the video itself — tried that, made the
      video unreadable) gives a genuine solid-black strip above the video, no video in it
-     at all, echoing the plain black .closing.dark-panel already has below the form
-     (its own padding-bottom, home-theme.css) — same black, just not video dimmed into
-     looking black. */
-  .closing-video-stage { position:relative; overflow:hidden; width:100vw; left:50%; margin-left:-50vw; margin-top: var(--space-6); padding: var(--space-9) 0; }
+     at all, echoing the plain black .closing.dark-panel already has below the form. Sized
+     to actually match that bottom black, not guessed: .dark-panel::before only starts
+     painting black 110px into .closing's own 150px top padding (the entry transition,
+     home-theme.css), so 40px of that top padding already reads as plain black before this
+     margin even starts — var(--space-3) (24px) on top of that lands on 64px total, the
+     same figure as .closing.dark-panel's own padding-bottom below the form. */
+  .closing-video-stage { position:relative; overflow:hidden; width:100vw; left:50%; margin-left:-50vw; margin-top: var(--space-3); padding: var(--space-9) 0; }
   .closing-video-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   /* dims the video so white text sits on it reliably regardless of which frame is
      playing — var(--paper) is #111111 here (dark-panel's own ink), not an arbitrary
