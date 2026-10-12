@@ -858,7 +858,7 @@
      black, so it reads as "the panel's own colour, showing through" rather than a
      generic tint. */
   .closing-video-scrim { position:absolute; inset:0; background: var(--paper); opacity:0.55; }
-  .closing-video-stage .top { position:relative; max-width: 720px; margin:0 auto; padding: 0 max(var(--space-5), calc((100vw - var(--max-w)) / 2)); }
+  .closing-video-stage .top { position:relative; max-width: 900px; margin:0 auto; padding: 0 max(var(--space-5), calc((100vw - var(--max-w)) / 2)); }
   /* .closing-title/.closing-note/.closing-form-lead's own color (--ink-heading/--ink-body)
      is translucent white — reads fine against a flat dark-panel background, but against a
      busy, varying-brightness video even behind the scrim it let video detail show through
@@ -1162,10 +1162,23 @@
      every photo inside moves together, so the spacing between them literally never changes —
      only the series as a whole floats a few px as you scroll past it. */
   .pgg { columns:3; column-gap: var(--space-2); transform: translateY(var(--float-y, 0px)); will-change:transform; }
+  /* a series can hold several .pgg blocks stacked (grouping separate photo sets within
+     one series) instead of a single block — without this, those stacked blocks touched
+     directly since only .pgg-item (within a block) and .pgg-series (between series) had
+     a margin defined. */
+  .pgg + .pgg { margin-top: var(--space-2); }
   .pgg-item { display:block; margin-bottom: var(--space-2); break-inside:avoid; overflow:hidden; transform: translateZ(0); }
   .pgg-item img { display:block; width:100%; }
+  /* lets one standout photo break out of the 3-column flow as a full-width banner —
+     column-span:all pulls it out of the column balancing entirely, so the other items
+     in the same .pgg just re-balance into columns around it without any markup change. */
+  .pgg-item.pgg-feature { column-span: all; }
+  /* once a .pgg's feature item is pulled out, only 2 photos are left to share the row —
+     3 columns would leave one empty, so this group gets 2 columns instead. */
+  .pgg.pgg-duo { columns: 2; }
   @media (max-width:900px){
     .pgg{columns:2; column-gap: var(--space-1);}
+    .pgg + .pgg { margin-top: var(--space-1); }
     .pgg-item{margin-bottom: var(--space-1);}
     .pgg-series:not(:last-of-type) { margin-bottom:0; }
     .pgg-series:not(:first-child)::before {
@@ -1178,6 +1191,7 @@
     }
   }
   @media (max-width:560px){ .pgg{columns:1;} }
+  @media (max-width:560px){ .pgg.pgg-duo{columns:1;} }
   /* unified with .proof-teaser-link's sitewide "secondary button" treatment (same
      uppercase/tracked/underline look as the CTA links in pricing cards etc.) — used to
      be its own plain, non-uppercase underlined link with a literal "←" character, which
@@ -1218,6 +1232,10 @@
   .pb-featured .pb-content { flex:0 0 calc((100% - 2 * var(--space-7)) / 3); order:1; min-height:438px; padding: var(--space-4) 0 var(--space-4) var(--space-4); }
   .pb-photo { position:relative; aspect-ratio:4/5; overflow:hidden; margin-bottom: var(--space-4); }
   .pb-photo img, .pb-photo video { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
+  /* Rodinné Maxi's source photo runs noticeably darker/moodier than the other 4 package
+     photos (all light, airy) — lifts it toward that shared tone instead of standing out
+     as the one dark card. */
+  .pb-photo img.pb-lighten { filter: contrast(1.05) brightness(1.22) saturate(1.05); }
   /* Rodinné video's <video> sits inside the mobile sticky card-stack (see the
      .price-bento-3 .pb-card.pb-featured rule below) — unlike the other cards' plain
      <img>, a <video> decodes on its own thread, and without its own stable compositor
@@ -1331,7 +1349,7 @@
      anyway — the stack only ever shows one card at a time, already titled on its own. */
   .cenik-category { display:none; }
   @media (min-width:901px){
-    .cenik-category { display:block; grid-column: 1 / -1; font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); padding-bottom: var(--space-2); border-bottom: 1px solid var(--line); margin-bottom: calc(-1 * var(--space-9) + var(--space-4)); }
+    .cenik-category { display:block; grid-column: 1 / -1; font-family: var(--serif); font-size: var(--fs-display); font-weight:700; letter-spacing:-0.025em; color: var(--ink-heading); padding-bottom: var(--space-2); border-bottom: 1px solid var(--line); margin-bottom: calc(-1 * var(--space-9) + var(--space-4)); }
     .cenik-category-2 { margin-top: calc(-1 * var(--space-9) + var(--space-4)); }
   }
 
