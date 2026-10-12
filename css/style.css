@@ -1023,9 +1023,10 @@
   }
   /* font-weight:400 + --ink-heading (softened black), not bold pure --ink — matches the
      softer tone of .about-cta-btn elsewhere instead of reading as the loudest thing on
-     the page. align-self:flex-start keeps it its own intrinsic size instead of
-     stretching full-width like every other child of the flex column above. */
-  .cf-submit { align-self:flex-start; display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink-heading); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink-heading); cursor:pointer; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+     the page. align-self:center (not flex-start) per direct feedback — left-aligned sat
+     oddly off to one side under the full-width field groups above it; centered reads as
+     the form's own closing anchor instead. */
+  .cf-submit { align-self:center; display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink-heading); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink-heading); cursor:pointer; transition: background .2s ease, color .2s ease, border-color .2s ease; }
   .cf-submit:hover { background: var(--ink-body); border-color: var(--ink-body); color:#fff; }
   /* hover's own fill/text above is hardcoded for the light panel (near-black bg -> white
      text); on a dark-panel --ink-body is already the light tone, so hover's background
