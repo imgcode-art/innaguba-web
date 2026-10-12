@@ -848,7 +848,9 @@
      playing — var(--paper) is #111111 here (dark-panel's own ink), not an arbitrary
      black, so it reads as "the panel's own colour, showing through" rather than a
      generic tint. */
-  .closing-video-scrim { position:absolute; inset:0; background: var(--paper); opacity:0.55; }
+  /* darkened further per direct feedback — wanted this reading as close to the plain
+     dark-panel black below the form as the video itself still allows. */
+  .closing-video-scrim { position:absolute; inset:0; background: var(--paper); opacity:0.8; }
   .closing-video-stage .top { position:relative; max-width: 720px; margin:0 auto; padding: 0 max(var(--space-5), calc((100vw - var(--max-w)) / 2)); }
   /* .closing itself is already dark-panel's own background — hiding the video here just
      lets that show through instead, same as every other reduced-motion video fallback
