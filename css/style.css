@@ -1655,13 +1655,24 @@
 
   /* ---------- Contact page (business card + photo) ---------- */
   .contact-info { display:flex; align-items:center; gap: var(--space-6); padding: 0; }
-  .contact-info-photo { flex:0 0 calc((100% - var(--space-6)) / 2); aspect-ratio:3/2; overflow:hidden; }
-  .contact-info-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
+  /* position:relative + overflow:hidden is the container half of the shared scroll-drift
+     setup (see initScrollDrift in script.js) — same pattern as .ab-hero-photo, drift
+     instead of the sitewide hover-zoom per direct instruction (this photo read busy with
+     a zoom on hover). */
+  .contact-info-photo { position:relative; flex:0 0 calc((100% - var(--space-6)) / 2); aspect-ratio:3/2; overflow:hidden; }
+  .contact-info-photo img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; filter: contrast(1.05); transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
+  @media (prefers-reduced-motion: reduce) { .contact-info-photo img { position:static; height:100%; transform:none; } }
   .contact-info-text { flex:1; max-width:420px; }
-  .contact-info-name { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-3); }
-  .contact-info-line { font-size: var(--fs-body); line-height:1.75; color: var(--ink-body); }
-  .contact-info-line a { color: inherit; font-weight:inherit; transition: color 0.2s ease; }
-  .contact-info-line a:hover { color: var(--red); }
+  /* Practical ways to reach her (address/phone/email) — icon + larger, clearly clickable
+     line each, kept visually separate from the legal/business-registry line below so the
+     two don't read as one flat wall of equal-weight text (direct feedback: page felt
+     "scattered"). */
+  .contact-info-list { list-style:none; margin:0 0 var(--space-5); padding:0; display:flex; flex-direction:column; gap: var(--space-3); }
+  .contact-info-list li { display:flex; align-items:center; gap: var(--space-3); }
+  .contact-info-list a { font-size: var(--fs-body); font-weight:500; color: var(--ink-subheading); transition: color 0.2s ease; }
+  .contact-info-list a:hover { color: var(--red); }
+  .contact-info-icon { width:20px; height:20px; flex-shrink:0; fill:none; stroke: var(--red); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+  .contact-info-legal { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); opacity:0.6; }
   /* 3/2, not the source photo's own native ~2/1 — that read as an odd, overly
      panoramic strip next to the 3/2 every other full-width mobile photo on the site
      uses (.story-photo-wide, .memory-photo, .reassure-video, .ab-hero-photo), per
@@ -1718,13 +1729,14 @@
      JS-driven scroll-drift ("parallax") effect, and no hover-zoom at all (removed; the two
      together read as too busy). .reassure-video isn't here either — scroll-drift instead
      of hover-zoom, same reasoning, see its own rule near .reassure-video above. .ab-hero-photo
-     moved to that same scroll-drift group too (see its own rule, "O mně" section above). */
+     moved to that same scroll-drift group too (see its own rule, "O mně" section above).
+     .contact-info-photo moved to scroll-drift too, same reasoning — see its own rule in the
+     "Contact page" section above. */
   .proof-photo-2 img,
   .rg .card .thumb img,
   .pb-photo img,
   .pb-photo video,
-  .story-photo:not(.story-photo-drift) img,
-  .contact-info-photo img {
+  .story-photo:not(.story-photo-drift) img {
     transition: transform .6s cubic-bezier(0.25,1,0.5,1);
   }
   @media (hover:hover) and (pointer:fine) {
@@ -1732,8 +1744,7 @@
     .rg .card .thumb:hover img,
     .pb-photo:hover img,
     .pb-photo:hover video,
-    .story-photo:not(.story-photo-drift):hover img,
-    .contact-info-photo:hover img {
+    .story-photo:not(.story-photo-drift):hover img {
       transform: scale(1.06);
     }
   }
@@ -1799,7 +1810,7 @@
      treatment as the gallery cards. */
   .step h4, .price-teaser-item h4,
   .why-me-card h3, .story-text h3, .legal-content h3,
-  .belief-list li, .contact-info-name, .gallery-soon h2 {
+  .belief-list li, .gallery-soon h2 {
     font-weight: 400;
   }
   .hero-lead, .reassure-lead, .memory-body p:last-child,
