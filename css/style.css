@@ -1234,7 +1234,7 @@
   /* Rodinné Maxi's source photo runs noticeably darker/moodier than the other 4 package
      photos (all light, airy) — lifts it toward that shared tone instead of standing out
      as the one dark card. */
-  .pb-photo img.pb-lighten { filter: contrast(1.05) brightness(1.22) saturate(1.05); }
+  .pb-photo img.pb-lighten { filter: contrast(1.05) brightness(1.15); }
   /* Rodinné video's <video> sits inside the mobile sticky card-stack (see the
      .price-bento-3 .pb-card.pb-featured rule below) — unlike the other cards' plain
      <img>, a <video> decodes on its own thread, and without its own stable compositor
