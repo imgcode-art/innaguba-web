@@ -857,6 +857,10 @@
     .closing-row { grid-template-columns:1fr; gap: var(--space-5); }
     .closing-row .closing-photo { order:-1; }
     .closing-row .top { text-align:center; }
+    /* .contact-form's calc() width above assumes the 460px photo column it's matching
+       is still there — once .closing-row stacks to one column (just above), that photo
+       column is gone, so the form goes full width too instead of a now-nonsensical calc. */
+    .contact-form { max-width:none; }
   }
   @media (min-width:901px){ .closing-secondary-link { display:block; width:fit-content; margin:var(--space-4) auto 0; } }
   .closing-row .closing-secondary-link { margin-left:0; margin-right:0; }
@@ -955,7 +959,13 @@
   }
 
   /* ---------- Contact form ---------- */
-  .contact-form { margin: var(--space-5) auto 0; max-width:480px; display:flex; flex-direction:column; gap: var(--space-4); text-align:left; }
+  /* Width matches .closing-row's own left column exactly (100% minus the 460px photo
+     column and its var(--space-6) gap) so the form's left AND right edges line up with
+     the headline/CTA column above it instead of floating centered in the full-width
+     dark panel, which read as disconnected from everything above it. Left-aligned (no
+     auto margin) for the same reason — .closing-row .top is left-aligned at this width
+     too. Falls back to full width once .closing-row itself stacks to one column, below. */
+  .contact-form { margin: var(--space-5) 0 0; max-width:calc(100% - 460px - var(--space-6)); display:flex; flex-direction:column; gap: var(--space-4); text-align:left; }
   .cf-row { display:flex; gap: var(--space-3); }
   .cf-field { display:flex; flex-direction:column; gap: 6px; flex:1; }
   .cf-field > label { font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color: var(--ink-heading); }
@@ -992,7 +1002,9 @@
   /* font-weight:400 + --ink-heading (softened black), not bold pure --ink — matches the
      softer tone of .about-cta-btn elsewhere instead of reading as the loudest thing on
      the page. */
-  .cf-submit { align-self:center; display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink-heading); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink-heading); cursor:pointer; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+  /* flex-start, not center — the form is now left-aligned to match the column above it
+     (see .contact-form), so a centered button sat off-axis from every field above it. */
+  .cf-submit { align-self:flex-start; display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink-heading); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink-heading); cursor:pointer; transition: background .2s ease, color .2s ease, border-color .2s ease; }
   .cf-submit:hover { background: var(--ink-body); border-color: var(--ink-body); color:#fff; }
   /* hover's own fill/text above is hardcoded for the light panel (near-black bg -> white
      text); on a dark-panel --ink-body is already the light tone, so hover's background
@@ -1004,7 +1016,7 @@
   /* empty until a submit attempt sets its text — :empty removes it from the flex layout
      entirely so it doesn't add its own gap + margin-top as dead space under the button */
   .cf-status:empty { display:none; }
-  .cf-status { text-align:center; font-size: var(--fs-body); margin-top: var(--space-2); }
+  .cf-status { text-align:left; font-size: var(--fs-body); margin-top: var(--space-2); }
   .cf-status[data-state="error"] { color:#a13a3a; }
   .cf-divider { display:flex; align-items:center; gap: var(--space-3); margin: var(--space-5) auto; max-width:480px; }
   .cf-divider::before, .cf-divider::after { content:""; flex:1; height:1px; background: var(--line); }
