@@ -219,6 +219,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
       const message = form.querySelector('[name="zprava"]').value.trim();
       const sluzba = form.querySelector('[name="sluzba"]')?.value;
       const termin = form.querySelector('[name="termin"]')?.value;
+      const misto = form.querySelector('[name="misto"]')?.value;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Odesílám…';
@@ -236,6 +237,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
             email,
             'o co má zájem': sluzba || '',
             'kdy chce fotit': termin || '',
+            'kde chce fotit': misto || '',
             zprava: message,
           }),
         });
