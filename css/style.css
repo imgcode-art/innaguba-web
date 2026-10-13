@@ -709,9 +709,8 @@
      - left column pinned (sticky) on desktop: the section heading in the standard
        section-heading style, a one-line intro and the main CTA, so the CTA stays in view
        for the whole section;
-     - right column: the steps as rows divided by the same hairline as the FAQ, each with
-       an oversized serif numeral in the proof-stats ("12 let / 900+") style and a title
-       at the card-title size (--fs-heading);
+     - right column: the steps as rows (spacing only, no dividers), each a
+       small italic numeral leading a title at the card-title size (--fs-heading);
      - the step nearest the middle of the screen is lit, the rest dimmed (script.js sets
        .is-active), the same "one at a time" focus as the reference.
      Mobile: one column, nothing pinned, CTA after the steps. ---------- */
@@ -722,20 +721,29 @@
   .process-intro { margin-top: var(--space-4); max-width:380px; font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
   .process-cta-desktop { margin-top: var(--space-6); }
   .process-cta-mobile { display:none; }
-  .process-steps { list-style:none; border-top:1px solid var(--line); }
-  .process-step { display:grid; grid-template-columns: 96px minmax(0,1fr); column-gap: var(--space-4); padding: var(--space-7) 0; border-bottom:1px solid var(--line); transition: opacity .5s ease; }
-  .process-num { font-family: var(--serif); font-weight:400; font-size: var(--fs-display); line-height:0.9; letter-spacing:-0.01em; color: var(--ink-heading); }
+  .process-steps { list-style:none; }
+  /* align-items:baseline puts the numeral on the title's own baseline (it sat visibly
+     lower when top/stretch-aligned, since the two are different sizes) */
+  .process-step { display:grid; grid-template-columns: 32px minmax(0,1fr); align-items:baseline; column-gap: var(--space-2); padding: var(--space-4) 0; }
+  /* numeral at the title's own size and line-height, in italic and a quieter tone, so it
+     reads as part of the title ("1  Najdeme termín") rather than a separate oversized
+     figure floating beside it — align-items:baseline on .process-step keeps the two on
+     one line. Lining figures so 1–4 share one height (Cormorant's default old-style 1 is
+     x-height-small and 3/4 drop below the baseline). */
+  .process-num { font-family: var(--serif); font-style:italic; font-weight:400; font-size: var(--fs-heading); line-height:1.2; font-variant-numeric: lining-nums; color: var(--ink-body); opacity:.7; }
   .process-text h3 { font-family: var(--serif); font-weight:400; font-size: var(--fs-heading); line-height:1.2; letter-spacing:-0.01em; color: var(--ink-subheading); }
   .process-text p { margin-top: var(--space-2); max-width:460px; font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
-  .js-process-focus .process-step { opacity:0.3; }
-  .js-process-focus .process-step.is-active { opacity:1; }
+  /* dims the step's content (numeral + text) */
+  .process-num, .process-text { transition: opacity .5s ease; }
+  .js-process-focus .process-step:not(.is-active) .process-num,
+  .js-process-focus .process-step:not(.is-active) .process-text { opacity:0.3; }
   @media (max-width:900px){
     .steps-section { padding: var(--space-9) 0 var(--space-7); }
     .process-grid { grid-template-columns: 1fr; }
     .process-aside { position:static; margin-bottom: var(--space-5); }
     .process-cta-desktop { display:none; }
     .process-cta-mobile { display:flex; justify-content:center; margin-top: var(--space-6); }
-    .process-step { grid-template-columns: 56px minmax(0,1fr); column-gap: var(--space-3); padding: var(--space-5) 0; }
+    .process-step { grid-template-columns: 28px minmax(0,1fr); column-gap: var(--space-1); padding: var(--space-3) 0; }
   }
 
   /* ---------- Full photo banner ---------- */
