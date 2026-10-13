@@ -566,3 +566,19 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // oversizes the img only under the same hover+pointer-fine media query this needs).
   initMouseParallax('.why-photo', 5);
 
+  // ---------- Footer "Nahoru": scroll back to the top without leaving a "#" in the URL.
+  // On long pages (the galleries run to ~17 000px) it first jumps instantly to within one
+  // screen of the top and only animates that last stretch — a smooth scroll across the
+  // whole page is slow and easily interrupted. Instant jump under prefers-reduced-motion. ----------
+  document.querySelectorAll('.to-top').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.scrollTo(0, 0);
+        return;
+      }
+      const nearTop = window.innerHeight * 1.5;
+      if (window.scrollY > nearTop) window.scrollTo(0, nearTop);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });

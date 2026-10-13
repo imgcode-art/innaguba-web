@@ -1072,6 +1072,19 @@
   .footer-bottom { display:flex; justify-content:space-between; padding-top: var(--space-2); border-top:1px solid var(--line); font-size: var(--fs-body); opacity:0.5; flex-wrap:wrap; gap: var(--space-1); }
   .footer-legal { display:flex; gap: var(--space-3); flex-wrap:wrap; }
   .footer-legal a { text-decoration:underline; }
+  /* "Nahoru" — the same chevron + label secondary button as .back ("Zpět na Galerii"),
+     sitting at the far right of the footer row; on narrower screens it drops to its own
+     right-aligned line so it doesn't squeeze the link columns. */
+  .footer-cols .to-top { margin-top:0; flex-shrink:0; align-items:flex-end; gap:12px; }
+  /* tall, thin arrow beside the label (rather than .back's small chevron) — a quiet "lift"
+     cue that reads as part of the footer's light-weight type, not as an icon button */
+  .footer-cols .to-top-icon { width:10px; height:28px; }
+  .footer-cols .to-top-icon path { stroke-width:1.2; }
+  /* desktop: pull it up so the label's middle sits on the first row of footer links
+     (Galerie / Instagram) rather than ~6px below it; the tall arrow then rises just above
+     that row, like the reference. */
+  @media (min-width:801px){ .footer-cols .to-top { margin-top:-6px; } }
+  @media (max-width:800px){ .footer-cols { flex-wrap:wrap; } .footer-cols .to-top { flex-basis:100%; justify-content:flex-end; } }
 
   /* Reveal-on-scroll: soft upward fade-in, triggered once per element by the
      IntersectionObserver in script.js (adds .in). The cubic-bezier is a slow-settling
