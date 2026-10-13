@@ -946,6 +946,12 @@
   .about-intro-text { max-width:none; }
   .about-intro p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); }
   .about-intro p + p { margin-top: var(--space-3); }
+  /* plain mid-sentence link, not .proof-teaser-link's standalone-line treatment — that
+     one's own margin-top/uppercase/tracking is built for a link sitting alone under a
+     paragraph (e.g. "Proč právě se mnou"), and applied inline here it pushed the whole
+     wrapped line down, opening a large gap mid-sentence. */
+  .about-intro-inline-link { color: var(--ink-body); text-decoration: underline; text-underline-offset: 3px; }
+  .about-intro-inline-link:hover { color: var(--ink); }
   @media (max-width:900px){ .about-intro-text { max-width:none; } }
   /* stacked to 1 column on mobile, so this gap becomes the vertical photo→text gap — matched
      to .about-intro p + p's own var(--space-3) instead of the desktop column-gap (var(--space-6)),
