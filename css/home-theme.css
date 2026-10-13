@@ -62,11 +62,13 @@ body { overflow-x: clip; }
    instead of splitting like every other entry transition. */
 .why-me-layout.dark-panel::before { top: 0; }
 
-/* homepage: .steps-section continues the same dark panel as #sluzby right above it —
-   one long panel, not two — so it gets a flush entry instead of the usual
-   light-gap-above treatment. #sluzby itself no longer qualifies: the memory-video
-   banner (rodinné album) now sits between it and .memory-section, so it gets the
-   standard entry transition below instead of flushing into memory-section's dark fill. */
+/* homepage: "Jak focení probíhá" (#sluzby) + its three steps continue the same dark
+   panel as .memory-section right above them — one long panel, not three separate
+   ones — so both get a flush entry instead of the usual light-gap-above treatment.
+   (The album video that briefly sat between them as its own banner now lives inside
+   .memory-section itself instead — see .memory-photo video in style.css — so this is
+   back to a direct memory-section → #sluzby adjacency.) */
+#sluzby.dark-panel::before,
 .steps-section.dark-panel::before { top: 0; }
 
 /* homepage only, desktop only: .proof-block breaks the "previous section owns no
@@ -103,13 +105,6 @@ body { overflow-x: clip; }
   #work { padding-top: 42px; }
   .steps-section.dark-panel + .section-label { padding-top: 42px; }
 }
-
-/* homepage: .memory-section now exits into the memory-video banner (rodinné album)
-   instead of flushing straight into #sluzby — same 64px-dark/86px-light exit split as
-   above, just applied to a plain .banner-video instead of a .section-label (it has no
-   padding-top of its own to trim, so this trims its margin-top instead). */
-.memory-section.dark-panel { padding-bottom: 64px; }
-.memory-section.dark-panel + .banner-video { margin-top: 86px; }
 @media (max-width:900px){
   .memory-section.dark-panel { padding-bottom: 48px; }
   .memory-section.dark-panel + .banner-video { margin-top: 42px; }

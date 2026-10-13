@@ -663,6 +663,11 @@
      it within that extra 30% without ever revealing an edge. */
   .memory-photo img { position:absolute; left:0; top:50%; width:100%; height:130%; object-fit:cover; transform: translateY(calc(-50% + var(--parallax-y, 0px))); will-change:transform; }
   @media (prefers-reduced-motion: reduce) { .memory-photo img { position:static; height:100%; transform:none; } }
+  /* the still photo here was swapped for the album video (previously its own full-bleed
+     banner right below this section — felt like a non sequitur, a static photo immediately
+     followed by a video of a different family). No parallax drift on this one: unlike the
+     photo, the video is already moving on its own, so it just fills the box plainly. */
+  .memory-photo video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .memory-body p { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); margin-bottom: var(--space-3); text-align:left; }
   .memory-body p:last-child { margin-bottom:0; font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); }
   @media (max-width:800px){ .memory-body-align { grid-template-columns:1fr; } .memory-body-align .memory-photo, .memory-body-align .memory-body { grid-column:1; padding-left:0; } .memory-photo { aspect-ratio:3/2; } }
