@@ -549,8 +549,22 @@
        which visually sits lower than the photo alone (the stats block, then, would appear
        centered against the photo+caption block instead of the photo, reading as "too low") */
     .proof-photo-caption { position:absolute; top:100%; left:0; right:0; }
-    .proof-stats-col { order:0; flex:0 0 auto; display:flex; flex-direction:column; align-items:center; margin-bottom:0; }
+    /* a bare fit-content column of text, flanked by two large photos, was reading as a
+       sparse leftover rather than its own deliberate block. Tried giving it a background
+       panel twice — solid ink (read as a funeral slab next to two warm, light photos)
+       and a lifted white card (the card metaphor itself was the problem: this site never
+       boxes content in cards outside the ceník pricing grid, so a boxed/shadowed block
+       here read as foreign chrome, not a decision). Dropping the box entirely and
+       leaning on scale instead — the numerals go well past --fs-display, the size cap
+       every other heading on the site respects, on purpose: at this size the typography
+       itself carries the same visual mass as the two photos, the way the rest of the
+       site already uses type and whitespace as its main tools rather than cards/borders.
+       align-self:stretch (not the row's own align-items:center) matches its height to
+       the photos' without disturbing how they themselves center. */
+    .proof-stats-col { order:0; flex:0 0 auto; align-self:stretch; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; margin-bottom:0; padding: 0 var(--space-6); }
     .proof-stats { max-width:none; width:fit-content; text-align:left; margin:0; }
+    .proof-stats li strong { font-size: clamp(48px, 4.8vw, 88px); }
+    .proof-stats li + li { margin-top: var(--space-4); }
   }
 
   /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */
