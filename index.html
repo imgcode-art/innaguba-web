@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=600">
+<link rel="stylesheet" href="css/style.css?v=608">
 <link rel="stylesheet" href="css/home-theme.css?v=35">
 <!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -68,8 +68,9 @@
 <div class="hero-curtain-stack">
 <section class="hero hero-collage">
   <div class="hc-split-stage">
-    <div class="hc-split-media" data-replay-on-enter style="background-image:url('images/hero/video-hero-poster.jpg?v=3')">
-      <video src="videos/video-hero.mp4?v=3" poster="images/hero/video-hero-poster.jpg?v=3" muted playsinline preload="auto" aria-label="Inna Guba — rodinné video"></video>
+    <div class="hc-split-media" data-replay-on-enter style="background-image:url('images/hero/video-hero-poster.jpg?v=4')">
+      <video src="videos/video-hero.mp4?v=4" poster="images/hero/video-hero-poster.jpg?v=4" muted playsinline preload="auto" aria-label="Inna Guba — rodinné video"></video>
+      <div class="hc-end-frame" aria-hidden="true"><img src="images/hero/video-hero-end.jpg?v=3" alt="" loading="eager" decoding="async"></div>
     </div>
     <div class="hc-split-content">
       <p class="hc-kicker">Rodinné foto a video v Brně a okolí</p>
@@ -247,29 +248,47 @@
   </div>
 </section>
 
-<section class="section-label dark-panel" id="sluzby" data-reveal>
-  <div class="wrap">
-    <h2>Jak focení probíhá</h2>
-  </div>
-</section>
-
-<section class="steps-section wrap dark-panel">
-  <div class="steps-list">
-    <div class="step" data-reveal>
-      <h4>1</h4>
-      <p>Najdeme čas, kdy nemusíte nikam spěchat.</p>
+<section class="steps-section wrap dark-panel" id="sluzby">
+  <div class="process-grid">
+    <div class="process-aside">
+      <h2>Jak focení probíhá</h2>
+      <p class="process-intro">Celé to má jen čtyři kroky. Každým z nich vás provedu.</p>
+      <div class="process-cta process-cta-desktop">
+        <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary">Chci zachytit náš příběh</a>
+      </div>
     </div>
-    <div class="step" data-reveal>
-      <h4>2</h4>
-      <p>Poradím s oblečením, místem i vším, co potřebujete vědět před focením.</p>
-    </div>
-    <div class="step" data-reveal>
-      <h4>3</h4>
-      <p>Nemusíte pózovat. Já vás provedu focením a zachytím to, co mezi vámi vzniká přirozeně.</p>
-    </div>
-    <div class="step" data-reveal>
-      <h4>4</h4>
-      <p>Do 3–4 týdnů vám pošlu osobní odkaz ke stažení: pečlivě upravené fotografie v barevné i černobílé verzi, nebo video sestříhané do příběhu.</p>
+    <ol class="process-steps">
+    <li class="process-step">
+      <span class="process-num" aria-hidden="true">01</span>
+      <div class="process-text">
+        <h3>Najdeme termín</h3>
+        <p>Kdy nemusíte nikam spěchat.</p>
+      </div>
+    </li>
+    <li class="process-step">
+      <span class="process-num" aria-hidden="true">02</span>
+      <div class="process-text">
+        <h3>Připravíme se</h3>
+        <p>Poradím s oblečením, místem i vším, co potřebujete vědět před focením.</p>
+      </div>
+    </li>
+    <li class="process-step">
+      <span class="process-num" aria-hidden="true">03</span>
+      <div class="process-text">
+        <h3>Užijeme si focení</h3>
+        <p>Nemusíte pózovat. Provedu vás focením a zachytím to, co mezi vámi vzniká přirozeně.</p>
+      </div>
+    </li>
+    <li class="process-step">
+      <span class="process-num" aria-hidden="true">04</span>
+      <div class="process-text">
+        <h3>Předám vám vaše vzpomínky</h3>
+        <p>Do 3–4 týdnů vám pošlu osobní odkaz ke stažení: pečlivě upravené fotografie v barevné i černobílé verzi, nebo video sestříhané do příběhu.</p>
+      </div>
+    </li>
+    </ol>
+    <div class="process-cta process-cta-mobile">
+      <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary">Chci zachytit náš příběh</a>
     </div>
   </div>
 </section>
@@ -415,7 +434,7 @@
   </div>
 </div>
 
-<script src="js/script.js?v=124" defer></script>
+<script src="js/script.js?v=132" defer></script>
 
 </body>
 </html>

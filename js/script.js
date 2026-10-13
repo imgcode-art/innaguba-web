@@ -135,10 +135,33 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // next time it scrolls back into view (page load counts as the first entry, same as
   // [data-scroll-video-play] above) — but unlike that one, every re-entry replays it, not
   // just the first. ----------
+  // Once it ends, the panel gets .is-ended, fading in the sharp still of that last frame
+  // (.hc-end-frame, style.css) — the clip's own final frame is soft. Cleared on replay.
+  // The still is a tighter square crop than the clip's frame: END_CROP is where it sits
+  // in the 1440×1426 frame (measured by aligning the photo onto the extracted last frame),
+  // and on 'ended' the video is scaled/moved so that square lands exactly where the
+  // still renders (both object-fit:cover in the same panel) while the still fades in.
+  const END_CROP = { x: 76, y: 11, size: 1290 }, CLIP_W = 1440, CLIP_H = 1426;
   document.querySelectorAll('[data-replay-on-enter] video').forEach(video => {
+    const panel = video.closest('[data-replay-on-enter]');
+    const resetPush = () => { video.classList.remove('hc-push'); video.style.transform = ''; };
+    video.addEventListener('ended', () => {
+      if (panel.querySelector('.hc-end-frame') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const W = panel.clientWidth, H = panel.clientHeight;
+        const v = Math.max(W / CLIP_W, H / CLIP_H);            // video's cover scale
+        const ps = Math.max(W, H);                              // still's rendered side (square, cover)
+        const k = ps / (END_CROP.size * v);
+        const cropLeft = (W - CLIP_W * v) / 2 + END_CROP.x * v;
+        const cropTop = (H - CLIP_H * v) / 2 + END_CROP.y * v;
+        const tx = (W - ps) / 2 - cropLeft * k, ty = (H - ps) / 2 - cropTop * k;
+        video.classList.add('hc-push');
+        video.style.transform = `translate(${tx}px, ${ty}px) scale(${k})`;
+      }
+      panel.classList.add('is-ended');
+    });
     const replayObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) { video.currentTime = 0; video.play().catch(() => {}); }
+        if (entry.isIntersecting) { panel.classList.remove('is-ended'); resetPush(); video.currentTime = 0; video.play().catch(() => {}); }
         else video.pause();
       });
     }, { threshold: 0.6 });
@@ -582,3 +605,28 @@ document.querySelectorAll('[data-row]').forEach(row => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+
+// ---------- "Jak focení probíhá": lights up the step currently being read
+// and dims the rest (style.css, .js-process-focus), so attention moves one step at a
+// time as you scroll — the derfleratelier.cz process-section idea. Skipped under
+// prefers-reduced-motion: all steps then just stay fully visible. ----------
+(() => {
+  const steps = [...document.querySelectorAll('.process-step')];
+  if (!steps.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('js-process-focus');
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    // the last step whose top has crossed 60 % of the screen height (the first step
+    // before any has) — "nearest the middle" never reached the last step, since the
+    // section ends before it can scroll that far up
+    const line = window.innerHeight * 0.6;
+    let best = steps[0];
+    steps.forEach(step => { if (step.getBoundingClientRect().top < line) best = step; });
+    steps.forEach(step => step.classList.toggle('is-active', step === best));
+  };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();

@@ -241,6 +241,25 @@
   }
   .hc-split-media { position:relative; overflow:hidden; flex:0 0 auto; width: var(--hc-split-size); height: var(--hc-split-size); background: #000 center/cover no-repeat; filter: sepia(0.3) saturate(0.85) contrast(1.08) brightness(0.97); }
   .hc-split-media video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  /* sharp still of the video's last frame (images/hero/video-hero-end.jpg, the original
+     photo the clip ends on — the clip's own final frame is soft). The photo is a tighter
+     square crop than the clip's 1080×1070 frame, so once the video ends script.js pushes
+     the video in (transform, .hc-push) until that crop fills the panel, while the photo
+     fades in over it — reads as the camera settling and pulling focus, with no jump or
+     stretched edges. .is-ended toggles the fade; cleared on replay. */
+  .hc-split-media video.hc-push { transition: transform .9s cubic-bezier(.25,.1,.25,1); transform-origin: 0 0; }
+  .hc-end-frame { position:absolute; inset:0; opacity:0; transition: opacity .9s ease .15s; pointer-events:none; }
+  .hc-end-frame img { width:100%; height:100%; max-width:none; object-fit:cover; }
+  .hc-split-media.is-ended .hc-end-frame { opacity:1; }
+  /* desktop, per derfleratelier.cz reference: video flush to the true left screen edge
+     (.hero-collage's own overflow-x:clip was clipping the 100vw breakout back to the
+     .wrap line — body already clips horizontal overflow, see home-theme.css) and filling
+     the whole first screen under the header instead of a fixed square, so there's no
+     strip of background below it. Floored at 560px for short windows. */
+  @media (min-width:901px){
+    .hero-collage { overflow-x:visible; }
+    .hc-split-media { width:50vw; height: max(560px, calc(100svh - var(--header-h, 72px))); }
+  }
   /* left-aligned (not centered) and pulled further from the video (space-9=90px, not
      space-6's 48px) — both per direct instruction, both matching how the reference's own
      text column sits well clear of its photo rather than butting up against it.
@@ -684,23 +703,40 @@
   /* ---------- Steps (jak focení probíhá) ---------- */
   /* same line-to-content gap as the other section-labels (var(--space-4)) — see the
      comment by the base .section-label rule */
-  .section-label:has(+ .steps-section) { padding-bottom: var(--space-2); }
-  /* heading starts flush with "Připravíme se" (.steps-list's own middle column) instead of
-     the section's left edge — same "column width + one gap" formula .steps-list's grid
-     itself resolves to, so it tracks correctly at any viewport, not just one width. Desktop
-     only: steps stack to one column on mobile, so there's no second column to align to. */
-  @media (min-width:901px){
-    #sluzby h2 { margin-left: calc((100% - 3 * var(--space-4)) / 4 + var(--space-4)); }
+  /* ---------- "Jak focení probíhá" — the derfleratelier.cz idea (one part pinned, the
+     steps scrolling past it with attention on one step at a time) translated into this
+     site's own components instead of the reference's giant uppercase type:
+     - left column pinned (sticky) on desktop: the section heading in the standard
+       section-heading style, a one-line intro and the main CTA, so the CTA stays in view
+       for the whole section;
+     - right column: the steps as rows divided by the same hairline as the FAQ, each with
+       an oversized serif numeral in the proof-stats ("12 let / 900+") style and a title
+       at the card-title size (--fs-heading);
+     - the step nearest the middle of the screen is lit, the rest dimmed (script.js sets
+       .is-active), the same "one at a time" focus as the reference.
+     Mobile: one column, nothing pinned, CTA after the steps. ---------- */
+  .steps-section { padding: 150px 0 0; }
+  .process-grid { display:grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-9); align-items:start; }
+  .process-aside { position:sticky; top: calc(var(--header-h, 72px) + var(--space-9)); }
+  .process-aside h2 { font-family: var(--serif); font-weight:400; font-size: var(--fs-display); line-height:0.95; letter-spacing:-0.025em; color: var(--ink-heading); padding-bottom: var(--space-3); border-bottom:1px solid var(--line); }
+  .process-intro { margin-top: var(--space-4); max-width:380px; font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
+  .process-cta-desktop { margin-top: var(--space-6); }
+  .process-cta-mobile { display:none; }
+  .process-steps { list-style:none; border-top:1px solid var(--line); }
+  .process-step { display:grid; grid-template-columns: 96px minmax(0,1fr); column-gap: var(--space-4); padding: var(--space-7) 0; border-bottom:1px solid var(--line); transition: opacity .5s ease; }
+  .process-num { font-family: var(--serif); font-weight:400; font-size: var(--fs-display); line-height:0.9; letter-spacing:-0.01em; color: var(--ink-heading); }
+  .process-text h3 { font-family: var(--serif); font-weight:400; font-size: var(--fs-heading); line-height:1.2; letter-spacing:-0.01em; color: var(--ink-subheading); }
+  .process-text p { margin-top: var(--space-2); max-width:460px; font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
+  .js-process-focus .process-step { opacity:0.3; }
+  .js-process-focus .process-step.is-active { opacity:1; }
+  @media (max-width:900px){
+    .steps-section { padding: var(--space-9) 0 var(--space-7); }
+    .process-grid { grid-template-columns: 1fr; }
+    .process-aside { position:static; margin-bottom: var(--space-5); }
+    .process-cta-desktop { display:none; }
+    .process-cta-mobile { display:flex; justify-content:center; margin-top: var(--space-6); }
+    .process-step { grid-template-columns: 56px minmax(0,1fr); column-gap: var(--space-3); padding: var(--space-5) 0; }
   }
-  .steps-section { padding: 0; }
-  .steps-list { display:grid; grid-template-columns: repeat(4,1fr); column-gap: var(--space-4); }
-  .step h4 { font-family: var(--serif); font-size: var(--fs-heading); letter-spacing:0.02em; margin-bottom: var(--space-2); color: var(--ink-body); }
-  .step p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
-  /* a little dark breathing room below the last step on mobile — .steps-section itself
-     has zero padding (desktop's dark panel hugs the 3-column grid tightly on purpose),
-     but on mobile the 3 steps stack into one tall column and the dark background cut off
-     right at the last paragraph, with no room before the next (light) section starts */
-  @media (max-width:900px){ .steps-list{grid-template-columns:1fr; row-gap: var(--space-5);} .steps-section{padding-bottom: var(--space-7);} }
 
   /* ---------- Full photo banner ---------- */
   .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
