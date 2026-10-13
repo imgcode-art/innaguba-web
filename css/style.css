@@ -495,6 +495,18 @@
     .proof-photo { aspect-ratio:4/5; }
   }
   .proof-photo { position:relative; width:100%; aspect-ratio:3/2; overflow:hidden; background: var(--ink); }
+  /* slow, continuous Ken Burns breathing (not tied to scroll or cursor) — on the
+     container itself, not the img: the img already carries script.js's mouse-parallax
+     (writes transform:translate(...) as an inline style), so animating transform on
+     that same element here would fight it. A scale animation on the overflow:hidden
+     parent instead produces the identical "slowly zooming into the photo" look and
+     composes cleanly with the child's own independent transform. Each photo gets its
+     own duration (not perfectly matched) so they drift out of sync with each other
+     rather than breathing in unison, which read as too mechanical. */
+  @keyframes proof-photo-kenburns { from { transform: scale(1); } to { transform: scale(1.06); } }
+  .proof-photo { animation: proof-photo-kenburns 22s ease-in-out infinite alternate; }
+  .proof-photo-now { animation-duration: 26s; animation-delay: -4s; }
+  @media (prefers-reduced-motion: reduce) { .proof-photo { animation: none; } }
   /* plain static cover — no scroll-drift here (removed per direct instruction: the
      130%-tall overscan that effect needs was cropping into the photo itself). Mouse
      parallax instead (script.js's shared initMouseParallax(), desktop-with-a-mouse only,
