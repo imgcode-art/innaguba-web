@@ -1249,8 +1249,13 @@
       background-size: contain;
     }
   }
-  @media (max-width:560px){ .pgg{columns:1;} }
-  @media (max-width:560px){ .pgg.pgg-duo{columns:1;} }
+  /* single column on phones: a plain flex stack instead of a 1-column multicol — Safari
+     drops item margins at column-set breaks (around .pgg-feature's column-span:all and
+     at fragment edges), which made some photos touch with no gap at all. */
+  @media (max-width:560px){
+    .pgg, .pgg.pgg-duo { columns:auto; display:flex; flex-direction:column; gap: var(--space-1); }
+    .pgg-item { margin-bottom:0; }
+  }
   /* unified with .proof-teaser-link's sitewide "secondary button" treatment (same
      uppercase/tracked/underline look as the CTA links in pricing cards etc.) — used to
      be its own plain, non-uppercase underlined link with a literal "←" character, which
