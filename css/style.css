@@ -738,7 +738,9 @@
   .js-process-focus .process-step:not(.is-active) .process-num,
   .js-process-focus .process-step:not(.is-active) .process-text { opacity:0.3; }
   @media (max-width:900px){
-    .steps-section { padding: var(--space-9) 0 var(--space-7); }
+    /* .memory-section right above already ends with 48px of dark padding (home-theme.css),
+       so only the rest of the usual 90px mobile section gap goes here */
+    .steps-section { padding: calc(var(--space-9) - 48px) 0 var(--space-7); }
     .process-grid { grid-template-columns: 1fr; }
     .process-aside { position:static; margin-bottom: var(--space-5); }
     .process-cta-desktop { display:none; }
