@@ -509,14 +509,11 @@
   @media (prefers-reduced-motion: reduce) { .proof-photo { animation: none; } }
   /* plain static cover — no scroll-drift here (removed per direct instruction: the
      130%-tall overscan that effect needs was cropping into the photo itself). Mouse
-     parallax instead (script.js's shared initMouseParallax(), desktop-with-a-mouse only,
-     same "O mně" intro-photo treatment) — a few-px nudge toward the cursor, not a pan,
-     so it never crops into either photo. */
+     parallax tried too (a cursor nudge, same "O mně" intro-photo treatment) but dropped
+     again almost immediately once the Ken Burns zoom above landed — running alongside
+     it, the nudge read as the photo "jumping" into a zoom that was already happening on
+     its own, one motion effect too many competing for attention. */
   .proof-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  @media (hover:hover) and (pointer:fine) {
-    .proof-photo img { inset:-3%; width:106%; height:106%; will-change:transform; }
-  }
-  @media (prefers-reduced-motion: reduce) { .proof-photo img { inset:0; width:100%; height:100%; } }
   /* the "then" photo on its own — its black-and-white edit runs much higher-contrast/
      punchier than the hero video's own softer, faded grade (muted grays, no true black).
      Flattened to sit closer to that same tone instead of clashing with it. .proof-photo-now
