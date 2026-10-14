@@ -1377,7 +1377,9 @@
     /* the stack only works if a whole card fits under the header — at 3:4 the photo alone
        filled the phone, so the next card slid over the title, text and link before you could
        read them. The photo now gives way to the screen height, keeping ~250px for the text */
-    .pg .pcard .thumb { aspect-ratio:4/5; max-height: calc(100svh - var(--header-h, 72px) - var(--space-2) - 250px); }
+    /* width:100% is explicit on purpose: with only aspect-ratio + max-height, the browser
+       shrank the width to keep the ratio and the narrower photo sat on the left */
+    .pg .pcard .thumb { width:100%; aspect-ratio:4/5; max-height: calc(100svh - var(--header-h, 72px) - var(--space-2) - 250px); }
   }
   /* too short a screen for that (small phone, landscape): plain list, no stacking */
   @media (max-width:800px) and (max-height:580px){
