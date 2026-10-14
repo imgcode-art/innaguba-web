@@ -561,10 +561,15 @@
      composes cleanly with the child's own independent transform. Each photo gets its
      own duration (not perfectly matched) so they drift out of sync with each other
      rather than breathing in unison, which read as too mechanical. */
-  @keyframes proof-photo-kenburns { from { transform: scale(1); } to { transform: scale(1.06); } }
-  .proof-photo { animation: proof-photo-kenburns 22s ease-in-out infinite alternate; }
-  .proof-photo-now { animation-duration: 26s; animation-delay: -4s; }
-  @media (prefers-reduced-motion: reduce) { .proof-photo { animation: none; } }
+  /* now on the img via the separate `scale` property (not the container): scaling the
+     container itself grew each photo ~6% past its own box, which was hidden while the
+     photos sat apart but ate straight into the gap once they became a side-by-side pair.
+     `scale` composes with the img's inline parallax `transform` instead of fighting it,
+     and the container's overflow:hidden now clips the zoom. */
+  @keyframes proof-photo-kenburns { from { scale: 1; } to { scale: 1.06; } }
+  .proof-photo img { animation: proof-photo-kenburns 22s ease-in-out infinite alternate; }
+  .proof-photo-now img { animation-duration: 26s; animation-delay: -4s; }
+  @media (prefers-reduced-motion: reduce) { .proof-photo img { animation: none; } }
   /* plain static cover — no scroll-drift here (removed per direct instruction: the
      130%-tall overscan that effect needs was cropping into the photo itself). Mouse
      parallax tried too (a cursor nudge, same "O mně" intro-photo treatment) but dropped
@@ -616,29 +621,22 @@
        bottom edge, not the caption's, leaving almost no visible clearance
        under the caption text before the next section starts */
     .proof-block { padding-bottom: 40px; }
-    .proof-block-row { display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap: var(--space-6); }
-    .proof-photo-col { max-width:none; flex:0 1 42%; margin-bottom:0; }
-    /* absolute + top:100% so the caption doesn't add to proof-photo-col's flex height —
-       otherwise align-items:center on the row centers against photo+caption combined,
-       which visually sits lower than the photo alone (the stats block, then, would appear
-       centered against the photo+caption block instead of the photo, reading as "too low") */
+    /* then/now as one pair: both photos side by side, the stats in one row under them —
+       per direct instruction. The stats used to sit between the photos, splitting the
+       family's own story ("tehdy → dnes") with numbers about the photographer, and their
+       oversized numerals competed with the photos. Now: story first, proof under it, in
+       the same 3-column trust row mobile already uses. row-gap clears the absolutely
+       positioned captions (see below). */
+    .proof-block-row { display:grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-4); row-gap: 120px; align-items:start; }
+    .proof-photo-col { max-width:none; margin-bottom:0; }
+    /* absolute + top:100% so the caption doesn't add to the photo column's own height */
     .proof-photo-caption { position:absolute; top:100%; left:0; right:0; }
-    /* a bare fit-content column of text, flanked by two large photos, was reading as a
-       sparse leftover rather than its own deliberate block. Tried giving it a background
-       panel twice — solid ink (read as a funeral slab next to two warm, light photos)
-       and a lifted white card (the card metaphor itself was the problem: this site never
-       boxes content in cards outside the ceník pricing grid, so a boxed/shadowed block
-       here read as foreign chrome, not a decision). Dropping the box entirely and
-       leaning on scale instead — the numerals go well past --fs-display, the size cap
-       every other heading on the site respects, on purpose: at this size the typography
-       itself carries the same visual mass as the two photos, the way the rest of the
-       site already uses type and whitespace as its main tools rather than cards/borders.
-       align-self:stretch (not the row's own align-items:center) matches its height to
-       the photos' without disturbing how they themselves center. */
-    .proof-stats-col { order:0; flex:0 0 auto; align-self:stretch; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; margin-bottom:0; padding: 0 var(--space-6); }
-    .proof-stats { max-width:none; width:fit-content; text-align:left; margin:0; }
-    .proof-stats li strong { font-size: clamp(48px, 4.8vw, 88px); }
-    .proof-stats li + li { margin-top: var(--space-4); }
+    .proof-stats-col { order:0; grid-column: 1 / -1; grid-row:2; margin-bottom:0; }
+    .proof-stats { display:grid; grid-template-columns: repeat(3, 1fr); max-width:960px; margin:0 auto; text-align:center; }
+    .proof-stats li { align-items:center; gap: var(--space-1); padding: var(--space-1) var(--space-3); }
+    .proof-stats li + li { margin-top:0; border-left:1px solid var(--line); }
+    .proof-stats li strong { font-size: clamp(48px, 4.4vw, 72px); line-height:1; }
+    .proof-stats li span { font-size:12px; letter-spacing:0.16em; text-transform:uppercase; }
   }
 
   /* ---------- Reassurance block ("Bojíte se, že děti nebudou spolupracovat?") ---------- */
@@ -780,9 +778,23 @@
   .process-text h3 { font-family: var(--serif); font-weight:400; font-size: var(--fs-heading); line-height:1.2; letter-spacing:-0.01em; color: var(--ink-subheading); }
   .process-text p { margin-top: var(--space-2); max-width:460px; font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
   /* dims the step's content (numeral + text) */
+  /* the thread through the steps — a static hairline down through the numerals (1 → 4),
+     visualising "jsem u každého kroku s vámi". Per direct feedback it stays still: an
+     earlier version filled it in step by step while scrolling, which read as distracting.
+     script.js only places its ends on the first/last numeral (--steps-top/--steps-bottom).
+     The numerals sit on a paper-coloured chip so the line passes behind them. */
+  .process-steps { position:relative; }
+  .process-steps::before { content:""; position:absolute; left:16px; width:1px; top: var(--steps-top, 0px); bottom: var(--steps-bottom, 0px); background: var(--line); pointer-events:none; }
+  .process-num { position:relative; z-index:1; justify-self:center; text-align:center; background: var(--paper); padding: 6px 0; }
+  @media (max-width:900px){ .process-steps::before { left:14px; } }
   .process-num, .process-text { transition: opacity .5s ease; }
   .js-process-focus .process-step:not(.is-active) .process-num,
   .js-process-focus .process-step:not(.is-active) .process-text { opacity:0.3; }
+  /* numerals dim by colour, not opacity — opacity would also fade their paper chip and let
+     the thread line show through the glyph */
+  .process-num { opacity:1; color: color-mix(in srgb, var(--ink-body) 70%, transparent); }
+  .js-process-focus .process-step:not(.is-active) .process-num { opacity:1; color: color-mix(in srgb, var(--ink-body) 30%, transparent); }
+  .process-num { transition: color .5s ease; }
   @media (max-width:900px){
     /* normal 90px mobile section gap: 54px light pause after .memory-section's own dark
        exit, then 36px dark above the heading (.dark-panel::before, home-theme.css) */
@@ -2138,15 +2150,6 @@
        after it: "Nejen fotografie. / Vzpomínky na to, jaké to bylo". */
     .memory-title .dot-desktop-only { display:inline; }
     .memory-title .dot-desktop-only::after { content:"\A"; white-space:pre; }
-    /* work cards (homepage + portfolio .pg): text under each photo on the same centre
-       axis as the heading above it; title in the regular-weight serif every other heading
-       uses (the 700 here was the only bold serif left and read heavy and dated), sized up
-       so it still clearly leads the muted description. */
-    .pg .pcard { align-items:center; text-align:center; }
-    .pg .pcard .thumb { align-self:stretch; }
-    .pg .pcard h4 { font-weight:400; font-size:30px; line-height:1.15; }
-    .pg .pcard p { max-width:34ch; text-wrap:balance; }
-    .pg .pcard .pcard-link { align-self:center; }
   }
 
   /* ---------- Desktop: same heading language as mobile ----------
@@ -2173,3 +2176,38 @@
   .reassure-title:has(+ .reassure-answer) { margin-bottom: var(--space-2); }
   .reassure-answer { font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(30px, 3.4vw, 48px); line-height:1.1; color: var(--ink); margin-bottom: 40px; text-align:left; }
   @media (max-width:900px){ .reassure-answer { text-align:center; margin-bottom: var(--space-4); } }
+
+  /* ---------- Work cards (homepage "Jak můžeme zachytit…" + portfolio .pg), all widths ----------
+     Text under each photo on the same centre axis as the centred heading above; title in
+     the regular-weight serif every other heading uses (the 700 here was the only bold
+     serif left and read heavy and dated), sized up so it clearly leads the muted, narrower
+     description; wider gutters on desktop so the three cards read as three distinct
+     offers rather than one continuous strip of photos. Per direct instruction (mobile
+     first, then desktop to match). */
+  .pg .pcard { align-items:center; text-align:center; }
+  .pg .pcard .thumb { align-self:stretch; margin-bottom: var(--space-4); }
+  .pg .pcard h4 { font-weight:400; font-size: clamp(28px, 2.4vw, 36px); line-height:1.15; }
+  .pg .pcard p { max-width:34ch; text-wrap:balance; margin-top: var(--space-2); color: color-mix(in srgb, var(--ink-body) 80%, transparent); }
+  .pg .pcard .pcard-link { align-self:center; margin-top: var(--space-3); }
+  @media (min-width:801px){ .pg { column-gap: var(--space-6); } }
+  .section-label:has(+ .work-cards) { padding-bottom: var(--space-6); }
+
+  /* ---------- Closing CTA over video: more presence (per direct feedback: readable, but
+     too faint for the site's main call to action) ----------
+     - scrim: darker behind the text, lighter at the edges, so the video still shows but
+       the headline/note sit on a calm dark field instead of washed-out grey
+     - no divider under the title (same heading language as the rest of the site), with
+       "tuhle chvíli" as the italic accent
+     - the main button filled light on the dark video — the one solid button here, so it
+       reads first; "Chci poradit" stays the quiet underlined second option
+     - desktop: taller, cinematic band (~¾ of the screen) instead of a short strip */
+  .closing-video-scrim { opacity:1; background: radial-gradient(ellipse 65% 75% at 50% 50%, rgba(17,17,17,0.78) 0%, rgba(17,17,17,0.62) 55%, rgba(17,17,17,0.45) 100%); }
+  .closing-video-stage .closing-title { border-bottom:0; padding-bottom:0; text-wrap:balance; }
+  .closing-video-stage .closing-note { max-width:52ch; margin-left:auto; margin-right:auto; font-size:18px; line-height:1.6; text-wrap:balance; }
+  .closing-video-stage .about-thanks-cta { margin-top: var(--space-5); }
+  .closing-video-stage .hero-cta-primary { background:#F5F3EF; color:#111; border-color:#F5F3EF; text-shadow:none; }
+  .closing-video-stage .hero-cta-primary:hover { background:transparent; color:#fff; border-color:#fff; }
+  @media (min-width:901px){
+    .closing-video-stage { min-height: min(75vh, 760px); display:flex; align-items:center; }
+    .closing-video-stage .top { width:100%; }
+  }

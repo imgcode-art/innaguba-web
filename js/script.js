@@ -644,7 +644,19 @@ document.querySelectorAll('[data-row]').forEach(row => {
 // prefers-reduced-motion: all steps then just stay fully visible. ----------
 (() => {
   const steps = [...document.querySelectorAll('.process-step')];
-  if (!steps.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!steps.length) return;
+  // the static thread line through the numerals (style.css, .process-steps::before): its
+  // ends sit on the first and last numeral's centre
+  const list = steps[0].parentElement;
+  const numMid = step => { const n = step.querySelector('.process-num').getBoundingClientRect(); return n.top + n.height / 2 - list.getBoundingClientRect().top; };
+  const placeThread = () => {
+    list.style.setProperty('--steps-top', `${numMid(steps[0])}px`);
+    list.style.setProperty('--steps-bottom', `${list.offsetHeight - numMid(steps[steps.length - 1])}px`);
+  };
+  placeThread();
+  window.addEventListener('resize', placeThread);
+  window.addEventListener('load', placeThread);
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   document.documentElement.classList.add('js-process-focus');
   let ticking = false;
   const update = () => {
