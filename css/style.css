@@ -2486,6 +2486,17 @@
      points down to the form: book a date (primary) or write first (secondary). */
   .contact-info-actions { display:flex; flex-wrap:wrap; align-items:center; gap: var(--space-2) var(--space-4); }
   .contact-info-write { margin-top:0; }
+  /* desktop: the info column used to hang from the photo's top edge and run past its
+     bottom (caption + "Odpovím do 24 hodin" + stacked CTAs). With the caption and reply
+     line gone it fits beside the photo, so centre it vertically against it — the block
+     reads as one composed pair instead of a photo with a list trailing off below */
+  @media (min-width:901px){
+    .contact-info { align-items:center; }
+    .contact-info-text { padding-top:0; }
+    .contact-info-list { margin-bottom: var(--space-5); }
+  }
+  /* no focus ring left behind after a mouse click (keyboard focus still shows it) */
+  .contact-info-write:focus:not(:focus-visible) { outline:none; }
   /* the form sits below the closing video panel, so from here it read like the link led to
      a CTA section instead of a form — the arrow says "it's further down", and the smooth
      scroll (script.js, "Kontakt: smooth scroll") lets you watch the page travel there instead of teleporting */
