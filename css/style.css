@@ -2224,3 +2224,7 @@
     .pgg-caption { text-align:center; margin-bottom: var(--space-3); }
     .pgg-line { margin:0 auto; }
   }
+  /* o-mne.html's page title isn't a .section-label (it's .about-intro h1), so the shared
+     ≤900px centred-heading rule missed it — left-aligned on tablet/mobile while every
+     other page's title was centred */
+  @media (max-width:900px){ .about-intro h1 { text-align:center; } }
