@@ -549,7 +549,7 @@
        effect itself (that comes from the sticky top:space-3 each card shares, and from "now"
        simply being later in the DOM) — it just gives "tehdy" a beat to be fully visible,
        caption included, before "now" rides up over it. */
-    .proof-photo-col { position:sticky; top: var(--space-3); background: var(--paper); margin-bottom: var(--space-6); }
+    .proof-photo-col { position:sticky; top: calc(var(--header-h, 72px) + var(--space-2)); background: var(--paper); margin-bottom: var(--space-6); }
     .proof-photo { aspect-ratio:4/5; }
   }
   .proof-photo { position:relative; width:100%; aspect-ratio:3/2; overflow:hidden; background: var(--ink); }
@@ -902,7 +902,11 @@
        see the .rg .card height-matching in script.js); margin-bottom cancels the last
        card's own padding-bottom below once it stops being hidden under a following card,
        so the gap before the next section matches every other section-to-section gap */
-    .rg .card { position:sticky; top: var(--space-3); background: var(--paper); padding: 0 0 var(--space-9); }
+    /* sticks below the fixed header (not just var(--space-3) from the viewport top, which
+       hid the round photo under the header); padding-top keeps the photo's outline
+       (outline-offset 7px + 1px) inside the card's own paper background, so the card
+       underneath doesn't show through above the circle */
+    .rg .card { position:sticky; top: calc(var(--header-h, 72px) + var(--space-2)); background: var(--paper); padding: var(--space-2) 0 var(--space-9); }
     .rg .card + .card { border-left:0; }
   }
   /* the one Google line that replaced the homepage's Elfsight reviews widget: the photo
@@ -1380,7 +1384,8 @@
        plain position:sticky, no scroll-timeline/JS needed */
     .pg .pcard {
       position: sticky;
-      top: var(--space-3);
+      /* below the fixed header (same fix as .rg .card / .pb-card) */
+      top: calc(var(--header-h, 72px) + var(--space-2));
       background: var(--paper);
       /* applied to every card equally (including the last) — that's what keeps each
          card at least as tall as the one before it, so full coverage still works; giving
@@ -1564,7 +1569,9 @@
     .price-bento-3 .pb-recommended,
     .price-bento-3 .pb-card.pb-featured {
       position: sticky;
-      top: var(--space-3);
+      /* below the fixed header, same fix as .rg .card — at var(--space-3) the top of
+         each stuck card (badge included) sat hidden under the header */
+      top: calc(var(--header-h, 72px) + var(--space-2));
       background: var(--paper);
       padding-bottom: var(--space-9);
     }
@@ -1663,6 +1670,9 @@
   @media (hover:hover){
     .pb-card { transition: transform .25s ease, box-shadow .25s ease; }
     .pb-card:hover { transform: translateY(-4px); box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.18); }
+    /* ceník photos no longer also zoom on hover (were in the sitewide hover-zoom group
+       below) — lift + zoom together read as too much movement for one card, per direct
+       feedback; the lift alone is the card's hover */
   }
 
   /* the recommended package and the video card's own CTA become the filled buttons
@@ -1926,7 +1936,8 @@
        rides up and covers the one before it as you keep scrolling */
     .story-card-item {
       position: sticky;
-      top: var(--space-3);
+      /* below the fixed header (same fix as .rg .card / .pb-card) */
+      top: calc(var(--header-h, 72px) + var(--space-2));
       background: var(--paper);
       padding-bottom: var(--space-9);
     }
@@ -2014,16 +2025,12 @@
      "Contact page" section above. */
   .proof-photo-2 img,
   .rg .card .thumb img,
-  .pb-photo img,
-  .pb-photo video,
   .story-photo:not(.story-photo-drift) img {
     transition: transform .6s cubic-bezier(0.25,1,0.5,1);
   }
   @media (hover:hover) and (pointer:fine) {
     .proof-photo-2:hover img,
     .rg .card .thumb:hover img,
-    .pb-photo:hover img,
-    .pb-photo:hover video,
     .story-photo:not(.story-photo-drift):hover img {
       transform: scale(1.06);
     }
@@ -2386,7 +2393,33 @@
      about half the h1, still led by the short hairline; package names a step below. */
   .cenik-category { font-family: var(--serif) !important; font-size: clamp(30px, 2.8vw, 42px) !important; letter-spacing:-0.005em !important; text-transform:none; color: var(--ink-heading); gap: var(--space-3); }
   .cenik-category::before { flex-basis:56px; opacity:.5; }
+  /* desktop: the hairline-led serif heading read as a second, off-axis h1 right under
+     "Investice do vzpomínek" (text indented past the h1's left edge, nearly the same size).
+     Now it's the site's own section divider instead — flush left with the h1, a step
+     smaller, a full-width hairline underneath that belongs to the cards below it, and
+     clear air above so the page intro and the price list read as two separate blocks */
+  @media (min-width:901px){
+    .cenik-category { display:block; align-self:end; font-size: clamp(26px, 2.2vw, 34px) !important; line-height:1.2; border-bottom:1px solid var(--line); padding-bottom: var(--space-2); margin-top: var(--space-6); }
+    .cenik-category::before { content:none; }
+    .cenik-category-2 { margin-top: calc(-1 * var(--space-9) + var(--space-8)); }
+  }
+  /* mobile: the left-only hairline read as a leftover under the centred CENÍK block —
+     centre it and mirror the hairline on the right, same as .page-eyebrow on mobile */
+  @media (max-width:900px){
+    .cenik-category { justify-content:center; text-align:center; }
+    .cenik-category::before { flex-basis:32px; }
+    .cenik-category::after { content:""; flex:0 0 32px; height:1px; background: currentColor; opacity:.5; }
+    /* the second heading sits between sticky cards 3 and 4 — as a plain static block it
+       scrolled up *underneath* the still-stuck card 3 (positioned boxes paint above it),
+       so nobody on a phone ever saw it. Positioned + its own paper ground, it now rides
+       over card 3 like the next card would; the negative margin swallows the grid gap so
+       card 4 follows straight after it and no slice of card 3 shows in between. */
+    .cenik-category-2 { position:relative; z-index:1; background: var(--paper); padding: var(--space-4) 0; margin-bottom: calc(-1 * var(--space-6)); }
+  }
   .pb-content h3 { font-size: clamp(24px, 1.9vw, 30px); }
+  /* Celý příběh: the bundle saving, set as a quiet italic aside under the price (same voice
+     as .card-service) — visible enough that nobody has to add up foto + video themselves */
+  .pb-note.pb-save { font-family: var(--serif); font-style:italic; font-size:17px; line-height:1.4; color: rgba(17,17,17,0.62); margin: 2px 0 var(--space-2); }
 
   /* gallery subpages: the italic tagline under the title ("Příběh, který tvoříte spolu")
      looked exactly like the series captions below it (per direct feedback). Replaced by a
@@ -2453,6 +2486,11 @@
      points down to the form: book a date (primary) or write first (secondary). */
   .contact-info-actions { display:flex; flex-wrap:wrap; align-items:center; gap: var(--space-2) var(--space-4); }
   .contact-info-write { margin-top:0; }
+  /* the form sits below the closing video panel, so from here it read like the link led to
+     a CTA section instead of a form — the arrow says "it's further down", and the smooth
+     scroll (script.js, "Kontakt: smooth scroll") lets you watch the page travel there instead of teleporting */
+  .contact-info-write-arrow { display:inline-block; margin-left:6px; text-decoration:none; transition: transform .25s ease; }
+  .contact-info-write:hover .contact-info-write-arrow { transform: translateY(3px); }
   @media (max-width:900px){
     .contact-info { align-items:stretch; }
     .contact-info-media { flex-basis:auto; width:100%; }

@@ -323,6 +323,23 @@ document.querySelectorAll('[data-row]').forEach(row => {
     requestAnimationFrame(renderCursor);
   }
 
+  // ---------- Kontakt: smooth scroll — "nebo napište zprávu" glides down to the form
+  // instead of jumping, so it's clear the form is further down the page. Scoped to this
+  // one link (not a global scroll-behavior:smooth) so the instant scrollTo calls elsewhere
+  // keep working as before. ----------
+  const writeLink = document.querySelector('.contact-info-write');
+  const writeTarget = document.getElementById('kontakt');
+  if (writeLink && writeTarget) {
+    writeLink.addEventListener('click', e => {
+      e.preventDefault();
+      const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+      const top = writeTarget.getBoundingClientRect().top + window.scrollY - header - 40;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
+      history.replaceState(null, '', '#kontakt');
+    });
+  }
+
   // ---------- Re-snap to a #kontakt link target after everything (images, widgets) has
   // finished loading — late-loading content above the form can otherwise push it down and
   // undo the browser's initial anchor jump. ----------
