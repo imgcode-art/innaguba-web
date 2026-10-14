@@ -232,7 +232,18 @@ body { overflow-x: clip; }
     z-index: 2;
     background: var(--paper);
     margin-top: 24px;
+    /* paper fill out to the screen edges (not just .wrap's width) — otherwise the
+       full-bleed hero video shows down both sides while this heading covers it.
+       clip-path keeps the spread horizontal only, so it can't paint over anything
+       above or below. */
+    box-shadow: 0 0 0 100vmax var(--paper);
+    clip-path: inset(0 -100vmax);
   }
+  /* the covering layer must be opaque from the first pixel — the usual [data-reveal]
+     fade-in left it half-transparent while it slid over the hero, so the hero's own
+     heading and button showed through the "Děti rostou..." text */
+  .hero-curtain-stack .section-label:has(+ .proof-block)[data-reveal],
+  .hero-curtain-stack .proof-block[data-reveal] { opacity: 1; transform: none; transition: none; }
   /* min-height matches hero's own rendered height exactly (JS-measured, see below) so
      proof-block (plus the heading right above it, now part of the same covering layer)
      can never be shorter than the hero it needs to fully cover. margin-top is gone from

@@ -358,12 +358,24 @@
   .hc-mobile-cta-row { margin-top: 0; text-align:center; }
   .hero-cta-primary { transition: background .25s ease, color .25s ease, transform .25s ease; }
   .about-cta-btn.hero-cta-primary:hover { transform: scale(1.04); }
+  /* Mobile hero = the desktop split, stacked: the same (sharper, near-square) desktop video
+     full-width on top, then the kicker promoted to a serif heading ("what I do") and the
+     primary CTA right under it — all on the first screen, per direct instruction. Replaces
+     the old 9:16 mobile clip (.hc-mobile-slideshow, soft at its start, with the offer only
+     burned into the video) and the CTA that used to sit further down (.proof-lead-row).
+     The long "Děti rostou..." H1 and the subnote stay desktop-only here; mobile keeps
+     that sentence as #proof-intro-mobile right below the hero. */
   @media (max-width:900px){
-    .hero-collage { padding:0; }
-    .hc-split-stage { display:none; }
-    /* full-bleed regardless of body's own side padding, independent of the padding breakpoint at 700px */
-    .hc-mobile-slideshow { display:block; width:100vw; position:relative; left:50%; margin-left:-50vw; }
-    .hc-mobile-slide { aspect-ratio: 9 / 16; height:auto; max-height:100vh; }
+    /* overflow visible: the base overflow-x:clip cut the stage's 100vw breakout back to
+       body's side padding, so the video didn't reach the screen edges */
+    .hero-collage { padding:0; overflow-x:visible; }
+    .hc-split-stage { flex-direction:column; align-items:stretch; }
+    .hc-split-media { width:100vw; height:auto; aspect-ratio: 1 / 1; }
+    .hc-split-content { align-items:center; text-align:center; gap: var(--space-3); padding: var(--space-4) var(--space-3) var(--space-5); }
+    .hc-split-content .hc-eyebrow, .hc-split-content .hc-subnote { display:none; }
+    .hc-kicker { margin:0; font-family: var(--serif); font-size: clamp(26px, 7.4vw, 34px); line-height:1.1; letter-spacing:-0.01em; text-transform:none; color: var(--ink-heading); text-wrap:balance; }
+    .hc-mobile-slideshow { display:none; }
+    .proof-lead-row { display:none; }
     .bottom-section { padding-top: var(--space-6); padding-bottom: 0; }
     /* a touch bigger than the shared var(--fs-body) elsewhere — this is the one paragraph
        carrying the hero's own message on mobile (.hc-split's desktop copy is hidden above),
@@ -1174,15 +1186,16 @@
   /* Mobile/tablet: a plain two-column grid instead of the desktop flex row (which on
      narrow screens scattered the columns — "Sledujte mě" pinned to the far right, "Kontakt"
      hanging alone under "Stránky", "Zpět nahoru" floating on its own line). Order:
-     Stránky | Sledujte mě, then Kontakt across both columns (the e-mail needs the width),
-     then the logo centred as a sign-off with "Zpět nahoru" under it. .footer-col-group is
+     Kontakt first, across both columns (it matters more than the socials, and the e-mail
+     needs the full width — it doesn't fit a half column at a tappable size), then
+     Stránky | Sledujte mě, then the logo centred as a sign-off with "Zpět nahoru" under it. .footer-col-group is
      display:contents so its two columns become grid items that can be placed separately. */
   @media (max-width:800px){
     .footer-cols { display:grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-3); row-gap: var(--space-5); }
     .footer-col-group { display:contents; }
-    .footer-col-group > .footer-col:first-child { order:1; }
-    .footer-cols > .footer-col { order:2; }
-    .footer-col-group > .footer-col:nth-child(2) { order:3; grid-column: 1 / -1; }
+    .footer-col-group > .footer-col:nth-child(2) { order:1; grid-column: 1 / -1; }
+    .footer-col-group > .footer-col:first-child { order:2; }
+    .footer-cols > .footer-col { order:3; }
     .footer-logo { order:4; grid-column: 1 / -1; justify-self:center; margin-top: var(--space-3); }
     .footer-logo-mark { width:160px; }
     .footer-cols .to-top { order:5; grid-column: 1 / -1; justify-self:center; margin-top: calc(-1 * var(--space-2)); }
