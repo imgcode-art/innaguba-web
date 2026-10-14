@@ -1740,6 +1740,44 @@
   .like-btn.liked path { fill: currentColor; }
   @media (max-width:900px){ .vgg{grid-template-columns:1fr; max-width:480px; margin:0 auto;} }
 
+  /* ---------- Video gallery, editorial version ----------
+     Was 18 identical thumbnails with a heart + duration — read like a stock/YouTube
+     library, nothing to start with, no idea what each clip was. Now: one featured film
+     up top (photo beside its own little story), Martina's "video je video" as the proof
+     line, then the rest in a 2-up / 3-up alternating rhythm, each clip with a name and
+     its kind + length in the site's italic serif aside voice. */
+  .vfeature { display:grid; grid-template-columns: minmax(0,1.65fr) minmax(0,1fr); gap: var(--space-6); align-items:center; }
+  .vfeature .play::before { width:76px; height:76px; }
+  .vfeature .play::after { border-width:11px 0 11px 18px; margin-left:5px; }
+  .vfeature-kicker { display:flex; align-items:center; gap: var(--space-2); font-size:13px; letter-spacing:0.24em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-3); }
+  .vfeature-kicker::before { content:""; flex:0 0 40px; height:1px; background: currentColor; opacity:.6; }
+  .vfeature-title { font-family: var(--serif); font-weight:400; font-size: clamp(34px, 3.4vw, 52px); line-height:1.05; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-3); }
+  .vfeature-desc { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); max-width:40ch; margin-bottom: var(--space-3); }
+  .vfeature-play { margin-top: var(--space-3); }
+  .vcard-title { font-family: var(--serif); font-weight:400; font-size: clamp(21px, 1.7vw, 26px); line-height:1.2; color: var(--ink-heading); margin-top: var(--space-2); }
+  .vcard-meta { font-family: var(--serif); font-style:italic; font-size:17px; font-variant-numeric: lining-nums; color: rgba(17,17,17,0.6); margin-top:2px; }
+  .vquote { margin: var(--space-9) auto; max-width:760px; text-align:center; }
+  .vquote p { font-family: var(--serif); font-size: clamp(28px, 2.8vw, 42px); line-height:1.25; color: var(--ink-heading); text-wrap:balance; }
+  .vquote cite { display:block; margin-top: var(--space-3); font-style:normal; font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color: var(--ink); }
+  .vquote cite::before { content:""; display:block; width:28px; height:1px; background: rgba(17,17,17,0.35); margin: 0 auto var(--space-3); }
+  .vquote cite span { display:block; margin-top:4px; font-family: var(--serif); font-style:italic; font-size:17px; letter-spacing:0; text-transform:none; font-weight:400; color: rgba(17,17,17,0.62); }
+  @media (min-width:901px){
+    .video-gallery .vgg { grid-template-columns: repeat(6, minmax(0,1fr)); gap: var(--space-7) var(--space-4); }
+    .video-gallery .vgg .vcard { grid-column: span 2; }
+    .video-gallery .vgg .vcard:nth-child(5n+1), .video-gallery .vgg .vcard:nth-child(5n+2) { grid-column: span 3; }
+  }
+  @media (max-width:900px){
+    .vfeature { grid-template-columns:1fr; gap: var(--space-3); }
+    .vfeature .play::before { width:60px; height:60px; }
+    .vquote { margin: var(--space-8) auto; }
+    .video-gallery .vgg { max-width:none; gap: var(--space-6); }
+    /* centred like the rest of the mobile site */
+    .vfeature-text, .video-gallery .vgg .vcard { text-align:center; }
+    .vfeature-kicker { justify-content:center; }
+    .vfeature-kicker::after { content:""; flex:0 0 40px; height:1px; background: currentColor; opacity:.6; }
+    .vfeature-desc { margin-left:auto; margin-right:auto; }
+  }
+
   /* ---------- Video lightbox ---------- */
   .video-lightbox { position:fixed; inset:0; background:rgba(10,10,10,0.95); display:none; align-items:center; justify-content:center; z-index:200; padding: var(--space-7) var(--space-3) var(--space-3); }
   .video-lightbox.open { display:flex; }
