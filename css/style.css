@@ -908,6 +908,10 @@
        underneath doesn't show through above the circle */
     .rg .card { position:sticky; top: calc(var(--header-h, 72px) + var(--space-2)); background: var(--paper); padding: var(--space-2) 0 var(--space-9); }
     .rg .card + .card { border-left:0; }
+    /* screen too short for a whole card (set in script.js): plain list, no stacking */
+    .rg.rg-flat { margin-bottom:0; }
+    .rg.rg-flat .card { position:static; padding-bottom: var(--space-6); }
+    .rg.rg-flat .card:last-child { padding-bottom:0; }
   }
   /* the one Google line that replaced the homepage's Elfsight reviews widget: the photo
      testimonials carry the emotion, this makes them verifiable. Centred under the triptych. */

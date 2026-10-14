@@ -467,12 +467,23 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // each card must be at least as tall as the one before it to fully cover it while scrolling.
   // Martina's shorter quote left her card ~1 line short of Hanka's, so Hanka's card peeked out
   // from under it — equalize every card to the tallest one's natural height to guarantee coverage. ----------
+  // On a screen too short to show a whole card under the header (small phones), the next
+  // card would cover the quote before it's read — there the stack turns into a plain list.
   const refCards = document.querySelectorAll('.rg .card');
   if (refCards.length) {
+    const refGrid = refCards[0].closest('.rg');
     const equalizeRefCards = () => {
       refCards.forEach(c => { c.style.minHeight = ''; });
+      refGrid.classList.remove('rg-flat');
       if (window.innerWidth > 900) return;
       const max = Math.max(...[...refCards].map(c => c.getBoundingClientRect().height));
+      const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+      const stickTop = parseFloat(getComputedStyle(refCards[0]).top) || header;
+      const content = max - (parseFloat(getComputedStyle(refCards[0]).paddingBottom) || 0);
+      if (stickTop + content > window.innerHeight) {
+        refGrid.classList.add('rg-flat');
+        return;
+      }
       refCards.forEach(c => { c.style.minHeight = `${max}px`; });
     };
     equalizeRefCards();
