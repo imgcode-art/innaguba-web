@@ -2601,8 +2601,10 @@
     /* the kicker needs ~435px on one line, but the hero's text column is only half the
        viewport — below ~1130px wide it broke as "…V BRNĚ / A OKOLÍ", a lone orphan. Tighter
        tracking on narrower laptops keeps it on one line down to ~1000px; below that,
-       balance splits it evenly ("…A VIDEO / V BRNĚ A OKOLÍ") instead of leaving an orphan */
-    .hc-split-content .hc-kicker { text-wrap:balance; }
+       it breaks only between the two halves ("RODINNÉ FOCENÍ A VIDEO / V BRNĚ A OKOLÍ") —
+       balance alone picked "…FOCENÍ / A VIDEO…", splitting the service name. The outer span
+       keeps the text one flex item next to the hairline. */
+    .hc-kicker-part { white-space:nowrap; }
     .hc-split-content .hc-eyebrow .hc-lead { display:block; font-style:italic; font-size: clamp(22px, 1.9vw, 30px); line-height:1.25; letter-spacing:0; color: var(--ink-body); margin-bottom: var(--space-3); }
     .hc-split-content .hc-trust { font-style:normal; font-size:15px; color: var(--ink-body); }
     .hc-trust .reviews-stars { letter-spacing:0.08em; margin-right:4px; }
