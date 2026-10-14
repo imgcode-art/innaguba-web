@@ -1408,6 +1408,17 @@
        the next section already adds — pull the next section back up by that same amount so
        the gap matches every other section-to-section gap instead of doubling it */
     .pg { margin-bottom: calc(-1 * var(--space-9)); }
+    /* the stack only works if a whole card fits under the header — at 3:4 the photo alone
+       filled the phone, so the next card slid over the title, text and link before you could
+       read them. The photo now gives way to the screen height, keeping ~250px for the text */
+    .pg .pcard .thumb { aspect-ratio:4/5; max-height: calc(100svh - var(--header-h, 72px) - var(--space-2) - 250px); }
+  }
+  /* too short a screen for that (small phone, landscape): plain list, no stacking */
+  @media (max-width:800px) and (max-height:580px){
+    .pg .pcard { position:static; padding-bottom: var(--space-6); }
+    .pg .pcard:last-child { padding-bottom:0; }
+    .pg { margin-bottom:0; }
+    .pg .pcard .thumb { max-height:none; }
   }
 
   /* ---------- Gallery placeholder page ---------- */
