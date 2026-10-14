@@ -206,19 +206,44 @@ document.querySelectorAll('[data-row]').forEach(row => {
       status.className = 'cf-status';
       submitBtn.insertAdjacentElement('afterend', status);
     }
+    // gentle per-field hints instead of one red sentence for the whole form — each
+    // missing field gets its own soft note right under it, and it disappears as soon
+    // as you start typing there
+    const hintFor = f => {
+      if (f.name === 'jmeno') return 'Napište mi prosím, jak vám mám říkat.';
+      if (f.name === 'email') return f.value.trim() ? 'Tenhle e-mail vypadá neúplně, mrkněte na něj prosím.' : 'Na jaký e-mail vám mám odpovědět?';
+      if (f.name === 'zprava') return 'Napište mi prosím pár slov o vás.';
+      return 'Doplňte prosím.';
+    };
+    const clearHint = f => {
+      f.classList.remove('cf-invalid');
+      f.removeAttribute('aria-invalid');
+      const h = f.nextElementSibling;
+      if (h && h.classList.contains('cf-hint')) h.remove();
+    };
+    const showHint = f => {
+      clearHint(f);
+      f.classList.add('cf-invalid');
+      f.setAttribute('aria-invalid', 'true');
+      const h = document.createElement('p');
+      h.className = 'cf-hint';
+      h.textContent = hintFor(f);
+      if (f.id) { h.id = `${f.id}-hint`; f.setAttribute('aria-describedby', h.id); }
+      f.insertAdjacentElement('afterend', h);
+    };
     form.querySelectorAll('input, textarea').forEach(field => {
-      field.addEventListener('input', () => field.classList.remove('cf-invalid'));
+      field.addEventListener('input', () => clearHint(field));
     });
 
     form.addEventListener('submit', async e => {
       e.preventDefault();
 
       const invalidFields = Array.from(form.querySelectorAll('input, textarea')).filter(f => !f.checkValidity());
-      form.querySelectorAll('.cf-invalid').forEach(f => f.classList.remove('cf-invalid'));
+      form.querySelectorAll('.cf-invalid').forEach(clearHint);
       if (invalidFields.length) {
-        invalidFields.forEach(f => f.classList.add('cf-invalid'));
-        status.textContent = 'Zkontrolujte prosím vyplněné údaje — jméno, e-mail a zprávu je potřeba vyplnit správně.';
-        status.setAttribute('data-state', 'error');
+        invalidFields.forEach(showHint);
+        status.textContent = '';
+        status.removeAttribute('data-state');
         invalidFields[0].focus();
         return;
       }

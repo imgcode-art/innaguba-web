@@ -1150,6 +1150,11 @@
   .dark-panel .cf-field input::placeholder, .dark-panel .contact-form textarea::placeholder { color: rgba(245,243,239,0.35); }
   .cf-field input:focus, .cf-field select:focus, .contact-form textarea:focus { outline:none; border-color: var(--ink); }
   .cf-field input.cf-invalid, .contact-form textarea.cf-invalid { border-color:#a13a3a; }
+  /* per-field hint (script.js) — a quiet italic note under the field, not an alarm: the
+     serif italic is the site's own "aside" voice, and the warm rose only tints it */
+  .cf-hint { margin-top:8px; font-family: var(--serif); font-style:italic; font-size:17px; line-height:1.35; color:#a13a3a; }
+  .dark-panel .cf-hint { color:#e2aaa1; }
+  .dark-panel .cf-field input.cf-invalid, .dark-panel .contact-form textarea.cf-invalid { border-color: rgba(226,170,161,0.7); }
   .contact-form textarea { resize:none; min-height:110px; line-height:1.5; }
   .cf-field select {
     appearance:none;
