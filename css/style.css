@@ -432,7 +432,8 @@
      being overridden again here, since those come later in the cascade and would
      otherwise win back over this. */
   #work,
-  #reference { padding-bottom: var(--space-4); }
+  #reference,
+  #dal { padding-bottom: var(--space-4); }
   /* o-mne.html / kontakt.html: same var(--space-4) as Galerie/Ceník, not the homepage's
      var(--space-2) — these pages read as needing the bigger gap, same as those two */
   .section-label:has(+ .my-story),
@@ -863,6 +864,17 @@
   .rg.rg-single { display:block; max-width:640px; margin: 0 auto; }
   .rg.rg-single .card { position:static; padding: var(--space-2) 0 0; min-height:0 !important; }
   .rg.rg-single .card .card-quote { font-size: clamp(21px, 2vw, 27px); max-width:38ch; }
+  /* Kontakt: "Co bude dál?" — three quiet steps after the form, answering "and then what?"
+     before anyone has to ask; light, so the dark footer has something to slide up over.
+     Numbers in the same italic serif as the homepage process steps. */
+  .next-steps-list { list-style:none; display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); max-width:1040px; margin: 0 auto; text-align:center; }
+  .next-step { display:flex; flex-direction:column; align-items:center; }
+  .next-step-num { font-family: var(--serif); font-style:italic; font-size: clamp(34px, 3vw, 44px); line-height:1; color: color-mix(in srgb, var(--ink-body) 70%, transparent); margin-bottom: var(--space-2); }
+  .next-step h3 { font-family: var(--serif); font-weight:400; font-size: var(--fs-heading); line-height:1.2; letter-spacing:-0.01em; color: var(--ink-subheading); }
+  .next-step p { margin-top: var(--space-2); max-width:30ch; font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); text-wrap:balance; }
+  .next-step:nth-child(2)[data-reveal] { transition-delay: .12s; }
+  .next-step:nth-child(3)[data-reveal] { transition-delay: .24s; }
+  @media (max-width:900px){ .next-steps-list { grid-template-columns:1fr; gap: var(--space-5); } }
   /* Kontakt: the "★★★★★ 5,0 z Google recenzí" line under the H1 links to the reviews */
   .page-trust a { color:inherit; text-decoration:underline; text-decoration-color: rgba(17,17,17,0.3); text-underline-offset:3px; transition: text-decoration-color .2s ease; }
   .page-trust a:hover { text-decoration-color: currentColor; }
@@ -2227,8 +2239,8 @@
   .section-label .wrap { border-bottom:0; padding-bottom:0; }
   .reassure-title, .memory-title, .process-aside h2 { border-bottom:0; padding-bottom:0; }
   @media (min-width:901px){
-    #proof-intro-desktop .wrap, #work .wrap, #reference .wrap { justify-content:center; text-align:center; }
-    #proof-intro-desktop h2, #work h2, #reference h2 { text-align:center; }
+    #proof-intro-desktop .wrap, #work .wrap, #reference .wrap, #dal .wrap { justify-content:center; text-align:center; }
+    #proof-intro-desktop h2, #work h2, #reference h2, #dal h2 { text-align:center; }
   }
   /* subpage headers (gallery pages, podmínky, GDPR): without the divider, the short
      .side line pinned to the far right read as detached from its title. It now sits
