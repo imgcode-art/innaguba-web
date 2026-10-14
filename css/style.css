@@ -2228,3 +2228,208 @@
      ≤900px centred-heading rule missed it — left-aligned on tablet/mobile while every
      other page's title was centred */
   @media (max-width:900px){ .about-intro h1 { text-align:center; } }
+
+  /* ---------- Page titles (O mně, Galerie, Ceník, Kontakt + gallery subpages) ----------
+     Per direct feedback the small 32px "Galerie" / "O mně" titles only repeated the
+     active nav item and read as a forgotten label. Now: the page name as a small tracked
+     eyebrow (still orients visitors, esp. on mobile where the nav is behind the burger)
+     and a real display-size headline with an italic accent, same language as every other
+     heading on the site. Gallery subpages keep their own h1 + italic subtitle, just at
+     the same display size so every page opens with the same weight. */
+  .page-eyebrow { flex-basis:100%; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color: var(--ink-body); opacity:.7; margin-bottom: var(--space-2); }
+  .page-header h1, .about-intro h1 { font-size: var(--fs-display); font-weight:400; line-height:1.05; letter-spacing:-0.01em; text-wrap:balance; }
+  .page-header .side { margin-top: var(--space-1); }
+  @media (max-width:900px){ .about-intro .page-eyebrow { text-align:center; } }
+  /* gallery subpages: subtitle a step up so it clearly belongs to the title, and more air
+     before the first series caption so the two italic lines don't read as one paragraph */
+  .page-header .side { font-size: clamp(20px, 1.8vw, 26px); }
+  .page-header + .photo-gallery { padding-top: var(--space-5); }
+  /* ceník's category headings were the last bold serif headings left — regular weight like
+     every other heading, so they sit under the new display h1 instead of competing with it */
+
+  /* ---------- O mně: "A pak se po letech vrátil Polaroid" as real Polaroid prints ----------
+     Per direct feedback the three plain photo rectangles read as uninteresting for a
+     story that is literally about a Polaroid. Each photo is now a print: white frame with
+     the deeper bottom margin, soft shadow, each at its own slight angle as if laid on a
+     table (straightens on hover). Short chapter label (Tehdy / Po letech / Dnes) leads
+     each paragraph so the three read as one story in sequence. Heading centred above the
+     symmetric three-up, no divider, "Polaroid" as the italic accent. */
+  .story-card h3 { border-bottom:0; padding-bottom:0; text-align:center; margin-bottom: var(--space-7); }
+  .story-card-item { text-align:center; }
+  .story-card-item .story-photo { border:14px solid #fff; border-bottom-width:58px; box-shadow: 0 22px 40px -22px rgba(17,17,17,0.45), 0 2px 6px rgba(17,17,17,0.08); transition: transform .5s cubic-bezier(.4,0,.2,1), box-shadow .5s ease; margin-bottom: var(--space-4); }
+  .story-card-item:nth-child(1) .story-photo { transform: rotate(-2.5deg); }
+  .story-card-item:nth-child(2) .story-photo { transform: rotate(1.8deg) translateY(18px); }
+  .story-card-item:nth-child(3) .story-photo { transform: rotate(-1.2deg); }
+  @media (hover:hover){ .story-card-item:hover .story-photo { transform: rotate(0) translateY(-6px); box-shadow: 0 30px 50px -24px rgba(17,17,17,0.5), 0 2px 6px rgba(17,17,17,0.08); } }
+  .story-card-item .story-chapter { font-family: var(--serif); font-style:italic; font-size: clamp(22px, 1.9vw, 28px); line-height:1.2; color: var(--ink-heading); margin: var(--space-2) 0 var(--space-1) !important; }
+  .story-card-item:nth-child(2) p.story-chapter { margin-top: calc(var(--space-2) + 18px) !important; }
+  .story-card-item p:not(.story-chapter) { max-width:36ch; margin-left:auto; margin-right:auto; text-wrap:pretty; }
+  @media (max-width:900px){
+    .story-card-item:nth-child(2) .story-photo { transform: rotate(1.8deg); }
+    .story-card-item:nth-child(2) p.story-chapter { margin-top: var(--space-2) !important; }
+  }
+
+  /* ---------- O mně: "Jedno video z celého dětství" ----------
+     The archival video used to be pulled up 171px so the heading's grey divider ran through
+     its middle. The divider is gone sitewide, so the pull-up only left the video hanging
+     off the dark section above with an odd gap (per direct feedback). Now it sits in normal
+     flow, vertically centred against its text. */
+  @media (min-width:901px){
+    .story-row:has(.story-photo-polaroid) .story-photo-wide.story-photo-polaroid { margin-top:0; }
+    .story-row:has(.story-photo-polaroid) { align-items:center; }
+  }
+  /* the heading now lives in the text column (was a separate right-aligned section-label
+     above the row), so heading and paragraphs share one left edge and the video centres
+     against the whole block; on mobile the heading is lifted above the video */
+  /* same 64px dark / 86px light exit split as every other section after a dark panel */
+  .why-me-layout.dark-panel + .my-story-video { padding-top:86px; }
+  .story-title { font-family: var(--serif); font-size: var(--fs-display); font-weight:400; line-height:1.05; letter-spacing:-0.01em; color: var(--ink-heading); margin-bottom: var(--space-4); text-wrap:balance; }
+  @media (max-width:900px){
+    .why-me-layout.dark-panel + .my-story-video { padding-top:42px; }
+    .my-story-video .story-row { display:flex; flex-direction:column; }
+    .my-story-video .story-text { display:contents; }
+    .my-story-video .story-title { order:-1; text-align:center; margin-bottom: var(--space-3); }
+  }
+
+  /* ---------- O mně: closing thought under the Polaroid story ----------
+     Was two long paragraphs set entirely in the large serif under a floating quote mark —
+     per direct feedback a heavy, awkward block that didn't match the rest of the page.
+     Now the same words in a clear rhythm: a quiet body-size lead-in, the one sentence that
+     carries it ("…největší pocta a závazek") as the large italic statement, the follow-up
+     back at body size, and a small italic sign-off — the way a personal note ends. The
+     quote mark is gone: these are Inka's own words, not a quotation. */
+  .story-outro::before { content:none; display:none; }
+  .story-outro { max-width:620px; }
+  .story-outro p.story-outro-lead { font-family: var(--sans); font-weight:400; font-size:18px; line-height:1.7; letter-spacing:0; color: var(--ink-body); margin:0 auto var(--space-4); max-width:52ch; text-wrap:pretty; }
+  .story-outro p.story-outro-statement { font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(28px, 3vw, 42px); line-height:1.2; color: var(--ink-heading); margin:0 auto var(--space-4); text-wrap:balance; }
+  .story-outro p.story-outro-statement em { font-style:normal; }
+  .story-outro p.story-outro-sign { font-family: var(--serif); font-style:italic; font-size:26px; color: var(--ink-heading); margin:0; }
+  .story-outro p.story-outro-sign::before { content:"— "; }
+
+  /* ---------- Eyebrow labels: one stronger, deliberate treatment ----------
+     Per direct feedback the page eyebrow ("GALERIE") read weak, and ceník's category
+     headings ("Rodinná fotografie", "Rodinné video a dětský portrét") floated oddly —
+     display-size headings competing with the new h1 right above. Both are now the same
+     editorial label: a short hairline leading into tracked caps at full body tone. On
+     ceník it marks a group of packages instead of shouting a second title. */
+  .page-eyebrow, .cenik-category { display:flex; align-items:center; gap: var(--space-2); font-family: var(--sans) !important; font-size:13px !important; font-weight:400 !important; letter-spacing:0.24em !important; line-height:1.4; text-transform:uppercase; color: var(--ink-body); opacity:1; }
+  .page-eyebrow::before, .cenik-category::before { content:""; flex:0 0 40px; height:1px; background: currentColor; opacity:.6; }
+  @media (max-width:900px){
+    .page-eyebrow { justify-content:center; }
+    .page-eyebrow::after { content:""; flex:0 0 40px; height:1px; background: currentColor; opacity:.6; }
+  }
+  @media (min-width:901px){ .cenik-category { padding-bottom:0; } }
+  /* ceník package names: regular-weight serif like every other card/heading, sized up so
+     they still lead the card */
+  .pb-content h3 { font-weight:400; font-size: clamp(28px, 2.4vw, 36px); line-height:1.15; margin-bottom: var(--space-2); }
+  /* O mně: the web-design line is a side note, not part of the story — quieter, set apart,
+     and its invitation starts on its own line instead of dangling after "celý můj." */
+  .about-intro-text .about-aside { margin-top: var(--space-5); padding-top: var(--space-3); font-size:15px; line-height:1.7; color: color-mix(in srgb, var(--ink-body) 80%, transparent); font-style:italic; }
+  /* ceník group headings sit between the page eyebrow and the package names — per direct
+     feedback they must not share the eyebrow's weight with "CENÍK". Serif chapter heading
+     about half the h1, still led by the short hairline; package names a step below. */
+  .cenik-category { font-family: var(--serif) !important; font-size: clamp(30px, 2.8vw, 42px) !important; letter-spacing:-0.005em !important; text-transform:none; color: var(--ink-heading); gap: var(--space-3); }
+  .cenik-category::before { flex-basis:56px; opacity:.5; }
+  .pb-content h3 { font-size: clamp(24px, 1.9vw, 30px); }
+
+  /* gallery subpages: the italic tagline under the title ("Příběh, který tvoříte spolu")
+     looked exactly like the series captions below it (per direct feedback). Replaced by a
+     plain-text intro that answers what the session actually is (length, where, approach)
+     plus a quiet link to the prices — useful instead of decorative. */
+  .page-intro-block { flex-basis:100%; margin-top: var(--space-3); }
+  .page-intro { max-width:56ch; font-size:18px; line-height:1.7; color: var(--ink-body); text-wrap:pretty; }
+  .page-intro-link { margin-top: var(--space-3) !important; }
+  @media (max-width:900px){
+    .page-intro-block { text-align:center; }
+    .page-intro { margin-left:auto; margin-right:auto; }
+  }
+
+  /* ---------- Closing CTA: no black bars above/below the video ----------
+     The 64px solid-black strips framed the video back when it was a short band; now that
+     it's a tall, dark-scrimmed cinematic block they only read as leftover gaps (per direct
+     feedback). The dark panel now starts exactly where the video does and the section
+     ends with it; the light gap after it is the plain full section gap. */
+  .closing:has(.closing-video-stage) .closing-video-stage { margin-top:0; }
+  .closing.dark-panel:has(.closing-video-stage) { padding-bottom:0; }
+  .closing.dark-panel:has(.closing-video-stage)::before { top:150px; }
+  .closing.dark-panel:has(.closing-video-stage) + .section-label,
+  .closing.dark-panel:has(.closing-video-stage) + .footer-reveal-stage > .section-label:first-child { padding-top:120px; }
+  @media (max-width:900px){
+    .closing.dark-panel:has(.closing-video-stage)::before { top: var(--space-9); }
+    .closing.dark-panel:has(.closing-video-stage) + .section-label,
+    .closing.dark-panel:has(.closing-video-stage) + .footer-reveal-stage > .section-label:first-child { padding-top: var(--space-8); }
+  }
+
+  /* ---------- Ceník: one button style, a quieter "favourite" label ----------
+     Per direct feedback: every package uses the same light outlined button (the two
+     dark filled ones made some packages shout while the page already marks favourites
+     with the label), and the label itself — a black uppercase box — didn't fit the site.
+     Now a small paper-coloured tag in the italic serif, like a handwritten note pinned to
+     the photo. Shown on the three most-chosen packages (Pohoda, video, dětský portrét). */
+  .pb-recommended .proof-teaser-link,
+  .pb-standout .proof-teaser-link { background: var(--paper); color: var(--ink); box-shadow:none; }
+  .pb-recommended .proof-teaser-link:hover,
+  .pb-standout .proof-teaser-link:hover { box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.2); }
+  .pb-badge { top: var(--space-3); left: var(--space-3); z-index:2; background: var(--paper); color: var(--ink-heading); border-radius:0; font-family: var(--serif); font-style:italic; font-weight:400; font-size:18px; letter-spacing:0; text-transform:none; line-height:1.2; padding:8px 16px 9px; box-shadow: 0 8px 20px -10px rgba(17,17,17,0.35); }
+
+  /* ---------- Kontakt: from business card to invitation ----------
+     Per direct feedback the old block (three icon rows floating mid-height beside the
+     photo, brown icons used nowhere else, IČO as loud as the phone number) read like a
+     business card. Now: a short italic invitation, the three ways to reach Inka as
+     labelled rows (tracked-caps label over the value in the serif), the 24h reply
+     promise, and the main booking button right there. Column top-aligned with the
+     photo; IČO lives in the footer imprint already. Photo gets a caption saying what
+     it is — her studio. */
+  .contact-info { align-items:flex-start; }
+  .contact-info-media { flex:0 0 calc((100% - var(--space-6)) / 2); margin:0; }
+  .contact-info-media .contact-info-photo { flex:none; width:100%; }
+  .contact-info-caption { margin-top: var(--space-2); font-style:italic; font-size: var(--fs-body); color: var(--ink-body); }
+  .contact-info-text { max-width:460px; padding-top: var(--space-2); }
+  .contact-info-intro { font-family: var(--serif); font-style:italic; font-size: clamp(24px, 2.2vw, 32px); line-height:1.25; color: var(--ink-heading); margin-bottom: var(--space-5); text-wrap:balance; }
+  .contact-info-list { display:flex; flex-direction:column; gap: var(--space-4); margin:0 0 var(--space-4); }
+  .contact-info-item dt { font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color: var(--ink-body); opacity:.75; margin-bottom: 6px; }
+  .contact-info-item dd { margin:0; }
+  .contact-info-item a { font-family: var(--serif); font-size: clamp(22px, 1.9vw, 28px); font-weight:400; line-height:1.2; color: var(--ink-heading); text-decoration:none; background-image: linear-gradient(currentColor, currentColor); background-size:0 1px; background-position:0 100%; background-repeat:no-repeat; transition: background-size .3s ease; }
+  .contact-info-item a:hover { color: var(--ink-heading); background-size:100% 1px; }
+  .contact-info-reply { font-size: var(--fs-body); color: var(--ink-body); margin-bottom: var(--space-4); }
+  .contact-info-cta { background: var(--paper); color: var(--ink); border-color: var(--ink); }
+  .contact-info-cta:hover { background: var(--ink); color: var(--paper); }
+  @media (max-width:900px){
+    .contact-info { align-items:stretch; }
+    .contact-info-media { flex-basis:auto; width:100%; }
+    .contact-info-caption { text-align:center; }
+    .contact-info-text { max-width:none; text-align:center; padding-top:0; }
+  }
+  /* ceník: photo count in the same weight as the other package lines (per direct feedback
+     the bold line jumped out of an otherwise calm list) */
+  .price-list li.strong { font-weight:400; color: var(--ink-body); }
+  /* ceník "Rodinné video" card: the clip is graded far warmer/more saturated than the
+     package photos around it (measured: ~0.55 average saturation vs ~0.3, much more
+     yellow) — toned down to sit with them, per direct feedback. Applies to its poster too. */
+  .pb-standout .pb-photo video { filter: saturate(0.6) brightness(1.04) contrast(1.05); }
+
+  /* ---------- Homepage hero (desktop) — same language as the rest of the site ----------
+     Per direct instruction: kicker gets the same leading hairline as every page eyebrow;
+     the four-line headline is split like mobile already is (first sentence as a quiet
+     italic lead-in, the promise as the headline); the third tagline under the button is
+     replaced by proof (Google rating + family count) right where a hesitant visitor
+     decides whether to click; the rule under the nav softened to the site's hairline. */
+  @media (min-width:901px){
+    .hc-split-content .hc-kicker { display:flex; align-items:center; gap: var(--space-2); font-size:13px; letter-spacing:0.24em; }
+    .hc-split-content .hc-kicker::before { content:""; flex:0 0 40px; height:1px; background: currentColor; opacity:.6; }
+    .hc-split-content .hc-eyebrow .hc-lead { display:block; font-style:italic; font-size: clamp(22px, 1.9vw, 30px); line-height:1.25; letter-spacing:0; color: var(--ink-body); margin-bottom: var(--space-3); }
+    .hc-split-content .hc-trust { font-style:normal; font-size:15px; color: var(--ink-body); }
+    .hc-trust .reviews-stars { letter-spacing:0.08em; margin-right:4px; }
+    .hc-trust-sep { margin: 0 6px; opacity:.6; }
+  }
+  header::after { background: rgba(17,17,17,0.16); }
+  /* homepage then/now → "Bojíte se…": the proof block's 40px bottom padding only existed to
+     clear the absolutely-positioned photo captions when they were the block's last row;
+     the stats row is last now, so it just inflated the light gap under the stats to 150px
+     while the dark panel gave its big headline only 40px — per direct feedback the gap
+     read as illogical. Now: standard 110px light pause, and 64px of dark above the
+     heading (same as the dark exits use), so the headline doesn't sit jammed at the top. */
+  @media (min-width:901px){
+    .hero-curtain-stack .proof-block { padding-bottom:0; }
+    .hero-curtain-stack + .reassure-section.dark-panel { padding-top:174px; }
+  }

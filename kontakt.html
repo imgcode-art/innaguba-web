@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=641">
+<link rel="stylesheet" href="css/style.css?v=655">
 <link rel="stylesheet" href="css/home-theme.css?v=50">
 <!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -55,31 +55,37 @@
 
 <section class="section-label page-header">
   <div class="wrap">
-    <h1>Kontakt</h1>
+    <p class="page-eyebrow">Kontakt</p>
+    <h1>Pojďme se <em>domluvit</em></h1>
     <p class="page-trust"><span class="reviews-stars" aria-hidden="true">★★★★★</span> 5,0 z&nbsp;Google recenzí</p>
   </div>
 </section>
 
 <section class="contact-info wrap">
-  <div class="contact-info-photo">
-    <img src="images/kontakt-atelier.jpg?v=1" alt="Ateliér Inna Guba" fetchpriority="high">
-  </div>
+  <figure class="contact-info-media">
+    <div class="contact-info-photo">
+      <img src="images/kontakt-atelier.jpg?v=1" alt="Ateliér Inna Guba" fetchpriority="high">
+    </div>
+    <figcaption class="contact-info-caption">Můj světlý ateliér v&nbsp;centru Brna</figcaption>
+  </figure>
   <div class="contact-info-text">
-    <ul class="contact-info-list">
-      <li>
-        <svg class="contact-info-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-7.2-7-12.2a7 7 0 1 1 14 0C19 13.8 12 21 12 21z"/><circle cx="12" cy="8.8" r="2.5"/></svg>
-        <a href="https://www.google.com/maps/search/?api=1&query=Pellicova+640%2F19%2C+602+00+Brno" target="_blank" rel="noopener">Pellicova 640/19, 602 00 Brno</a>
-      </li>
-      <li>
-        <svg class="contact-info-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 2a12.5 12.5 0 0 0 5.5 5.5l2-2 4 1.5v3a2 2 0 0 1-2 2C12 19.5 4.5 12 4.5 5.5a2 2 0 0 1 2-2z"/></svg>
-        <a href="tel:+420774547333">+420 774 547 333</a>
-      </li>
-      <li>
-        <svg class="contact-info-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg>
-        <a href="mailto:innaguba@seznam.cz">innaguba@seznam.cz</a>
-      </li>
-    </ul>
-    <p class="contact-info-legal">Mgr. Inna Macháč Guba<br>IČO: 03660656 · Zapsáno v&nbsp;živnostenském rejstříku</p>
+    <p class="contact-info-intro">Napište mi, zavolejte, nebo se rovnou zastavte v&nbsp;ateliéru.</p>
+    <dl class="contact-info-list">
+      <div class="contact-info-item">
+        <dt>Telefon</dt>
+        <dd><a href="tel:+420774547333">+420 774 547 333</a></dd>
+      </div>
+      <div class="contact-info-item">
+        <dt>E-mail</dt>
+        <dd><a href="mailto:innaguba@seznam.cz">innaguba@seznam.cz</a></dd>
+      </div>
+      <div class="contact-info-item">
+        <dt>Ateliér</dt>
+        <dd><a href="https://www.google.com/maps/search/?api=1&query=Pellicova+640%2F19%2C+602+00+Brno" target="_blank" rel="noopener">Pellicova 640/19, 602&nbsp;00 Brno</a></dd>
+      </div>
+    </dl>
+    <p class="contact-info-reply">Odpovím vám do 24&nbsp;hodin.</p>
+    <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary contact-info-cta">Chci zachytit náš příběh</a>
   </div>
 </section>
 
