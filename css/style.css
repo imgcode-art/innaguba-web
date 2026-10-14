@@ -2552,9 +2552,9 @@
   .contact-info-reply { font-size: var(--fs-body); color: var(--ink-body); margin-bottom: var(--space-4); }
   /* the site's primary button as-is (dark fill, light-outline hover) — the light-outlined
      variant with a drop shadow read as an inactive box. The quiet text link next to it
-     points down to the form: book a date (primary) or write first (secondary). */
+     next to it is for people who'd rather call: write (primary, glides down to the form) or call (secondary). */
   .contact-info-actions { display:flex; flex-wrap:wrap; align-items:center; gap: var(--space-2) var(--space-4); }
-  .contact-info-write { margin-top:0; }
+  .contact-info-call { margin-top:0; }
   /* desktop: the info column used to hang from the photo's top edge and run past its
      bottom (caption + "Odpovím do 24 hodin" + stacked CTAs). With the caption and reply
      line gone it fits beside the photo, so centre it vertically against it — the block
@@ -2570,12 +2570,9 @@
     .contact-info-actions { flex-wrap:wrap; gap: var(--space-2) var(--space-5); }
   }
   /* no focus ring left behind after a mouse click (keyboard focus still shows it) */
-  .contact-info-write:focus:not(:focus-visible) { outline:none; }
-  /* the form sits below the closing video panel, so from here it read like the link led to
-     a CTA section instead of a form — the arrow says "it's further down", and the smooth
-     scroll (script.js, "Kontakt: smooth scroll") lets you watch the page travel there instead of teleporting */
-  .contact-info-write-arrow { display:inline-block; margin-left:6px; text-decoration:none; transition: transform .25s ease; }
-  .contact-info-write:hover .contact-info-write-arrow { transform: translateY(3px); }
+  .contact-info-call:focus:not(:focus-visible) { outline:none; }
+  /* "(nepovinné)" next to the Zpráva label — quieter than the label itself so the field reads as a free extra, not a task */
+  .cf-optional { text-transform:none; letter-spacing:0; font-style:italic; opacity:.6; }
   @media (max-width:900px){
     .contact-info { align-items:stretch; }
     .contact-info-media { flex-basis:auto; width:100%; }

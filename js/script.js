@@ -196,6 +196,24 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   })();
 
+  // ---------- Contact form: prefill from the link that brought you here — a ceník package
+  // (?sluzba=…&balicek=…) or the business-card discount (?vizitka) — so nobody has to
+  // repeat what they already clicked on ----------
+  (() => {
+    const form = document.querySelector('[data-contact-form]');
+    if (!form) return;
+    const params = new URLSearchParams(location.search);
+    const sluzba = params.get('sluzba');
+    const select = form.querySelector('[name="sluzba"]');
+    if (sluzba && select && [...select.options].some(o => o.value === sluzba)) select.value = sluzba;
+    const balicek = params.get('balicek');
+    const lines = [];
+    if (balicek) lines.push(`Mám zájem o balíček ${balicek}.`);
+    if (params.has('vizitka')) lines.push('Mám slevu 10 % z vizitky.');
+    const zprava = form.querySelector('[name="zprava"]');
+    if (lines.length && zprava && !zprava.value) zprava.value = lines.join(' ') + ' ';
+  })();
+
   // ---------- Contact form (sends via Web3Forms, no backend needed) ----------
   const WEB3FORMS_ACCESS_KEY = '678c6592-26f3-4337-82fc-1c2fd2dc5074';
   document.querySelectorAll('.contact-form').forEach(form => {
@@ -212,7 +230,6 @@ document.querySelectorAll('[data-row]').forEach(row => {
     const hintFor = f => {
       if (f.name === 'jmeno') return 'Napište mi prosím, jak vám mám říkat.';
       if (f.name === 'email') return f.value.trim() ? 'Tenhle e-mail vypadá neúplně, mrkněte na něj prosím.' : 'Na jaký e-mail vám mám odpovědět?';
-      if (f.name === 'zprava') return 'Napište mi prosím pár slov o vás.';
       return 'Doplňte prosím.';
     };
     const clearHint = f => {
@@ -280,7 +297,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
           form.reset();
           submitBtn.textContent = 'Odesláno ✓';
           submitBtn.setAttribute('data-state', 'success');
-          status.textContent = 'Děkuji, zpráva byla odeslána. Ozvu se vám co nejdřív.';
+          status.textContent = 'Děkuji, zpráva byla odeslána. Ozvu se vám do 24 hodin.';
           setTimeout(() => {
             submitBtn.textContent = 'Odeslat zprávu';
             submitBtn.removeAttribute('data-state');
@@ -348,11 +365,11 @@ document.querySelectorAll('[data-row]').forEach(row => {
     requestAnimationFrame(renderCursor);
   }
 
-  // ---------- Kontakt: smooth scroll — "nebo napište zprávu" glides down to the form
-  // instead of jumping, so it's clear the form is further down the page. Scoped to this
-  // one link (not a global scroll-behavior:smooth) so the instant scrollTo calls elsewhere
-  // keep working as before. ----------
-  const writeLink = document.querySelector('.contact-info-write');
+  // ---------- Kontakt: smooth scroll — the main CTA glides down to the form instead of
+  // jumping, so it's clear the form is further down the page. Scoped to this one link
+  // (not a global scroll-behavior:smooth) so the instant scrollTo calls elsewhere keep
+  // working as before. ----------
+  const writeLink = document.querySelector('.contact-info-cta');
   const writeTarget = document.getElementById('kontakt');
   if (writeLink && writeTarget) {
     writeLink.addEventListener('click', e => {
@@ -372,7 +389,8 @@ document.querySelectorAll('[data-row]').forEach(row => {
     const snapToTarget = () => {
       const target = document.getElementById('kontakt');
       if (!target) return;
-      const top = target.getBoundingClientRect().top + window.scrollY - 24;
+      const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+      const top = target.getBoundingClientRect().top + window.scrollY - header - 24;
       window.scrollTo(0, top);
     };
     window.addEventListener('load', snapToTarget);

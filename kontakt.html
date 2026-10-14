@@ -25,11 +25,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=680">
+<link rel="stylesheet" href="css/style.css?v=682">
 <link rel="stylesheet" href="css/home-theme.css?v=50">
-<!-- Calendly widget -->
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <!-- Elfsight Google Reviews | Untitled Google Reviews -->
 <script src="https://elfsightcdn.com/platform.js" async></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "@id": "https://innaguba.com/#business", "name": "Inna Guba", "image": "https://innaguba.com/images/og/og-default.jpg", "url": "https://innaguba.com/", "telephone": "+420774547333", "email": "innaguba@seznam.cz", "priceRange": "3900–12400 Kč", "address": {"@type": "PostalAddress", "streetAddress": "Pellicova 640/19", "addressLocality": "Brno", "postalCode": "602 00", "addressCountry": "CZ"}, "areaServed": [{"@type": "City", "name": "Brno"}, {"@type": "AdministrativeArea", "name": "Jihomoravský kraj"}], "founder": {"@type": "Person", "name": "Inna Guba"}, "sameAs": ["https://www.instagram.com/innaguba.pro/", "https://www.facebook.com/fotoatelierinnaguba/"]}</script>
@@ -84,8 +81,8 @@
       </div>
     </dl>
     <div class="contact-info-actions">
-      <a href="https://calendly.com/ig-mimifoto/rezervace-fotovideo" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ig-mimifoto/rezervace-fotovideo'});return false;" class="about-cta-btn hero-cta-primary contact-info-cta">Chci zachytit náš příběh</a>
-      <a href="#kontakt" class="proof-teaser-link contact-info-write">nebo napište zprávu<span class="contact-info-write-arrow" aria-hidden="true">↓</span></a>
+      <a href="#kontakt" class="about-cta-btn hero-cta-primary contact-info-cta">Chci zachytit náš příběh</a>
+      <a href="tel:+420774547333" class="proof-teaser-link contact-info-call">nebo zavolejte</a>
     </div>
   </div>
 </section>
@@ -117,6 +114,7 @@
         <select id="cf-sluzba" name="sluzba">
           <option value="" selected disabled>Vyberte možnost</option>
           <option value="Rodinné focení">Rodinné focení</option>
+          <option value="Focení a video">Focení a&nbsp;video</option>
           <option value="Dětský portrét">Dětský portrét</option>
           <option value="Rodinné video">Rodinné video</option>
           <option value="Těhotenské / newborn">Těhotenské / newborn</option>
@@ -145,8 +143,8 @@
       </div>
     </div>
     <div class="cf-field">
-      <label for="cf-zprava">Zpráva</label>
-      <textarea id="cf-zprava" name="zprava" placeholder="Napište pár slov" rows="4" required></textarea>
+      <label for="cf-zprava">Zpráva <span class="cf-optional">(nepovinné)</span></label>
+      <textarea id="cf-zprava" name="zprava" placeholder="Cokoli, co bych měla vědět" rows="4"></textarea>
     </div>
     <button type="submit" class="cf-submit">Odeslat zprávu</button>
   </form>
@@ -206,14 +204,14 @@
 </section>
 
 <div class="cookie-bar" hidden>
-  <p>Web používá cookies, které potřebuje ke svému fungování, a&nbsp;se souhlasem i&nbsp;další pro vložená videa, recenze a&nbsp;rezervační kalendář. <a href="ochrana-osobnich-udaju.html">Více o&nbsp;cookies</a></p>
+  <p>Web používá cookies, které potřebuje ke svému fungování, a&nbsp;se souhlasem i&nbsp;další pro vložená videa a&nbsp;recenze. <a href="ochrana-osobnich-udaju.html">Více o&nbsp;cookies</a></p>
   <div class="cookie-actions">
     <button type="button" class="cookie-reject">Pouze nezbytné</button>
     <button type="button" class="cookie-accept">Přijmout vše</button>
   </div>
 </div>
 
-<script src="js/script.js?v=142"></script>
+<script src="js/script.js?v=144"></script>
 
 </body>
 </html>
