@@ -2537,10 +2537,18 @@
   @media (min-width:901px){
     .hc-split-content .hc-kicker { display:flex; align-items:center; gap: var(--space-2); font-size:13px; letter-spacing:0.24em; }
     .hc-split-content .hc-kicker::before { content:""; flex:0 0 40px; height:1px; background: currentColor; opacity:.6; }
+    /* the kicker needs ~435px on one line, but the hero's text column is only half the
+       viewport — below ~1130px wide it broke as "…V BRNĚ / A OKOLÍ", a lone orphan. Tighter
+       tracking on narrower laptops keeps it on one line down to ~1000px; below that,
+       balance splits it evenly ("…A VIDEO / V BRNĚ A OKOLÍ") instead of leaving an orphan */
+    .hc-split-content .hc-kicker { text-wrap:balance; }
     .hc-split-content .hc-eyebrow .hc-lead { display:block; font-style:italic; font-size: clamp(22px, 1.9vw, 30px); line-height:1.25; letter-spacing:0; color: var(--ink-body); margin-bottom: var(--space-3); }
     .hc-split-content .hc-trust { font-style:normal; font-size:15px; color: var(--ink-body); }
     .hc-trust .reviews-stars { letter-spacing:0.08em; margin-right:4px; }
     .hc-trust-sep { margin: 0 6px; opacity:.6; }
+  }
+  @media (min-width:901px) and (max-width:1180px){
+    .hc-split-content .hc-kicker { letter-spacing:0.14em; }
   }
   header::after { background: rgba(17,17,17,0.16); }
   /* homepage then/now → "Bojíte se…": the proof block's 40px bottom padding only existed to
