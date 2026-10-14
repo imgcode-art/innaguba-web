@@ -2492,8 +2492,13 @@
      reads as one composed pair instead of a photo with a list trailing off below */
   @media (min-width:901px){
     .contact-info { align-items:center; }
-    .contact-info-text { padding-top:0; }
-    .contact-info-list { margin-bottom: var(--space-5); }
+    /* one even rhythm down the column (intro, contacts, buttons all var(--space-5) apart,
+       contacts themselves var(--space-3)) instead of three different gaps; the two actions
+       sit side by side as a primary + secondary pair, which also uses the empty width to
+       the right and keeps the column shorter than the photo so it centres cleanly */
+    .contact-info-text { padding-top:0; max-width:640px; }
+    .contact-info-list { gap: var(--space-3); margin-bottom: var(--space-5); }
+    .contact-info-actions { flex-wrap:wrap; gap: var(--space-2) var(--space-5); }
   }
   /* no focus ring left behind after a mouse click (keyboard focus still shows it) */
   .contact-info-write:focus:not(:focus-visible) { outline:none; }
@@ -2559,8 +2564,14 @@
   .closing .cf-field input:hover, .closing .cf-field select:hover, .closing .contact-form textarea:hover { border-color: rgba(245,243,239,0.4); }
   .closing .cf-field input:focus, .closing .cf-field select:focus, .closing .contact-form textarea:focus { border-color: var(--ink); }
   .closing .contact-form textarea { min-height:150px; }
-  .closing .cf-submit { margin-top: var(--space-3); background: var(--ink); color: var(--paper); border-color: var(--ink); padding:16px 44px; }
-  .closing .cf-submit:hover { background: transparent; color: var(--ink); border-color: var(--ink); }
+  /* outlined at rest, filled on hover (was the reverse) — a solid near-white block on the
+     dark panel glared, the brightest thing on the screen by far, per direct feedback. The
+     outline matches the fields' own hairline frames above it, so the form reads as one
+     calm piece; the full fill now arrives only as the hover response. */
+  .closing .cf-submit { margin-top: var(--space-3); background: transparent; color: var(--ink); border-color: var(--ink); padding:16px 44px; transition: background-color .25s ease, color .25s ease; }
+  .closing .cf-submit:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  /* the two rules above outrank the base success state (same specificity, later) — keep its green */
+  .closing .cf-submit[data-state="success"] { background:#2f6b3a; border-color:#2f6b3a; color:#fff; }
   @media (max-width:900px){
     .closing.dark-panel:has(.contact-form) { padding-bottom: var(--space-8); }
     .closing .contact-form { margin-top: var(--space-6); gap: var(--space-4); }
