@@ -416,15 +416,6 @@
      read as a considered pair, but keeps --ink-heading rather than the logo's own accent
      color — that's reserved for the one primary CTA button now, not every title too. */
   .page-header h1 { font-size:32px; line-height:1.2; letter-spacing:0.02em; color: var(--ink-heading); }
-  /* real social proof right where the pricing decision happens, not buried below the
-     closing CTA — reuses the exact copy/markup already vetted on index.html's own
-     .reviews-rating (same ★★★★★ 5,0 claim), just inline under the H1 instead */
-  /* .page-header .wrap inherits .section-label .wrap's flex row (space-between,
-     align-items:flex-end) — flex-basis:100% forces this onto its own line under the
-     H1 instead of floating up beside it as a second flex item, same trick
-     .reviews-rating already uses for the identical "line under a flex heading" case */
-  .page-trust { flex-basis:100%; margin-top: var(--space-2); font-size: var(--fs-body); color: var(--ink-body); }
-  .page-trust .reviews-stars { letter-spacing:0.08em; }
   /* line-to-content gap — same var(--space-4) as the other sections whose content below
      the line carries real visual weight (photo cards here, same reasoning as FAQ/price
      teaser below). #work/#reference get it here (no other override exists for them);
@@ -875,9 +866,6 @@
   .next-step:nth-child(2)[data-reveal] { transition-delay: .12s; }
   .next-step:nth-child(3)[data-reveal] { transition-delay: .24s; }
   @media (max-width:900px){ .next-steps-list { grid-template-columns:1fr; gap: var(--space-5); } }
-  /* Kontakt: the "★★★★★ 5,0 z Google recenzí" line under the H1 links to the reviews */
-  .page-trust a { color:inherit; text-decoration:underline; text-decoration-color: rgba(17,17,17,0.3); text-underline-offset:3px; transition: text-decoration-color .2s ease; }
-  .page-trust a:hover { text-decoration-color: currentColor; }
   .refs-google .reviews-stars { letter-spacing:0.12em; font-size:14px; color: var(--ink); }
   .refs-google-score { font-family: var(--serif); font-style:italic; font-size:19px; }
   .refs-google .proof-teaser-link { margin-top:0; margin-left: var(--space-2); }
