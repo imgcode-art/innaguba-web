@@ -1183,22 +1183,32 @@
   .footer-logo-name { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; font-size:18px; line-height:1.3; letter-spacing:0.1em; text-transform:uppercase; opacity:0.7; }
   @keyframes footer-logo-spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce){ .footer-logo-ring { animation:none; } }
-  /* Mobile/tablet: a plain two-column grid instead of the desktop flex row (which on
-     narrow screens scattered the columns — "Sledujte mě" pinned to the far right, "Kontakt"
-     hanging alone under "Stránky", "Zpět nahoru" floating on its own line). Order:
-     Kontakt first, across both columns (it matters more than the socials, and the e-mail
-     needs the full width — it doesn't fit a half column at a tappable size), then
-     Stránky | Sledujte mě, then the logo centred as a sign-off with "Zpět nahoru" under it. .footer-col-group is
-     display:contents so its two columns become grid items that can be placed separately. */
+  /* Mobile/tablet, per direct reference (aromacabinet.cz's mobile footer): a fixed "frame"
+     row first — logo left, a bare up-arrow right (label kept for screen readers only) —
+     then Kontakt across both columns (it matters more than the socials, and the e-mail
+     doesn't fit a half column at a tappable size), then Stránky | Sledujte mě, then the
+     quote moved to the end as the closing thought, then the legal line centred. An earlier
+     pass (logo centred at the bottom as a sign-off, quote on top) broke the left axis
+     everything else hangs on and read as a stack of unrelated blocks.
+     .footer-col-group is display:contents so its two columns become grid items that can be
+     placed separately; .closing-footer turns into a flex column so the quote (a sibling of
+     .footer-cols) can be reordered after it. */
   @media (max-width:800px){
-    .footer-cols { display:grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-3); row-gap: var(--space-5); }
+    .closing-footer { display:flex; flex-direction:column; }
+    .closing-footer .footer-cols { order:1; }
+    .closing-footer .footer-quote { order:2; margin: 0 0 var(--space-6); }
+    .closing-footer .footer-bottom { order:3; }
+    .footer-cols { display:grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-3); row-gap: var(--space-5); border-top:0; padding: var(--space-4) 0 var(--space-6); }
     .footer-col-group { display:contents; }
+    .footer-logo { order:0; grid-column:1; justify-self:start; }
+    .footer-logo-mark { width:150px; }
+    .footer-logo-ring text { font-size:14px; }
+    .footer-cols .to-top { order:0; grid-column:2; justify-self:end; align-self:start; margin-top:0; }
+    .footer-cols .to-top span { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+    .footer-cols .to-top-icon { width:14px; height:44px; }
     .footer-col-group > .footer-col:nth-child(2) { order:1; grid-column: 1 / -1; }
     .footer-col-group > .footer-col:first-child { order:2; }
     .footer-cols > .footer-col { order:3; }
-    .footer-logo { order:4; grid-column: 1 / -1; justify-self:center; margin-top: var(--space-3); }
-    .footer-logo-mark { width:160px; }
-    .footer-cols .to-top { order:5; grid-column: 1 / -1; justify-self:center; margin-top: calc(-1 * var(--space-2)); }
     .footer-bottom { flex-direction:column; align-items:center; text-align:center; font-size:13px; gap: var(--space-2); }
     .footer-legal { justify-content:center; }
   }
