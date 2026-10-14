@@ -1203,6 +1203,13 @@
     .footer-logo { order:0; grid-column:1; justify-self:start; }
     .footer-logo-mark { width:150px; }
     .footer-logo-ring text { font-size:14px; }
+    /* extra air under the logo/arrow frame row — the grid's row-gap alone left "KONTAKT"
+       nearly touching the bottom of the ring */
+    .footer-logo, .footer-cols .to-top { margin-bottom: var(--space-3); }
+    /* imprint on two deliberate lines (name / IČO + register) instead of one long line
+       that wrapped wherever it ran out, leaving "rejstříku" orphaned */
+    .footer-imprint > span { display:block; }
+    .footer-imprint .footer-imprint-sep { display:none; }
     .footer-cols .to-top { order:0; grid-column:2; justify-self:end; align-self:start; margin-top:0; }
     .footer-cols .to-top span { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
     .footer-cols .to-top-icon { width:14px; height:44px; }
