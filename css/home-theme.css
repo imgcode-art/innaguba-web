@@ -62,14 +62,20 @@ body { overflow-x: clip; }
    instead of splitting like every other entry transition. */
 .why-me-layout.dark-panel::before { top: 0; }
 
-/* homepage: "Jak focení probíhá" (#sluzby) + its three steps continue the same dark
-   panel as .memory-section right above them — one long panel, not three separate
-   ones — so both get a flush entry instead of the usual light-gap-above treatment.
-   (The album video that briefly sat between them as its own banner now lives inside
-   .memory-section itself instead — see .memory-photo video in style.css — so this is
-   back to a direct memory-section → #sluzby adjacency.) */
-#sluzby.dark-panel::before,
-.steps-section.dark-panel::before { top: 0; }
+/* homepage: .memory-section used to run straight into the also-dark "Jak focení probíhá"
+   (#sluzby) as one long black slab. Per direct feedback both stay dark, so instead the
+   pricing block ("Kolik taková vzpomínka stojí?" + teaser + the julia banner video under
+   it) moved between them — it also answers memory-section's closing "Dnešní investice do
+   focení?" directly. The banner sits after the prices (not right after memory-section,
+   whose own album video it would otherwise sit next to). memory-section gets the normal
+   exit split: 64px dark / 86px light desktop, 48px / 42px mobile (48px set below). */
+@media (min-width:901px){
+  .memory-section.dark-panel { padding-bottom: 64px; }
+  .memory-section.dark-panel + .section-label { padding-top: 86px; }
+}
+@media (max-width:900px){
+  .memory-section.dark-panel + .section-label { padding-top: 42px; }
+}
 
 /* homepage only, desktop only: .proof-block breaks the "previous section owns no
    bottom padding" rule above on purpose (style.css, @media min-width:901px) — its photo

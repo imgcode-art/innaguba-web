@@ -246,15 +246,15 @@
   }
   .hc-split-media { position:relative; overflow:hidden; flex:0 0 auto; width: var(--hc-split-size); height: var(--hc-split-size); background: #000 center/cover no-repeat; filter: sepia(0.3) saturate(0.85) contrast(1.08) brightness(0.97); }
   .hc-split-media video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  /* sharp still of the video's last frame (images/hero/video-hero-end.jpg, the original
-     photo the clip ends on — the clip's own final frame is soft). The photo is a tighter
-     square crop than the clip's 1080×1070 frame, so once the video ends script.js pushes
-     the video in (transform, .hc-push) until that crop fills the panel, while the photo
-     fades in over it — reads as the camera settling and pulling focus, with no jump or
-     stretched edges. .is-ended toggles the fade; cleared on replay. */
-  .hc-split-media video.hc-push { transition: transform .9s cubic-bezier(.25,.1,.25,1); transform-origin: 0 0; }
-  .hc-end-frame { position:absolute; inset:0; opacity:0; transition: opacity .9s ease .15s; pointer-events:none; }
-  .hc-end-frame img { width:100%; height:100%; max-width:none; object-fit:cover; }
+  /* sharp still of the clip's final shot (images/hero/video-hero-end.jpg). The clip itself
+     now pushes in and dissolves into this exact photo (baked in, see script.js), so this
+     only swaps the compressed last frame for the original JPG once the video ends —
+     identical framing, short fade just to hide any compression difference. .is-ended
+     toggles it; cleared on replay. */
+  .hc-end-frame { position:absolute; inset:0; opacity:0; transition: opacity .6s ease; pointer-events:none; }
+  /* scale(1.0098): the clip's final frame shows the photo ~1% tighter (its 1290px square
+     crop fitted to the 1440×1426 frame, then cover-cropped to the square panel) */
+  .hc-end-frame img { width:100%; height:100%; max-width:none; object-fit:cover; transform: scale(1.0098); }
   .hc-split-media.is-ended .hc-end-frame { opacity:1; }
   /* desktop, per derfleratelier.cz reference: video flush to the true left screen edge
      (.hero-collage's own overflow-x:clip was clipping the 100vw breakout back to the
@@ -477,12 +477,34 @@
        background with nothing else around it to anchor it, and washed out to the point of
        being invisible per direct feedback — darkened just for this instance instead of
        the shared var(--line) value everywhere else uses. */
-    #proof-intro-mobile-2 .wrap { border-bottom-color: rgba(17,17,17,0.3); }
+    /* Centred, no divider, "nevyblednou" in italic — per direct feedback the left-aligned
+       heading + grey rule broke the centre axis the statement and stats above it set up,
+       and the rule sat right on the photo's edge. It only introduces the then/now pair, so
+       it's a step smaller than the "Děti rostou..." statement, not a new chapter title. */
+    #proof-intro-mobile-2 { padding-bottom: var(--space-4); }
+    #proof-intro-mobile-2 .wrap { display:block; border-bottom:0; padding-bottom:0; text-align:center; }
+    #proof-intro-mobile-2 h2 { font-size: clamp(27px, 7.4vw, 36px); line-height:1.12; letter-spacing:-0.01em; text-wrap:balance; }
+    #proof-intro-mobile-2 em { font-style:italic; }
+    /* "Děti rostou..." is the site's core message, not a section title — per direct
+       feedback, the shared section-label look (left-aligned, grey divider under it) made it
+       read like just another heading. Treated as a centred statement instead: the first
+       sentence as a quiet italic lead-in, the promise below it at display size with
+       "rozbuší srdce" in italic (same voice as the footer quote it echoes), no divider,
+       and more air below so it reads as its own pause before the stats. */
+    #proof-intro-mobile { padding-bottom: var(--space-5); }
+    #proof-intro-mobile .wrap { display:block; border-bottom:0; padding-bottom:0; text-align:center; }
+    #proof-intro-mobile h2 { font-size: clamp(30px, 8.6vw, 42px); line-height:1.1; letter-spacing:-0.015em; text-wrap:balance; }
+    #proof-intro-mobile .pim-lead { display:block; margin-bottom: var(--space-3); font-size: clamp(18px, 5vw, 22px); font-style:italic; font-weight:400; line-height:1.3; letter-spacing:0; color: var(--ink-body); }
+    #proof-intro-mobile em { font-style:italic; }
   }
   /* only needed once this wraps to 2 lines (narrower than desktop) — applied unconditionally
      it was adding extra line-box height even on one line, making the gap to the rule below
      read bigger here than on every other section-label at desktop widths */
   @media (max-width:900px){ #work h2 { line-height:1.1; } }
+  /* one-line subtitle under the then/now heading — says outright that both photos show
+     the same family, photographed for 12 years; without it the pair read as two unrelated
+     nice photos. Full-width row under the h2 (the .wrap is a wrapping flex row on desktop). */
+  .proof-intro-sub { flex-basis:100%; margin-top: var(--space-1); font-family: var(--serif); font-style:italic; font-size: clamp(20px, 2vw, 28px); line-height:1.3; color: var(--ink-body); text-wrap:balance; }
   .section-label .side { max-width:320px; font-size: var(--fs-body); line-height:1.5; text-align:right; font-weight:400; }
 
   /* ---------- Proof block (two equal-weight photos of the same family, years apart, with
@@ -576,9 +598,16 @@
      out of step with the already-centered photo captions directly above/below it. Centered
      to match. Desktop's own text-align:left (below) is untouched, already centered as a
      tidy fit-content block instead. */
+  /* Mobile: the three trust numbers side by side as one band, split by short hairlines,
+     instead of a tall stack of three — per direct instruction to make them stand out more;
+     read together in one glance they land as a single proof rather than a list. Labels in
+     the site's small tracked caps so the numerals carry all the weight. */
   @media (max-width:900px){
-    .proof-stats { text-align:center; }
-    .proof-stats li { align-items:center; }
+    .proof-stats { display:grid; grid-template-columns: repeat(3, 1fr); max-width:520px; text-align:center; }
+    .proof-stats li { align-items:center; gap: var(--space-1); padding: var(--space-1) var(--space-1); }
+    .proof-stats li + li { margin-top:0; border-left:1px solid rgba(17,17,17,0.18); }
+    .proof-stats li strong { font-size: clamp(30px, 9vw, 48px); line-height:1; white-space:nowrap; }
+    .proof-stats li span { font-size:11px; letter-spacing:0.14em; text-transform:uppercase; line-height:1.45; text-wrap:balance; }
   }
   @media (min-width:901px){
     /* the caption below each photo is position:absolute (see below), so it
@@ -755,9 +784,9 @@
   .js-process-focus .process-step:not(.is-active) .process-num,
   .js-process-focus .process-step:not(.is-active) .process-text { opacity:0.3; }
   @media (max-width:900px){
-    /* .memory-section right above already ends with 48px of dark padding (home-theme.css),
-       so only the rest of the usual 90px mobile section gap goes here */
-    .steps-section { padding: calc(var(--space-9) - 48px) 0 var(--space-7); }
+    /* normal 90px mobile section gap: 54px light pause after .memory-section's own dark
+       exit, then 36px dark above the heading (.dark-panel::before, home-theme.css) */
+    .steps-section { padding: var(--space-9) 0 var(--space-7); }
     .process-grid { grid-template-columns: 1fr; }
     .process-aside { position:static; margin-bottom: var(--space-5); }
     .process-cta-desktop { display:none; }
@@ -769,13 +798,10 @@
   .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
   .banner-video { margin-top: 150px; margin-bottom:0; }
   @media (max-width:900px){ .banner-video { margin-top: var(--space-9); } }
-  /* sits right after the FAQ section, reading as its tight coda rather than a generic
-     separator (same tight value the section-label itself uses for its own bottom
-     padding down to its content) — also the page's only full-bleed breather between
-     the memory-section/album pairing above and the closing video below, so the
-     long steps → FAQ → pricing text stretch doesn't run dry. Below it, .section-label's
-     own padding-top (150px / var(--space-9) mobile) already reads as the standard
-     section-to-section gap, so no margin-bottom is needed here. */
+  /* sits right under the price teaser ("Zobrazit celý ceník"), as the pricing block's
+     visual coda — and the only visual in the long prices → steps → FAQ text stretch, per
+     direct instruction (it used to sit right after memory-section, next to that section's
+     own album video). */
   #price-video-banner { margin-top: var(--space-6); }
   .banner-photo { margin-top: 50px; margin-bottom: 50px; }
   .banner-photo img { width:100%; height:100%; object-fit:cover; object-position:70% bottom; }
@@ -1186,41 +1212,47 @@
   .footer-logo-name { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; font-size:18px; line-height:1.3; letter-spacing:0.1em; text-transform:uppercase; opacity:0.7; }
   @keyframes footer-logo-spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce){ .footer-logo-ring { animation:none; } }
-  /* Mobile/tablet, per direct reference (aromacabinet.cz's mobile footer): a fixed "frame"
-     row first — logo left, a bare up-arrow right (label kept for screen readers only) —
-     then Kontakt across both columns (it matters more than the socials, and the e-mail
-     doesn't fit a half column at a tappable size), then Stránky | Sledujte mě, then the
-     quote moved to the end as the closing thought, then the legal line centred. An earlier
-     pass (logo centred at the bottom as a sign-off, quote on top) broke the left axis
-     everything else hangs on and read as a stack of unrelated blocks.
-     .footer-col-group is display:contents so its two columns become grid items that can be
-     placed separately; .closing-footer turns into a flex column so the quote (a sibling of
-     .footer-cols) can be reordered after it. */
+  /* Mobile/tablet: one "signature" row first — logo | quote | bare up-arrow (label kept for
+     screen readers only) — so the quote sits between the two instead of trailing at the
+     very end, then a hairline, Kontakt across the full width (the e-mail doesn't fit a
+     half column at a tappable size), then Stránky | Sledujte mě, then the legal line.
+     The quote is centred in the space between logo and arrow, and everything below it is
+     centred too (Stránky / Sledujte mě as two equal halves sharing one grid cell), so the
+     footer reads as one symmetric composition with the already-centred legal line —
+     per direct instruction: a left-hung lower block left the right half empty.
+     The whole footer has to fit one phone screen: the old stacked version was ~950px tall,
+     so on a 640–844px phone the logo had already scrolled off the top by the time the page
+     bottomed out. Vertical gaps are tied to the screen height (svh) so short phones get a
+     tighter footer and tall ones get more air, instead of one fixed size for every phone.
+     .footer-cols and .footer-col-group are display:contents so the logo, the arrow and
+     the link columns all become items of one grid on .closing-footer, next to the quote. */
   @media (max-width:800px){
-    .closing-footer { display:flex; flex-direction:column; }
-    .closing-footer .footer-cols { order:1; }
-    .closing-footer .footer-quote { order:2; margin: 0 0 var(--space-6); }
-    .closing-footer .footer-bottom { order:3; }
-    .footer-cols { display:grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-3); row-gap: var(--space-5); border-top:0; padding: var(--space-4) 0 var(--space-6); }
-    .footer-col-group { display:contents; }
-    .footer-logo { order:0; grid-column:1; justify-self:start; }
-    .footer-logo-mark { width:150px; }
-    .footer-logo-ring text { font-size:14px; }
-    /* extra air under the logo/arrow frame row — the grid's row-gap alone left "KONTAKT"
-       nearly touching the bottom of the ring */
-    .footer-logo, .footer-cols .to-top { margin-bottom: var(--space-3); }
+    .closing-footer {
+      --ft-gap: clamp(16px, 3.2svh, 36px);
+      display:grid; grid-template-columns: auto 1fr auto; column-gap: var(--space-2); row-gap: var(--ft-gap); align-items:start;
+      /* 54px = the light entry gap above .dark-panel::before (home-theme.css) */
+      padding: calc(54px + var(--ft-gap)) 0 clamp(16px, 2.5svh, 32px);
+    }
+    .footer-cols, .footer-col-group { display:contents; }
+    .footer-logo { grid-row:1; grid-column:1; }
+    .footer-logo-mark { width: clamp(100px, 29vw, 128px); }
+    .footer-logo-ring text { font-size:15px; }
+    .closing-footer .footer-quote { grid-row:1; grid-column:2; align-self:center; justify-self:center; text-align:center; margin:0; max-width:none; font-size: clamp(17px, 4.6vw, 22px); line-height:1.25; text-wrap:balance; }
+    .footer-cols .to-top { grid-row:1; grid-column:3; align-self:start; margin-top:0; }
+    .footer-cols .to-top span { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+    .footer-cols .to-top-icon { width:14px; height:44px; }
+    .footer-col { text-align:center; }
+    .footer-col-group > .footer-col:nth-child(2) { grid-row:2; grid-column: 1 / -1; padding-top: var(--ft-gap); border-top:1px solid var(--line); }
+    .footer-col-group > .footer-col:first-child { grid-row:3; grid-column: 1 / -1; width:50%; justify-self:start; }
+    .footer-cols > .footer-col { grid-row:3; grid-column: 1 / -1; width:50%; justify-self:end; }
+    .footer-col h5 { margin-bottom: var(--space-2); }
+    .footer-col a, .footer-col p { margin-bottom: 12px; }
+    .footer-bottom { grid-row:4; grid-column: 1 / -1; flex-direction:column; align-items:center; text-align:center; font-size:13px; gap: var(--space-1); }
+    .footer-legal { justify-content:center; }
     /* imprint on two deliberate lines (name / IČO + register) instead of one long line
        that wrapped wherever it ran out, leaving "rejstříku" orphaned */
     .footer-imprint > span { display:block; }
     .footer-imprint .footer-imprint-sep { display:none; }
-    .footer-cols .to-top { order:0; grid-column:2; justify-self:end; align-self:start; margin-top:0; }
-    .footer-cols .to-top span { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
-    .footer-cols .to-top-icon { width:14px; height:44px; }
-    .footer-col-group > .footer-col:nth-child(2) { order:1; grid-column: 1 / -1; }
-    .footer-col-group > .footer-col:first-child { order:2; }
-    .footer-cols > .footer-col { order:3; }
-    .footer-bottom { flex-direction:column; align-items:center; text-align:center; font-size:13px; gap: var(--space-2); }
-    .footer-legal { justify-content:center; }
   }
 
   /* Reveal-on-scroll: soft upward fade-in, triggered once per element by the
@@ -2087,3 +2119,57 @@
   /* ---------- Pro koho / textové výroky ---------- */
   .wv-statement-lead { font-family: var(--serif); font-weight:400; font-size: var(--fs-heading); color: var(--ink-subheading); max-width:680px; margin-bottom: var(--space-3); }
   .wv-statement-text { font-size: var(--fs-body); line-height:1.8; color: var(--ink-body); max-width:680px; }
+
+  /* ---------- Mobile heading system — one voice for every section heading ----------
+     Per direct instruction: on mobile every section heading reads the same way as the
+     homepage's "Děti rostou..." statement — centred, balanced line breaks, no grey divider
+     under it. The old left-aligned heading + rule looked like a generic section title and
+     broke the centre axis the hero, stats and footer now share. Placed last so it wins
+     over the per-component heading rules above (incl. #proof-intro-mobile-2's own). */
+  @media (max-width:900px){
+    .section-label .wrap { flex-direction:column; align-items:center; justify-content:center; text-align:center; border-bottom:0; padding-bottom:0; }
+    .section-label h1, .section-label h2,
+    .reassure-title, .memory-title, .process-aside h2 { text-align:center; text-wrap:balance; }
+    .reassure-title, .memory-title, .process-aside h2 { border-bottom:0; padding-bottom:0; }
+    .section-label .side { max-width:none; text-align:center; }
+    .process-intro { margin-left:auto; margin-right:auto; text-align:center; text-wrap:balance; }
+    /* centred + balanced, "Nejen fotografie" no longer lands alone on line one — it ran
+       straight into "Vzpomínky" with no punctuation. Dot back, with a deliberate break
+       after it: "Nejen fotografie. / Vzpomínky na to, jaké to bylo". */
+    .memory-title .dot-desktop-only { display:inline; }
+    .memory-title .dot-desktop-only::after { content:"\A"; white-space:pre; }
+    /* work cards (homepage + portfolio .pg): text under each photo on the same centre
+       axis as the heading above it; title in the regular-weight serif every other heading
+       uses (the 700 here was the only bold serif left and read heavy and dated), sized up
+       so it still clearly leads the muted description. */
+    .pg .pcard { align-items:center; text-align:center; }
+    .pg .pcard .thumb { align-self:stretch; }
+    .pg .pcard h4 { font-weight:400; font-size:30px; line-height:1.15; }
+    .pg .pcard p { max-width:34ch; text-wrap:balance; }
+    .pg .pcard .pcard-link { align-self:center; }
+  }
+
+  /* ---------- Desktop: same heading language as mobile ----------
+     No grey divider under headings at any width now — the italic accent word does the
+     "this is a heading" work instead (the rules read as generic section titles, per
+     direct feedback). Alignment follows the content under the heading: centred above
+     symmetric content (then/now photos + stats, the three work cards, the three
+     reviews — FAQ/prices/Google recenze were already centred), left-aligned where the
+     section itself is an asymmetric two-column layout (reassure, memory, steps, o-mne). */
+  .section-label .wrap { border-bottom:0; padding-bottom:0; }
+  .reassure-title, .memory-title, .process-aside h2 { border-bottom:0; padding-bottom:0; }
+  @media (min-width:901px){
+    #proof-intro-desktop .wrap, #work .wrap, #reference .wrap { justify-content:center; text-align:center; }
+    #proof-intro-desktop h2, #work h2, #reference h2 { text-align:center; }
+  }
+  /* subpage headers (gallery pages, podmínky, GDPR): without the divider, the short
+     .side line pinned to the far right read as detached from its title. It now sits
+     under the h1 as the same italic serif subtitle the homepage's then/now heading uses. */
+  .page-header .side { flex-basis:100%; max-width:none; text-align:inherit; font-family: var(--serif); font-style:italic; font-size: clamp(18px, 1.5vw, 22px); line-height:1.3; color: var(--ink-body); }
+  /* "Nemusí." pulled out of the paragraph and up under the question as its direct answer
+     (per direct instruction — it's the point of the whole section): italic serif, a step
+     smaller than the question, tucked right under it; the gap the title used to keep
+     before the columns moves below the answer instead. */
+  .reassure-title:has(+ .reassure-answer) { margin-bottom: var(--space-2); }
+  .reassure-answer { font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(30px, 3.4vw, 48px); line-height:1.1; color: var(--ink); margin-bottom: 40px; text-align:left; }
+  @media (max-width:900px){ .reassure-answer { text-align:center; margin-bottom: var(--space-4); } }

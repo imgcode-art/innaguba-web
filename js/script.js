@@ -135,33 +135,19 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // next time it scrolls back into view (page load counts as the first entry, same as
   // [data-scroll-video-play] above) — but unlike that one, every re-entry replays it, not
   // just the first. ----------
-  // Once it ends, the panel gets .is-ended, fading in the sharp still of that last frame
-  // (.hc-end-frame, style.css) — the clip's own final frame is soft. Cleared on replay.
-  // The still is a tighter square crop than the clip's frame: END_CROP is where it sits
-  // in the 1440×1426 frame (measured by aligning the photo onto the extracted last frame),
-  // and on 'ended' the video is scaled/moved so that square lands exactly where the
-  // still renders (both object-fit:cover in the same panel) while the still fades in.
-  const END_CROP = { x: 76, y: 11, size: 1290 }, CLIP_W = 1440, CLIP_H = 1426;
+  // The push-in onto the parents' kiss and the dissolve into the sharp photo
+  // (images/hero/video-hero-end.jpg) are baked into the clip itself (frame-accurate, made
+  // with ffmpeg) — the in-browser version (CSS transform + opacity crossfade, timed off
+  // 'timeupdate') never lined up exactly and read as a glitch, per direct feedback. The
+  // clip's last 1.6s already show that photo full-frame, so on 'ended' the panel only
+  // swaps in the original JPG (.is-ended, style.css) for full sharpness after video
+  // compression — same framing, so the swap itself is invisible. Cleared on replay.
   document.querySelectorAll('[data-replay-on-enter] video').forEach(video => {
     const panel = video.closest('[data-replay-on-enter]');
-    const resetPush = () => { video.classList.remove('hc-push'); video.style.transform = ''; };
-    video.addEventListener('ended', () => {
-      if (panel.querySelector('.hc-end-frame') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const W = panel.clientWidth, H = panel.clientHeight;
-        const v = Math.max(W / CLIP_W, H / CLIP_H);            // video's cover scale
-        const ps = Math.max(W, H);                              // still's rendered side (square, cover)
-        const k = ps / (END_CROP.size * v);
-        const cropLeft = (W - CLIP_W * v) / 2 + END_CROP.x * v;
-        const cropTop = (H - CLIP_H * v) / 2 + END_CROP.y * v;
-        const tx = (W - ps) / 2 - cropLeft * k, ty = (H - ps) / 2 - cropTop * k;
-        video.classList.add('hc-push');
-        video.style.transform = `translate(${tx}px, ${ty}px) scale(${k})`;
-      }
-      panel.classList.add('is-ended');
-    });
+    video.addEventListener('ended', () => panel.classList.add('is-ended'));
     const replayObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) { panel.classList.remove('is-ended'); resetPush(); video.currentTime = 0; video.play().catch(() => {}); }
+        if (entry.isIntersecting) { panel.classList.remove('is-ended'); video.currentTime = 0; video.play().catch(() => {}); }
         else video.pause();
       });
     }, { threshold: 0.6 });
@@ -502,7 +488,9 @@ document.querySelectorAll('[data-row]').forEach(row => {
         const headerH = document.querySelector('header')?.getBoundingClientRect().height || 72;
         const travel = window.innerHeight - headerH;
         const p = clamp01((window.innerHeight - revealFooter.getBoundingClientRect().top) / travel);
-        revealStage.style.setProperty('--fr-dim', p.toFixed(3));
+        // dim/blur only starts once the footer has covered ~40% of the way up — starting
+        // at once blurred the reviews while they were still being read (per direct feedback)
+        revealStage.style.setProperty('--fr-dim', clamp01((p - 0.4) / 0.6).toFixed(3));
         revealFooter.style.setProperty('--fr-develop', clamp01((p - 0.15) / 0.6).toFixed(3));
       };
       const requestDarkroom = () => { if (!ticking) { ticking = true; requestAnimationFrame(syncDarkroom); } };
@@ -673,4 +661,32 @@ document.querySelectorAll('[data-row]').forEach(row => {
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   update();
+})();
+
+// ---------- Homepage trust numbers — count up once when they scroll into view (12 let,
+// 900+), and "0 %" counts DOWN from 100, so "no posing" lands as the punchline. The final
+// text is in the HTML, so without JS (or with reduced motion) they simply show as written. ----------
+(() => {
+  const nums = [...document.querySelectorAll('.proof-stats li strong')];
+  if (!nums.length || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const run = el => {
+    const m = el.textContent.match(/^(\d+)(.*)$/);
+    if (!m) return;
+    const to = +m[1], suffix = m[2], from = to === 0 ? 100 : 0;
+    const start = performance.now(), dur = 1600;
+    const tick = now => {
+      const t = Math.min(1, Math.max(0, (now - start) / dur)), e = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(from + (to - from) * e) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      io.unobserve(entry.target);
+      run(entry.target);
+    });
+  }, { threshold: 0.6 });
+  nums.forEach(el => io.observe(el));
 })();
