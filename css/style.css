@@ -879,13 +879,21 @@
   .google-reviews .es-bullets-control-item { background: var(--line) !important; box-shadow:none !important; transform: scale(0.75) !important; }
   .google-reviews .es-bullets-control-container { align-self:center !important; }
   .google-reviews .es-bullets-control-item-active { background: rgba(17,17,17,0.35) !important; }
-  .rg { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8) var(--space-4); }
-  .rg .card { text-align:left; }
-  .rg .card .thumb { width:150px; height:150px; border-radius:50%; overflow:hidden; margin:0 0 var(--space-4); }
+  /* testimonials as an editorial triptych: centred under the centred heading, quote set in
+     the serif with one italic accent phrase (the site's signature), hairlines between the
+     three columns, and the name block pushed to the bottom (margin-top:auto) so all three
+     signatures sit on one line regardless of quote length */
+  .rg { display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8) 0; }
+  .rg .card { display:flex; flex-direction:column; align-items:center; text-align:center; padding: 0 var(--space-6); }
+  .rg .card + .card { border-left: 1px solid var(--line); }
+  .rg .card .thumb { width:128px; height:128px; border-radius:50%; overflow:hidden; margin:0 0 var(--space-5); outline: 1px solid var(--line); outline-offset:7px; }
   .rg .card p { font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); margin:0; }
+  .rg .card .card-quote { font-family: var(--serif); font-size: clamp(19px, 1.5vw, 22px); line-height:1.5; color: var(--ink-heading); max-width:34ch; }
+  .rg .card .card-quote em { font-style:italic; color: var(--ink); }
   .rg .card p strong { font-weight:700; font-style:normal; }
-  .rg .card .card-name { margin-top: var(--space-2); font-weight:700; color: var(--ink-heading); }
-  .rg .card .card-service { margin-top:2px; color: var(--ink-body); }
+  .rg .card .card-name { margin-top:auto; font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color: var(--ink); }
+  .rg .card .card-name::before { content:""; display:block; width:28px; height:1px; background: rgba(17,17,17,0.35); margin: var(--space-4) auto var(--space-3); }
+  .rg .card .card-service { margin-top:4px; font-family: var(--serif); font-style:italic; font-size:17px; color: rgba(17,17,17,0.62); }
   @media (max-width:900px){
     .rg { display:block; max-width:400px; margin:0 auto; margin-bottom: calc(-1 * var(--space-9)); }
     /* same card-stack trick as the portfolio cards — no artificial height added, since
@@ -894,8 +902,24 @@
        see the .rg .card height-matching in script.js); margin-bottom cancels the last
        card's own padding-bottom below once it stops being hidden under a following card,
        so the gap before the next section matches every other section-to-section gap */
-    .rg .card { position:sticky; top: var(--space-3); background: var(--paper); padding-bottom: var(--space-9); }
+    .rg .card { position:sticky; top: var(--space-3); background: var(--paper); padding: 0 0 var(--space-9); }
+    .rg .card + .card { border-left:0; }
   }
+  /* the one Google line that replaced the homepage's Elfsight reviews widget: the photo
+     testimonials carry the emotion, this makes them verifiable. Centred under the triptych. */
+  .refs-google { display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; gap: var(--space-1) 10px; margin: var(--space-8) 0 0; text-align:center; color: var(--ink-body); }
+  .refs-google .reviews-stars { letter-spacing:0.12em; font-size:14px; color: var(--ink); }
+  .refs-google-score { font-family: var(--serif); font-style:italic; font-size:19px; }
+  .refs-google .proof-teaser-link { margin-top:0; margin-left: var(--space-2); }
+  @media (max-width:900px){
+    /* sits on top of the last sticky card's empty padding-bottom (pulled up by .rg's negative margin) */
+    .refs-google { position:relative; z-index:1; margin-top: var(--space-6); }
+    .refs-google .proof-teaser-link { margin-left:0; }
+  }
+  /* homepage: the closing video now flows straight into the footer — one continuous dark
+     ending instead of two dark panels separated by a light strip */
+  .closing.dark-panel:has(.closing-video-stage) + .closing-footer.dark-panel { padding-top: var(--space-9); }
+  .closing.dark-panel:has(.closing-video-stage) + .closing-footer.dark-panel::before { top:0; }
 
   /* ---------- FAQ (Otázky & odpovědi) — accordion, one answer open at a time ---------- */
   /* same line-to-content gap as the other section-labels (var(--space-4)) — see the
@@ -2176,6 +2200,38 @@
   .reassure-title:has(+ .reassure-answer) { margin-bottom: var(--space-2); }
   .reassure-answer { font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(30px, 3.4vw, 48px); line-height:1.1; color: var(--ink); margin-bottom: 40px; text-align:left; }
   @media (max-width:900px){ .reassure-answer { text-align:center; margin-bottom: var(--space-4); } }
+  /* ---------- Reassure section, rebuilt (per direct feedback "still broken"): ----------
+     the question, its answer and the explanation now form ONE continuous text column,
+     vertically centred against a taller photo, instead of a full-width heading floating
+     above two columns with dead space between the lead line and the body. Reading order
+     is a single descent: question → "Nemusí." → thesis → why → link. The heading is a
+     step smaller than --fs-display because it now lives in a column, not across the page. */
+  @media (min-width:901px){
+    .reassure-columns { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(48px, 6vw, 110px); align-items:center; padding-block: var(--space-4); }
+    .reassure-columns .reassure-col { display:block; padding:0; }
+    .reassure-col .reassure-title { white-space:normal; font-size: clamp(38px, 3.6vw, 56px); line-height:1.05; text-wrap:balance; margin-bottom: var(--space-2); }
+    .reassure-col .reassure-answer { font-size: clamp(38px, 3.6vw, 56px); margin-bottom: var(--space-6); }
+    /* image is 3:2; drift height trimmed 130% → 110% and the frame set to 3:2 ÷ 1.1, so the
+       full width of the photo (the running boy on the left!) is never cropped */
+    .reassure-video { aspect-ratio: 33/20; }
+    .reassure-video img { height:110%; }
+  }
+  .reassure-lead { font-family: var(--serif); font-style:normal; font-size: clamp(22px, 1.8vw, 27px); line-height:1.3; color: var(--ink); margin-bottom: var(--space-3); }
+  .reassure-body { max-width:44ch; margin-bottom: var(--space-5); }
+  .reassure-body p { color: rgba(245,243,239,0.72); }
+  .reassure-section .proof-teaser-link { color: var(--ink); }
+  /* mobile: the column dissolves (display:contents) so the photo can sit between the
+     answer and the explanation — question, answer, photo, thesis, body, link — all centred */
+  @media (max-width:900px){
+    .reassure-columns { display:flex; flex-direction:column; gap:0; text-align:center; }
+    .reassure-columns .reassure-col { display:contents; }
+    .reassure-col > * { order:2; }
+    .reassure-col > .reassure-title, .reassure-col > .reassure-answer { order:0; }
+    .reassure-columns .reassure-video { order:1; margin-bottom: var(--space-5); }
+    .reassure-lead { text-align:center; }
+    .reassure-body { text-align:center; margin-left:auto; margin-right:auto; }
+    .reassure-col > .proof-teaser-link { align-self:center; }
+  }
 
   /* ---------- Work cards (homepage "Jak můžeme zachytit…" + portfolio .pg), all widths ----------
      Text under each photo on the same centre axis as the centred heading above; title in
@@ -2392,8 +2448,11 @@
   .contact-info-item a { font-family: var(--serif); font-size: clamp(22px, 1.9vw, 28px); font-weight:400; line-height:1.2; color: var(--ink-heading); text-decoration:none; background-image: linear-gradient(currentColor, currentColor); background-size:0 1px; background-position:0 100%; background-repeat:no-repeat; transition: background-size .3s ease; }
   .contact-info-item a:hover { color: var(--ink-heading); background-size:100% 1px; }
   .contact-info-reply { font-size: var(--fs-body); color: var(--ink-body); margin-bottom: var(--space-4); }
-  .contact-info-cta { background: var(--paper); color: var(--ink); border-color: var(--ink); }
-  .contact-info-cta:hover { background: var(--ink); color: var(--paper); }
+  /* the site's primary button as-is (dark fill, light-outline hover) — the light-outlined
+     variant with a drop shadow read as an inactive box. The quiet text link next to it
+     points down to the form: book a date (primary) or write first (secondary). */
+  .contact-info-actions { display:flex; flex-wrap:wrap; align-items:center; gap: var(--space-2) var(--space-4); }
+  .contact-info-write { margin-top:0; }
   @media (max-width:900px){
     .contact-info { align-items:stretch; }
     .contact-info-media { flex-basis:auto; width:100%; }
@@ -2432,4 +2491,52 @@
   @media (min-width:901px){
     .hero-curtain-stack .proof-block { padding-bottom:0; }
     .hero-curtain-stack + .reassure-section.dark-panel { padding-top:174px; }
+  }
+
+  /* ---------- Kontakt: closing video + form, rebuilt ----------
+     The video's own CTA button was removed on this page (it duplicated the booking
+     button right above it), so the video now just introduces the form. The form is the
+     page's main act: a centred 880px column instead of full-bleed 1360px-wide fields,
+     quieter labels, a real primary submit button, and proper dark space under it
+     (the panel used to end flush with the button). */
+  .closing.dark-panel:has(.contact-form) { padding-bottom: var(--space-10); }
+  .closing .contact-form { max-width:880px; margin: var(--space-8) auto 0; gap: var(--space-5); }
+  .closing .cf-group { gap: var(--space-5) var(--space-3); }
+  .closing .cf-field { gap: 10px; }
+  .closing .cf-field > label { font-size:12px; font-weight:500; letter-spacing:0.18em; color: rgba(245,243,239,0.6); }
+  .closing .cf-field input, .closing .cf-field select, .closing .contact-form textarea { border-color: rgba(245,243,239,0.22); transition: border-color .2s ease; }
+  .closing .cf-field input:hover, .closing .cf-field select:hover, .closing .contact-form textarea:hover { border-color: rgba(245,243,239,0.4); }
+  .closing .cf-field input:focus, .closing .cf-field select:focus, .closing .contact-form textarea:focus { border-color: var(--ink); }
+  .closing .contact-form textarea { min-height:150px; }
+  .closing .cf-submit { margin-top: var(--space-3); background: var(--ink); color: var(--paper); border-color: var(--ink); padding:16px 44px; }
+  .closing .cf-submit:hover { background: transparent; color: var(--ink); border-color: var(--ink); }
+  @media (max-width:900px){
+    .closing.dark-panel:has(.contact-form) { padding-bottom: var(--space-8); }
+    .closing .contact-form { margin-top: var(--space-6); gap: var(--space-4); }
+    .contact-info-actions { flex-direction:column; }
+  }
+  .closing .contact-form { scroll-margin-top: calc(var(--header-h, 72px) + var(--space-5)); }
+
+  /* ---------- Memory section ("Nejen fotografie…"), rebuilt — mirror of the reassure section:
+     video left, heading + text as one column on the right, vertically centred against the
+     video (it used to be a full-width heading above a video with a small paragraph floating
+     beside it). The closing "Dnešní investice…" line becomes the section's serif punchline. */
+  @media (min-width:901px){
+    .memory-body-align { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(48px, 6vw, 110px); padding-block: var(--space-4); }
+    .memory-body-align .memory-photo { grid-column:1; }
+    .memory-body-align .memory-body { grid-column:2; }
+    .memory-body .memory-title { white-space:normal; font-size: clamp(38px, 3.6vw, 56px); line-height:1.05; text-wrap:balance; margin-bottom: var(--space-5); }
+    .memory-title .dot-desktop-only::after { content:"\A"; white-space:pre; }
+  }
+  .memory-body p { color: rgba(245,243,239,0.72); max-width:44ch; }
+  .memory-body p.memory-punch { font-family: var(--serif); font-size: clamp(22px, 1.8vw, 27px); line-height:1.3; color: var(--ink); margin-top: var(--space-5); max-width:19em; }
+  .memory-body .memory-punch::before { content:""; display:block; width:28px; height:1px; background: rgba(245,243,239,0.35); margin-bottom: var(--space-4); }
+  @media (max-width:900px){
+    .memory-body-align { display:flex; flex-direction:column; gap:0; }
+    .memory-body-align .memory-body { display:contents; }
+    .memory-body > * { order:2; }
+    .memory-body > .memory-title { order:0; }
+    .memory-body-align .memory-photo { order:1; width:100%; align-self:stretch; margin-bottom: var(--space-5); }
+    .memory-body p { text-align:center; margin-left:auto; margin-right:auto; }
+    .memory-body .memory-punch::before { margin-left:auto; margin-right:auto; }
   }
