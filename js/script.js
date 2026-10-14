@@ -471,6 +471,50 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', syncCurtainHeroHeight);
   }
 
+  // ---------- Homepage: footer reveal — the stage before the footer is position:sticky
+  // (css/home-theme.css, .footer-reveal-stage) and pins while the footer slides up over it.
+  // Its top offset has to depend on its own height: if it fits under the header it pins
+  // right there, if it's taller it pins only once its bottom edge is in view (negative top).
+  // The Google reviews widget inside loads late and changes height, hence ResizeObserver. ----------
+  const revealStage = document.querySelector('.footer-reveal-stage');
+  if (revealStage) {
+    const syncRevealTop = () => {
+      const headerH = document.querySelector('header')?.getBoundingClientRect().height || 72;
+      const top = Math.min(headerH, window.innerHeight - revealStage.getBoundingClientRect().height);
+      revealStage.style.setProperty('--reveal-top', `${top}px`);
+    };
+    syncRevealTop();
+    window.addEventListener('resize', syncRevealTop);
+    if ('ResizeObserver' in window) new ResizeObserver(syncRevealTop).observe(revealStage);
+
+    // "Rack focus" transition (css/home-theme.css): progress = how far the footer's top edge
+    // has travelled from the viewport bottom up to the header. --fr-dim recedes/blurs/fades
+    // the stage across the whole slide; --fr-develop sharpens the quote, starting a little
+    // later and finishing before the footer arrives, so it settles while still in motion.
+    const revealFooter = document.querySelector('.footer-reveal');
+    const desktopMotion = window.matchMedia('(min-width:901px) and (prefers-reduced-motion: no-preference)');
+    if (revealFooter) {
+      const clamp01 = (v) => Math.min(1, Math.max(0, v));
+      let ticking = false;
+      const syncDarkroom = () => {
+        ticking = false;
+        if (!desktopMotion.matches) return;
+        const headerH = document.querySelector('header')?.getBoundingClientRect().height || 72;
+        const travel = window.innerHeight - headerH;
+        const p = clamp01((window.innerHeight - revealFooter.getBoundingClientRect().top) / travel);
+        revealStage.style.setProperty('--fr-dim', p.toFixed(3));
+        revealFooter.style.setProperty('--fr-develop', clamp01((p - 0.15) / 0.6).toFixed(3));
+      };
+      const requestDarkroom = () => { if (!ticking) { ticking = true; requestAnimationFrame(syncDarkroom); } };
+      syncDarkroom();
+      window.addEventListener('scroll', requestDarkroom, { passive: true });
+      window.addEventListener('resize', requestDarkroom);
+      // late-loading content (reviews widget, lazy images above) shifts the footer without
+      // any scroll event — re-sync on layout changes too, or the stage can stick mid-fade
+      if ('ResizeObserver' in window) new ResizeObserver(requestDarkroom).observe(document.body);
+    }
+  }
+
   // ---------- Homepage: scroll-drift ("parallax") — shared helper for any image/video whose
   // CSS already expects it (130%-tall, centered via top:50% + translateY(-50% + var(--parallax-y)),
   // its container position:relative + overflow:hidden). This just computes, per matching element,
@@ -504,7 +548,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', onScroll);
   };
   // "Nejen fotografie... Vzpomínky" photo, the two proof-block then/now photos, the 3
-  // "Jak můžeme zachytit vaši rodinu?" cards (same selector also matches portfolio.html's
+  // "Jak můžeme zachytit vaše nejbližší?" cards (same selector also matches portfolio.html's
   // own 3 category cards — same .pg .pcard .thumb img markup), the 2 full-bleed video
   // banners, the video gallery's thumbnails, and the "O mně" story photos.
   // .proof-photo img used to be in this list too — dropped per direct instruction, the

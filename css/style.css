@@ -85,6 +85,11 @@
   header::after { content:""; position:absolute; left:50%; bottom:0; width:100vw; margin-left:-50vw; height:1px; background: var(--ink); }
   @media (max-width:700px){ header { padding-left: var(--space-3); padding-right: var(--space-3); } }
   .nav { position:relative; display:flex; justify-content:space-between; align-items:center; }
+  /* header runs full-bleed (logo/links pinned to the viewport edges) instead of capping at
+     .wrap's 1400px — on wide screens the centered nav floated over the edge-to-edge hero
+     photo with nothing to line up with, per direct feedback. */
+  header .nav.wrap { max-width:none; }
+  @media (min-width:1200px){ header { padding-left: var(--space-6); padding-right: var(--space-6); } }
   .logo { font-weight:700; font-size: var(--fs-body); letter-spacing:0.06em; }
   .logo-group { display:flex; flex-direction:column; gap:0; }
   .logo-claim { font-size:13px; font-weight:400; letter-spacing:0.03em; color: var(--ink-body); }
@@ -641,7 +646,7 @@
     .reassure-body { gap: var(--space-3); }
   }
 
-  /* ---------- Work cards ("Jak můžeme zachytit vaši rodinu?") — reuses .pg/.pcard from the
+  /* ---------- Work cards ("Jak můžeme zachytit vaše nejbližší?") — reuses .pg/.pcard from the
      portfolio page's gallery grid, plus a description and link line each card didn't need there ---------- */
   .work-cards { padding: 0; }
   .pg .pcard p { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); margin-top: var(--space-1); }
@@ -1109,11 +1114,28 @@
   .cf-booking { display:block; width:fit-content; margin:0 auto; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:14px 28px; line-height:1.5; background: var(--ink); color:#fff; transition: background .2s ease, color .2s ease; }
   .cf-booking:hover { background: transparent; color: var(--ink); }
   @media (max-width:600px){ .cf-submit{align-self:stretch; text-align:center;} .cf-booking{width:100%; max-width:480px; text-align:center;} .cf-field input, .contact-form textarea { font-size:16px; } }
-  .footer-cols { display:flex; justify-content:space-between; align-items:flex-start; padding: var(--space-4) 0; border-top:1px solid var(--line); gap: var(--space-4); }
+  /* Taller "closing" footer, per direct reference (aromacabinet.cz's footer): the height is
+     filled with real content — a large serif quote, labelled link columns, a bigger logo —
+     rather than just more padding, which would only read as an empty dark box. Desktop
+     min-height = the 110px light gap above .dark-panel::before's top edge (home-theme.css)
+     plus ~75vh of dark panel; footer-bottom is pushed to the panel's floor by margin-top:auto. */
+  @media (min-width:901px){
+    .closing-footer { display:flex; flex-direction:column; min-height: calc(110px + min(75vh, 760px)); }
+    .closing-footer .footer-bottom { margin-top:auto; }
+  }
+  .footer-quote { font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(28px, 3.4vw, 48px); line-height:1.15; letter-spacing:-0.01em; color: var(--ink-heading); max-width: 30ch; margin: var(--space-7) 0 var(--space-8); }
+  @media (max-width:900px){ .footer-quote { margin: var(--space-4) 0 var(--space-6); } }
+  .footer-cols { display:flex; justify-content:space-between; align-items:flex-start; padding: var(--space-6) 0; border-top:1px solid var(--line); gap: var(--space-4); }
   .footer-col-group { display:flex; gap: var(--space-6); flex-wrap:wrap; }
   @media (min-width:801px){ .footer-col-group { display:contents; } }
-  .footer-col h5 { font-size: var(--fs-body); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; opacity:0.45; margin-bottom: var(--space-2); }
-  .footer-col a, .footer-col p { display:block; font-size: var(--fs-body); font-weight:400; color: var(--ink-body); margin-bottom: var(--space-1); }
+  /* column labels — small, widely tracked caps at low opacity, so they organise the columns
+     without competing with the links themselves */
+  .footer-col h5 { font-family: var(--sans); font-size:12px; font-weight:400; text-transform:uppercase; letter-spacing:0.2em; opacity:0.45; margin-bottom: var(--space-3); }
+  /* links in the same tracked-caps voice as the header nav; phone/e-mail stay in normal
+     case — an all-caps address reads like shouting and is harder to scan */
+  .footer-col a, .footer-col p { display:block; font-size:13px; font-weight:400; text-transform:uppercase; letter-spacing:0.12em; color: var(--ink-body); margin-bottom: var(--space-2); transition: color .2s ease; }
+  .footer-col a[href^="tel:"], .footer-col a[href^="mailto:"] { font-size: var(--fs-body); text-transform:none; letter-spacing:0.02em; }
+  .footer-col a:hover { color: var(--ink); }
   @media (max-width:500px){ .footer-col-group { flex-direction:column; gap: var(--space-3); } }
   .footer-bottom { display:flex; justify-content:space-between; padding-top: var(--space-2); border-top:1px solid var(--line); font-size: var(--fs-body); opacity:0.5; flex-wrap:wrap; gap: var(--space-1); }
   .footer-legal { display:flex; gap: var(--space-3); flex-wrap:wrap; }
@@ -1136,11 +1158,17 @@
      shows where the text meets itself. Only the ring turns (40s/turn — calm, not a loader);
      it stays still under prefers-reduced-motion. */
   .footer-logo { display:block; flex-shrink:0; color: var(--ink); }
-  .footer-logo-mark { position:relative; display:block; width:180px; aspect-ratio:1; }
+  .footer-logo-mark { position:relative; display:block; width:220px; aspect-ratio:1; }
   .footer-logo-ring { position:absolute; inset:0; width:100%; height:100%; animation: footer-logo-spin 40s linear infinite; }
   /* lowercase ring at the footer-bottom's own 0.5 opacity, name a touch stronger — the mark
      should sit back with the rest of the footer, not outshine the links beside it */
-  .footer-logo-ring text { font-family: var(--sans); font-size:17.8px; font-weight:400; fill: currentColor; opacity:0.5; }
+  /* tracked small caps (same voice as the header nav / footer column labels) instead of
+     lowercase body-size type — at the 220px mark the old 17.8-unit size rendered ~20px and
+     read as heavy. Each letter is its own <text>, rotated to an equal slot round the circle
+     (spaces are just empty slots), instead of one <textPath> stretched by textLength: that
+     spread the extra room unevenly (big holes round "ZA", letters bunched elsewhere), and
+     Safari's textLength-on-textPath handling differs from Chrome's anyway. */
+  .footer-logo-ring text { font-family: var(--sans); font-size:11.5px; font-weight:400; fill: currentColor; opacity:0.55; }
   .footer-logo-name { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; font-size:18px; line-height:1.3; letter-spacing:0.1em; text-transform:uppercase; opacity:0.7; }
   @keyframes footer-logo-spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce){ .footer-logo-ring { animation:none; } }
@@ -1198,7 +1226,12 @@
   /* ---------- Portfolio grid ---------- */
   .portfolio-grid { padding: 0; }
   .pg { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
-  .pg .pcard { display:block; }
+  /* flex column + growing paragraph pushes each card's link to the bottom, so the
+     "Prohlédnout …" links line up across the row even when one description runs a line
+     longer than the others (grid already stretches the cards to equal height). */
+  .pg .pcard { display:flex; flex-direction:column; }
+  .pg .pcard p { flex-grow:1; }
+  .pg .pcard .pcard-link { align-self:flex-start; }
   .pg .pcard .thumb { position:relative; aspect-ratio:3/4; overflow:hidden; margin-bottom: var(--space-3); }
   /* drift only, no hover-zoom — shared by both .work-cards (homepage "Jak můžeme zachytit
      vaši rodinu?") and portfolio.html's own .pg grid, same DOM shape in both (.pg .pcard

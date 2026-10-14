@@ -278,3 +278,42 @@ body { overflow-x: clip; }
      this is the same "line directly above photo content" pattern. */
   .section-label + .proof-block { padding-top: var(--space-4); }
 }
+
+/* ---------- Footer reveal (homepage, desktop only) ----------
+   The footer slides up OVER the "Google recenze" block, which stays pinned
+   underneath. Deliberately the inverse of the reverted closing-CTA attempt
+   noted above: there the sticky element was the full-bleed dark panel itself
+   (what broke in Safari); here the sticky element is the plain light stage,
+   which has no full-bleed breakout, and the dark footer stays in normal flow —
+   same split as the mobile hero curtain, which works in Safari.
+
+   --reveal-top is set by script.js: the header height, or (if the stage is
+   taller than the space under the header) a negative offset so it pins only
+   once its own bottom edge has scrolled into view — nothing gets covered
+   before it's been seen.
+
+   The footer's 110px light entry gap (.dark-panel::before top) is dropped
+   here: a transparent strip sliding over the pinned reviews would show them
+   through it. Instead the whole footer is one solid dark sheet. */
+@media (min-width:901px){
+  .footer-reveal-stage { position: sticky; top: var(--reveal-top, var(--header-h, 72px)); z-index: 0; }
+  .closing-footer.dark-panel.footer-reveal { z-index: 1; padding-top: 40px; margin-top: 110px; min-height: calc(100vh - var(--header-h, 72px)); }
+  .closing-footer.dark-panel.footer-reveal::before { top: 0; }
+}
+
+/* ---------- Footer reveal: "rack focus" transition (desktop, motion allowed) ----------
+   Two scroll-linked effects, both driven by script.js — focus "pulls" from the
+   page onto the footer, like a rack focus between two planes:
+   1. --fr-dim (0→1, on the stage): as the footer slides up, the pinned reviews
+      stage recedes (scales to 96%, anchored at its top edge so no gap opens under
+      the header), softens out of focus and fades. Its background stays the
+      page's own warm paper — an earlier version laid a dark veil over it instead,
+      which never read as "darkness", only as muddy shades of grey on the cream.
+   2. --fr-develop (0→1, on the footer): the quote comes into focus — from soft,
+      blurred and faint to sharp.
+   Defaults (dim 0, develop 1) are the plain, finished state, so if script.js
+   doesn't run, nothing is left faded or blurred. */
+@media (min-width:901px) and (prefers-reduced-motion: no-preference){
+  .footer-reveal-stage { transform-origin: 50% 0; transform: scale(calc(1 - 0.04 * var(--fr-dim, 0))); filter: blur(calc(var(--fr-dim, 0) * 5px)); opacity: calc(1 - 0.7 * var(--fr-dim, 0)); }
+  .footer-reveal .footer-quote { filter: blur(calc((1 - var(--fr-develop, 1)) * 12px)); opacity: calc(0.1 + 0.9 * var(--fr-develop, 1)); }
+}
