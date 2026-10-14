@@ -334,3 +334,12 @@ body { overflow-x: clip; }
   .footer-reveal-stage { transform-origin: 50% 0; transform: scale(calc(1 - 0.04 * var(--fr-dim, 0))); filter: blur(calc(var(--fr-dim, 0) * 5px)); opacity: calc(1 - 0.7 * var(--fr-dim, 0)); }
   .footer-reveal .footer-quote { filter: blur(calc((1 - var(--fr-develop, 1)) * 12px)); opacity: calc(0.1 + 0.9 * var(--fr-develop, 1)); }
 }
+
+/* Footer reveal now runs on every page with the reviews → footer ending (not just the
+   homepage), per direct instruction — same component should behave the same everywhere.
+   The reviews label sits inside .footer-reveal-stage now, so the closing CTA's exit
+   gap (.closing.dark-panel + .section-label above) has to reach into the wrapper. */
+.closing.dark-panel + .footer-reveal-stage > .section-label:first-child { padding-top: 86px; }
+@media (max-width:900px){
+  .closing.dark-panel + .footer-reveal-stage > .section-label:first-child { padding-top: 42px; }
+}
