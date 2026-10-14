@@ -1205,6 +1205,12 @@
   @media (min-width:901px){
     .closing-footer { display:flex; flex-direction:column; min-height: calc(110px + min(75vh, 760px)); }
     .closing-footer .footer-bottom { margin-top:auto; }
+    /* fill the whole screen under the header once you reach the end of the page, the same
+       as the footer-reveal pages (ceník, kontakt) — at ~75vh a strip of the previous section
+       stayed visible above it, per direct feedback. 110px = the light entry gap above the
+       dark fill; after the dark closing-video panel there's no gap, so no 110px. */
+    .closing-footer.dark-panel { min-height: calc(110px + 100vh - var(--header-h, 72px)); }
+    .closing.dark-panel:has(.closing-video-stage) + .closing-footer.dark-panel { min-height: calc(100vh - var(--header-h, 72px)); }
   }
   .footer-quote { font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(28px, 3.4vw, 48px); line-height:1.15; letter-spacing:-0.01em; color: var(--ink-heading); max-width: 30ch; margin: var(--space-7) 0 var(--space-8); }
   @media (max-width:900px){ .footer-quote { margin: var(--space-4) 0 var(--space-6); } }
