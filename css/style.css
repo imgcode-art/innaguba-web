@@ -2465,7 +2465,9 @@
   /* ceník "Rodinné video" card: the clip is graded far warmer/more saturated than the
      package photos around it (measured: ~0.55 average saturation vs ~0.3, much more
      yellow) — toned down to sit with them, per direct feedback. Applies to its poster too. */
-  .pb-standout .pb-photo video { filter: saturate(0.6) brightness(1.04) contrast(1.05); }
+  /* 0.6 then read as lifeless (per direct feedback) — midway: still calmer than the raw
+     grade, but with life back in the skin tones */
+  .pb-standout .pb-photo video { filter: saturate(0.82) brightness(1.02) contrast(1.07); }
 
   /* ---------- Homepage hero (desktop) — same language as the rest of the site ----------
      Per direct instruction: kicker gets the same leading hairline as every page eyebrow;
