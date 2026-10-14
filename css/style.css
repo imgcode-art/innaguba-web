@@ -1136,7 +1136,6 @@
   .footer-col a, .footer-col p { display:block; font-size:13px; font-weight:400; text-transform:uppercase; letter-spacing:0.12em; color: var(--ink-body); margin-bottom: var(--space-2); transition: color .2s ease; }
   .footer-col a[href^="tel:"], .footer-col a[href^="mailto:"] { font-size: var(--fs-body); text-transform:none; letter-spacing:0.02em; }
   .footer-col a:hover { color: var(--ink); }
-  @media (max-width:500px){ .footer-col-group { flex-direction:column; gap: var(--space-3); } }
   .footer-bottom { display:flex; justify-content:space-between; padding-top: var(--space-2); border-top:1px solid var(--line); font-size: var(--fs-body); opacity:0.5; flex-wrap:wrap; gap: var(--space-1); }
   .footer-legal { display:flex; gap: var(--space-3); flex-wrap:wrap; }
   .footer-legal a { text-decoration:underline; }
@@ -1172,8 +1171,24 @@
   .footer-logo-name { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; font-size:18px; line-height:1.3; letter-spacing:0.1em; text-transform:uppercase; opacity:0.7; }
   @keyframes footer-logo-spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce){ .footer-logo-ring { animation:none; } }
-  @media (max-width:800px){ .footer-logo { flex-basis:100%; } .footer-logo-mark { width:150px; } }
-  @media (max-width:800px){ .footer-cols { flex-wrap:wrap; } .footer-cols .to-top { flex-basis:100%; justify-content:flex-end; } }
+  /* Mobile/tablet: a plain two-column grid instead of the desktop flex row (which on
+     narrow screens scattered the columns — "Sledujte mě" pinned to the far right, "Kontakt"
+     hanging alone under "Stránky", "Zpět nahoru" floating on its own line). Order:
+     Stránky | Sledujte mě, then Kontakt across both columns (the e-mail needs the width),
+     then the logo centred as a sign-off with "Zpět nahoru" under it. .footer-col-group is
+     display:contents so its two columns become grid items that can be placed separately. */
+  @media (max-width:800px){
+    .footer-cols { display:grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-3); row-gap: var(--space-5); }
+    .footer-col-group { display:contents; }
+    .footer-col-group > .footer-col:first-child { order:1; }
+    .footer-cols > .footer-col { order:2; }
+    .footer-col-group > .footer-col:nth-child(2) { order:3; grid-column: 1 / -1; }
+    .footer-logo { order:4; grid-column: 1 / -1; justify-self:center; margin-top: var(--space-3); }
+    .footer-logo-mark { width:160px; }
+    .footer-cols .to-top { order:5; grid-column: 1 / -1; justify-self:center; margin-top: calc(-1 * var(--space-2)); }
+    .footer-bottom { flex-direction:column; align-items:center; text-align:center; font-size:13px; gap: var(--space-2); }
+    .footer-legal { justify-content:center; }
+  }
 
   /* Reveal-on-scroll: soft upward fade-in, triggered once per element by the
      IntersectionObserver in script.js (adds .in). The cubic-bezier is a slow-settling
