@@ -2019,6 +2019,26 @@
   .cookie-accept { display:inline-block; font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); padding:12px 24px; background:none; color: var(--ink); cursor:pointer; transition: background .2s ease, color .2s ease; white-space:nowrap; }
   .cookie-accept:hover { background: var(--ink); color:#fff; }
   @media (max-width:700px){ .cookie-bar { padding: var(--space-3); flex-direction:column; align-items:flex-start; } .cookie-actions{ width:100%; justify-content:space-between; } }
+  /* softened to the site's own voice, per direct feedback — the bar used bold 700-weight
+     controls nothing else on the site uses, so it read like a foreign plugin. Now: quieter
+     15px copy, the "secondary" choice set as the site's tracked-caps text link
+     (.proof-teaser-link), "accept" as the site's thin outlined button at 400 weight,
+     a soft lift instead of a hard edge, and slimmer padding so it takes less screen */
+  .cookie-bar { padding: var(--space-2) var(--space-5); gap: var(--space-2) var(--space-5); border-top:1px solid var(--line); box-shadow: 0 -12px 32px -24px rgba(17,17,17,0.35); }
+  .cookie-bar p { font-size:15px; line-height:1.55; max-width:720px; }
+  .cookie-bar a { color: var(--ink-body); text-underline-offset:3px; white-space:nowrap; }
+  .cookie-actions { gap: var(--space-4); }
+  .cookie-reject, .cookie-accept { font-family: var(--sans); }
+  /* both choices as the same thin outlined button — refusing has to be as easy and as
+     visible as accepting (ÚOOÚ guidance), so neither is styled as the "lesser" option */
+  .cookie-reject, .cookie-accept { display:inline-block; font-size:13px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; color: var(--ink); background:none; border:1px solid var(--ink); padding:12px 26px; cursor:pointer; white-space:nowrap; transition: background .2s ease, color .2s ease; }
+  .cookie-reject:hover, .cookie-accept:hover { background: var(--ink); color: var(--paper); }
+  @media (max-width:700px){
+    .cookie-bar { padding: var(--space-3) var(--space-3) calc(var(--space-3) + env(safe-area-inset-bottom, 0px)); }
+    .cookie-bar p { font-size:14px; }
+    .cookie-actions { display:grid; grid-template-columns:1fr 1fr; gap: var(--space-2); }
+    .cookie-reject, .cookie-accept { padding:12px 10px; text-align:center; }
+  }
 
   /* ---------- Sitewide photo hover zoom (homepage + other subpages, desktop only) ----------
      .proof-photo and .memory-photo are deliberately NOT in this list — they also have a
