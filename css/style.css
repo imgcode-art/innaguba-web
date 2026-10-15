@@ -2294,7 +2294,7 @@
      - the main button filled light on the dark video — the one solid button here, so it
        reads first; "Chci poradit" stays the quiet underlined second option
      - desktop: taller, cinematic band (~¾ of the screen) instead of a short strip */
-  .closing-video-scrim { opacity:1; background: radial-gradient(ellipse 65% 75% at 50% 50%, rgba(17,17,17,0.78) 0%, rgba(17,17,17,0.62) 55%, rgba(17,17,17,0.45) 100%); }
+  .closing-video-scrim { opacity:1; background: radial-gradient(ellipse 65% 75% at 50% 50%, rgba(17,17,17,0.58) 0%, rgba(17,17,17,0.42) 55%, rgba(17,17,17,0.22) 100%); }
   .closing-video-stage .closing-title { border-bottom:0; padding-bottom:0; text-wrap:balance; }
   .closing-video-stage .closing-note { max-width:52ch; margin-left:auto; margin-right:auto; font-size:18px; line-height:1.6; text-wrap:balance; }
   .closing-video-stage .about-thanks-cta { margin-top: var(--space-5); }
