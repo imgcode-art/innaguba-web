@@ -2590,6 +2590,10 @@
     .hc-trust .reviews-stars { letter-spacing:0.08em; margin-right:4px; }
     .hc-trust-sep { margin: 0 6px; opacity:.6; }
   }
+  /* rating line opens the Google reviews — stays quiet type, underline only on hover so it
+     doesn't compete with the CTA right above it */
+  .hc-trust-link { color: inherit; text-decoration: underline transparent; text-underline-offset: 4px; transition: text-decoration-color .2s ease; }
+  .hc-trust-link:hover, .hc-trust-link:focus-visible { text-decoration-color: currentColor; }
   @media (min-width:901px) and (max-width:1180px){
     .hc-split-content .hc-kicker { letter-spacing:0.14em; }
   }
