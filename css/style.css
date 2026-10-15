@@ -1070,8 +1070,14 @@
     .why-photo img { inset:-3%; width:106%; height:106%; will-change:transform; }
   }
   @media (prefers-reduced-motion: reduce) { .why-photo img { inset:0; width:100%; height:100%; } }
-  .why-reasons { display:flex; flex-direction:column; gap: var(--space-3); }
-  .why-me-card h3 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-2); }
+  /* editorial numbered list — italic serif numerals (the site's italic accent) in their own
+     narrow column, hairlines between reasons, so the three cards read as one deliberate
+     list facing the photo instead of three loose paragraphs floating in the dark panel */
+  .why-reasons { display:flex; flex-direction:column; counter-reset: why; }
+  .why-me-card { counter-increment: why; display:grid; grid-template-columns: 3.25rem 1fr; padding-block: var(--space-3); border-top:1px solid var(--line); }
+  .why-me-card:last-child { border-bottom:1px solid var(--line); }
+  .why-me-card::before { content: counter(why); grid-row: 1 / span 2; font-family: var(--serif); font-style:italic; font-size: var(--fs-heading); line-height:1.2; color: var(--ink-body); opacity:0.5; }
+  .why-me-card h3 { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; line-height:1.2; letter-spacing:-0.01em; color: var(--ink-subheading); margin-bottom: var(--space-1); }
   .why-me-card p { font-size: var(--fs-body); line-height:1.5; color: var(--ink-body); }
   @media (max-width:900px){
     .why-me-layout { grid-template-columns:1fr; align-items:start; gap: var(--space-6); }
@@ -1080,6 +1086,8 @@
        body paragraph right under it to read as a clear title — same fix already used
        for .pg .pcard h4 / #work h2's own mobile override. */
     .why-me-card h3 { font-size: 28px; line-height:1.2; }
+    .why-me-card { grid-template-columns: 2.5rem 1fr; }
+    .why-me-card::before { font-size: 28px; }
   }
 
   /* ---------- Contact form ---------- */
@@ -1205,8 +1213,9 @@
      them — per direct instruction. Mobile sets its own size further down. */
   .footer-logo-mark { position:relative; display:block; width:168px; aspect-ratio:1; }
   .footer-logo-ring { position:absolute; inset:0; width:100%; height:100%; animation: footer-logo-spin 40s linear infinite; }
-  /* lowercase ring at the footer-bottom's own 0.5 opacity, name a touch stronger — the mark
-     should sit back with the rest of the footer, not outshine the links beside it */
+  /* ring quiet (0.55), name at the same --ink-body as the footer links beside it — a dimmer
+     name read as a disabled/greyed-out brand, the one thing in the footer that should never
+     look weaker than the links next to it (per direct instruction) */
   /* tracked small caps (same voice as the header nav / footer column labels) instead of
      lowercase body-size type — at the 220px mark the old 17.8-unit size rendered ~20px and
      read as heavy. Each letter is its own <text>, rotated to an equal slot round the circle
@@ -1214,7 +1223,7 @@
      spread the extra room unevenly (big holes round "ZA", letters bunched elsewhere), and
      Safari's textLength-on-textPath handling differs from Chrome's anyway. */
   .footer-logo-ring text { font-family: var(--sans); font-size:11.5px; font-weight:400; fill: currentColor; opacity:0.55; }
-  .footer-logo-name { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; font-size:18px; line-height:1.3; letter-spacing:0.1em; text-transform:uppercase; opacity:0.7; }
+  .footer-logo-name { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; font-size:18px; line-height:1.3; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-body); }
   @keyframes footer-logo-spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce){ .footer-logo-ring { animation:none; } }
   /* Mobile/tablet: one "signature" row first — logo | quote | bare up-arrow (label kept for
