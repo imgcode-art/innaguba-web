@@ -805,11 +805,6 @@
   .banner { position:relative; height:80vh; min-height:480px; overflow:hidden; container-type:size; }
   .banner-video { margin-top: 150px; margin-bottom:0; }
   @media (max-width:900px){ .banner-video { margin-top: var(--space-9); } }
-  /* sits right under the price teaser ("Zobrazit celý ceník"), as the pricing block's
-     visual coda — and the only visual in the long prices → steps → FAQ text stretch, per
-     direct instruction (it used to sit right after memory-section, next to that section's
-     own album video). */
-  #price-video-banner { margin-top: var(--space-6); }
   .banner-photo { margin-top: 50px; margin-bottom: 50px; }
   .banner-photo img { width:100%; height:100%; object-fit:cover; object-position:70% bottom; }
   @media (min-width:901px){ .banner-photo { height:65vh; min-height:420px; } }
@@ -903,40 +898,23 @@
   .faq-item.open .faq-answer { grid-template-rows:1fr; }
   .faq-answer p { max-width:620px; padding: 0 0 var(--space-4); font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); }
 
-  /* ---------- Price teaser ("Kolik taková vzpomínka stojí?") ---------- */
-  /* bigger than o-mne/kontakt/.portfolio-grid's var(--space-4) below — those three bold
-     item names read as needing more air under the rule than that group */
+  /* ---------- Price teaser ("Kolik taková vzpomínka stojí?") ----------
+     Right after the dark memory section, as a quiet typographic pause — no media of its
+     own (a video here read as the memory section's layout repeated). The testimonials,
+     also three columns, moved below "Jak focení probíhá", so this row no longer follows
+     another 3-column block. */
   .section-label:has(+ .price-teaser) { padding-bottom: var(--space-5); text-align:center; }
   .section-label:has(+ .price-teaser) .wrap { justify-content:center; }
   .section-label:has(+ .price-teaser) h2 { text-align:center; }
   .section-label:has(+ .pricing-grid) { padding-bottom: var(--space-4); }
   .price-teaser { padding: 0; text-align:center; }
-  /* was a flex row of inline label+price pairs — at in-between widths the pairs wrapped
-     unevenly, stranding the third item alone on its own line. A fixed 3-column grid holds
-     all three the same width down to the stack breakpoint, so the row never breaks
-     unevenly. var(--space-4) column-gap matches .steps-list's own gap for the same
-     "3 items in a row" layout elsewhere on this page. Vertical dividers (below) now do
-     the job the old pairs' own whitespace used to, of separating the three items from
-     each other. Stack breakpoint is 900px, not the old layout's 600px — three columns of
-     a heading + a serif price + a detail line need more elbow room per column than three
-     bare label/price pairs did, and 900px is this site's own standard tablet breakpoint
-     (.steps-list, the nav, etc.) rather than a one-off value for this section alone. */
+  /* fixed 3-column grid so the row never wraps unevenly; hairlines between columns,
+     no boxes — the site's plain editorial palette, not a pricing-table UI */
   .price-teaser-row { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); margin-bottom: var(--space-4); }
   .price-teaser-item { display:flex; flex-direction:column; align-items:center; gap: var(--space-1); padding: 0 var(--space-3); }
-  /* hairline divider between columns, same var(--line) treatment .faq-item already uses
-     for its own row dividers — quiet separation, no boxes/shadows, keeps this reading as
-     the site's plain editorial palette rather than a pricing-table UI. */
   .price-teaser-item + .price-teaser-item { border-left:1px solid var(--line); }
   .price-teaser-item h4 { font-size:13px; font-weight:400; text-transform:uppercase; letter-spacing:0.12em; color: var(--ink-body); }
-  /* the figure is the one thing in this row that should read like an actual price tag —
-     bumped up to --fs-heading in the serif, the same move .proof-stats li strong already
-     makes for its own headline numbers, so the price is the payoff instead of same-weight
-     body text as its own label above it. */
   .price-teaser-amount { font-family: var(--serif); font-size: var(--fs-heading); font-weight:700; letter-spacing:-0.01em; color: var(--ink-heading); }
-  /* one line of what's actually included, pulled from cenik.html's own package copy —
-     answers "what do I get for that" right where the price is instead of making it a
-     click away. Quieter than the two lines above (13px, reduced opacity) since it's
-     supporting detail, not the headline. */
   .price-teaser-detail { font-size:13px; line-height:1.4; color: var(--ink-body); opacity:0.75; }
   .price-teaser .proof-teaser-link { margin-top:0; }
   @media (max-width:900px){

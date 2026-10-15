@@ -63,12 +63,10 @@ body { overflow-x: clip; }
 .why-me-layout.dark-panel::before { top: 0; }
 
 /* homepage: .memory-section used to run straight into the also-dark "Jak focení probíhá"
-   (#sluzby) as one long black slab. Per direct feedback both stay dark, so instead the
-   pricing block ("Kolik taková vzpomínka stojí?" + teaser + the julia banner video under
-   it) moved between them — it also answers memory-section's closing "Dnešní investice do
-   focení?" directly. The banner sits after the prices (not right after memory-section,
-   whose own album video it would otherwise sit next to). memory-section gets the normal
-   exit split: 64px dark / 86px light desktop, 48px / 42px mobile (48px set below). */
+   (#sluzby) as one long black slab. Per direct feedback both stay dark, so the light
+   pricing block ("Kolik taková vzpomínka stojí?" + teaser) sits between them — it also answers
+   memory-section's closing "Dnešní investice do focení?" directly. memory-section gets the
+   normal exit split: 64px dark / 86px light desktop, 48px / 42px mobile (48px set below). */
 @media (min-width:901px){
   .memory-section.dark-panel { padding-bottom: 64px; }
   .memory-section.dark-panel + .section-label { padding-top: 86px; }
@@ -113,7 +111,6 @@ body { overflow-x: clip; }
 }
 @media (max-width:900px){
   .memory-section.dark-panel { padding-bottom: 48px; }
-  .memory-section.dark-panel + .banner-video { margin-top: 42px; }
 }
 
 /* Homepage: closing CTA exits into the "Google recenze" label right after it — same
