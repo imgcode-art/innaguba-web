@@ -340,3 +340,18 @@ body { overflow-x: clip; }
 @media (max-width:900px){
   .closing.dark-panel + .footer-reveal-stage > .section-label:first-child { padding-top: 42px; }
 }
+
+/* kontakt.html only: closing footer carries an emotional B&W photo behind the quote
+   instead of the flat --paper fill every other page uses (echoing the closing page of
+   the printed case-study). Scoped to .footer-photo — set only on that page's markup —
+   so the shared .closing-footer on every other page (incl. legal pages) stays the plain
+   dark panel; this treatment is a one-off moment, not a sitewide footer restyle.
+   Darkening gradient is heavier top/bottom (quote + footer links need full contrast)
+   and a touch lighter through the middle, so the photo still reads as a photo —
+   but even the middle stays dark enough that the brightest highlights (foreheads,
+   skin) don't wash out text sitting over them. */
+.closing-footer.footer-photo::before {
+  background:
+    linear-gradient(180deg, rgba(17,17,17,.86) 0%, rgba(17,17,17,.68) 45%, rgba(17,17,17,.9) 100%),
+    url("../images/celo-na-celo-footer.jpg") center 35% / cover no-repeat;
+}
