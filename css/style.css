@@ -181,7 +181,10 @@
   @media (min-width:901px){
     header .nav { display:grid; grid-template-columns: minmax(300px, 465px) 56px 1fr 24px 1fr; align-items:center; }
     header .home-logo { grid-column:1; }
-    header .nav-links { grid-column:5; justify-content:space-between; }
+    /* one right-aligned group with a fixed rhythm, not stretched space-between across the
+       column — stretched, the four links drifted ~230px apart on wide screens and read as
+       four loose words instead of one menu (per direct instruction) */
+    header .nav-links { grid-column:3 / 6; justify-self:end; gap: clamp(24px, 2.6vw, 48px); }
   }
 
   /* ---------- Background video embed (Vimeo, cropped to cover) — sized relative to its own container so it always fills it edge-to-edge, no letterboxing ---------- */
