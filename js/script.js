@@ -214,6 +214,34 @@ document.querySelectorAll('[data-row]').forEach(row => {
     if (lines.length && zprava && !zprava.value) zprava.value = lines.join(' ') + ' ';
   })();
 
+  // ---------- Contact form: "Ještě nevím, potřebuji poradit" turns the form into a plain
+  // question — Kdy/Kde hide (and are cleared, so nothing stale gets sent) and the message
+  // field invites the question instead, so someone who only wants advice isn't faced with
+  // what reads like a booking ----------
+  (() => {
+    const form = document.querySelector('[data-contact-form]');
+    const select = form?.querySelector('[name="sluzba"]');
+    if (!select) return;
+    const ADVICE = 'Ještě nevím, potřebuji poradit';
+    const planFields = ['termin', 'misto'].map(n => form.querySelector(`[name="${n}"]`)).filter(Boolean);
+    const zprava = form.querySelector('[name="zprava"]');
+    const zpravaLabel = zprava && form.querySelector(`label[for="${zprava.id}"]`);
+    const defaults = zprava && { label: zpravaLabel?.innerHTML, placeholder: zprava.placeholder };
+    const sync = () => {
+      const advice = select.value === ADVICE;
+      planFields.forEach(f => {
+        f.closest('.cf-field').hidden = advice;
+        if (advice) f.selectedIndex = 0;
+      });
+      if (!zprava) return;
+      if (zpravaLabel) zpravaLabel.innerHTML = advice ? 'S&nbsp;čím vám můžu poradit?' : defaults.label;
+      zprava.placeholder = advice ? 'Napište, co vás zajímá, a já poradím' : defaults.placeholder;
+    };
+    select.addEventListener('change', sync);
+    form.addEventListener('reset', () => setTimeout(sync));
+    sync();
+  })();
+
   // ---------- Contact form (sends via Web3Forms, no backend needed) ----------
   const WEB3FORMS_ACCESS_KEY = '678c6592-26f3-4337-82fc-1c2fd2dc5074';
   document.querySelectorAll('.contact-form').forEach(form => {

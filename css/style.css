@@ -1105,6 +1105,7 @@
   .contact-form { margin: var(--space-6) 0 0; display:flex; flex-direction:column; gap: var(--space-4); text-align:left; }
   .cf-group { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4) var(--space-3); }
   .cf-field { display:flex; flex-direction:column; gap: 6px; }
+  .cf-field[hidden] { display:none; }
   .cf-field > label { font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color: var(--ink-heading); }
   .cf-field input, .cf-field select, .contact-form textarea { width:100%; background: var(--paper); border:1px solid var(--line); padding: var(--space-3); font-family:var(--sans); font-size: var(--fs-body); color: var(--ink); }
   .cf-field input::placeholder, .contact-form textarea::placeholder { color: rgba(17,17,17,0.35); }
