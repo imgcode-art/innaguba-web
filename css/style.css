@@ -1449,7 +1449,18 @@
   .back { display:flex; align-items:center; gap:7px; width:max-content; }
   .back-icon { width:13px; height:13px; flex-shrink:0; }
   .back-icon path { fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-  .video-gallery .back, .photo-gallery .back { margin-top: var(--space-6); }
+  /* gallery footer: "back" on the left, "pick a package" on the right — the visitor has
+     just seen the work, so the natural next question is the price; same quiet link style
+     (the big primary CTA follows immediately in the dark closing section). Mobile: stacked
+     and centred, package link first. */
+  .gallery-end { display:flex; justify-content:space-between; align-items:center; gap: var(--space-4); margin-top: var(--space-6); }
+  .gallery-end .proof-teaser-link { margin-top:0; }
+  .forward { display:flex; align-items:center; gap:7px; width:max-content; color: var(--ink); }
+  @media (max-width: 900px) {
+    .gallery-end { flex-direction:column-reverse; gap: var(--space-4); }
+  }
+  /* deep-link targets from the galleries — clear the fixed header */
+  #rodinne-foceni, #rodinne-video, #detsky-grid { scroll-margin-top: calc(var(--header-h, 72px) + var(--space-5)); }
 
   /* ---------- Pricing (Ceník) ---------- */
   .cenik-label { font-size: var(--fs-body); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2); }
