@@ -2604,7 +2604,7 @@
   @media (min-width:901px) and (max-width:1180px){
     .hc-split-content .hc-kicker { letter-spacing:0.14em; }
   }
-  header::after { background: rgba(17,17,17,0.4); }
+  header::after { background: rgba(17,17,17,0.7); }
   /* homepage then/now → "Bojíte se…": the proof block's 40px bottom padding only existed to
      clear the absolutely-positioned photo captions when they were the block's last row;
      the stats row is last now, so it just inflated the light gap under the stats to 150px
