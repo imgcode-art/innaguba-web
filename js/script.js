@@ -540,6 +540,35 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('resize', alignProofQuote);
   }
 
+  // ---------- Homepage hero kicker ("Rodinné focení a video v Brně a okolí") — one line
+  // whenever it can fit: measures the real text width (it differs between browsers' font
+  // rendering, so a CSS estimate wasn't reliable) and tightens the tracking from the
+  // 0.24em design value just enough to fit, down to 0.06em. Below that it lets the line
+  // wrap at its planned break between the two halves (.hc-kicker-part, style.css). ----------
+  const heroKicker = document.querySelector('.hc-split-content .hc-kicker');
+  if (heroKicker) {
+    const kickerText = heroKicker.firstElementChild;
+    const kickerCol = heroKicker.closest('.hc-split-content');
+    const fitHeroKicker = () => {
+      heroKicker.style.letterSpacing = '';
+      kickerText.style.whiteSpace = '';
+      if (window.innerWidth < 901) return;
+      const colStyle = getComputedStyle(kickerCol);
+      const colRight = kickerCol.getBoundingClientRect().right - parseFloat(colStyle.paddingRight);
+      kickerText.style.whiteSpace = 'nowrap';
+      for (let em = 0.24; em >= 0.06 - 1e-6; em -= 0.01) {
+        heroKicker.style.letterSpacing = `${em.toFixed(2)}em`;
+        if (kickerText.getBoundingClientRect().right <= colRight - 1) return;
+      }
+      heroKicker.style.letterSpacing = '';
+      kickerText.style.whiteSpace = '';
+    };
+    fitHeroKicker();
+    window.addEventListener('load', fitHeroKicker);
+    window.addEventListener('resize', fitHeroKicker);
+    document.fonts?.ready.then(fitHeroKicker);
+  }
+
   // ---------- Homepage: hero curtain reveal — proof-block's min-height (css/
   // home-theme.css, .hero-curtain-stack .proof-block) needs to match hero's
   // rendered height exactly, so proof-block always fully covers hero before
@@ -800,4 +829,21 @@ document.querySelectorAll('[data-row]').forEach(row => {
     });
   }, { threshold: 0.6 });
   nums.forEach(el => io.observe(el));
+})();
+
+// ---------- O mně, "Proč právě se mnou?" (mobile): each reason lights up as it scrolls into
+// the lower third of the screen and stays lit — see .why-reasons.is-lighting in style.css ----------
+(() => {
+  const reasons = document.querySelector('.why-reasons');
+  if (!reasons || !('IntersectionObserver' in window)) return;
+  if (!window.matchMedia('(max-width:900px) and (prefers-reduced-motion: no-preference)').matches) return;
+  reasons.classList.add('is-lighting');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      io.unobserve(entry.target);
+      entry.target.classList.add('is-lit');
+    });
+  }, { rootMargin: '0px 0px -35% 0px' });
+  reasons.querySelectorAll('.why-me-card').forEach(card => io.observe(card));
 })();
