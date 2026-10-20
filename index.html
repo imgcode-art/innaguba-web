@@ -64,8 +64,11 @@
 <section class="hero hero-collage">
   <div class="hc-split-stage">
     <div class="hc-split-media" data-replay-on-enter style="background-image:url('images/hero/video-hero-poster.jpg?v=4')">
-      <video src="videos/video-hero.mp4?v=5" poster="images/hero/video-hero-poster.jpg?v=4" muted playsinline preload="auto" aria-label="Inna Guba — rodinné video"></video>
-      <div class="hc-end-frame" aria-hidden="true"><img src="images/hero/video-hero-end.jpg?v=3" alt="" loading="eager" decoding="async"></div>
+      <video poster="images/hero/video-hero-poster.jpg?v=4" muted playsinline preload="auto" aria-label="Inna Guba — rodinné video"></video>
+      <!-- phones get a 720px encode of the same clip (same frames, ~1/4 of the bytes); src is
+           set here, before the first paint, so only one of the two files is ever requested -->
+      <script>document.currentScript.previousElementSibling.src = matchMedia('(max-width:900px)').matches ? 'videos/video-hero-720.mp4?v=1' : 'videos/video-hero.mp4?v=5';</script>
+      <div class="hc-end-frame" aria-hidden="true"><img src="images/hero/video-hero-end.jpg?v=3" srcset="images/hero/video-hero-end-800.webp?v=1 800w, images/hero/video-hero-end-1200.webp?v=1 1200w, images/hero/video-hero-end.jpg?v=3 1500w" sizes="(max-width:900px) 100vw, 50vw" alt="" loading="eager" decoding="async"></div>
     </div>
     <div class="hc-split-content">
       <p class="hc-kicker"><span><span class="hc-kicker-part">Rodinné focení a&nbsp;video</span> <span class="hc-kicker-part">v&nbsp;Brně a&nbsp;okolí</span></span></p>
@@ -78,7 +81,7 @@
   <div class="hc-mobile-slideshow">
     <div class="hc-mobile-slides">
       <div class="hc-mobile-slide" data-scroll-video-play style="background-image:url('images/hero/bez-zvuku-poster.jpg?v=2')">
-        <video src="videos/hero-mobile-bez-zvuku.mp4?v=2" poster="images/hero/bez-zvuku-poster.jpg?v=2" muted playsinline preload="auto" aria-hidden="true"></video>
+        <video src="videos/hero-mobile-bez-zvuku.mp4?v=2" poster="images/hero/bez-zvuku-poster.jpg?v=2" muted playsinline preload="none" aria-hidden="true"></video>
       </div>
     </div>
   </div>
@@ -134,7 +137,7 @@
     </section>
     <div class="proof-photo-col">
       <div class="proof-photo">
-        <img src="images/home-proof-photo-then.webp?v=1" width="1400" height="933" alt="Rodina, kterou fotím už 12 let - tehdy" loading="lazy">
+        <img src="images/home-proof-photo-then.webp?v=1" srcset="images/home-proof-photo-then-800.webp?v=1 800w, images/home-proof-photo-then.webp?v=1 1400w" sizes="(max-width:900px) 100vw, 50vw" width="1400" height="933" alt="Rodina, kterou fotím už 12 let - tehdy" loading="lazy">
       </div>
       <p class="proof-photo-caption">Tehdy · s&nbsp;prvním miminkem</p>
     </div>
@@ -147,7 +150,7 @@
     </div>
     <div class="proof-photo-col">
       <div class="proof-photo proof-photo-now">
-        <img src="images/home-proof-photo-now.webp?v=2" width="1400" height="933" alt="Ta samá rodina - dnes" loading="lazy">
+        <img src="images/home-proof-photo-now.webp?v=2" srcset="images/home-proof-photo-now-800.webp?v=1 800w, images/home-proof-photo-now.webp?v=2 1400w" sizes="(max-width:900px) 100vw, 50vw" width="1400" height="933" alt="Ta samá rodina - dnes" loading="lazy">
       </div>
       <p class="proof-photo-caption">Dnes · stejná rodina, jen o&nbsp;kus větší</p>
     </div>
@@ -168,7 +171,7 @@
       <a href="o-mne.html" class="proof-teaser-link">Proč právě se mnou</a>
     </div>
     <div class="reassure-video">
-      <img src="images/memory-family-cat.jpg?v=1" alt="Rodina s kočkou a miminkem" loading="lazy">
+      <img src="images/memory-family-cat.jpg?v=1" srcset="images/memory-family-cat-900.webp?v=1 900w, images/memory-family-cat-1200.webp?v=1 1200w, images/memory-family-cat.jpg?v=1 2000w" sizes="(max-width:900px) 100vw, 50vw" alt="Rodina s kočkou a miminkem" loading="lazy">
     </div>
   </div>
 </section>
@@ -182,20 +185,20 @@
 <section class="work-cards wrap">
   <div class="pg">
     <a href="galerie-rodinna-fotografie.html" class="pcard" data-reveal>
-      <div class="thumb"><img src="images/portfolio-rodinna-fotografie.jpg?v=1" alt="Rodinné focení" loading="lazy"></div>
+      <div class="thumb"><img src="images/portfolio-rodinna-fotografie.jpg?v=1" srcset="images/portfolio-rodinna-fotografie-800.webp?v=1 800w, images/portfolio-rodinna-fotografie-1200.webp?v=1 1200w, images/portfolio-rodinna-fotografie.jpg?v=1 1600w" sizes="(max-width:900px) 100vw, 33vw" alt="Rodinné focení" loading="lazy"></div>
       <h4>Rodinné focení</h4>
       <p>Pokud chcete přirozené fotografie plné pohybu, smíchu, objetí a&nbsp;malých okamžiků, které vás spojují.</p>
       <span class="pcard-link">Prohlédnout fotografie</span>
     </a>
     <a href="galerie-detsky-portret.html" class="pcard" data-reveal>
-      <div class="thumb"><img src="images/portfolio-detsky-portret.jpg?v=1" alt="Dětský portrét" loading="lazy"></div>
+      <div class="thumb"><img src="images/portfolio-detsky-portret.jpg?v=1" srcset="images/portfolio-detsky-portret-800.webp?v=1 800w, images/portfolio-detsky-portret-1200.webp?v=1 1200w, images/portfolio-detsky-portret.jpg?v=1 1600w" sizes="(max-width:900px) 100vw, 33vw" alt="Dětský portrét" loading="lazy"></div>
       <h4>Dětský portrét</h4>
       <p>Pokud chcete jednou znovu vidět jiskru v&nbsp;očích i&nbsp;osobnost, která se mění rychleji, než si stačíte uvědomit.</p>
       <span class="pcard-link">Prohlédnout portréty</span>
     </a>
     <a href="galerie-video-pribeh.html" class="pcard" data-reveal>
       <div class="thumb">
-        <img src="images/video-gallery-03.jpg?v=1" alt="Rodinné video" loading="lazy">
+        <img src="images/video-gallery-03.jpg?v=1" srcset="images/video-gallery-03-800.webp?v=1 800w, images/video-gallery-03-1200.webp?v=1 1200w, images/video-gallery-03.jpg?v=1 1600w" sizes="(max-width:900px) 100vw, 33vw" alt="Rodinné video" loading="lazy">
       </div>
       <h4>Rodinné video</h4>
       <p>Pokud chcete vzpomínku, která se znovu rozpohybuje – s&nbsp;atmosférou, pohybem i&nbsp;hudbou.</p>
@@ -207,7 +210,7 @@
 <section class="memory-section wrap dark-panel" data-reveal>
   <div class="memory-body-align">
     <div class="memory-photo">
-      <video src="videos/album.mp4?v=2" poster="images/hero/album-poster.jpg?v=2" muted loop playsinline preload="metadata" autoplay aria-label="Inna Guba — rodinné album"></video>
+      <video src="videos/album.mp4?v=2" poster="images/hero/album-poster.jpg?v=2" muted loop playsinline preload="none" data-lazy-autoplay aria-label="Inna Guba — rodinné album"></video>
     </div>
     <div class="memory-body">
       <h2 class="memory-title">Nejen fotografie<span class="dot-desktop-only">.</span> Vzpomínky na to, <em>jaké&nbsp;to&nbsp;bylo</em></h2>
@@ -360,7 +363,7 @@
 
 <section class="closing wrap dark-panel" id="kontakt" data-reveal>
   <div class="closing-video-stage">
-    <video class="closing-video-bg" src="videos/closing-video.mp4?v=1" poster="images/hero/13-poster.jpg?v=1" muted loop playsinline preload="metadata" autoplay aria-label="Šťastné miminko, na konci videa dvojčata"></video>
+    <video class="closing-video-bg" src="videos/closing-video.mp4?v=1" poster="images/hero/13-poster.jpg?v=1" muted loop playsinline preload="none" data-lazy-autoplay aria-label="Šťastné miminko, na konci videa dvojčata"></video>
     <div class="closing-video-scrim"></div>
     <div class="top">
       <p class="closing-title">Pojďme zachytit právě <em>tuhle&nbsp;chvíli</em></p>
@@ -420,7 +423,7 @@
   </div>
 </div>
 
-<script src="js/script.js?v=149" defer></script>
+<script src="js/script.js?v=150" defer></script>
 
 </body>
 </html>

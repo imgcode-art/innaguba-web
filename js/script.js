@@ -154,6 +154,20 @@ document.querySelectorAll('[data-row]').forEach(row => {
     replayObserver.observe(video);
   });
 
+  // ---------- Below-the-fold looping videos — no autoplay attribute (that made every page
+  // download them up front); they start fetching and playing just before they scroll into view ----------
+  const lazyVideos = document.querySelectorAll('video[data-lazy-autoplay]');
+  if (lazyVideos.length) {
+    const lazyObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        lazyObserver.unobserve(entry.target);
+        entry.target.play().catch(() => {});
+      });
+    }, { rootMargin: '300px 0px' });
+    lazyVideos.forEach(video => lazyObserver.observe(video));
+  }
+
   // ---------- Banner videos — each stays grayscale until scrolled into view, then fades to color and plays ----------
   document.querySelectorAll('[data-scroll-video]').forEach(scrollVideo => {
     const scrollVideoEl = scrollVideo.querySelector('video');
