@@ -1,51 +1,67 @@
-# Inna Guba — Studio (agency concept)
+# innaguba.com
 
-Statický HTML/CSS/JS koncept homepage, postavený podle Figma reference
-(agenturní layout: hero, Práce, Služby, Reference, Kontakt).
+Website for **Inka Guba**, a family photographer and filmmaker in Brno, Czech Republic.
+Research-led redesign: from a portfolio people admired to a website that parents act on.
 
-## Struktura
+**Live:** [innaguba.com](https://innaguba.com)
+
+![innaguba.com: brand identity and website](docs/cover.jpg)
+
+## The project
+
+The old site looked lovely but brought almost no inquiries. Before designing anything I asked parents why:
+
+- **Research (May 2026):** 3 in-depth interviews, a survey, competitive analysis, an affinity map and one working persona.
+- **Key insight:** the barrier wasn't price, it was fear. *"What if the kids won't cooperate?"*
+- **Prototype & testing:** a mobile booking flow, tested with 2 participants (think-aloud).
+- **Key decision:** the calendar passed usability testing, but parents wanted to talk first. It became a short inquiry form instead.
+- **Design & build (Sep–Oct 2026):** every homepage section answers a real worry from the research. Designed on real content and real phones, each round quieter than the last.
+
+## Design system
+
+- **Type:** Cormorant Garamond for emotion, Jost for everything practical. Three type sizes, one spacing scale.
+- **Italic** only on words that carry feeling.
+- **Rhythm:** dark and light sections alternate; one primary action per screen.
+- **Colour:** warm paper, ink and walnut, taken from the photographs.
+
+## Performance
+
+A post-launch audit focused on parents browsing on phones, often on mobile data:
+
+| | Before | After |
+|---|---|---|
+| Lighthouse performance (mobile) | 43 | 82 |
+| Lighthouse performance (desktop) | 90 | 100 |
+| Accessibility / SEO | | 98 / 100 |
+| Homepage weight on a phone | 13 MB | 2.3 MB |
+
+720p hero video for phones, right-sized WebP images, self-hosted fonts, videos that load on scroll.
+
+## Tech
+
+Plain HTML, CSS and vanilla JavaScript. No framework, no build step.
+Hosted on GitHub Pages with a custom domain.
 
 ```
-index.html      — struktura stránky
-css/style.css    — veškeré styly
-js/script.js     — accordion u služeb + reveal-on-scroll animace
+index.html, o-mne.html, cenik.html, kontakt.html   main pages
+portfolio.html, galerie-*.html                     galleries (family, portraits, film)
+css/style.css, css/home-theme.css                  styles
+js/script.js                                       interactions, scroll effects
+images/, videos/                                   optimised media
 ```
 
-Žádné build nástroje, žádné závislosti — čisté HTML/CSS/JS. Fonty (Archivo)
-se načítají z Google Fonts přes `<link>` v `<head>`.
-
-## Jak si to otevřít na Macu
-
-1. Rozbal ZIP kamkoliv (např. do `~/Projects/innaguba-agency`).
-2. Dvojklikem na `index.html` se otevře v prohlížeči — funguje i bez serveru.
-
-## Jak pokračovat v Claude Code (terminál)
-
-```bash
-cd ~/Projects/innaguba-agency   # nebo kam jsi to rozbalila
-claude
-```
-
-Pak stačí normálně psát požadavky, např.:
-- "uprav barvu pozadí na..."
-- "přidej sekci FAQ za Service"
-- "nastav lokální server, ať to vidím live"
-
-Pro živý náhled se změnami za běhu se hodí jednoduchý statický server, např.:
+Run locally:
 
 ```bash
 python3 -m http.server 8000
-# pak otevři http://localhost:8000 v prohlížeči
+# open http://localhost:8000
 ```
 
-## Poznámka k obsahu
+## My role
 
-Fotografická část (Práce, Reference, texty) používá reálné texty a fotky
-z innaguba.com. Větev "Webdesign & branding" je zatím označená jako
-"připravuje se" — až budou první reálné weby/reference, je potřeba tenhle
-obsah doplnit ručně v `index.html` (sekce `#sluzby`, řádek 03) a v gridu
-"Práce" (dlaždice `.tile.mock`).
+UX research, UX/UI design, copywriting (Czech), photography and video, front-end.
+I made the design decisions; the build was AI-assisted (Claude Code).
 
-Fotky se aktuálně natahují přímo z CDN současného webu (Vigbo) — pro
-produkční nasazení je vhodné je stáhnout a nahradit lokálními soubory ve
-vyšším rozlišení.
+---
+
+© 2026 Inna Macháč Guba. Photographs and videos are not licensed for reuse.
