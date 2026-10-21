@@ -831,6 +831,9 @@
     .process-cta-desktop { display:none; }
     .process-cta-mobile { display:flex; justify-content:center; margin-top: var(--space-6); }
     .process-step { grid-template-columns: 28px minmax(0,1fr); column-gap: var(--space-1); padding: var(--space-3) 0; }
+    /* same mobile title bump as .why-me-card h3 (O mně) — the 20px --fs-heading floor
+       sits too close to the 16px paragraph to read as a title */
+    .process-text h3, .process-num { font-size: 28px; }
   }
 
   /* ---------- Full photo banner ---------- */
@@ -2494,7 +2497,7 @@
   .pb-content h3 { font-weight:400; font-size: clamp(28px, 2.4vw, 36px); line-height:1.15; margin-bottom: var(--space-2); }
   /* O mně: the web-design line is a side note, not part of the story — quieter, set apart,
      and its invitation starts on its own line instead of dangling after "celý můj." */
-  .about-intro-text .about-aside { margin-top: var(--space-5); padding-top: var(--space-3); font-size:15px; line-height:1.7; color: color-mix(in srgb, var(--ink-body) 80%, transparent); font-style:italic; }
+  .about-intro-text .about-aside { margin-top: var(--space-4); font-size:15px; line-height:1.7; color: color-mix(in srgb, var(--ink-body) 80%, transparent); font-style:italic; }
   /* ceník group headings sit between the page eyebrow and the package names — per direct
      feedback they must not share the eyebrow's weight with "CENÍK". Serif chapter heading
      about half the h1, still led by the short hairline; package names a step below. */
