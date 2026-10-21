@@ -1643,6 +1643,35 @@
     .price-bento-3 { margin-bottom: calc(-1 * var(--space-9)); }
     .pricing-grid + #kontakt { margin-top: var(--space-9); }
   }
+  /* Fit each sticky card to the screen: the fixed 1/1 square photo plus the longer
+     copy (Focení a video, Rodinné video) ran past the bottom of the phone screen, so
+     the next card slid over before the CTA button was ever visible (Rodinné focení
+     showed only half its button). Every card is now exactly as tall as the space
+     under the header (100svh = with Safari's toolbars showing), and the photo takes
+     space left after the text, so the button always lands on screen. The photo is the
+     SAME height on all 5 cards (per direct request: no per-card photo heights), so
+     it's sized against the tallest text block (Malé/Velké focení, Focení a video and
+     Rodinné video all run the same 4 one-line rows) — 320px is that text + paddings +
+     photo gap. If a card's copy grows past that, shorten the
+     copy rather than raising the number. The cards all being the same full-screen
+     height also covers the previous card fully (and they all leave together at the
+     end of the stack, instead of taller ones peeking out above the last one), so the
+     big var(--space-9) trailing buffer above isn't needed anymore — overridden here
+     (same selectors, later in the cascade), together with the matching negative
+     margin on .price-bento-3 that cancels the last card's padding. Photo is capped
+     at 160px min (tiny screens) and 115vw max (tall screens). */
+  @media (max-width:900px){
+    .price-bento-3 .pb-card:not(.pb-recommended):not(.pb-featured),
+    .price-bento-3 .pb-recommended,
+    .price-bento-3 .pb-card.pb-featured {
+      min-height: calc(100svh - var(--header-h, 72px) - var(--space-2));
+      padding-bottom: var(--space-3);
+    }
+    .price-bento-3 .pb-card .pb-photo { aspect-ratio:auto; flex:none; height: clamp(160px, calc(100svh - var(--header-h, 72px) - var(--space-2) - 320px), 115vw); }
+    .price-bento-3 .pb-card .pb-photo img, .price-bento-3 .pb-card .pb-photo video { position:absolute; inset:0; }
+    .price-bento-3 .pb-card .pb-content { flex:none; }
+    .price-bento-3 { margin-bottom: calc(-1 * var(--space-3)); }
+  }
 
   /* ---------- Desktop-only pricing polish (cenik.html) ----------
      Scoped to min-width:901px throughout: the mobile layout below that breakpoint
