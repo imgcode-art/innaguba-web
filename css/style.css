@@ -1823,6 +1823,7 @@
   .vcard-title { font-family: var(--serif); font-weight:400; font-size: clamp(21px, 1.7vw, 26px); line-height:1.2; color: var(--ink-heading); margin-top: var(--space-2); }
   .vcard-meta { font-family: var(--serif); font-style:italic; font-size:17px; font-variant-numeric: lining-nums; color: rgba(17,17,17,0.6); margin-top:2px; }
   .vquote { margin: var(--space-9) auto; max-width:760px; text-align:center; }
+  .vfeature + .vgg { margin-top: var(--space-9); }
   .vquote p { font-family: var(--serif); font-size: clamp(28px, 2.8vw, 42px); line-height:1.25; color: var(--ink-heading); text-wrap:balance; }
   .vquote cite { display:block; margin-top: var(--space-3); font-style:normal; font-size:13px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color: var(--ink); }
   .vquote cite::before { content:""; display:block; width:28px; height:1px; background: rgba(17,17,17,0.35); margin: 0 auto var(--space-3); }
@@ -1836,6 +1837,7 @@
     .vfeature { grid-template-columns:1fr; gap: var(--space-3); }
     .vfeature .play::before { width:60px; height:60px; }
     .vquote { margin: var(--space-8) auto; }
+    .vfeature + .vgg { margin-top: var(--space-8); }
     .video-gallery .vgg { max-width:none; gap: var(--space-6); }
     /* centred like the rest of the mobile site */
     .vfeature-text, .video-gallery .vgg .vcard { text-align:center; }
