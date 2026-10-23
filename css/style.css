@@ -898,7 +898,7 @@
   .next-step p { margin-top: var(--space-2); max-width:30ch; font-size: var(--fs-body); line-height:1.65; color: var(--ink-body); text-wrap:balance; }
   .next-step:nth-child(2)[data-reveal] { transition-delay: .12s; }
   .next-step:nth-child(3)[data-reveal] { transition-delay: .24s; }
-  @media (max-width:900px){ .next-steps-list { grid-template-columns:1fr; gap: var(--space-5); } }
+  @media (max-width:900px){ .next-steps-list { grid-template-columns:1fr; gap: var(--space-5); } .next-step h3 { font-size: 28px; } /* same mobile title size as .process-text h3 */ }
   .refs-google .reviews-stars { letter-spacing:0.12em; font-size:14px; color: var(--ink); }
   .refs-google-score { font-family: var(--serif); font-style:italic; font-size:19px; }
   .refs-google .proof-teaser-link { margin-top:0; margin-left: var(--space-2); }
