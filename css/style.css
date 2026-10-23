@@ -2753,3 +2753,11 @@
     .memory-body p { text-align:center; margin-left:auto; margin-right:auto; }
     .memory-body .memory-punch::before { margin-left:auto; margin-right:auto; }
   }
+
+  /* Photo placeholders (.ph): a blurred preview sits behind each photo (inline background);
+     if the photo is still loading ~0.8 s after it scrolls into view, a thin spinner appears
+     so a slow connection reads as "loading", not broken. Classes are set in script.js. */
+  .ph { position:relative; }
+  .ph::after { content:""; position:absolute; top:50%; left:50%; width:28px; height:28px; margin:-14px 0 0 -14px; border:1.5px solid rgba(255,255,255,0.35); border-top-color:rgba(255,255,255,0.9); border-radius:50%; opacity:0; pointer-events:none; z-index:3; animation: ph-spin 1s linear infinite; transition: opacity .4s ease; }
+  .ph.ph-wait:not(.ph-loaded)::after { opacity:1; transition-delay:.8s; }
+  @keyframes ph-spin { to { transform: rotate(360deg); } }

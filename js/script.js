@@ -861,3 +861,31 @@ document.querySelectorAll('[data-row]').forEach(row => {
   }, { rootMargin: '0px 0px -35% 0px' });
   reasons.querySelectorAll('.why-me-card').forEach(card => io.observe(card));
 })();
+
+// Photo placeholders: mark each .ph box loaded once its photo (or video poster) arrives;
+// .ph-wait is added when the box scrolls into view, so the CSS spinner only shows for
+// photos that are actually on screen and still loading.
+(() => {
+  const boxes = document.querySelectorAll('.ph');
+  if (!boxes.length) return;
+  const done = box => box.classList.add('ph-loaded');
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('ph-wait');
+    io.unobserve(e.target);
+  }));
+  boxes.forEach(box => {
+    const video = box.querySelector('video[poster]');
+    const img = box.querySelector('img');
+    if (video) {
+      const probe = new Image();
+      probe.onload = probe.onerror = () => done(box);
+      probe.src = video.getAttribute('poster');
+    } else if (img) {
+      if (img.complete && img.naturalWidth) return done(box);
+      img.addEventListener('load', () => done(box), { once: true });
+      img.addEventListener('error', () => done(box), { once: true });
+    } else return done(box);
+    io.observe(box);
+  });
+})();

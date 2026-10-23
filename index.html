@@ -26,7 +26,7 @@
 <!-- hero poster is the LCP element; it sits in an inline background-image, which the browser
      would otherwise only discover after the CSS has loaded -->
 <link rel="preload" href="images/hero/video-hero-poster.jpg?v=4" as="image" fetchpriority="high">
-<link rel="stylesheet" href="css/style.css?v=712">
+<link rel="stylesheet" href="css/style.css?v=713">
 <link rel="stylesheet" href="css/home-theme.css?v=53">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "@id": "https://innaguba.com/#business", "name": "Inna Guba", "image": "https://innaguba.com/images/og/og-default.jpg", "url": "https://innaguba.com/", "telephone": "+420774547333", "email": "innaguba@seznam.cz", "priceRange": "3900–12400 Kč", "address": {"@type": "PostalAddress", "streetAddress": "Pellicova 640/19", "addressLocality": "Brno", "postalCode": "602 00", "addressCountry": "CZ"}, "areaServed": [{"@type": "City", "name": "Brno"}, {"@type": "AdministrativeArea", "name": "Jihomoravský kraj"}], "founder": {"@type": "Person", "name": "Inna Guba"}, "sameAs": ["https://www.instagram.com/innaguba.pro/", "https://www.facebook.com/fotoatelierinnaguba/"]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://innaguba.com/"}]}</script>
@@ -63,7 +63,7 @@
 <div class="hero-curtain-stack">
 <section class="hero hero-collage">
   <div class="hc-split-stage">
-    <div class="hc-split-media" data-replay-on-enter style="background-image:url('images/hero/video-hero-poster.jpg?v=4')">
+    <div class="hc-split-media ph" data-replay-on-enter style="background-image:url('images/hero/video-hero-poster.jpg?v=4'), url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAgACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAgUGBAP/xAAdEAABBAMBAQAAAAAAAAAAAAABAAIDEQQSIQUx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwBbJASapCfO2bdJm9rXScWgMAZ8VVI5WEWXxL9Cx6qfRaA08U7NW5QUGDlmRwJTUyjRIcSom2V1lzgBQKAvRlBBU/O4bFac3K2vqUySklB//9k=)">
       <video poster="images/hero/video-hero-poster.jpg?v=4" muted playsinline preload="auto" aria-label="Inna Guba — rodinné video"></video>
       <!-- phones get a 720px encode of the same clip (same frames, ~1/4 of the bytes); src is
            set here, before the first paint, so only one of the two files is ever requested -->
@@ -80,7 +80,7 @@
 
   <div class="hc-mobile-slideshow">
     <div class="hc-mobile-slides">
-      <div class="hc-mobile-slide" data-scroll-video-play style="background-image:url('images/hero/bez-zvuku-poster.jpg?v=2')">
+      <div class="hc-mobile-slide ph" data-scroll-video-play style="background-image:url('images/hero/bez-zvuku-poster.jpg?v=2'), url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAA5ACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAwUGBAH/xAAiEAABBAICAgMBAAAAAAAAAAABAAIDEQQFEiEiMSMyM1H/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALOWbi0rI3MJfVoObPxae0thyAZPaKpoprHtFEqWY8ltWjkqEuwDiDSXwQv52n0rGO9oAbFH/FATEa4NFrbXSwDLYw0CtUM4kCBNlZpZdFLZNg4mrXcxrrNpVIeB7QM48hz3dlPde62jtSUE/mFSayQkBBzPhAB6UzneLjSrdh9SpHYfcoAYtmQKw1bPjBUhh/qFY6z8gg//2Q==)">
         <video src="videos/hero-mobile-bez-zvuku.mp4?v=2" poster="images/hero/bez-zvuku-poster.jpg?v=2" muted playsinline preload="none" aria-hidden="true"></video>
       </div>
     </div>
@@ -136,7 +136,7 @@
       </div>
     </section>
     <div class="proof-photo-col">
-      <div class="proof-photo">
+      <div class="proof-photo ph" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAgADADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAwQFBgL/xAAfEAACAwEAAgMBAAAAAAAAAAABAgADBBEFIRITMSP/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AxOLEWcAiWj4z+XeQ9WdarPyV6lVqoGYrzmm38ldaftp5A7k+FnQJxRt+v0YCmvxh+RPIk/jGA/JqKmXQIVs6BfYEBdqyXj1FbBIvdYEslPCVtSBNuym1j0SZqwMrdAmubPz3yStzKDyBPxg1L7nO3f8AAEAwrIzISsh70cMewP/Z) center/cover">
         <img src="images/home-proof-photo-then.webp?v=1" srcset="images/home-proof-photo-then-800.webp?v=1 800w, images/home-proof-photo-then.webp?v=1 1400w" sizes="(max-width:900px) 100vw, 50vw" width="1400" height="933" alt="Rodina, kterou fotím už 12 let - tehdy" loading="lazy">
       </div>
       <p class="proof-photo-caption">Tehdy · s&nbsp;prvním miminkem</p>
@@ -149,7 +149,7 @@
       </ul>
     </div>
     <div class="proof-photo-col">
-      <div class="proof-photo proof-photo-now">
+      <div class="proof-photo proof-photo-now ph" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAgADADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAgUDBAb/xAAiEAACAgEEAgMBAAAAAAAAAAABAgADBAURITESURMUYUH/xAAYAQEAAwEAAAAAAAAAAAAAAAADAAECBP/EABsRAAMBAAMBAAAAAAAAAAAAAAABAhIDESET/9oADAMBAAIRAxEAPwDTpnj3COoqo5MzqWn3K+Zksq8GcM87bHyjWV6kjf2SnOXbuYXEzn89iTGqZRYdxXyNEUJjy/UNgdjEmdqVnPjvJPkDDkyvaqN3C+7JhC5cke5HfYHEVJf+wjkfsxMdMy6LtSgNvLi2+I7iyqwtCe4rEr0uaGf2eO5G+SfcXrdvAsugY9L0f//Z) center/cover">
         <img src="images/home-proof-photo-now.webp?v=2" srcset="images/home-proof-photo-now-800.webp?v=1 800w, images/home-proof-photo-now.webp?v=2 1400w" sizes="(max-width:900px) 100vw, 50vw" width="1400" height="933" alt="Ta samá rodina - dnes" loading="lazy">
       </div>
       <p class="proof-photo-caption">Dnes · stejná rodina, jen o&nbsp;kus větší</p>
@@ -170,7 +170,7 @@
       </div>
       <a href="o-mne.html" class="proof-teaser-link">Proč právě se mnou</a>
     </div>
-    <div class="reassure-video">
+    <div class="reassure-video ph" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAgADADASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAwQFBgIA/8QAHxAAAQQDAQEBAQAAAAAAAAAAAQACAwQRITESBRMU/8QAFgEBAQEAAAAAAAAAAAAAAAAAAQAD/8QAFxEBAQEBAAAAAAAAAAAAAAAAAAERIf/aAAwDAQACEQMRAD8AycNQkcRRUIPE9ULfKLKWtGVk0CrV8DaZfEPKWbZxoIgnJG0GAfll+FRp0muIJU2Sby7Kfo3RraYLEWvI5nV1PZ1jKXmlDc4SRlLnqnVeK1RrpCnv53gaC98WMOAytAys0jiVrMTVXkcXETHRdWqlqs8nSgfSaIwcKwWv/9k=) center/cover">
       <img src="images/memory-family-cat.jpg?v=1" srcset="images/memory-family-cat-900.webp?v=1 900w, images/memory-family-cat-1200.webp?v=1 1200w, images/memory-family-cat.jpg?v=1 2000w" sizes="(max-width:900px) 100vw, 50vw" alt="Rodina s kočkou a miminkem" loading="lazy">
     </div>
   </div>
@@ -185,19 +185,19 @@
 <section class="work-cards wrap">
   <div class="pg">
     <a href="galerie-rodinna-fotografie.html" class="pcard" data-reveal>
-      <div class="thumb"><img src="images/portfolio-rodinna-fotografie.jpg?v=1" srcset="images/portfolio-rodinna-fotografie-800.webp?v=1 800w, images/portfolio-rodinna-fotografie-1200.webp?v=1 1200w, images/portfolio-rodinna-fotografie.jpg?v=1 1600w" sizes="(max-width:900px) 100vw, 33vw" alt="Rodinné focení" loading="lazy"></div>
+      <div class="thumb ph" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAwACADASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAABAUCAwYAB//EACAQAAEEAgIDAQAAAAAAAAAAAAEAAgMEETEFEhMhQTL/xAAXAQEBAQEAAAAAAAAAAAAAAAADAQIA/8QAGxEAAgIDAQAAAAAAAAAAAAAAAAECEgMRITH/2gAMAwEAAhEDEQA/AMvVo926ULdUxfE+bE2AYQdtgl0js9iUTRnHgk4V9eq5/wATOPjS92k1q8b0AyFXk4ZWMEt3Mv2raQEvspBLMXOzlMaFggKyR0ZGlibEwfFcJGn8hLK/klI2nNameoJCFoZeHnTWFzk2oVXEj0garcyALYcVUaWA4TNgxQbxVH0CQnggDGqFKINbpden8TCpo1Y//9k=) center/cover"><img src="images/portfolio-rodinna-fotografie.jpg?v=1" srcset="images/portfolio-rodinna-fotografie-800.webp?v=1 800w, images/portfolio-rodinna-fotografie-1200.webp?v=1 1200w, images/portfolio-rodinna-fotografie.jpg?v=1 1600w" sizes="(max-width:900px) 100vw, 33vw" alt="Rodinné focení" loading="lazy"></div>
       <h4>Rodinné focení</h4>
       <p>Pokud chcete přirozené fotografie plné pohybu, smíchu, objetí a&nbsp;malých okamžiků, které vás spojují.</p>
       <span class="pcard-link">Prohlédnout fotografie</span>
     </a>
     <a href="galerie-detsky-portret.html" class="pcard" data-reveal>
-      <div class="thumb"><img src="images/portfolio-detsky-portret.jpg?v=1" srcset="images/portfolio-detsky-portret-800.webp?v=1 800w, images/portfolio-detsky-portret-1200.webp?v=1 1200w, images/portfolio-detsky-portret.jpg?v=1 1600w" sizes="(max-width:900px) 100vw, 33vw" alt="Dětský portrét" loading="lazy"></div>
+      <div class="thumb ph" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAwACADASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAABgUDBAH/xAAeEAABBAMBAQEAAAAAAAAAAAABAAIDEQQSIQVBFP/EABYBAQEBAAAAAAAAAAAAAAAAAAEDAv/EABkRAAMBAQEAAAAAAAAAAAAAAAABAhESMf/aAAwDAQACEQMRAD8AN5DCQp8kD+8SP82zqpbu8xpjulB0VUg0tc09Wbyr+ZgaXxRciLUlKrQc4PY2AycXW4UylKwMrd1lVHyt1WEWZK9FoDSi2Z0lJvSlaWkIzlEbFKMV4IcINjFkrefMaBWyMn03AUCueTPe76nhj2innZl31Q55y4nq8lnc/wCrmJsrczhOq0//2Q==) center/cover"><img src="images/portfolio-detsky-portret.jpg?v=1" srcset="images/portfolio-detsky-portret-800.webp?v=1 800w, images/portfolio-detsky-portret-1200.webp?v=1 1200w, images/portfolio-detsky-portret.jpg?v=1 1600w" sizes="(max-width:900px) 100vw, 33vw" alt="Dětský portrét" loading="lazy"></div>
       <h4>Dětský portrét</h4>
       <p>Pokud chcete jednou znovu vidět jiskru v&nbsp;očích i&nbsp;osobnost, která se mění rychleji, než si stačíte uvědomit.</p>
       <span class="pcard-link">Prohlédnout portréty</span>
     </a>
     <a href="galerie-video-pribeh.html" class="pcard" data-reveal>
-      <div class="thumb">
+      <div class="thumb ph" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAwACADASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAABAUCAwYH/8QAIBAAAgICAwADAQAAAAAAAAAAAQIABAMRBSExEhNRMv/EABcBAAMBAAAAAAAAAAAAAAAAAAABAgP/xAAaEQEBAQEBAQEAAAAAAAAAAAABAAIRIQNR/9oADAMBAAIRAxEAPwDfY8oCyizmX9lO2Ai63mZSdmSsw7FFgTJBgB1E4ud9mF4s4cezMa05NTrUUcn0pIh33r+wS2oyIY9PkZPbJWrTpkIEP4u4za+RkLdNSx6kK6DCYhOVJU4+eJf+o6qcgudPZzhHYH2NqHINi6Jl6+f5ZZ3ayyw3vcByOD5F1jlNr7Kq1z7X1uBnhN32/9k=) center/cover">
         <img src="images/video-gallery-03.jpg?v=1" srcset="images/video-gallery-03-800.webp?v=1 800w, images/video-gallery-03-1200.webp?v=1 1200w, images/video-gallery-03.jpg?v=1 1600w" sizes="(max-width:900px) 100vw, 33vw" alt="Rodinné video" loading="lazy">
       </div>
       <h4>Rodinné video</h4>
@@ -209,7 +209,7 @@
 
 <section class="memory-section wrap dark-panel" data-reveal>
   <div class="memory-body-align">
-    <div class="memory-photo">
+    <div class="memory-photo ph" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAgADkDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAABAUAAgYBA//EAB4QAAIDAQEBAAMAAAAAAAAAAAABAgMEERIhBSIx/8QAGAEAAwEBAAAAAAAAAAAAAAAAAQIDAAT/xAAZEQEBAAMBAAAAAAAAAAAAAAAAAQIRIRL/2gAMAwEAAhEDEQA/AMtQkpo0X4+xeEjNuXljDDpaaXTmym4pI1NUIz/pzTTGMPgNl0fEX0X+okpw/kq01JtsVX8jIcXvsWJdL/ZlsY1SFhf2CplvQLGecn0IxJuxIDjINxPliHK0+OjtaZ3TBQRzLdyoF3a19XRNdNLwNfYkmhTol2TPe29S79A5y6yhVSdIQAv/2Q==) center/cover">
       <video src="videos/album.mp4?v=2" poster="images/hero/album-poster.jpg?v=2" muted loop playsinline preload="none" data-lazy-autoplay aria-label="Inna Guba — rodinné album"></video>
     </div>
     <div class="memory-body">
@@ -301,19 +301,19 @@
 <section class="refs-grid wrap">
   <div class="rg">
     <div class="card" data-reveal>
-      <div class="thumb"><img src="images/ref-dita-bednarova.jpg?v=1" alt="Dita Bednářová" loading="lazy"></div>
+      <div class="thumb ph" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAwACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAgQFBgP/xAAeEAABBAMBAQEAAAAAAAAAAAABAAIDBBESITEFE//EABcBAQEBAQAAAAAAAAAAAAAAAAMCAQD/xAAZEQEBAAMBAAAAAAAAAAAAAAABAAIDEiH/2gAMAwEAAhEDEQA/AMLLSe0eLg2Bwd4tjNXikHAEmKDd+BAZzuuSol8TQnjbJ4U3FSGniTt1iwnCzq7iOGZw45UK+HpO1WMZ4EdOXXhVJYLUwQxLWY2yBBPKccQwOc71Gkg1H6EAIPFF10etNbblpUGzEdiQlzj1EBcCqFKFp6pOHAp+rZ/PhUnteV//2Q==) center/cover"><img src="images/ref-dita-bednarova.jpg?v=1" alt="Dita Bednářová" loading="lazy"></div>
       <p class="card-quote">„Jak video, tak fotky jsou naprostá pecka a&nbsp;<em>předčily mé očekávání</em>. Miluji ty fotky, kde se Olivka bezděčně usmívá. Je z&nbsp;nich cítit obrovský cit a&nbsp;jemnost.“</p>
       <p class="card-name">Dita Bednářová</p>
       <p class="card-service">Rodinné foto a&nbsp;video</p>
     </div>
     <div class="card" data-reveal>
-      <div class="thumb"><img src="images/ref-hanka-svobodova.jpg?v=1" alt="Hanka Svobodová" loading="lazy"></div>
+      <div class="thumb ph" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAgADADASIAAhEBAxEB/8QAGgAAAQUBAAAAAAAAAAAAAAAABQABAgMGBP/EAB4QAAICAgMBAQAAAAAAAAAAAAABAgMEEQUSISIx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAQID/8QAGREAAwEBAQAAAAAAAAAAAAAAAAERITEC/9oADAMBAAIRAxEAPwAHbla/GPRfKQNsk2wnxtDsS8Maawe2p3IfFw3CW9BaGE4reiSq15oKxiFV8w0RskWODSOHLs6JlJ0l+YAIw7SNFw8FFLYFxI92jRYFLSRPC8YYioyiRdCbFBNIsjL0VoScOe2jUX4BOQo8ZpbGumzOcrdptIUoS9P/2Q==) center/cover"><img src="images/ref-hanka-svobodova.jpg?v=1" alt="Hanka Svobodová" loading="lazy"></div>
       <p class="card-quote">„Focení novorozence i&nbsp;manžela, který se jinak nerad fotí, proběhlo <em>v&nbsp;neskutečné pohodě</em>, plné trpělivosti a&nbsp;empatie. Z&nbsp;fotek sálá nádherná energie a&nbsp;emoce.“</p>
       <p class="card-name">Hanka Svobodová</p>
       <p class="card-service">Rodinné foto</p>
     </div>
     <div class="card" data-reveal>
-      <div class="thumb"><img src="images/ref-martina-frankova.jpg?v=1" alt="Martina Franková" loading="lazy"></div>
+      <div class="thumb ph" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAgADADARIAAhIBAxIB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAwUCBAYAAf/EAB4QAAICAgMBAQAAAAAAAAAAAAABAhEDBAUSISIx/8QAGAEAAwEBAAAAAAAAAAAAAAAAAAECAwT/xAAXEQEBAQEAAAAAAAAAAAAAAAAAAQIR/9oADAMBAAIRAxEAPwBvONxZ62qMQoM7y2C2y5yEe10gJUEjOYsH2Moa8u10KlVyHFnRxdaC4X0VE0KBxrfiAauX1FZEZ6PRtBeHYXaNIIyFK8HbIWNJLwiUsr4ekZaDmrod4oxcC+NJClZ9Z3JqLGvUX+RSTdGHGmo6JWeaRThUvA8o2zM10JasfUH1o0xwokUz1o/JPC6iXBEUV//Z) center/cover"><img src="images/ref-martina-frankova.jpg?v=1" alt="Martina Franková" loading="lazy"></div>
       <p class="card-quote">„Nádherné video, které nám bude živě stále připomínat první dny Amálky na světě. Fotky jsou báječné, nádherné, ale <em>video je video</em>. Doporučuji všema deseti!“</p>
       <p class="card-name">Martina Franková</p>
       <p class="card-service">Rodinné foto a&nbsp;video</p>
@@ -362,7 +362,7 @@
 </section>
 
 <section class="closing wrap dark-panel" id="kontakt" data-reveal>
-  <div class="closing-video-stage">
+  <div class="closing-video-stage" style="background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAgADkDASIAAhEBAxEB/8QAGgABAAIDAQAAAAAAAAAAAAAABAMFAAECBv/EACEQAAICAgICAwEAAAAAAAAAAAABAgMEERITITEFFFFB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDza9jMaegZNVLREWMpqS8nVFSlIJGWx2LLTQF3hQVcVo3nWLgzvD1KAT5KLjsCtdvGZL9p/oKT8mbAro1tkipYiivYqNK16AFCDQml6ZLKnSIN8WBb4uX1r2R5uV2oFW3Ik6nIA2ts3wEKhr+G+p/gH//Z) center/cover">
     <video class="closing-video-bg" src="videos/closing-video.mp4?v=1" poster="images/hero/13-poster.jpg?v=1" muted loop playsinline preload="none" data-lazy-autoplay aria-label="Šťastné miminko, na konci videa dvojčata"></video>
     <div class="closing-video-scrim"></div>
     <div class="top">
@@ -423,7 +423,7 @@
   </div>
 </div>
 
-<script src="js/script.js?v=150" defer></script>
+<script src="js/script.js?v=151" defer></script>
 
 </body>
 </html>
