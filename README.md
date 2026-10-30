@@ -3,7 +3,7 @@
 Website for **Inka Guba**, a family photographer and filmmaker in Brno, Czech Republic.
 Research-led redesign: from a portfolio people admired to a website that parents act on.
 
-**Live:** [innaguba.com](https://innaguba.com)
+**Live:** [innaguba.com](https://www.innaguba.com)
 
 ![innaguba.com: brand identity and website](docs/cover.jpg)
 
