@@ -73,7 +73,7 @@
 <section class="hero hero-collage">
   <div class="hc-split-stage">
     <div class="hc-split-media ph" data-replay-on-enter style="background-image:url('images/hero/video-hero-poster.jpg?v=4'), url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAgACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAgUGBAP/xAAdEAABBAMBAQAAAAAAAAAAAAABAAIDEQQSIQUx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwBbJASapCfO2bdJm9rXScWgMAZ8VVI5WEWXxL9Cx6qfRaA08U7NW5QUGDlmRwJTUyjRIcSom2V1lzgBQKAvRlBBU/O4bFac3K2vqUySklB//9k=)">
-      <video poster="images/hero/video-hero-poster.jpg?v=4" muted playsinline preload="auto" aria-label="Inna Guba — rodinné video"></video>
+      <video poster="images/hero/video-hero-poster.jpg?v=4" muted autoplay playsinline preload="auto" aria-label="Inna Guba — rodinné video"></video>
       <!-- phones get a 720px encode of the same clip (same frames, ~1/4 of the bytes); src is
            set here, before the first paint, so only one of the two files is ever requested -->
       <script>document.currentScript.previousElementSibling.src = matchMedia('(max-width:900px)').matches ? 'videos/video-hero-720.mp4?v=1' : 'videos/video-hero.mp4?v=5';</script>
@@ -439,7 +439,7 @@
   </div>
 </div>
 
-<script src="js/script.js?v=155" defer></script>
+<script src="js/script.js?v=157" defer></script>
 
 </body>
 </html>

@@ -148,7 +148,9 @@ document.querySelectorAll('[data-row]').forEach(row => {
     video.addEventListener('ended', () => panel.classList.add('is-ended'));
     const replayObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) { panel.classList.remove('is-ended'); video.currentTime = 0; video.play().catch(() => {}); }
+        // autoplay already starts it on page load — don't rewind a clip that's playing,
+        // only replay one that has finished or been paused by scrolling away
+        if (entry.isIntersecting) { if (!video.paused && !video.ended) return; panel.classList.remove('is-ended'); video.currentTime = 0; video.play().catch(() => {}); }
         else video.pause();
       });
     }, { threshold: 0.6 });
