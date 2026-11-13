@@ -26,7 +26,7 @@
 <!-- hero poster is the LCP element; it sits in an inline background-image, which the browser
      would otherwise only discover after the CSS has loaded -->
 <link rel="preload" href="images/hero/video-hero-poster.jpg?v=4" as="image" fetchpriority="high">
-<link rel="stylesheet" href="css/style.css?v=772">
+<link rel="stylesheet" href="css/style.css?v=780">
 <link rel="stylesheet" href="css/home-theme.css?v=54">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "@id": "https://innaguba.com/#business", "name": "Inna Guba", "image": "https://innaguba.com/images/og/og-default.jpg", "url": "https://innaguba.com/", "telephone": "+420774547333", "email": "innaguba@seznam.cz", "priceRange": "3900–12400 Kč", "address": {"@type": "PostalAddress", "streetAddress": "Pellicova 640/19", "addressLocality": "Brno", "postalCode": "602 00", "addressCountry": "CZ"}, "areaServed": [{"@type": "City", "name": "Brno"}, {"@type": "AdministrativeArea", "name": "Jihomoravský kraj"}], "founder": {"@type": "Person", "name": "Inna Guba"}, "sameAs": ["https://www.instagram.com/innaguba.pro/", "https://www.facebook.com/fotoatelierinnaguba/"]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://innaguba.com/"}]}</script>
@@ -48,7 +48,16 @@
   <div class="nav wrap">
     <a href="index.html" class="home-logo">Inna <span class="home-logo-surname">Guba</span></a>
     <div class="nav-links">
-      <a href="portfolio.html">Galerie</a>
+      <div class="nav-item has-sub">
+        <a href="portfolio.html" class="nav-parent" aria-haspopup="true">Galerie</a>
+        <div class="nav-sub">
+          <a href="tehotenske-foceni-brno.html">Těhotenské focení</a>
+          <a href="newborn-foceni-brno.html">Newborn focení</a>
+          <a href="galerie-rodinna-fotografie.html">Rodinné focení</a>
+          <a href="galerie-detsky-portret.html">Dětský portrét</a>
+          <a href="galerie-video-pribeh.html">Rodinné video</a>
+        </div>
+      </div>
       <a href="o-mne.html">O&nbsp;mně</a>
       <a href="cenik.html">Ceník</a>
       <a href="kontakt.html">Kontakt</a>
@@ -394,7 +403,16 @@
     <div class="footer-col-group">
       <div class="footer-col">
         <h5>Stránky</h5>
-        <a href="portfolio.html">Galerie</a>
+        <div class="nav-item has-sub">
+        <a href="portfolio.html" class="nav-parent" aria-haspopup="true">Galerie</a>
+        <div class="nav-sub">
+          <a href="tehotenske-foceni-brno.html">Těhotenské focení</a>
+          <a href="newborn-foceni-brno.html">Newborn focení</a>
+          <a href="galerie-rodinna-fotografie.html">Rodinné focení</a>
+          <a href="galerie-detsky-portret.html">Dětský portrét</a>
+          <a href="galerie-video-pribeh.html">Rodinné video</a>
+        </div>
+      </div>
         <a href="o-mne.html">O&nbsp;mně</a>
         <a href="cenik.html">Ceník</a>
         <a href="kontakt.html">Kontakt</a>
@@ -430,7 +448,7 @@
   </div>
 </div>
 
-<script src="js/script.js?v=154" defer></script>
+<script src="js/script.js?v=155" defer></script>
 
 </body>
 </html>

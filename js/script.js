@@ -5,7 +5,8 @@
   document.querySelectorAll('.nav-links a').forEach(a => {
     const href = a.getAttribute('href');
     if (href.includes('#')) return;
-    if (href === activePage) a.classList.add('active');
+    // the parent "Galerie" lights up on any service page; the service itself in its submenu
+    if (href === activePage || (a.closest('.nav-sub') && href === page)) a.classList.add('active');
   });
 })();
 
