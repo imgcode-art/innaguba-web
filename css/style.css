@@ -2961,3 +2961,6 @@
    absolutely-positioned img/video layouts stay untouched — badge stays above it */
 .pb-photo-link { position:absolute; inset:0; z-index:1; }
 .pb-photo .pb-badge { z-index:2; }
+/* album page: the kartičky block now closes the album part right before "Ceník" — drop the
+   last-series margin so that gap matches the old story → Ceník rhythm */
+.album-cards .pgg-series:last-of-type { margin-bottom:0; }
