@@ -257,6 +257,33 @@ document.querySelectorAll('[data-row]').forEach(row => {
     sync();
   })();
 
+  // ---------- Album order sheet: the radio rows + "add kartičky" checkbox write the same
+  // sluzba strings the old dropdown sent, and the button carries the total ----------
+  (() => {
+    const form = document.querySelector('.album-order');
+    if (!form) return;
+    const LABELS = {
+      velke: ['Album PDF – velké 30×30 (249 Kč)', 'Album PDF – velké 30×30 + kartičky (329 Kč)'],
+      male: ['Album PDF – malé 22×22 (199 Kč)', 'Album PDF – malé 22×22 + kartičky (279 Kč)'],
+      karticky: ['Kartičky PDF (129 Kč)'],
+    };
+    const addon = form.querySelector('.ao-addon');
+    const addonBox = addon.querySelector('input');
+    const hidden = form.querySelector('[name="sluzba"]');
+    const btn = form.querySelector('.cf-submit');
+    const sync = () => {
+      const picked = form.querySelector('[name="produkt"]:checked');
+      const isAlbum = picked.value !== 'karticky';
+      addon.hidden = !isAlbum;
+      const withCards = isAlbum && addonBox.checked;
+      hidden.value = LABELS[picked.value][withCards ? 1 : 0];
+      if (!btn.disabled) btn.textContent = `Objednat za ${+picked.dataset.price + (withCards ? 80 : 0)} Kč`;
+    };
+    form.addEventListener('change', sync);
+    form.addEventListener('reset', () => setTimeout(sync));
+    sync();
+  })();
+
   // ---------- Contact form (sends via Web3Forms, no backend needed) ----------
   const WEB3FORMS_ACCESS_KEY = '678c6592-26f3-4337-82fc-1c2fd2dc5074';
   document.querySelectorAll('.contact-form').forEach(form => {
@@ -315,6 +342,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
       const termin = form.querySelector('[name="termin"]')?.value;
       const misto = form.querySelector('[name="misto"]')?.value;
 
+      const idleLabel = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Odesílám…';
       status.removeAttribute('data-state');
@@ -343,16 +371,17 @@ document.querySelectorAll('[data-row]').forEach(row => {
           submitBtn.setAttribute('data-state', 'success');
           status.textContent = 'Děkuji, zpráva byla odeslána. Ozvu se vám do 24 hodin.';
           setTimeout(() => {
-            submitBtn.textContent = 'Odeslat zprávu';
+            submitBtn.textContent = idleLabel;
             submitBtn.removeAttribute('data-state');
             submitBtn.disabled = false;
+            form.dispatchEvent(new Event('change'));
           }, 4000);
         } else {
           throw new Error(data.message || 'Odeslání se nezdařilo');
         }
       } catch (err) {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Odeslat zprávu';
+        submitBtn.textContent = idleLabel;
         status.textContent = 'Něco se nepovedlo. Napište mi prosím přímo na innaguba@seznam.cz.';
         status.setAttribute('data-state', 'error');
       }
