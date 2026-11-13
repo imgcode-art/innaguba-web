@@ -1,6 +1,6 @@
 (() => {
   const page = location.pathname.split('/').pop() || 'index.html';
-  const galleryPages = ['galerie-rodinna-fotografie.html', 'galerie-detsky-portret.html', 'galerie-video-pribeh.html'];
+  const galleryPages = ['galerie-rodinna-fotografie.html', 'galerie-detsky-portret.html', 'galerie-video-pribeh.html', 'tehotenske-foceni-brno.html', 'newborn-foceni-brno.html'];
   const activePage = galleryPages.includes(page) ? 'portfolio.html' : page;
   document.querySelectorAll('.nav-links a').forEach(a => {
     const href = a.getAttribute('href');
@@ -332,6 +332,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
             'kdy chce fotit': termin || '',
             'kde chce fotit': misto || '',
             zprava: message,
+            ...(form.querySelector('[name="souhlas"]') ? { 'souhlas s dodáním PDF (bez práva na odstoupení)': form.querySelector('[name="souhlas"]').checked ? 'ano' : 'ne' } : {}),
           }),
         });
         const data = await res.json();
@@ -724,7 +725,9 @@ document.querySelectorAll('[data-row]').forEach(row => {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
   };
-  initScrollFloat('.pgg', 14);
+  // whole series floats as one unit — each stacked .pgg block drifting on its own made the
+  // gap between blocks (e.g. a portrait row above a landscape row) shrink to almost nothing
+  initScrollFloat('.pgg-series, :not(.pgg-series) > .pgg', 14);
 
   // ---------- Mouse parallax — tiles/photos tagged [data-parallax-depth] inside
   // gridSelector shift toward the cursor, closer ones (higher depth) moving further

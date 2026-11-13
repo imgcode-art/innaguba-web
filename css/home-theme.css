@@ -27,9 +27,9 @@ body { overflow-x: clip; }
   z-index: 0;
   --paper: #111111;
   --ink: #F5F3EF;
-  --ink-heading: rgba(245,243,239,0.8);
+  --ink-heading: #F5F3EF;
   --ink-subheading: #F5F3EF;
-  --ink-body: rgba(245,243,239,0.85);
+  --ink-body: rgba(245,243,239,0.78);
   --line: rgba(245,243,239,0.14);
   color: var(--ink);
 }

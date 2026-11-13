@@ -10,12 +10,14 @@
 @font-face{font-family:'Jost';font-style:normal;font-weight:300 800;font-display:swap;src:url(../fonts/jost-normal-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 :root {
     --ink: #111111;
-    --ink-heading: rgba(17,17,17,0.8);
+    /* 13 Nov: headings solid black, body a step quieter — one black on the page, clear
+       order headline → button → body (was 0.8 heading / 0.85 body, body read darker) */
+    --ink-heading: #111111;
     /* the middle tier of the 3-size type scale (--fs-heading) — these are the scannable
        lead lines/card headlines meant to read as a story on their own, so they need to be
        the darkest, most prominent text on the page, darker even than --ink-body copy */
     --ink-subheading: #111111;
-    --ink-body: rgba(17,17,17,0.85);
+    --ink-body: rgba(17,17,17,0.78);
     --paper: #F5F3EF;
     --red: #7A2C1E;
     --wine: #7A1E3A;
@@ -257,7 +259,7 @@
        Declared here, not :root, since it's only ever read inside this component. */
     --hc-split-size: clamp(560px, 50vw, 860px);
   }
-  .hc-split-media { position:relative; overflow:hidden; flex:0 0 auto; width: var(--hc-split-size); height: var(--hc-split-size); background: #000 center/cover no-repeat; filter: sepia(0.3) saturate(0.85) contrast(1.08) brightness(0.97); }
+  .hc-split-media { position:relative; overflow:hidden; flex:0 0 auto; width: var(--hc-split-size); height: var(--hc-split-size); background: #000 center/cover no-repeat; filter: grayscale(1) contrast(1.08) brightness(0.97); }
   .hc-split-media video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   /* sharp still of the clip's final shot (images/hero/video-hero-end.jpg). The clip itself
      now pushes in and dissolves into this exact photo (baked in, see script.js), so this
@@ -298,12 +300,8 @@
   /* closing aside under the CTA — same italic/quiet treatment as .closing-note,
      answering "why act now" after the button has already made the ask. */
   .hc-subnote { font-style:italic; font-size: var(--fs-body); color: var(--ink-body); }
-  /* light by default, dark on hover — the opposite of .about-cta-btn's own base styling
-     (dark fill, light text) — plus the soft offset shadow, both per direct reference
-     (derfleratelier.cz's own CTA button). Scoped to the hero's button rather than every
-     .about-cta-btn sitewide, since nowhere else was asked for this. */
-  .hc-split-content .hero-cta-primary { background: var(--paper); color: var(--ink); border-color: var(--ink); box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.35); }
-  .hc-split-content .hero-cta-primary:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  /* hero CTA uses the shared dark-at-rest .about-cta-btn like every other main CTA (the
+     old light-at-rest hero override was removed 13 Nov, per direct instruction) */
   /* the headline the hero is actually built around now — site's largest type size
      (--fs-display, same scale .hc-eyebrow already carried as the old hero's visible
      headline) instead of a small supporting line, per direct instruction. Capped width so
@@ -370,7 +368,6 @@
      top margin of its own (the gap above it is .proof-block's own top padding instead). */
   .hc-mobile-cta-row { margin-top: 0; text-align:center; }
   .hero-cta-primary { transition: background .25s ease, color .25s ease, transform .25s ease; }
-  .about-cta-btn.hero-cta-primary:hover { transform: scale(1.04); }
   /* Mobile hero = the desktop split, stacked: the same (sharper, near-square) desktop video
      full-width on top, then the kicker promoted to a serif heading ("what I do") and the
      primary CTA right under it — all on the first screen, per direct instruction. Replaces
@@ -731,6 +728,8 @@
      this is meant to echo the main button, just smaller and quieter (13px vs the
      button's 16px, no box/border around it), not to match the card's own heading. The
      trailing "→" that used to be part of the text itself (HTML) is gone too. */
+  /* single quiet link under portfolio.html's three cards (service pages that have no card) */
+  .pg-more { display:flex; justify-content:center; gap: var(--space-4); flex-wrap:wrap; margin-top: var(--space-6); }
   .pg .pcard .pcard-link { display:inline-block; margin-top: var(--space-2); font-size:13px; text-transform:uppercase; letter-spacing:0.14em; text-decoration:underline; text-underline-offset:3px; color: var(--ink-body); transition: color .2s ease; }
   /* color only on hover (the letter-spacing widen a first pass also had here read as an
      unwanted "zoom", removed) — var(--ink), not --logo-accent (the brown reserved for the
@@ -1165,7 +1164,7 @@
      the page. align-self:center (not flex-start) per direct feedback — left-aligned sat
      oddly off to one side under the full-width field groups above it; centered reads as
      the form's own closing anchor instead. */
-  .cf-submit { align-self:center; display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink-heading); padding:14px 28px; line-height:1.5; font-family:inherit; background:none; color: var(--ink-heading); cursor:pointer; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+  .cf-submit { align-self:center; display:inline-block; font-size:13px; font-weight:400; letter-spacing:0.2em; text-transform:uppercase; border:1px solid var(--ink-heading); padding:15px 32px; line-height:20px; font-family:inherit; background:none; color: var(--ink-heading); cursor:pointer; transition: background .2s ease, color .2s ease, border-color .2s ease; }
   .cf-submit:hover { background: var(--ink-body); border-color: var(--ink-body); color:#fff; }
   /* hover's own fill/text above is hardcoded for the light panel (near-black bg -> white
      text); on a dark-panel --ink-body is already the light tone, so hover's background
@@ -1454,25 +1453,31 @@
      effect. Drifting the whole .pgg (one series' grid) as a single rigid unit instead means
      every photo inside moves together, so the spacing between them literally never changes —
      only the series as a whole floats a few px as you scroll past it. */
-  .pgg { columns:3; column-gap: var(--space-2); transform: translateY(var(--float-y, 0px)); will-change:transform; }
-  /* a series can hold several .pgg blocks stacked (grouping separate photo sets within
-     one series) instead of a single block — without this, those stacked blocks touched
-     directly since only .pgg-item (within a block) and .pgg-series (between series) had
-     a margin defined. */
+  /* grid instead of multicol (13 Nov): every block holds one orientation, so a plain grid
+     gives the same rows — but with ONE gap value everywhere (16px between photos, between
+     rows and between stacked blocks alike). Multicol mixed item margins with block margins
+     (16px inside a block vs 32px between blocks) and Safari dropped margins at column
+     ends, so gaps looked random from row to row. */
+  .pgg { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--space-2); align-items:start; }
+  /* scroll float: the whole series moves as one unit (see initScrollFloat), never single blocks */
+  .pgg-series, :not(.pgg-series) > .pgg { transform: translateY(var(--float-y, 0px)); will-change:transform; }
   .pgg + .pgg { margin-top: var(--space-2); }
-  .pgg-item { display:block; margin-bottom: var(--space-2); break-inside:avoid; overflow:hidden; transform: translateZ(0); }
+  .pgg-item { display:block; margin:0; overflow:hidden; transform: translateZ(0); }
   .pgg-item img { display:block; width:100%; }
-  /* lets one standout photo break out of the 3-column flow as a full-width banner —
-     column-span:all pulls it out of the column balancing entirely, so the other items
-     in the same .pgg just re-balance into columns around it without any markup change. */
-  .pgg-item.pgg-feature { column-span: all; }
-  /* once a .pgg's feature item is pulled out, only 2 photos are left to share the row —
-     3 columns would leave one empty, so this group gets 2 columns instead. */
-  .pgg.pgg-duo { columns: 2; }
+  /* one standout photo as a full-width banner across the block */
+  .pgg-item.pgg-feature { grid-column: 1 / -1; }
+  .pgg.pgg-duo { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .pgg.pgg-trio { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  /* portrait + landscape side by side at one shared height (flex-grow = the photo's aspect
+     ratio, so widths split proportionally and heights come out equal) */
+  .pgg.pgg-pairs { display:flex; flex-direction:column; gap: var(--space-2); }
+  .pgg-pair { display:flex; gap: var(--space-2); }
+  .pgg-pair .pgg-item { flex: var(--r) 1 0; min-width:0; }
+  .pgg-pair .pgg-item img { height:100%; object-fit:cover; }
   @media (max-width:900px){
-    .pgg{columns:2; column-gap: var(--space-1);}
+    .pgg { grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--space-1); }
     .pgg + .pgg { margin-top: var(--space-1); }
-    .pgg-item{margin-bottom: var(--space-1);}
+    .pgg.pgg-pairs, .pgg-pair { gap: var(--space-1); }
     .pgg-series:not(:last-of-type) { margin-bottom:0; }
     /* a short hairline between series (same 40px line as the page eyebrows / ceník labels)
        instead of the rust heart — the heart was mobile-only, the only use of --red as a
@@ -1490,8 +1495,10 @@
      drops item margins at column-set breaks (around .pgg-feature's column-span:all and
      at fragment edges), which made some photos touch with no gap at all. */
   @media (max-width:560px){
-    .pgg, .pgg.pgg-duo { columns:auto; display:flex; flex-direction:column; gap: var(--space-1); }
-    .pgg-item { margin-bottom:0; }
+    .pgg, .pgg.pgg-duo, .pgg.pgg-trio { display:flex; flex-direction:column; gap: var(--space-1); }
+    .pgg-pair { flex-direction:column; }
+    .pgg-pair .pgg-item { flex:none; }
+    .pgg-pair .pgg-item img { height:auto; }
   }
   /* unified with .proof-teaser-link's sitewide "secondary button" treatment (same
      uppercase/tracked/underline look as the CTA links in pricing cards etc.) — used to
@@ -1513,6 +1520,14 @@
   @media (max-width: 900px) {
     .gallery-end { flex-direction:column-reverse; gap: var(--space-4); }
   }
+  /* newborn page: a third, related link in the middle of the same row (one line of
+     navigation instead of a second row of links above it); mobile keeps the stacked order
+     balíček → další příběhy → zpět */
+  .gallery-end-3 { display:grid; grid-template-columns: 1fr auto 1fr; }
+  .gallery-end-3 .forward { justify-self:end; }
+  @media (max-width: 900px) {
+    .gallery-end-3 { display:flex; }
+  }
   /* deep-link targets from the galleries — clear the fixed header */
   #rodinne-foceni, #rodinne-video, #detsky-grid { scroll-margin-top: calc(var(--header-h, 72px) + var(--space-5)); }
 
@@ -1531,6 +1546,15 @@
      plain stacked-block cards and would conflict with .pb-featured's flex row. */
   .price-bento-3 .pb-card.pb-featured { border:1px solid var(--line); padding:0; }
   .pb-card { display:flex; flex-direction:column; min-width:0; }
+  /* album-k-vytisteni.html: two size cards (no photos) + the order form under them */
+  .price-bento.album-sizes { grid-template-columns: repeat(3, 1fr); max-width: 1100px; margin: 0 auto; gap: var(--space-4); }
+  .album-sizes .pb-card { border:1px solid var(--line); padding: var(--space-4); }
+  .album-sizes .pb-card .pb-content { flex: 1 1 auto; width: auto; min-height: 0; padding: 0; }
+  .contact-form.album-order { max-width: 900px; margin: var(--space-7) auto 0; }
+  .section-label:has(+ .pricing-grid .album-sizes) .wrap { justify-content:center; }
+  .section-label:has(+ .pricing-grid .album-sizes) h2 { text-align:center; }
+  .album-order-note { font-size: var(--fs-body); line-height:1.6; color: var(--ink-body); }
+  @media (max-width:900px){ .price-bento.album-sizes { grid-template-columns: 1fr; max-width: 520px; } }
   .pb-card.pb-featured { grid-column: 1 / -1; flex-direction:row; align-items:stretch; gap: var(--space-7); }
   /* position:absolute on the img keeps it out of the height calculation, so .pb-photo's own
      (pre-stretch) height is 0 and .pb-content's real content height drives the stretched row —
@@ -1955,6 +1979,21 @@
     .story-row:has(.story-photo-polaroid) { align-items: flex-start; }
   }
   .story-photo img { width:100%; height:100%; object-fit:cover; filter: contrast(1.05); }
+  /* Service pages (tehotenske-foceni-brno.html): a real 16:9 film with player controls in
+     the story slot, so the box follows the footage instead of cropping it to 4/5 */
+  .story-photo.story-photo-film { aspect-ratio:16/9; background:#000; }
+  .story-photo-film video { display:block; width:100%; height:100%; object-fit:contain; }
+  @media (min-width:901px){ .story-row:has(.story-photo-film) { grid-template-columns: 1.4fr 1fr; } }
+  .my-story:has(.story-photo-film) { margin-bottom: var(--space-10); }
+  /* newborn page: the films come after the gallery, so they need air above too */
+  .photo-gallery + .my-story:has(.story-photo-film) { margin-top: var(--space-10); }
+  /* films already carry 100px below, so the next heading (Ceník, Často se ptáte) needs less on top */
+  .my-story:has(.story-photo-film) + .section-label { padding-top: var(--space-6); }
+  /* second film on the same page mirrors the first (text left, film right) */
+  @media (min-width:901px){
+    .story-row.story-row-flip:has(.story-photo-film) { grid-template-columns: 1fr 1.4fr; }
+    .story-row-flip .story-media { order: 2; }
+  }
   /* "Svatba tety" slot — an archival video now, not a full-bleed shot like every other
      .story-photo-wide (also used as-is by web-vizualni-tvorba.html's case-study
      screenshots, which still want the plain 3/2 crop — hence overriding via the extra
@@ -2095,10 +2134,9 @@
   /* dark fill everywhere now (was a light outline on desktop, which read as too faint next
      to the photos) — same solid --ink fill as the old mobile-only treatment, so there's one
      consistent look instead of two. Hover swaps to the light outline as the interaction cue.
-     Soft offset shadow — same treatment the hero's own CTA already had (its own, lighter-
-     by-default button; this is the shared dark-by-default one every other CTA on the site
-     uses), added here per direct instruction. */
-  .about-cta-btn { display:inline-block; font-size: var(--fs-body); font-weight:400; letter-spacing:0.1em; text-transform:uppercase; background: var(--ink); color: var(--paper); border:1px solid var(--ink); padding:16px 24px; box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.35); transition: background .2s ease, color .2s ease, border-color .2s ease; }
+     13 Nov: slimmer — small tracked caps like the page eyebrows, wider than tall, no
+     drop shadow (read as template next to the flat editorial layout). */
+  .about-cta-btn { display:inline-block; font-size:13px; font-weight:400; letter-spacing:0.2em; text-transform:uppercase; background: var(--ink); color: var(--paper); border:1px solid var(--ink); padding:15px 32px; box-shadow:none; transition: background .2s ease, color .2s ease, border-color .2s ease; }
   .about-cta-btn:hover { background: var(--paper); color: var(--ink-heading); border-color: var(--ink-heading); }
   /* mobile: no hover state to signal interactivity, so tapping adds an underline on top of
      the same light-outline swap hover already does on desktop. */
@@ -2147,7 +2185,7 @@
   .cookie-reject, .cookie-accept { font-family: var(--sans); }
   /* both choices as the same thin outlined button — refusing has to be as easy and as
      visible as accepting (ÚOOÚ guidance), so neither is styled as the "lesser" option */
-  .cookie-reject, .cookie-accept { display:inline-block; font-size:13px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; color: var(--ink); background:none; border:1px solid var(--ink); padding:12px 26px; cursor:pointer; white-space:nowrap; transition: background .2s ease, color .2s ease; }
+  .cookie-reject, .cookie-accept { display:inline-block; font-size:13px; font-weight:400; letter-spacing:0.2em; line-height:20px; text-transform:uppercase; text-decoration:none; color: var(--ink); background:none; border:1px solid var(--ink); padding:15px 32px; cursor:pointer; white-space:nowrap; transition: background .2s ease, color .2s ease; }
   .cookie-reject:hover, .cookie-accept:hover { background: var(--ink); color: var(--paper); }
   @media (max-width:700px){
     .cookie-bar { padding: var(--space-3) var(--space-3) calc(var(--space-3) + env(safe-area-inset-bottom, 0px)); }
@@ -2345,7 +2383,8 @@
      (per direct instruction — it's the point of the whole section): italic serif, a step
      smaller than the question, tucked right under it; the gap the title used to keep
      before the columns moves below the answer instead. */
-  .reassure-title:has(+ .reassure-answer) { margin-bottom: var(--space-2); }
+  /* the answer continues the question — same line rhythm, no extra gap (13 Nov) */
+  .reassure-title:has(+ .reassure-answer), .reassure-col .reassure-title:has(+ .reassure-answer) { margin-bottom: 0; }
   .reassure-answer { font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(30px, 3.4vw, 48px); line-height:1.1; color: var(--ink); margin-bottom: 40px; text-align:left; }
   @media (max-width:900px){ .reassure-answer { text-align:center; margin-bottom: var(--space-4); } }
   /* ---------- Reassure section, rebuilt (per direct feedback "still broken"): ----------
@@ -2465,6 +2504,12 @@
   .story-card-item:nth-child(2) .story-photo { transform: rotate(1.8deg) translateY(18px); }
   .story-card-item:nth-child(3) .story-photo { transform: rotate(-1.2deg); }
   @media (hover:hover){ .story-card-item:hover .story-photo { transform: rotate(0) translateY(-6px); box-shadow: 0 30px 50px -24px rgba(17,17,17,0.5), 0 2px 6px rgba(17,17,17,0.08); } }
+  /* newborn-foceni-brno.html "Jak budeme fotit?" — same three-up card, but plain straight
+     photos: the o-mne polaroid tilt only reads as intentional there (keepsake story) */
+  .style-cards .story-card-item .story-photo,
+  .style-cards .story-card-item:nth-child(n) .story-photo { border:0; box-shadow:none; transform:none; }
+  @media (hover:hover){ .style-cards .story-card-item:hover .story-photo { transform:none; box-shadow:none; } }
+  .my-story:has(.style-cards) { margin-bottom: var(--space-10); }
   .story-card-item .story-chapter { font-family: var(--serif); font-style:italic; font-size: clamp(22px, 1.9vw, 28px); line-height:1.2; color: var(--ink-heading); margin: var(--space-2) 0 var(--space-1) !important; }
   .story-card-item:nth-child(2) p.story-chapter { margin-top: calc(var(--space-2) + 18px) !important; }
   .story-card-item p:not(.story-chapter) { max-width:36ch; margin-left:auto; margin-right:auto; text-wrap:pretty; }
@@ -2516,13 +2561,23 @@
      display-size headings competing with the new h1 right above. Both are now the same
      editorial label: a short hairline leading into tracked caps at full body tone. On
      ceník it marks a group of packages instead of shouting a second title. */
-  .page-eyebrow, .cenik-category { display:flex; align-items:center; gap: var(--space-2); font-family: var(--sans) !important; font-size:13px !important; font-weight:400 !important; letter-spacing:0.24em !important; line-height:1.4; text-transform:uppercase; color: var(--ink-body); opacity:1; }
+  .page-eyebrow, .cenik-category { display:flex; align-items:center; gap: var(--space-2); font-family: var(--sans) !important; font-size:13px !important; font-weight:400 !important; letter-spacing:0.2em !important; line-height:1.4; text-transform:uppercase; color: var(--ink-body); opacity:1; }
   .page-eyebrow::before, .cenik-category::before { content:""; flex:0 0 40px; height:1px; background: currentColor; opacity:.6; }
   @media (max-width:900px){
     .page-eyebrow { justify-content:center; }
     .page-eyebrow::after { content:""; flex:0 0 40px; height:1px; background: currentColor; opacity:.6; }
   }
   @media (min-width:901px){ .cenik-category { padding-bottom:0; } }
+  /* 13 Nov: leading/trailing hairlines dropped (a stock template motif) — the tracked caps
+     alone carry the label, same as the homepage kicker */
+  .page-eyebrow::before, .page-eyebrow::after, .cenik-category::before, .cenik-category::after { content:none !important; }
+  /* eyebrow belongs to the h1: ~28px ink gap (was ~44, as big as h1→intro), same rhythm as
+     the homepage hero kicker */
+  .section-label .page-eyebrow { margin-bottom: 0; }
+  /* ceník category: no full-width rule — the package card's own border sits right below,
+     two parallel lines 28px apart read as a double rule */
+  @media (min-width:901px){ .cenik-category { border-bottom:0 !important; } }
+
   /* ceník package names: regular-weight serif like every other card/heading, sized up so
      they still lead the card */
   .pb-content h3 { font-weight:400; font-size: clamp(28px, 2.4vw, 36px); line-height:1.15; margin-bottom: var(--space-2); }
@@ -2600,6 +2655,13 @@
   .pb-standout .proof-teaser-link { background: var(--paper); color: var(--ink); box-shadow:none; }
   .pb-recommended .proof-teaser-link:hover,
   .pb-standout .proof-teaser-link:hover { box-shadow: 10px 14px 24px -10px rgba(17,17,17,0.2); }
+  /* 13 Nov: same metrics as the sitewide .about-cta-btn (13px, 0.2em tracking, 15px 32px,
+     no shadow) so the package buttons are the outline twin of the main CTA; hover fills
+     dark like the outline CTA on dark panels, no lift/shadow/underline */
+  .pb-card .proof-teaser-link,
+  .pb-card:not(.pb-recommended):not(.pb-standout) .proof-teaser-link { font-size:13px; letter-spacing:0.2em; padding:15px 32px; background: transparent; color: var(--ink); border:1px solid var(--ink); box-shadow:none; transform:none; text-decoration:none; transition: background .2s ease, color .2s ease; }
+  .pb-card .proof-teaser-link:hover,
+  .pb-card:not(.pb-recommended):not(.pb-standout) .proof-teaser-link:hover { background: var(--ink); color: var(--paper); box-shadow:none; transform:none; text-decoration:none; }
   .pb-badge { top: var(--space-3); left: var(--space-3); z-index:2; background: var(--paper); color: var(--ink-heading); border-radius:0; font-family: var(--serif); font-style:italic; font-weight:400; font-size:18px; letter-spacing:0; text-transform:none; line-height:1.2; padding:8px 16px 9px; box-shadow: 0 8px 20px -10px rgba(17,17,17,0.35); }
 
   /* ---------- Kontakt: from business card to invitation ----------
@@ -2668,8 +2730,7 @@
      replaced by proof (Google rating + family count) right where a hesitant visitor
      decides whether to click; the rule under the nav softened to the site's hairline. */
   @media (min-width:901px){
-    .hc-split-content .hc-kicker { display:flex; align-items:center; gap: var(--space-2); font-size:13px; letter-spacing:0.24em; }
-    .hc-split-content .hc-kicker::before { content:""; flex:0 0 40px; height:1px; background: currentColor; opacity:.6; }
+    .hc-split-content .hc-kicker { display:flex; align-items:center; gap: var(--space-2); font-size:13px; letter-spacing:0.2em; margin-bottom: -14px; }
     /* the kicker needs ~435px on one line, but the hero's text column is only half the
        viewport — below ~1130px wide it broke as "…V BRNĚ / A OKOLÍ", a lone orphan. Tighter
        tracking on narrower laptops keeps it on one line down to ~1000px; below that,
@@ -2681,7 +2742,32 @@
     .hc-split-content .hc-trust { font-style:normal; font-size:15px; color: var(--ink-body); }
     .hc-trust .reviews-stars { letter-spacing:0.08em; margin-right:4px; }
     .hc-trust-sep { margin: 0 6px; opacity:.6; }
+    /* calmer hero (12 Nov): one display line instead of two competing serif lines — the
+       short "Děti rostou…" is the headline, the promise drops to plain body text, and the
+       button + rating share one row, so the column reads kicker → headline → text → action */
+    /* vertical rhythm measured on the rendered ink (13 Nov): kicker→headline ~22px (label
+       belongs to the headline), headline→text ~30px (the promise answers the headline, so
+       it stays with it), text→button ~56px — the button clearly a separate step */
+    .hc-split-content .hc-eyebrow { font-size: clamp(36px, 3.9vw, 58px); line-height:1.05; max-width:none; }
+    .hc-split-content .hc-eyebrow .hc-l1 { display:block; white-space:nowrap; }
+    /* promise + button share one shrink-to-fit box and the button fills it, so the button
+       always ends exactly where the longer promise line ("…srdce.") ends, in any browser */
+    /* the line box ends after the full stop's advance, ~0.2em past its visible dot — the
+       button stops at the ink instead (font-size here = the promise's, so the em matches) */
+    .hc-body { display:grid; width:fit-content; margin-top: -4px; font-size: clamp(17px, 1.25vw, 19px); }
+    .hc-body .hc-actions { margin-right: 0.2em; }
+    /* small inline padding so the button never sets the box width itself — the text line does */
+    .hc-body .hc-actions .about-cta-btn { display:block; text-align:center; padding-inline:12px; }
+    .hc-split-content .hc-promise { display:block; max-width:none; margin:0; font-family: var(--sans); font-style:normal; font-size: clamp(17px, 1.25vw, 19px); line-height:1.5; letter-spacing:0; color: var(--ink-body); }
+    .hc-actions { display:block; margin-top: 48px; }
+    .hc-split-content .hero-cta-primary { box-shadow:none; }
+    /* rating as quiet text (no star glyphs — read as template); only "přečíst recenze" is
+       the link, so it carries a visible underline */
+    .hc-split-content .hc-trust { font-size:14px; letter-spacing:0.02em; }
+    .hc-split-content .hc-trust .hc-trust-link { text-decoration-color: currentColor; text-underline-offset:4px; }
+    .hc-split-content .hc-trust .hc-trust-sep { margin: 0 10px; }
   }
+  @media (max-width:900px){ .hc-actions, .hc-body { display:contents; } }
   /* rating line opens the Google reviews — stays quiet type, underline only on hover so it
      doesn't compete with the CTA right above it */
   .hc-trust-link { color: inherit; text-decoration: underline transparent; text-underline-offset: 4px; transition: text-decoration-color .2s ease; }
@@ -2721,7 +2807,7 @@
      dark panel glared, the brightest thing on the screen by far, per direct feedback. The
      outline matches the fields' own hairline frames above it, so the form reads as one
      calm piece; the full fill now arrives only as the hover response. */
-  .closing .cf-submit { margin-top: var(--space-3); background: transparent; color: var(--ink); border-color: var(--ink); padding:16px 44px; transition: background-color .25s ease, color .25s ease; }
+  .closing .cf-submit { margin-top: var(--space-3); background: transparent; color: var(--ink); border-color: var(--ink); padding:15px 32px; transition: background-color .25s ease, color .25s ease; }
   .closing .cf-submit:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   /* the two rules above outrank the base success state (same specificity, later) — keep its green */
   .closing .cf-submit[data-state="success"] { background:#2f6b3a; border-color:#2f6b3a; color:#fff; }
@@ -2763,3 +2849,72 @@
   .ph::after { content:""; position:absolute; top:50%; left:50%; width:28px; height:28px; margin:-14px 0 0 -14px; border:1.5px solid rgba(255,255,255,0.35); border-top-color:rgba(255,255,255,0.9); border-radius:50%; opacity:0; pointer-events:none; z-index:3; animation: ph-spin 1s linear infinite; transition: opacity .4s ease; }
   .ph.ph-wait:not(.ph-loaded)::after { opacity:1; transition-delay:.8s; }
   @keyframes ph-spin { to { transform: rotate(360deg); } }
+
+  /* album-k-vytisteni.html order form: the digital-content consent checkbox */
+  .cf-consent { display:flex; gap: var(--space-2); align-items:flex-start; font-size: 14px; line-height:1.5; color: var(--ink-body); }
+  .cf-consent input { width:auto; margin-top:4px; flex:0 0 auto; }
+  .cf-consent a { text-decoration:underline; }
+
+  /* "Od bříška po první dny" — two cards (těhotenské + newborn) on index + portfolio,
+     same .pcard look as the 3-card grid, just 2 columns in a narrower centred row */
+  /* same card size as the 3-up grid above (one column = a third of the row minus gaps),
+     the pair centred — one card module sitewide, the section heading carries the change */
+  .pg.pg-duo { grid-template-columns: repeat(2, calc((100% - 2 * var(--space-6)) / 3)); justify-content:center; } /* desktop column gap is --space-6 (see .pg ≥801px) */
+  .section-label.sl-center .wrap { justify-content:center; text-align:center; }
+
+  /* 13 Nov: one service grid ordered by life stage (těhotenské → newborn → rodinné → dětský
+     portrét); 4 across on desktop, 2×2 on tablets, the usual sticky stack on phones.
+     Video left the grid for its own section right below (.memory-kicker + .memory-cta). */
+  @media (min-width:801px){ .pg.pg-4 { grid-template-columns: repeat(2, 1fr); row-gap: var(--space-8); } }
+  @media (min-width:1101px){ .pg.pg-4 { grid-template-columns: repeat(4, 1fr); column-gap: var(--space-4); } }
+  .memory-kicker { font-size:13px; letter-spacing:0.2em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2) !important; text-align:left; }
+  .memory-body .memory-cta { margin-top: var(--space-5); }
+  @media (max-width:900px){ .memory-kicker { text-align:center; } .memory-body .memory-cta { display:table; margin-inline:auto; } }
+  .memory-body p.memory-kicker { color: var(--ink-body); max-width:none; }
+  .memory-section:not(.dark-panel) .memory-body p:not(.memory-kicker) { color: var(--ink-body); }
+  @media (max-width:900px){ .memory-body > .memory-kicker { order:0; } }
+  @media (min-width:901px){ .memory-body { text-align:left; } }
+  /* video section: the row is as tall as the taller column; the video stretches to it and
+     the text column sits on the same bottom line, so the button never ends below the video */
+  @media (min-width:901px){
+    .memory-body-align { align-items:stretch; }
+    /* explicit width + stretch on both axes: with only aspect-ratio, Safari sized the video
+       from its height (grid "normal" alignment = start for aspect-ratio items), leaving it
+       ~25% narrower than its column */
+    .memory-body-align .memory-photo { width:100%; justify-self:stretch; align-self:stretch; height:auto; min-height:0; }
+    .memory-body-align .memory-body { display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start; }
+  }
+  /* video section rhythm = homepage hero: label tight to the headline (~24px ink), headline →
+     text ~30px, text → button ~50px; body leading 1.6 like the hero promise (1.8 read loose) */
+  .memory-body p.memory-kicker { margin-bottom: 8px !important; }
+  @media (min-width:901px){ .memory-body .memory-title { margin-bottom: var(--space-3); } }
+  .memory-body p:not(.memory-kicker):not(.memory-punch) { line-height:1.6; }
+  .memory-body .memory-cta { margin-top: var(--space-3); }
+
+  /* 13 Nov (her OK): mobile hero = desktop hero, centred — small tracked kicker, the
+     "Děti rostou…" h1, the promise, then the button; the old serif kicker-as-heading and
+     the separate #proof-intro-mobile block below are gone. Same rhythm as desktop:
+     kicker→h1 tight, h1→promise a step more, promise→button the biggest gap. */
+  @media (max-width:900px){
+    .hc-split-content { gap:0; }
+    .hc-split-content .hc-kicker { font-family: var(--sans); font-size:12px; line-height:1.5; letter-spacing:0.2em; text-transform:uppercase; color: var(--ink-body); display:flex; flex-wrap:wrap; justify-content:center; column-gap:0.5em; margin:0 0 12px; }
+    .hc-kicker-part { white-space:nowrap; }
+    .hc-split-content .hc-eyebrow { display:block; font-size: clamp(34px, 9.6vw, 46px); line-height:1.05; letter-spacing:-0.01em; text-align:center; text-wrap:balance; max-width:none; margin:0 0 18px; }
+    .hc-split-content .hc-eyebrow .hc-l1 { display:inline; white-space:normal; }
+    .hc-split-content .hc-promise { display:block; font-family: var(--sans); font-style:normal; font-size:17px; line-height:1.5; color: var(--ink-body); max-width:32ch; margin:0 auto 32px; text-align:center; }
+    #proof-intro-mobile { display:none !important; }
+  }
+
+  /* video section on the 4-card grid: the video spans exactly cards 1–2 (its right edge =
+     card 2's right edge) and the text starts on card 3's left edge */
+  @media (min-width:1101px){
+    .memory-body-align { grid-template-columns: calc(50% - var(--space-4) / 2) minmax(0, 1fr); column-gap: var(--space-4); }
+  }
+
+  /* photos framed with no headroom (tf-02487: his hair touches the top edge) — no drift,
+     anchored to the top, so heads are never cut; only the bottom gives way */
+  .pg .pcard .thumb.thumb-top img { top:0; height:100%; transform:none; object-position: center top; }
+  /* gallery intro: one quiet line of practical facts (what a session gives you) */
+  .page-facts { font-size:13px; letter-spacing:0.2em; text-transform:uppercase; color: var(--ink-body); margin-top: var(--space-2); }
+  /* four single-orientation photos in one row (2×2 on phones via the base .pgg mobile rule) */
+  @media (min-width:801px){ .pgg.pgg-quad { grid-template-columns: repeat(4, minmax(0,1fr)); } }
