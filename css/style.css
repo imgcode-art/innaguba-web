@@ -2964,3 +2964,5 @@
 /* album page: the kartičky block now closes the album part right before "Ceník" — drop the
    last-series margin so that gap matches the old story → Ceník rhythm */
 .album-cards .pgg-series:last-of-type { margin-bottom:0; }
+/* inline link inside an italic gallery caption (newborn → rodinné focení) */
+.pgg-line a { color:inherit; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:4px; }
