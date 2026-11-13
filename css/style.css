@@ -1495,7 +1495,9 @@
      drops item margins at column-set breaks (around .pgg-feature's column-span:all and
      at fragment edges), which made some photos touch with no gap at all. */
   @media (max-width:560px){
-    .pgg, .pgg.pgg-duo, .pgg.pgg-trio { display:flex; flex-direction:column; gap: var(--space-1); }
+    /* stretch: .pgg's grid align-items:start would otherwise shrink each item to its img's
+       intrinsic width — with srcset+sizes="50vw" that is half the screen */
+    .pgg, .pgg.pgg-duo, .pgg.pgg-trio { display:flex; flex-direction:column; align-items:stretch; gap: var(--space-1); }
     .pgg-pair { flex-direction:column; }
     .pgg-pair .pgg-item { flex:none; }
     .pgg-pair .pgg-item img { height:auto; }
@@ -2414,7 +2416,9 @@
     .reassure-columns .reassure-col { display:contents; }
     .reassure-col > * { order:2; }
     .reassure-col > .reassure-title, .reassure-col > .reassure-answer { order:0; }
-    .reassure-columns .reassure-video { order:1; margin-bottom: var(--space-5); }
+    /* stretch: the column's align-items:center would shrink the box to the img's own size —
+       in Safari the lazy img then never got a box to load into and showed only its alt */
+    .reassure-columns .reassure-video { order:1; margin-bottom: var(--space-5); align-self:stretch; width:100%; }
     .reassure-lead { text-align:center; }
     .reassure-body { text-align:center; margin-left:auto; margin-right:auto; }
     .reassure-col > .proof-teaser-link { align-self:center; }
@@ -2759,7 +2763,7 @@
     /* small inline padding so the button never sets the box width itself — the text line does */
     .hc-body .hc-actions .about-cta-btn { display:block; text-align:center; padding-inline:12px; }
     .hc-split-content .hc-promise { display:block; max-width:none; margin:0; font-family: var(--sans); font-style:normal; font-size: clamp(18px, 1.5vw, 22px); line-height:1.5; letter-spacing:0; color: var(--ink-body); }
-    .hc-actions { display:block; margin-top: 48px; }
+    .hc-actions { display:block; margin-top: 40px; }
     .hc-split-content .hero-cta-primary { box-shadow:none; }
     /* rating as quiet text (no star glyphs — read as template); only "přečíst recenze" is
        the link, so it carries a visible underline */
@@ -2952,3 +2956,8 @@
     .nav-links .nav-sub a { font-size: 20px; color: var(--ink-body); letter-spacing:0; }
     .nav-links .nav-sub a.active { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
   }
+
+/* ceník: the photo opens the matching gallery (the button books); an overlay link so the
+   absolutely-positioned img/video layouts stay untouched — badge stays above it */
+.pb-photo-link { position:absolute; inset:0; z-index:1; }
+.pb-photo .pb-badge { z-index:2; }
