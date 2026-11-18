@@ -3037,6 +3037,8 @@
   .mini-facts dd { margin:0; }
   .mini-facts .mini-price { align-items:baseline; }
   .mini-price dd { font-family: var(--serif); font-weight:500; font-size:30px; line-height:1.1; color: var(--ink-heading); }
+  /* Cormorant's č puts the háček high and detached from the letter, so the currency is set in the sans */
+  .mini-price dd span { font-family: var(--sans); font-weight:400; font-size:18px; letter-spacing:0.02em; }
   .mini-pick { border:0; margin: var(--space-4) 0 0; padding:0; min-width:0; }
   .mini-pick + .mini-pick { margin-top: var(--space-3); }
   .mini-pick legend { padding:0; margin-bottom: var(--space-2); font-size:14px; color: var(--ink-body); }

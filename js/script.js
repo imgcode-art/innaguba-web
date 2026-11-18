@@ -979,7 +979,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
         <div><dt>Rozsah</dt><dd>25 minut focení</dd></div>
         <div><dt>V ceně</dt><dd>15 upravených fotografií, každá barevně i&nbsp;černobíle</dd></div>
         <div><dt>Místo</dt><dd>v&nbsp;přírodě, nebo v&nbsp;ateliéru v&nbsp;Brně</dd></div>
-        <div class="mini-price"><dt>Cena</dt><dd>2 900 Kč</dd></div>
+        <div class="mini-price"><dt>Cena</dt><dd>2 900 <span>Kč</span></dd></div>
       </dl>
       ${free.length ? `
       <fieldset class="mini-pick"><legend>Vyberte si čas</legend><div class="mini-chips" style="--n:${MINI.slots.length}">${slotChips}</div></fieldset>
