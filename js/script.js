@@ -229,13 +229,13 @@ document.querySelectorAll('[data-row]').forEach(row => {
     if (params.has('vizitka')) lines.push('Mám slevu 10 % z vizitky.');
     // from the mini-focení offer: the chosen time goes into Kdy, the place into Kde
     if (params.has('mini')) {
-      if (select) select.value = 'Mini focení 29. 11.';
+      if (select) select.value = 'Vánoční mini focení 29. 11.';
       const termin = form.querySelector('[name="termin"]');
       const cas = params.get('cas');
       if (termin) termin.add(new Option(cas ? `neděle 29. 11. v ${cas}` : 'neděle 29. 11.', cas ? `29. 11. v ${cas}` : '29. 11.', true, true), 1);
       const misto = form.querySelector('[name="misto"]');
       if (misto && [...misto.options].some(o => o.value === params.get('misto'))) misto.value = params.get('misto');
-      lines.push(cas ? `Chtěli bychom si rezervovat mini focení v neděli 29. 11. v ${cas}.` : 'Chtěli bychom si rezervovat mini focení v neděli 29. 11.');
+      lines.push(cas ? `Chtěli bychom si rezervovat vánoční mini focení v neděli 29. 11. v ${cas}.` : 'Chtěli bychom si rezervovat vánoční mini focení v neděli 29. 11.');
     }
     const zprava = form.querySelector('[name="zprava"]');
     if (lines.length && zprava && !zprava.value) zprava.value = lines.join(' ') + ' ';
@@ -973,19 +973,19 @@ document.querySelectorAll('[data-row]').forEach(row => {
     <form class="mini-body" method="dialog" tabindex="-1" autofocus>
       <button class="mini-close" value="later" aria-label="Zavřít nabídku">×</button>
       <p class="mini-kicker">Neděle 29.11. v&nbsp;Brně</p>
-      <h2 id="mini-title">Rodinné <em>mini</em> focení</h2>
-      <p class="mini-lead">Krátké, přirozené a&nbsp;bez stresu. Pro chvíle, kdy si chcete obnovit rodinné fotky nebo dát babičkám krásný dárek, ale&nbsp;na velké focení teď není čas.</p>
+      <h2 id="mini-title">Vánoční <em>mini</em> focení</h2>
+      <p class="mini-lead">Krátké, přirozené a&nbsp;bez stresu. Rodinné fotky, které dáte babičkám pod stromeček nebo pošlete v&nbsp;přání, i&nbsp;když na velké focení teď není čas.</p>
       <dl class="mini-facts">
         <div><dt>Rozsah</dt><dd>25 minut focení</dd></div>
         <div><dt>V ceně</dt><dd>15 upravených fotografií, každá barevně i&nbsp;černobíle</dd></div>
-        <div><dt>Místo</dt><dd>v&nbsp;přírodě, nebo v&nbsp;ateliéru v&nbsp;Brně</dd></div>
+        <div><dt>Místo</dt><dd>v&nbsp;ateliéru u&nbsp;stromečku, nebo v&nbsp;přírodě</dd></div>
         <div class="mini-price"><dt>Cena</dt><dd>2 900 <span>Kč</span></dd></div>
       </dl>
       ${free.length ? `
       <fieldset class="mini-pick"><legend>Vyberte si čas</legend><div class="mini-chips" style="--n:${MINI.slots.length}">${slotChips}</div></fieldset>
       <fieldset class="mini-pick"><legend>Kde budeme fotit?</legend><div class="mini-chips">
+        <label><input type="radio" name="mini-misto" value="v ateliéru"><span>U stromečku v ateliéru</span></label>
         <label><input type="radio" name="mini-misto" value="venku v přírodě"><span>V přírodě</span></label>
-        <label><input type="radio" name="mini-misto" value="v ateliéru"><span>V ateliéru</span></label>
       </div></fieldset>
       <div class="mini-actions">
         <a class="about-cta-btn mini-go" href="/kontakt.html?mini=1#kontakt">Rezervovat termín</a>
@@ -1000,12 +1000,12 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // its own × hides it for the rest of the visit
   const tab = document.createElement('aside');
   tab.className = 'mini-tab';
-  tab.setAttribute('aria-label', 'Rodinné mini focení 29. 11.');
+  tab.setAttribute('aria-label', 'Vánoční mini focení 29. 11.');
   tab.hidden = true;
   tab.innerHTML = `
     <button type="button" class="mini-tab-open">
       <img src="/images/mini-foceni/${MINI.photos[0][0]}-600.webp?v=2" alt="" width="48" height="60">
-      <span><small>Neděle 29.11.</small><b>Rodinné <em>mini</em> focení</b></span>
+      <span><small>Neděle 29.11.</small><b>Vánoční <em>mini</em> focení</b></span>
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </button>
     <button type="button" class="mini-tab-x" aria-label="Skrýt">×</button>`;
