@@ -227,6 +227,16 @@ document.querySelectorAll('[data-row]').forEach(row => {
     const lines = [];
     if (balicek) lines.push(`Mám zájem o balíček ${balicek}.`);
     if (params.has('vizitka')) lines.push('Mám slevu 10 % z vizitky.');
+    // from the mini-focení offer: the chosen time goes into Kdy, the place into Kde
+    if (params.has('mini')) {
+      if (select) select.value = 'Mini focení 29. 11.';
+      const termin = form.querySelector('[name="termin"]');
+      const cas = params.get('cas');
+      if (termin) termin.add(new Option(cas ? `neděle 29. 11. v ${cas}` : 'neděle 29. 11.', cas ? `29. 11. v ${cas}` : '29. 11.', true, true), 1);
+      const misto = form.querySelector('[name="misto"]');
+      if (misto && [...misto.options].some(o => o.value === params.get('misto'))) misto.value = params.get('misto');
+      lines.push(cas ? `Chtěli bychom si rezervovat mini focení v neděli 29. 11. v ${cas}.` : 'Chtěli bychom si rezervovat mini focení v neděli 29. 11.');
+    }
     const zprava = form.querySelector('[name="zprava"]');
     if (lines.length && zprava && !zprava.value) zprava.value = lines.join(' ') + ' ';
   })();
@@ -923,4 +933,143 @@ document.querySelectorAll('[data-row]').forEach(row => {
     } else return done(box);
     io.observe(box);
   });
+})();
+
+// ---------- Mini focení 29. 11.: opens on arrival, once per visit; "Teď ne" keeps it shut for
+// three days and leaves a small tab in the corner. Everything about the offer lives in MINI —
+// mark a slot as taken by moving it to `taken`; after `until` the offer disappears on its own ----------
+(() => {
+  const MINI = {
+    until: '2026-11-29T09:00:00+01:00',
+    slots: ['9:40', '10:20', '11:00', '13:40', '14:20'],
+    taken: [],
+    photos: [
+      ['mini-vanoce', 'Holčička leží u vánočního stromečku nad knížkou'],
+      ['mini-pusinky', 'Maminka a tatínek dávají miminku pusu na hlavu'],
+      ['mini-nozicky', 'Maminka se sklání nad nožičkami miminka'],
+      ['mini-rodina', 'Rodiče se smějí s dcerou, která jim leží v náručí'],
+      ['mini-polibek', 'Rodiče se líbají a mezi nimi vykukují nožičky miminka'],
+    ],
+  };
+  if (Date.now() > Date.parse(MINI.until)) return;
+  if (/kontakt|obchodni-podminky|ochrana-osobnich-udaju/.test(location.pathname)) return;
+  if (!window.HTMLDialogElement) return;
+
+  const SNOOZE = 'mini-offer-snooze', SEEN = 'mini-offer-seen';
+  const store = (s, k, v) => { try { return v === undefined ? s.getItem(k) : s.setItem(k, v); } catch (e) { return null; } };
+  const snoozed = Number(store(localStorage, SNOOZE)) > Date.now();
+
+  const free = MINI.slots.filter(s => !MINI.taken.includes(s));
+  const slotChips = MINI.slots.map(s => {
+    const off = MINI.taken.includes(s);
+    return `<label><input type="radio" name="mini-cas" value="${s}"${off ? ' disabled' : ''}><span${off ? ' aria-label="' + s + ', obsazeno"' : ''}>${s}</span></label>`;
+  }).join('');
+
+  const dlg = document.createElement('dialog');
+  dlg.className = 'mini-offer';
+  dlg.setAttribute('aria-labelledby', 'mini-title');
+  dlg.innerHTML = `
+    <div class="mini-photos" aria-hidden="true"></div>
+    <form class="mini-body" method="dialog" tabindex="-1" autofocus>
+      <button class="mini-close" value="later" aria-label="Zavřít nabídku">×</button>
+      <p class="mini-kicker">Neděle 29.11. v&nbsp;Brně</p>
+      <h2 id="mini-title">Rodinné <em>mini</em> focení</h2>
+      <p class="mini-lead">Krátké, přirozené a&nbsp;bez stresu. Pro chvíle, kdy si chcete obnovit rodinné fotky nebo dát babičkám krásný dárek, ale&nbsp;na velké focení teď není čas.</p>
+      <dl class="mini-facts">
+        <div><dt>Rozsah</dt><dd>25 minut focení</dd></div>
+        <div><dt>V ceně</dt><dd>15 upravených fotografií, každá barevně i&nbsp;černobíle</dd></div>
+        <div><dt>Místo</dt><dd>v&nbsp;přírodě, nebo v&nbsp;ateliéru v&nbsp;Brně</dd></div>
+        <div class="mini-price"><dt>Cena</dt><dd>2 900 Kč</dd></div>
+      </dl>
+      ${free.length ? `
+      <fieldset class="mini-pick"><legend>Vyberte si čas</legend><div class="mini-chips" style="--n:${MINI.slots.length}">${slotChips}</div></fieldset>
+      <fieldset class="mini-pick"><legend>Kde budeme fotit?</legend><div class="mini-chips">
+        <label><input type="radio" name="mini-misto" value="venku v přírodě"><span>V přírodě</span></label>
+        <label><input type="radio" name="mini-misto" value="v ateliéru"><span>V ateliéru</span></label>
+      </div></fieldset>
+      <div class="mini-actions">
+        <a class="about-cta-btn mini-go" href="/kontakt.html?mini=1#kontakt">Rezervovat termín</a>
+        <button class="mini-later" value="later">Teď ne</button>
+      </div>`
+      : `<p class="mini-note">Všechny termíny jsou už obsazené. Děkuji za zájem!</p>
+      <div class="mini-actions"><button class="mini-later" value="later">Zavřít</button></div>`}
+    </form>`;
+  document.body.appendChild(dlg);
+
+  // after closing: a small card in the corner — photo, date, name — that reopens the offer;
+  // its own × hides it for the rest of the visit
+  const tab = document.createElement('aside');
+  tab.className = 'mini-tab';
+  tab.setAttribute('aria-label', 'Rodinné mini focení 29. 11.');
+  tab.hidden = true;
+  tab.innerHTML = `
+    <button type="button" class="mini-tab-open">
+      <img src="/images/mini-foceni/${MINI.photos[0][0]}-600.webp?v=2" alt="" width="48" height="60">
+      <span><small>Neděle 29.11.</small><b>Rodinné <em>mini</em> focení</b></span>
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <button type="button" class="mini-tab-x" aria-label="Skrýt">×</button>`;
+  document.body.appendChild(tab);
+  const TAB_OFF = 'mini-tab-off';
+  const showTab = () => { if (!store(sessionStorage, TAB_OFF)) tab.hidden = false; };
+  tab.querySelector('.mini-tab-x').addEventListener('click', () => { tab.hidden = true; store(sessionStorage, TAB_OFF, '1'); });
+  // stay above the cookie bar while it is up
+  const bar = document.querySelector('.cookie-bar');
+  const lift = () => tab.style.setProperty('--mini-lift', bar && !bar.hidden ? bar.offsetHeight + 'px' : '0px');
+  if (bar) new MutationObserver(lift).observe(bar, { attributes: true, attributeFilter: ['hidden'] });
+  addEventListener('resize', lift);
+  lift();
+
+  // photos: the first one loads with the dialog, the rest only once it is open, then a slow crossfade
+  const box = dlg.querySelector('.mini-photos');
+  const imgs = MINI.photos.map(([f, alt], i) => {
+    const img = document.createElement('img');
+    img.alt = alt;
+    img.sizes = '(max-width:760px) 100vw, 420px';
+    img.dataset.srcset = `/images/mini-foceni/${f}-600.webp?v=3 600w, /images/mini-foceni/${f}-1000.webp?v=3 1000w`;
+    if (i === 0) { img.srcset = img.dataset.srcset; img.className = 'is-on'; }
+    box.appendChild(img);
+    return img;
+  });
+  let timer = null, cur = 0;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const startShow = () => {
+    imgs.forEach(img => { if (!img.srcset) img.srcset = img.dataset.srcset; });
+    if (still || timer) return;
+    timer = setInterval(() => {
+      imgs[cur].classList.remove('is-on');
+      cur = (cur + 1) % imgs.length;
+      imgs[cur].classList.add('is-on');
+    }, 4200);
+  };
+
+  // the site's custom cursor lives in <body>, which a modal dialog covers from the top layer,
+  // so it moves into the dialog while it is open and back out afterwards
+  const cursorEls = () => document.querySelectorAll('.cursor-dot, .cursor-point');
+  const open = () => { dlg.showModal(); dlg.append(...cursorEls()); tab.hidden = true; store(sessionStorage, SEEN, '1'); startShow(); };
+  // × and "Teď ne" are submit buttons of the method="dialog" form, so the browser closes it natively;
+  // the listener is only a backup
+  dlg.querySelector('.mini-close').addEventListener('click', e => { e.preventDefault(); dlg.close('later'); });
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close('later'); }); // click on the backdrop
+  dlg.addEventListener('close', () => {
+    clearInterval(timer); timer = null;
+    document.body.append(...cursorEls());
+    store(localStorage, SNOOZE, String(Date.now() + 3 * 864e5));
+    showTab();
+  });
+  tab.querySelector('.mini-tab-open').addEventListener('click', open);
+
+  // the chosen time and place travel to the contact form in the link
+  const go = dlg.querySelector('.mini-go');
+  if (go) dlg.addEventListener('change', () => {
+    const q = new URLSearchParams({ mini: '1' });
+    const cas = dlg.querySelector('[name="mini-cas"]:checked');
+    const misto = dlg.querySelector('[name="mini-misto"]:checked');
+    if (cas) q.set('cas', cas.value);
+    if (misto) q.set('misto', misto.value);
+    go.href = `/kontakt.html?${q}#kontakt`;
+  });
+
+  if (snoozed || store(sessionStorage, SEEN)) { showTab(); return; }
+  setTimeout(open, 700);
 })();

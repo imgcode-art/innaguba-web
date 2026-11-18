@@ -3011,3 +3011,83 @@
 .album-cards .pgg-series:last-of-type { margin-bottom:0; }
 /* inline link inside an italic gallery caption (newborn → rodinné focení) */
 .pgg-line a { color:inherit; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:4px; }
+
+  /* ---------- Mini focení: a one-off offer that opens on arrival (js/script.js builds it and
+     takes it down by itself after the shoot day). Native <dialog>: Esc, focus trap and the
+     backdrop come from the browser. Photo left, offer right; on phones the photo is a short
+     band on top and the sheet scrolls. ---------- */
+  /* the photo column is exactly 4:5 at full height, so the photos are never cropped further */
+  .mini-offer { --mini-h: min(880px, calc(100dvh - 40px)); position:fixed; inset:0; margin:auto; width:min(calc(var(--mini-h) * 0.8 + 520px), calc(100vw - 48px)); max-width:none; height:var(--mini-h); max-height:none; padding:0; border:0; background: var(--paper); color: var(--ink); overflow:hidden; }
+  .mini-offer::backdrop { background: rgba(17,17,17,0.55); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+  .mini-offer[open] { display:grid; grid-template-columns: minmax(0, calc(var(--mini-h) * 0.8)) minmax(440px, 1fr); animation: mini-in .5s cubic-bezier(.2,.7,.2,1); }
+  .mini-offer[open]::backdrop { animation: mini-fade .5s ease; }
+  @keyframes mini-in { from { opacity:0; transform: translateY(14px); } }
+  @keyframes mini-fade { from { opacity:0; } }
+  .mini-photos { position:relative; overflow:hidden; background:#1d1b19; }
+  .mini-photos img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition: opacity 1.4s ease; }
+  .mini-photos img.is-on { opacity:1; }
+  .mini-body { overflow-y:auto; padding: var(--space-6) var(--space-7) 0; display:flex; flex-direction:column; outline:none; }
+  .mini-kicker { font-size:13px; letter-spacing:0.24em; text-transform:uppercase; color: var(--ink-body); margin:0 0 var(--space-3); }
+  .mini-offer h2 { font-family: var(--serif); font-weight:400; font-size: clamp(36px, 3.6vw, 46px); line-height:1; letter-spacing:-0.015em; color: var(--ink-heading); margin:0; }
+  .mini-offer h2 em { font-style:italic; }
+  .mini-lead { color: var(--ink-body); margin: var(--space-3) 0 0; text-wrap:pretty; }
+  .mini-facts { margin: var(--space-5) 0 0; border-top:1px solid var(--line); }
+  .mini-facts div { display:grid; grid-template-columns: 7.5em 1fr; gap: var(--space-2); padding: 12px 0; border-bottom:1px solid var(--line); }
+  .mini-facts dt { color: var(--ink-body); }
+  .mini-facts dd { margin:0; }
+  .mini-facts .mini-price { align-items:baseline; }
+  .mini-price dd { font-family: var(--serif); font-weight:500; font-size:30px; line-height:1.1; color: var(--ink-heading); }
+  .mini-pick { border:0; margin: var(--space-4) 0 0; padding:0; min-width:0; }
+  .mini-pick + .mini-pick { margin-top: var(--space-3); }
+  .mini-pick legend { padding:0; margin-bottom: var(--space-2); font-size:14px; color: var(--ink-body); }
+  /* chips fill the column edge to edge, on the same width as the rules above */
+  .mini-chips { display:grid; grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); gap: var(--space-1); }
+  .mini-chips label { position:relative; }
+  .mini-chips input { position:absolute; opacity:0; inset:0; margin:0; cursor:pointer; }
+  .mini-chips span { display:block; text-align:center; padding:10px 4px; white-space:nowrap; border:1px solid var(--line); font-size:15px; font-variant-numeric: tabular-nums; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+  .mini-chips input:hover + span { border-color: var(--ink); }
+  .mini-chips input:checked + span { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .mini-chips input:focus-visible + span { outline:2px solid var(--ink); outline-offset:2px; }
+  .mini-chips input:disabled { cursor:not-allowed; }
+  .mini-chips input:disabled + span { color: rgba(17,17,17,0.35); text-decoration: line-through; border-style:dashed; }
+  /* the button stays in reach when a short laptop screen makes the sheet scroll */
+  .mini-actions { position:sticky; bottom:0; margin-top:auto; padding: var(--space-4) 0 var(--space-6); background: var(--paper); display:flex; align-items:center; gap: var(--space-4); flex-wrap:wrap; }
+  .mini-note + .mini-actions { margin-top: var(--space-2); }
+  .mini-actions::before { content:""; position:absolute; left:0; right:0; bottom:100%; height:28px; background: linear-gradient(to bottom, transparent, var(--paper)); pointer-events:none; }
+  .mini-actions .about-cta-btn { text-align:center; }
+  .mini-later { background:none; border:0; padding:4px 0; font: inherit; font-size:15px; color: var(--ink-body); text-decoration:underline; text-underline-offset:4px; text-decoration-color: var(--line); cursor:pointer; }
+  .mini-later:hover { color: var(--ink); text-decoration-color: currentColor; }
+  .mini-note { margin: var(--space-3) 0 0; font-size:14px; color: var(--ink-body); }
+  .mini-close { position:absolute; top: var(--space-2); right: var(--space-2); z-index:5; width:40px; height:40px; border:0; border-radius:50%; background: var(--paper); color: var(--ink); font-size:22px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  body.has-custom-cursor .mini-offer button, body.has-custom-cursor .mini-offer label, body.has-custom-cursor .mini-offer input, body.has-custom-cursor .mini-tab button { cursor:none; }
+  .mini-close:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+  /* after closing, a quiet tab keeps the offer one click away */
+  .mini-tab { position:fixed; right: var(--space-4); bottom: calc(var(--space-4) + var(--mini-lift, 0px)); z-index:70; display:flex; align-items:stretch; background: var(--paper); border:1px solid var(--line); box-shadow: 0 18px 40px -28px rgba(17,17,17,0.45); animation: mini-in .6s cubic-bezier(.2,.7,.2,1); transition: bottom .3s ease; }
+  .mini-tab[hidden] { display:none; }
+  .mini-tab-open { display:flex; align-items:center; gap: var(--space-2); padding: 10px var(--space-2) 10px 10px; background:none; border:0; font: inherit; color: var(--ink); text-align:left; cursor:pointer; }
+  .mini-tab-open img { width:48px; height:60px; object-fit:cover; display:block; }
+  .mini-tab-open span { display:flex; flex-direction:column; gap:3px; font-family: var(--serif); font-size:21px; line-height:1.05; color: var(--ink-heading); white-space:nowrap; }
+  .mini-tab-open small { font-family: var(--sans); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color: var(--ink-body); }
+  .mini-tab-open b { font-weight:400; }
+  .mini-tab-open em { font-style:italic; }
+  .mini-tab-open svg { margin-left: var(--space-1); flex:none; transition: transform .25s ease; }
+  .mini-tab-open:hover svg { transform: translateX(3px); }
+  .mini-tab-x { align-self:flex-start; width:32px; height:32px; margin:2px 2px 0 0; padding:0; background:none; border:0; font-size:18px; line-height:1; color: var(--ink-body); cursor:pointer; }
+  .mini-tab-x:hover { color: var(--ink); }
+  .mini-tab button:focus-visible { outline:2px solid var(--ink); outline-offset:-2px; }
+  @media (max-width:760px){
+    .mini-offer { width:100vw; height:100dvh; }
+    .mini-offer[open] { grid-template-columns: 1fr; grid-template-rows: 48dvh minmax(0,1fr); }
+    .mini-photos img { object-position: 50% 30%; }
+    .mini-body { padding: var(--space-5) var(--space-3) 0; }
+    .mini-actions { padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px)); }
+    .mini-offer h2 { font-size: clamp(34px, 10vw, 42px); }
+    .mini-actions { flex-direction:column; align-items:stretch; gap: var(--space-2); }
+    .mini-later { align-self:center; }
+    .mini-tab { left: var(--space-2); right: var(--space-2); bottom: calc(var(--space-2) + env(safe-area-inset-bottom, 0px) + var(--mini-lift, 0px)); }
+    .mini-tab-open { flex:1; }
+    .mini-tab-open img { width:40px; height:50px; }
+    .mini-tab-open span { font-size:19px; }
+    .mini-tab-open svg { margin-left:auto; }
+  }
+  @media (prefers-reduced-motion: reduce){ .mini-offer[open], .mini-offer[open]::backdrop, .mini-tab { animation:none; } .mini-photos img { transition:none; } }
