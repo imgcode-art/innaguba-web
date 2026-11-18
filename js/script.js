@@ -1070,6 +1070,19 @@ document.querySelectorAll('[data-row]').forEach(row => {
     go.href = `/kontakt.html?${q}#kontakt`;
   });
 
+  // a shared link (innaguba.com/?mini, or /mini-foceni/ which forwards there) always opens the offer
+  if (new URLSearchParams(location.search).has('mini')) { setTimeout(open, 500); return; }
   if (snoozed || store(sessionStorage, SEEN)) { showTab(); return; }
+  // homepage: the hero film comes first. The corner card is there from the start and the offer
+  // opens once the visitor scrolls past the hero (or after 20 s if they stay and watch)
+  if (/^\/(index\.html)?$/.test(location.pathname)) {
+    showTab();
+    let done = false;
+    const fire = () => { if (done || dlg.open) return; done = true; removeEventListener('scroll', onScroll); clearTimeout(wait); if (!store(sessionStorage, SEEN)) open(); };
+    const onScroll = () => { if (scrollY > innerHeight * 0.7) fire(); };
+    addEventListener('scroll', onScroll, { passive: true });
+    const wait = setTimeout(fire, 20000);
+    return;
+  }
   setTimeout(open, 700);
 })();
