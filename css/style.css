@@ -296,6 +296,11 @@
      headline — tucked closer to it than a full flex gap (negative margin pulls it in
      from the column's shared var(--space-4) down to var(--space-3)), but not as tight
      as var(--space-1) read as cramped. */
+  /* SEO: the kicker ("Rodinné focení a video v Brně") lives inside the h1 with the headline,
+     so the h1 carries the keywords; display:contents keeps both laid out exactly as the two
+     separate flex items they used to be */
+  .hc-h1 { display:contents; font:inherit; }
+  .hc-h1 > .hc-kicker, .hc-h1 > .hc-eyebrow { display:block; }
   .hc-kicker { font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color: var(--ink-body); margin-bottom: calc(var(--space-3) - var(--space-4)); }
   /* closing aside under the CTA — same italic/quiet treatment as .closing-note,
      answering "why act now" after the button has already made the ask. */
@@ -2623,6 +2628,8 @@
   /* eyebrow belongs to the h1: ~28px ink gap (was ~44, as big as h1→intro), same rhythm as
      the homepage hero kicker */
   .section-label .page-eyebrow { margin-bottom: 0; }
+  /* eyebrow now sits inside the h1 (SEO keywords) — restore the flex gap it used to get as a sibling */
+  .section-label h1 > .page-eyebrow { margin-bottom: var(--space-2); }
   /* ceník category: no full-width rule — the package card's own border sits right below,
      two parallel lines 28px apart read as a double rule */
   @media (min-width:901px){ .cenik-category { border-bottom:0 !important; } }

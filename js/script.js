@@ -952,7 +952,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
     ],
   };
   if (Date.now() > Date.parse(MINI.until)) return;
-  if (/kontakt|obchodni-podminky|ochrana-osobnich-udaju/.test(location.pathname)) return;
+  if (/kontakt|obchodni-podminky|ochrana-osobnich-udaju|\/en(\.html)?$/.test(location.pathname)) return;
   if (!window.HTMLDialogElement) return;
 
   const SNOOZE = 'mini-offer-snooze', SEEN = 'mini-offer-seen';
