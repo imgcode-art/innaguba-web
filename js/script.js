@@ -229,13 +229,13 @@ document.querySelectorAll('[data-row]').forEach(row => {
     if (params.has('vizitka')) lines.push('Mám slevu 10 % z vizitky.');
     // from the mini-focení offer: the chosen time goes into Kdy, the place into Kde
     if (params.has('mini')) {
-      if (select) select.value = 'Vánoční mini focení 29. 11.';
+      if (select) select.value = 'Vánoční mini focení 6. 12.';
       const termin = form.querySelector('[name="termin"]');
       const cas = params.get('cas');
-      if (termin) termin.add(new Option(cas ? `neděle 29. 11. v ${cas}` : 'neděle 29. 11.', cas ? `29. 11. v ${cas}` : '29. 11.', true, true), 1);
+      if (termin) termin.add(new Option(cas ? `neděle 6. 12. v ${cas}` : 'neděle 6. 12.', cas ? `6. 12. v ${cas}` : '6. 12.', true, true), 1);
       const misto = form.querySelector('[name="misto"]');
       if (misto && [...misto.options].some(o => o.value === params.get('misto'))) misto.value = params.get('misto');
-      lines.push(cas ? `Chtěli bychom si rezervovat vánoční mini focení v neděli 29. 11. v ${cas}.` : 'Chtěli bychom si rezervovat vánoční mini focení v neděli 29. 11.');
+      lines.push(cas ? `Chtěli bychom si rezervovat vánoční mini focení v neděli 6. 12. v ${cas}.` : 'Chtěli bychom si rezervovat vánoční mini focení v neděli 6. 12.');
     }
     const zprava = form.querySelector('[name="zprava"]');
     if (lines.length && zprava && !zprava.value) zprava.value = lines.join(' ') + ' ';
@@ -935,12 +935,12 @@ document.querySelectorAll('[data-row]').forEach(row => {
   });
 })();
 
-// ---------- Mini focení 29. 11.: opens on arrival, once per visit; "Teď ne" keeps it shut for
+// ---------- Mini focení 6. 12.: opens on arrival, once per visit; "Teď ne" keeps it shut for
 // three days and leaves a small tab in the corner. Everything about the offer lives in MINI —
 // mark a slot as taken by moving it to `taken`; after `until` the offer disappears on its own ----------
 (() => {
   const MINI = {
-    until: '2026-11-29T09:00:00+01:00',
+    until: '2026-12-06T09:00:00+01:00',
     slots: ['9:40', '10:20', '11:00', '13:40', '14:20'],
     taken: [],
     photos: [
@@ -972,7 +972,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
     <div class="mini-photos" aria-hidden="true"></div>
     <form class="mini-body" method="dialog" tabindex="-1" autofocus>
       <button class="mini-close" value="later" aria-label="Zavřít nabídku">×</button>
-      <p class="mini-kicker">Neděle 29.11. v&nbsp;Brně</p>
+      <p class="mini-kicker">Neděle 6.12. v&nbsp;Brně</p>
       <h2 id="mini-title">Vánoční <em>mini</em> focení</h2>
       <p class="mini-lead">Krátké, přirozené a&nbsp;bez stresu. Rodinné fotky, které dáte babičkám pod stromeček nebo pošlete v&nbsp;přání, i&nbsp;když na velké focení teď není čas.</p>
       <dl class="mini-facts">
@@ -1000,12 +1000,12 @@ document.querySelectorAll('[data-row]').forEach(row => {
   // its own × hides it for the rest of the visit
   const tab = document.createElement('aside');
   tab.className = 'mini-tab';
-  tab.setAttribute('aria-label', 'Vánoční mini focení 29. 11.');
+  tab.setAttribute('aria-label', 'Vánoční mini focení 6. 12.');
   tab.hidden = true;
   tab.innerHTML = `
     <button type="button" class="mini-tab-open">
       <img src="/images/mini-foceni/${MINI.photos[0][0]}-600.webp?v=2" alt="" width="48" height="60">
-      <span><small>Neděle 29.11.</small><b>Vánoční <em>mini</em> focení</b></span>
+      <span><small>Neděle 6.12.</small><b>Vánoční <em>mini</em> focení</b></span>
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </button>
     <button type="button" class="mini-tab-x" aria-label="Skrýt">×</button>`;
