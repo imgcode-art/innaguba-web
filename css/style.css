@@ -3117,3 +3117,4 @@
   .article-list a { text-decoration:none !important; }
   .article-list strong { display:block; font-family: var(--serif); font-size: var(--fs-heading); font-weight:600; }
   .article-body { padding-bottom: var(--space-4); }
+  .cenik-article-link { text-align:center; margin-top: var(--space-6); }
