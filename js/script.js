@@ -1072,7 +1072,10 @@ document.querySelectorAll('[data-row]').forEach(row => {
 
   // a shared link (innaguba.com/?mini, or /mini-foceni/ which forwards there) always opens the offer
   if (new URLSearchParams(location.search).has('mini')) { setTimeout(open, 500); return; }
-  if (snoozed || store(sessionStorage, SEEN)) { showTab(); return; }
+  // visitors from the business card (?vizitka) get the discount bar instead — for the rest of the
+  // visit the offer stays a corner card and never pops up on its own
+  if (new URLSearchParams(location.search).has('vizitka')) store(sessionStorage, 'from-vizitka', '1');
+  if (snoozed || store(sessionStorage, SEEN) || store(sessionStorage, 'from-vizitka')) { showTab(); return; }
   // homepage: the hero film comes first. The corner card is there from the start and the offer
   // opens once the visitor scrolls past the hero (or after 20 s if they stay and watch)
   if (/^\/(index\.html)?$/.test(location.pathname)) {
