@@ -3120,3 +3120,8 @@
   .cenik-article-link { text-align:center; margin-top: var(--space-6); }
   .page-intro-links { display:flex; flex-wrap:wrap; gap: 0 var(--space-5); }
   @media (max-width:900px){ .page-intro-links { justify-content:center; } }
+  /* 27 Nov: same as the page eyebrows on 13 Nov — no hairline before/after "Vybraný příběh" */
+  .vfeature-kicker::before, .vfeature-kicker::after { content:none !important; }
+  /* 27 Nov: no short hairline above the reviewer's name either (read as a template motif) */
+  .rg .card .card-name::before { content:none; }
+  .rg .card .card-name { margin-top: var(--space-4); }
