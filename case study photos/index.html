@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Inka Guba — Website case study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F5F3EF;--paper2:#ECE8E1;--ink:#111;--wine:#7A1E3A;--brown:#59462D;--line:rgba(17,17,17,.14);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#777;font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+.f{width:1600px;height:1200px;position:relative;overflow:hidden;background:var(--paper);margin:0 auto 40px}
+.f.dark{background:var(--ink);color:var(--paper)}
+.f.warm{background:var(--paper2)}
+.f.tall{height:2000px}
+/* frame chrome — like Derfler's thin editorial header */
+.top{position:absolute;left:72px;right:72px;top:44px;display:flex;justify-content:space-between;font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:400;opacity:.75;z-index:5}
+.lbl{font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:400;display:flex;align-items:center;gap:16px}
+.lbl::before{content:"";width:40px;height:1px;background:currentColor;opacity:.6}
+.lbl.c{justify-content:center}.lbl.c::after{content:"";width:40px;height:1px;background:currentColor;opacity:.6}
+h1,h2,h3{font-family:var(--serif);font-weight:300;line-height:1}
+em{font-style:italic;font-weight:400}
+p{font-weight:300;line-height:1.7;font-size:19px}
+img{display:block}
+/* device frames */
+.browser{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.06)}
+.browser .bar{height:34px;background:#EDEAE5;display:flex;align-items:center;padding:0 14px;gap:7px;position:relative}
+.browser .bar i{width:11px;height:11px;border-radius:50%;background:#D4CFC7}
+.browser .bar b{position:absolute;left:50%;transform:translateX(-50%);font-weight:400;font-size:12px;letter-spacing:.06em;color:#8a847b;background:#F7F5F2;padding:4px 70px;border-radius:6px}
+.browser img{width:100%}
+.dark .browser{box-shadow:0 40px 90px -30px rgba(0,0,0,.8)}
+.phone{background:#111;border-radius:54px;padding:11px;box-shadow:0 50px 90px -35px rgba(0,0,0,.45),inset 0 0 0 1.5px #3a3a3a}
+.phone .scr{border-radius:44px;overflow:hidden;background:var(--paper);position:relative}
+.phone .scr img{width:100%}
+.dark .phone{box-shadow:0 50px 90px -35px rgba(0,0,0,.9),inset 0 0 0 1.5px #444}
+.shot{box-shadow:0 30px 60px -30px rgba(0,0,0,.3)}
+</style></head><body>
+
+<!-- 01 COVER -->
+<section class="f" id="f01">
+  <img src="b/b01-cover.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+</section>
+
+<!-- 02 CONTEXT & CHALLENGE -->
+<section class="f" id="f02b">
+  <img src="b/b02-context.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+</section>
+
+<!-- 03 BRAND IDEA -->
+<section class="f" id="f03b">
+  <img src="b/b03-brandidea.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+</section>
+
+<!-- 04 ART DIRECTION -->
+<section class="f" id="f04b">
+  <img src="b/b04-artdirection.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+</section>
+
+<!-- 05 TYPOGRAPHY & COLOUR -->
+<section class="f" id="f05b">
+  <img src="b/b05-type.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+</section>
+
+<!-- 06 PRINT COLLATERAL -->
+<section class="f" id="f06b">
+  <img src="b/b06-print.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+</section>
+
+<!-- 07 UX STRATEGY -->
+<section class="f" id="f07c">
+  <img src="b/b07-ux.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+</section>
+
+<!-- 08 RESEARCH & DISCOVERY -->
+<section class="f" id="f08research">
+  <div class="top"><span>Inka Guba</span><span>08 — Research &amp; discovery</span></div>
+  <div style="position:absolute;left:72px;top:170px;width:760px">
+    <h2 style="font-size:68px">The redesign started with <em>listening</em>, not a moodboard.</h2>
+    <p style="margin-top:40px;max-width:660px">innaguba.com was relaunching after a long pause, with a low conversion rate. Before touching a single pixel, the real question was where the problem actually lived — unclear navigation, not enough emotion coming through, or friction somewhere inside the path from first visit to booked session.</p>
+    <p style="margin-top:20px;max-width:660px">Three questions shaped the whole research phase: what actually triggers trust and desire in a parent looking at this work, where do people drop off, and do they understand — and value — the difference between a photo and a video story enough to pay for it.</p>
+  </div>
+  <div style="position:absolute;left:980px;top:180px;width:460px">
+    <div class="lbl">Method</div>
+    <ul style="list-style:none;margin-top:28px;font-family:var(--serif);font-size:26px;line-height:1.7;font-weight:300">
+      <li>3 in-depth interviews<br><span style="font-family:var(--sans);font-size:14px;opacity:.6">existing &amp; prospective clients</span></li>
+      <li style="margin-top:20px">Affinity diagram<br><span style="font-family:var(--sans);font-size:14px;opacity:.6">pain points, delights, suggested solutions</span></li>
+      <li style="margin-top:20px">1 working persona<br><span style="font-family:var(--sans);font-size:14px;opacity:.6">Tereza — grounds every decision in one real person</span></li>
+      <li style="margin-top:20px">Prototype &amp; usability testing<br><span style="font-family:var(--sans);font-size:14px;opacity:.6">think-aloud, 2 participants</span></li>
+    </ul>
+  </div>
+  <div style="position:absolute;left:72px;right:72px;bottom:72px">
+    <div class="lbl">Problem statement</div>
+    <p style="margin-top:20px;max-width:1300px;font-family:var(--serif);font-style:italic;font-size:28px;font-weight:300;line-height:1.5">„Create a clear site and an intuitive user flow that naturally carries a parent from first impression to booking — and remove whatever is still standing in the way.“</p>
+  </div>
+</section>
+
+<!-- 09 PAIN POINTS & DELIGHTS -->
+<section class="f dark" id="f09pain">
+  <div class="top"><span>Inka Guba</span><span>09 — What parents actually fear</span></div>
+  <div style="position:absolute;left:0;right:0;top:150px;text-align:center">
+    <h2 style="font-size:60px">The same five fears, <em>every time</em></h2>
+    <p style="font-size:17px;opacity:.75;margin-top:16px">Patterns pulled from the affinity diagram across all three interviews.</p>
+  </div>
+  <div style="position:absolute;left:72px;top:340px;width:698px">
+    <div class="lbl" style="opacity:.85">Pain points</div>
+    <div style="margin-top:28px">
+      <div style="border-top:1px solid rgba(245,243,239,.18);padding:22px 0">
+        <div style="font-family:var(--serif);font-style:italic;font-size:22px">Will the kids actually cooperate?</div>
+        <p style="font-size:15px;opacity:.7;margin-top:8px">Fear of meltdowns, tired kids, a shoot that falls apart on camera.</p>
+      </div>
+      <div style="border-top:1px solid rgba(245,243,239,.18);padding:22px 0">
+        <div style="font-family:var(--serif);font-style:italic;font-size:22px">Styling pressure</div>
+        <p style="font-size:15px;opacity:.7;margin-top:8px">Stress about the whole family looking put-together and matching.</p>
+      </div>
+      <div style="border-top:1px solid rgba(245,243,239,.18);padding:22px 0">
+        <div style="font-family:var(--serif);font-style:italic;font-size:22px">A pushy, nervous photographer</div>
+        <p style="font-size:15px;opacity:.7;margin-top:8px">Past bad experiences — forced poses, made to feel like "a problem".</p>
+      </div>
+      <div style="border-top:1px solid rgba(245,243,239,.18);padding:22px 0">
+        <div style="font-family:var(--serif);font-style:italic;font-size:22px">An unclear, unreliable web</div>
+        <p style="font-size:15px;opacity:.7;margin-top:8px">A confusing price list and slow replies read as a risk, not a business.</p>
+      </div>
+      <div style="border-top:1px solid rgba(245,243,239,.18);border-bottom:1px solid rgba(245,243,239,.18);padding:22px 0">
+        <div style="font-family:var(--serif);font-style:italic;font-size:22px">Getting everyone out the door</div>
+        <p style="font-size:15px;opacity:.7;margin-top:8px">Coordinating the whole family, dressed and on time, before anyone's patience runs out.</p>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;right:72px;top:340px;width:698px">
+    <div class="lbl" style="opacity:.85">Delights</div>
+    <div style="margin-top:28px">
+      <div style="border-top:1px solid rgba(245,243,239,.18);padding:22px 0">
+        <div style="font-family:var(--serif);font-style:italic;font-size:22px">Stopping time</div>
+        <p style="font-size:15px;opacity:.7;margin-top:8px">The pull to keep proof of a stage of childhood that's already passing.</p>
+      </div>
+      <div style="border-top:1px solid rgba(245,243,239,.18);padding:22px 0">
+        <div style="font-family:var(--serif);font-style:italic;font-size:22px">Everyone in one frame</div>
+        <p style="font-size:15px;opacity:.7;margin-top:8px">A rare photo of the whole family together — not another phone snapshot missing someone.</p>
+      </div>
+      <div style="border-top:1px solid rgba(245,243,239,.18);padding:22px 0">
+        <div style="font-family:var(--serif);font-style:italic;font-size:22px">Emotion that reads as real</div>
+        <p style="font-size:15px;opacity:.7;margin-top:8px">Visible love and ordinary life, not staged, stiff smiles.</p>
+      </div>
+      <div style="border-top:1px solid rgba(245,243,239,.18);padding:22px 0">
+        <div style="font-family:var(--serif);font-style:italic;font-size:22px">A session that feels calm</div>
+        <p style="font-size:15px;opacity:.7;margin-top:8px">Time together, not another stressful obligation to get through.</p>
+      </div>
+      <div style="border-top:1px solid rgba(245,243,239,.18);border-bottom:1px solid rgba(245,243,239,.18);padding:22px 0">
+        <div style="font-family:var(--serif);font-style:italic;font-size:22px">A result worth being proud of</div>
+        <p style="font-size:15px;opacity:.7;margin-top:8px">Photos polished enough to feel like a real investment, not just snapshots.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 PERSONA TEREZA -->
+<section class="f warm" id="f10persona">
+  <div class="top"><span>Inka Guba</span><span>10 — Persona</span></div>
+  <div style="position:absolute;left:72px;top:150px;width:520px">
+    <div class="lbl">The caregiver · "one of us"</div>
+    <h2 style="margin-top:28px;font-size:84px">Tereza</h2>
+    <div style="margin-top:10px;font-family:var(--sans);font-size:14px;letter-spacing:.1em;text-transform:uppercase;opacity:.65">35 · works part-time · husband &amp; 2 kids (2 &amp; 6) · village near Brno</div>
+    <p style="margin-top:36px;max-width:480px">A conscious mother who rejects the "perfect Instagram mom" image even as she scrolls it for inspiration. A minimalist with good taste who values fairness, warmth and punctuality. Her days are full of love and the ordinary chaos of small kids — and a real urgency to hold on to this time before they're grown.</p>
+  </div>
+  <div style="position:absolute;right:72px;top:200px;width:620px;display:flex;flex-direction:column;gap:28px">
+    <div>
+      <div class="lbl">Needs</div>
+      <p style="margin-top:14px">Keep the memories without the stress of posing. Someone who can capture her kids exactly as they are.</p>
+    </div>
+    <div>
+      <div class="lbl">Values</div>
+      <p style="margin-top:14px">An artistic eye over heavy commercial retouching — photos that still feel like her family, not a catalogue.</p>
+    </div>
+    <div>
+      <div class="lbl">Frustrations</div>
+      <p style="margin-top:14px">Worries the shoot will feel forced, the kids won't cooperate, and the result won't match what she pictured.</p>
+    </div>
+    <div style="margin-top:8px;padding-top:28px;border-top:1px solid var(--line)">
+      <div class="lbl">What she needs from this site</div>
+      <p style="margin-top:14px;font-family:var(--serif);font-style:italic;font-size:22px;font-weight:300">Proof this won't be another thing to perform for — before she ever has to ask.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11 BOOKING FLOW PROTOTYPE & TESTING -->
+<section class="f dark" id="f11testing">
+  <div class="top"><span>Inka Guba</span><span>11 — Prototype &amp; testing</span></div>
+  <div style="position:absolute;left:72px;top:140px;width:1000px">
+    <h2 style="font-size:58px">Tested a full booking flow — <em>shipped something simpler</em></h2>
+    <p style="margin-top:24px;max-width:900px;opacity:.85">A 4-step calendar booking prototype was built and usability-tested first, with two participants thinking aloud through it on mobile. The interaction patterns that held up — clear CTA labels, price shown before commitment, no dead ends — carried into the final site's single enquiry form.</p>
+  </div>
+  <div style="position:absolute;left:72px;right:72px;top:380px;display:flex;justify-content:space-between">
+    <div style="width:23%;text-align:center"><div style="width:56px;height:56px;border-radius:50%;border:1px solid rgba(245,243,239,.35);display:flex;align-items:center;justify-content:center;margin:0 auto;font-family:var(--serif);font-size:22px">1</div><div style="margin-top:16px;font-size:15px;letter-spacing:.04em">Vyberte balíček</div></div>
+    <div style="width:23%;text-align:center"><div style="width:56px;height:56px;border-radius:50%;border:1px solid rgba(245,243,239,.35);display:flex;align-items:center;justify-content:center;margin:0 auto;font-family:var(--serif);font-size:22px">2</div><div style="margin-top:16px;font-size:15px;letter-spacing:.04em">Vyberte termín</div></div>
+    <div style="width:23%;text-align:center"><div style="width:56px;height:56px;border-radius:50%;border:1px solid rgba(245,243,239,.35);display:flex;align-items:center;justify-content:center;margin:0 auto;font-family:var(--serif);font-size:22px">3</div><div style="margin-top:16px;font-size:15px;letter-spacing:.04em">Vaše údaje</div></div>
+    <div style="width:23%;text-align:center"><div style="width:56px;height:56px;border-radius:50%;border:1px solid rgba(245,243,239,.35);display:flex;align-items:center;justify-content:center;margin:0 auto;font-family:var(--serif);font-size:22px">4</div><div style="margin-top:16px;font-size:15px;letter-spacing:.04em">Potvrzení</div></div>
+  </div>
+  <div style="position:absolute;left:72px;right:72px;top:530px;height:1px;background:rgba(245,243,239,.18)"></div>
+  <div style="position:absolute;left:72px;top:580px;width:700px">
+    <div class="lbl" style="opacity:.85">What held up</div>
+    <ul style="margin-top:24px;list-style:none;font-size:17px;line-height:1.8;opacity:.9">
+      <li>Smooth flow end to end — the mobile form never stalled either participant.</li>
+      <li>Preselecting the chosen package carried it into step 1, no repeat input.</li>
+      <li>Large, separate tap targets for time slots read as fast and obvious.</li>
+    </ul>
+  </div>
+  <div style="position:absolute;right:72px;top:580px;width:700px">
+    <div class="lbl" style="opacity:.85">What got fixed</div>
+    <ul style="margin-top:24px;list-style:none;font-size:17px;line-height:1.8;opacity:.9">
+      <li>"Pokračovat" on the final step submitted instantly — one participant was caught off guard. Renamed to make the final action unmistakable.</li>
+      <li>No way to go back a step without restarting — added back navigation.</li>
+      <li>Location preference (studio / outdoors) had to be typed into a free-text note — flagged for a dedicated field.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 12 OVERVIEW -->
+<section class="f" id="f02">
+  <div class="top"><span>Inka Guba</span><span>12 — Overview</span></div>
+  <div style="position:absolute;left:72px;top:170px;width:820px">
+    <h2 style="font-size:84px">A website that feels like a <em>family album</em></h2>
+    <p style="margin-top:44px;max-width:660px">Inka Guba photographs and films families and children in Brno. After twelve years and 900+ families, her work had outgrown a template site that looked like everyone else's.</p>
+    <p style="margin-top:20px;max-width:660px">The goal was a site that feels the way her photographs do — warm, honest and unhurried — while quietly guiding parents from a first feeling to a booked session. No stock phrases, no noise. Just real moments, room to breathe and one clear next step.</p>
+  </div>
+  <div style="position:absolute;left:1040px;top:180px;width:480px">
+    <div class="lbl">Scope</div>
+    <ul style="list-style:none;margin-top:28px;font-family:var(--serif);font-size:30px;line-height:1.5;font-weight:300">
+      <li>Creative direction</li><li>UX & site structure</li><li>Copywriting</li><li>UI & visual system</li><li>Responsive front-end</li><li>Photo & video curation</li><li>SEO & performance</li>
+    </ul>
+  </div>
+  <div style="position:absolute;left:72px;right:72px;bottom:72px;display:grid;grid-template-columns:1.25fr .8fr .8fr 1.25fr;gap:18px;height:330px;grid-template-rows:330px">
+    <img src="a/p_girl_dog.jpg" style="width:100%;height:100%;object-fit:cover">
+    <img src="a/p_hands_bw.jpg" style="width:100%;height:100%;object-fit:cover">
+    <img src="a/p_kytara.jpg" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%">
+    <img src="a/p_celo.jpg" style="width:100%;height:100%;object-fit:cover">
+  </div>
+</section>
+
+<!-- 09 HOMEPAGE LONG SCROLL -->
+<section class="f dark" id="f04">
+  <div class="top"><span>Inka Guba</span><span>13 — Homepage</span></div>
+  <div style="position:absolute;left:72px;right:72px;top:140px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end">
+    <h2 style="font-size:72px">One story, <em>top to bottom</em></h2>
+    <p style="font-size:17px;opacity:.8">The homepage reads like a conversation with a parent: an emotional promise, proof, the worry everyone has (“what if my kids won't cooperate?”), what you get, what it costs, how it works — and only then the ask. Dark and light sections alternate to set the rhythm.</p>
+  </div>
+  <div style="position:absolute;left:72px;right:72px;top:330px;display:flex;justify-content:space-between"><div class="shot" style="width:440px;height:900px;background:#111 url(a/d_home_full.jpg) 0 -0px/440px auto no-repeat"></div><div class="shot" style="width:440px;height:900px;background:#111 url(a/d_home_full.jpg) 0 -914px/440px auto no-repeat"></div><div class="shot" style="width:440px;height:900px;background:#111 url(a/d_home_full.jpg) 0 -1828px/440px auto no-repeat"></div></div>
+</section>
+
+<!-- 05 HERO DETAIL -->
+<section class="f" id="f05">
+  <img src="b/b-tablet-hero.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+</section>
+
+<!-- 06 MOBILE -->
+<section class="f" id="f06">
+  <div class="top"><span>Inka Guba</span><span>15 — Mobile first</span></div>
+  <div style="position:absolute;left:0;right:0;top:120px;text-align:center">
+    <h2 style="font-size:64px">Designed for the <em>phone in one hand</em></h2>
+    <p style="font-size:17px;opacity:.75;margin-top:16px">Most parents find the site on mobile — often with a child in the other arm. Everything sits on one calm centre axis.</p>
+  </div>
+  <div style="position:absolute;left:0;right:0;top:340px;display:flex;justify-content:center;gap:56px;align-items:flex-start"><div class="phone" style="width:330px;margin-top:70px"><div class="scr" style="height:690px;background:url(a/m_home_full.jpg) 0 -1027px/308px auto no-repeat"></div></div><div class="phone" style="width:330px;"><div class="scr" style="height:690px"><img src="a/m_home_fold.jpg"></div></div><div class="phone" style="width:330px;margin-top:70px"><div class="scr" style="height:690px;background:url(a/m_home_full.jpg) 0 -4741px/308px auto no-repeat"></div></div></div>
+</section>
+
+<!-- 07 MOODBOARD — her own brand mosaic asset -->
+<section class="f tall" id="f07">
+  <img src="b/b-moodboard.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+</section>
+
+<!-- 12 RHYTHM -->
+<section class="f dark" id="f08">
+  <div class="top"><span>Inka Guba</span><span>16 — Rhythm</span></div>
+  <div style="position:absolute;left:72px;top:150px;width:360px">
+    <h2 style="font-size:64px">Light, dark, <em>breathe</em></h2>
+    <p style="margin-top:30px;font-size:17px;opacity:.8">Every page follows the same spacing scale and the same three type sizes. That strict system is what lets the photographs feel effortless.</p>
+    <div style="margin-top:44px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;line-height:2.4;opacity:.75">Home<br>About<br>Pricing<br>Family video<br>Contact</div>
+  </div>
+  <div style="position:absolute;left:500px;right:60px;top:110px;bottom:0;display:flex;gap:26px">
+    <img src="a/m_home_full.jpg" style="width:190px;align-self:flex-start">
+    <img src="a/m_omne_full.jpg" style="width:190px;align-self:flex-start;margin-top:120px">
+    <img src="a/m_cenik_full.jpg" style="width:190px;align-self:flex-start;margin-top:40px">
+    <img src="a/m_video_full.jpg" style="width:190px;align-self:flex-start;margin-top:160px">
+    <img src="a/m_kontakt_full.jpg" style="width:190px;align-self:flex-start;margin-top:80px">
+  </div>
+</section>
+
+<!-- 09 GALLERIES -->
+<section class="f" id="f09">
+  <div class="top"><span>Inka Guba</span><span>17 — Galleries</span></div>
+  <div style="position:absolute;left:72px;top:150px;width:460px">
+    <h2 style="font-size:64px">Photographs <em>first</em></h2>
+    <p style="margin-top:30px;font-size:17px;opacity:.8">Three galleries — family photography, children's portraits and family films. Each opens with a short, human description and lets curated stories run uninterrupted, with a quiet link to packages and pricing.</p>
+  </div>
+  <div class="browser" style="position:absolute;left:600px;top:150px;width:900px;z-index:1">
+    <div class="bar"><i></i><i></i><i></i><b>innaguba.com/galerie-detsky-portret</b></div><img src="a/d_dp_fold.jpg">
+  </div>
+  <div class="browser" style="position:absolute;left:72px;top:590px;width:720px;z-index:2">
+    <div class="bar"><i></i><i></i><i></i><b>innaguba.com/galerie-video-pribeh</b></div><img src="a/d_video_fold.jpg">
+  </div>
+  <div class="browser" style="position:absolute;left:850px;top:690px;width:720px;z-index:3">
+    <div class="bar"><i></i><i></i><i></i><b>innaguba.com/galerie-rodinna-fotografie</b></div><img src="a/d_rf_fold.jpg">
+  </div>
+</section>
+
+<!-- 10 DETAILS -->
+<section class="f warm" id="f10">
+  <div class="top"><span>Inka Guba</span><span>18 — Details</span></div>
+  <div style="position:absolute;left:72px;right:72px;top:130px;bottom:72px;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:20px">
+    <div style="background:#111;color:#F5F3EF;display:flex;align-items:center;justify-content:center;position:relative">
+      <svg viewBox="0 0 200 200" style="width:250px;height:250px;font-family:var(--sans);font-size:11px;letter-spacing:.05em;fill:#F5F3EF"><g text-anchor="middle" id="ring"></g></svg>
+      <div style="position:absolute;font-family:var(--sans);font-size:24px;letter-spacing:.24em;text-align:center;line-height:1.25">INKA<br>GUBA</div>
+      <span class="lbl" style="position:absolute;left:28px;bottom:24px;font-size:11px;opacity:.6">Footer mark</span>
+    </div>
+    <div style="background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;position:relative">
+      <span style="border:1px solid #111;padding:18px 30px;font-size:15px;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 10px 24px -10px rgba(0,0,0,.3)">Chci zachytit náš příběh</span>
+      <span style="background:#111;color:#F5F3EF;padding:18px 30px;font-size:15px;letter-spacing:.18em;text-transform:uppercase">Chci zachytit náš příběh</span>
+      <span style="font-size:13px;letter-spacing:.18em;text-transform:uppercase;border-bottom:1px solid;padding-bottom:3px">Balíčky a ceny</span>
+      <span class="lbl" style="position:absolute;left:28px;bottom:24px;font-size:11px;opacity:.6">One action, three weights</span>
+    </div>
+    <div style="background:url(a/p_pole.jpg) center/cover;position:relative"></div>
+    <div style="background:var(--paper);display:flex;align-items:center;justify-content:center;padding:40px;position:relative">
+      <div style="font-family:var(--serif);font-size:56px;text-align:center;line-height:1.1;font-weight:300">Ty nejkrásnější momenty, které <em>nevyblednou</em></div>
+      <span class="lbl" style="position:absolute;left:28px;bottom:24px;font-size:11px;opacity:.6">Italic = emotion only</span>
+    </div>
+    <div style="background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;position:relative">
+      <div class="lbl c" style="font-size:13px">Rodinné focení a video v Brně</div>
+      <div style="font-family:var(--serif);font-style:italic;font-size:34px;font-weight:400">Děti rostou rychleji, než se nadějete.</div>
+      <span class="lbl" style="position:absolute;left:28px;bottom:24px;font-size:11px;opacity:.6">Eyebrow & whisper line</span></div>
+    <div style="background:var(--paper);display:flex;align-items:center;justify-content:center;gap:50px;position:relative">
+      <div style="text-align:center"><div style="font-family:var(--serif);font-size:72px;font-weight:300">12</div><div style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.6">years behind the camera</div></div>
+      <div style="text-align:center"><div style="font-family:var(--serif);font-size:72px;font-weight:300">900+</div><div style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.6">families</div></div>
+      <span class="lbl" style="position:absolute;left:28px;bottom:24px;font-size:11px;opacity:.6">Proof, quietly</span>
+    </div>
+  </div>
+</section>
+
+<!-- 15 CLOSING -->
+<section class="f dark" id="f11">
+  <img src="a/p_celo.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.38;filter:grayscale(1)">
+  <div class="top"><span>Inka Guba</span><span>innaguba.com</span></div>
+  <div style="position:absolute;left:0;right:0;top:390px;text-align:center">
+    <h2 style="font-size:92px;line-height:1.05">Až se ke vzpomínkám jednou vrátíte,<br>ať se vám <em>rozbuší srdce.</em></h2>
+    <p style="margin-top:34px;font-size:18px;opacity:.85;letter-spacing:.04em">When you return to your memories one day, may they make your heart skip a beat.</p>
+  </div>
+  <div style="position:absolute;left:72px;right:72px;bottom:56px;display:flex;justify-content:space-between;font-size:13px;letter-spacing:.22em;text-transform:uppercase;opacity:.85">
+    <span>Design & development — Inna Macháč Guba</span><span>Thank you</span>
+  </div>
+</section>
+
+<script>
+// rebuild the site's rotating footer ring ("SRDCE ZA OBJEKTIVEM •" twice)
+const t="SRDCE ZA OBJEKTIVEM • SRDCE ZA OBJEKTIVEM • ";const g=document.getElementById('ring');
+[...t].forEach((ch,i)=>{if(ch===' ')return;const e=document.createElementNS('http://www.w3.org/2000/svg','text');e.setAttribute('x',100);e.setAttribute('y',20);e.setAttribute('transform',`rotate(${i*360/t.length} 100 100)`);e.textContent=ch;g.appendChild(e)});
+
+// export mode: ?only=ID isolates a single slide for clean per-slide screenshots
+const only = new URLSearchParams(location.search).get('only');
+if (only) {
+  document.body.style.background = '#fff';
+  document.querySelectorAll('.f').forEach(el => { if (el.id !== only) el.style.display = 'none'; else el.style.margin = '0'; });
+}
+</script>
+</body></html>

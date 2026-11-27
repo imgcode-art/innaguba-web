@@ -1289,12 +1289,15 @@
     .footer-cols .to-top span { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
     .footer-cols .to-top-icon { width:14px; height:44px; }
     .footer-col { text-align:center; }
-    .footer-col-group > .footer-col:nth-child(2) { grid-row:2; grid-column: 1 / -1; padding-top: var(--ft-gap); border-top:1px solid var(--line); }
+    /* 27 Nov: Stránky split into Stránky + Pro vás — Kontakt (3rd) stays the full-width row,
+       the two link columns share a row, Sledujte mě gets its own row below */
+    .footer-col-group > .footer-col:nth-child(3) { grid-row:2; grid-column: 1 / -1; padding-top: var(--ft-gap); border-top:1px solid var(--line); }
     .footer-col-group > .footer-col:first-child { grid-row:3; grid-column: 1 / -1; width:50%; justify-self:start; }
-    .footer-cols > .footer-col { grid-row:3; grid-column: 1 / -1; width:50%; justify-self:end; }
+    .footer-col-group > .footer-col:nth-child(2) { grid-row:3; grid-column: 1 / -1; width:50%; justify-self:end; }
+    .footer-cols > .footer-col { grid-row:4; grid-column: 1 / -1; }
     .footer-col h5 { margin-bottom: var(--space-2); }
     .footer-col a, .footer-col p { margin-bottom: 12px; }
-    .footer-bottom { grid-row:4; grid-column: 1 / -1; flex-direction:column; align-items:center; text-align:center; font-size:13px; gap: var(--space-1); }
+    .footer-bottom { grid-row:5; grid-column: 1 / -1; flex-direction:column; align-items:center; text-align:center; font-size:13px; gap: var(--space-1); }
     .footer-legal { justify-content:center; }
     /* imprint on two deliberate lines (name / IČO + register) instead of one long line
        that wrapped wherever it ran out, leaving "rejstříku" orphaned */
