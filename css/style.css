@@ -3184,3 +3184,15 @@
     .gift-teaser-text p:not(.gift-teaser-kicker) { margin-left:auto; margin-right:auto; }
   }
   @media (prefers-reduced-motion: reduce) { .gift-teaser-inner:hover .voucher-card { transform:none; } }
+
+  /* 27 Nov: one rule for every main action — FILLED at rest (ink on light panels, cream on
+     dark), outline only for secondary links like "Prohlédnout videa". Previously the
+     homepage steps CTA and every form submit were outline-only, so the same "book"
+     action looked different from page to page. */
+  .dark-panel .hero-cta-primary { background:#F5F3EF; color:#111; border-color:#F5F3EF; }
+  .dark-panel .hero-cta-primary:hover { background:transparent; color:#F5F3EF; border-color:#F5F3EF; }
+  .cf-submit { background: var(--ink-heading); color: var(--paper); border-color: var(--ink-heading); }
+  .cf-submit:hover { background: transparent; color: var(--ink-heading); border-color: var(--ink-heading); }
+  .closing .cf-submit, .dark-panel .cf-submit { background:#F5F3EF; color:#111; border-color:#F5F3EF; }
+  .closing .cf-submit:hover, .dark-panel .cf-submit:hover { background:transparent; color:#F5F3EF; border-color:#F5F3EF; }
+  .cf-submit[data-state="success"], .closing .cf-submit[data-state="success"] { background:#2f6b3a; border-color:#2f6b3a; color:#fff; }
