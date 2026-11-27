@@ -3118,3 +3118,5 @@
   .article-list strong { display:block; font-family: var(--serif); font-size: var(--fs-heading); font-weight:600; }
   .article-body { padding-bottom: var(--space-4); }
   .cenik-article-link { text-align:center; margin-top: var(--space-6); }
+  .page-intro-links { display:flex; flex-wrap:wrap; gap: 0 var(--space-5); }
+  @media (max-width:900px){ .page-intro-links { justify-content:center; } }
