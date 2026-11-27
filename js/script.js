@@ -197,15 +197,50 @@ document.querySelectorAll('[data-row]').forEach(row => {
     banner.querySelector('.qr-banner-close')?.addEventListener('click', () => { banner.hidden = true; });
   })();
 
+  // ---------- Google Ads conversion measurement, with Consent Mode v2 in its basic form: until
+  // someone clicks "Přijmout vše" every consent signal is denied and gtag.js is not even loaded,
+  // so nothing about the visit reaches Google. Conversions: an enquiry form sent, a tap on the
+  // phone number or the e-mail address. ----------
+  const ADS = {
+    id: 'AW-17631513167',
+    form: 'AW-17631513167/eou8CPmh4sAdEM-UrtdB',
+    contact: 'AW-17631513167/uS5OCPyh4sAdEM-UrtdB',
+  };
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' });
+  let adsLoaded = false;
+  const loadAds = () => {
+    if (adsLoaded) return;
+    adsLoaded = true;
+    gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${ADS.id}`;
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', ADS.id);
+  };
+  const trackConversion = sendTo => { if (adsLoaded) gtag('event', 'conversion', { send_to: sendTo }); };
+  // global, because the contact-form handler further down lives in its own scope
+  window.trackAdsConversion = kind => trackConversion(ADS[kind]);
+  document.addEventListener('click', e => {
+    if (e.target.closest('a[href^="tel:"], a[href^="mailto:"]')) trackConversion(ADS.contact);
+  });
+
   // ---------- Cookie consent bar ----------
+  // v2 since Google Ads joined Vimeo (27 Nov 2026): an earlier "accepted" did not cover ads,
+  // so everyone is asked once more
   (() => {
-    const KEY = 'cookie-consent';
+    const KEY = 'cookie-consent-v2';
     const bar = document.querySelector('.cookie-bar');
+    if (localStorage.getItem(KEY) === 'accepted') loadAds();
     if (!bar) return;
     if (!localStorage.getItem(KEY)) bar.hidden = false;
     bar.querySelector('.cookie-accept')?.addEventListener('click', () => {
       localStorage.setItem(KEY, 'accepted');
       bar.hidden = true;
+      loadAds();
     });
     bar.querySelector('.cookie-reject')?.addEventListener('click', () => {
       localStorage.setItem(KEY, 'rejected');
@@ -265,6 +300,23 @@ document.querySelectorAll('[data-row]').forEach(row => {
       zprava.placeholder = advice ? 'Napište, co vás zajímá, a já poradím' : defaults.placeholder;
     };
     select.addEventListener('change', sync);
+    form.addEventListener('reset', () => setTimeout(sync));
+    sync();
+  })();
+
+  // ---------- Gift voucher order: the postal address is only asked for when the voucher
+  // goes by post (and is cleared for PDF, so no stale address gets sent) ----------
+  (() => {
+    const form = document.querySelector('.voucher-order');
+    const delivery = form?.querySelector('[name="doruceni"]');
+    const address = form?.querySelector('[data-voucher-address]');
+    if (!delivery || !address) return;
+    const sync = () => {
+      const pdf = delivery.value === 'PDF e-mailem';
+      address.hidden = pdf;
+      if (pdf) address.querySelector('textarea').value = '';
+    };
+    delivery.addEventListener('change', sync);
     form.addEventListener('reset', () => setTimeout(sync));
     sync();
   })();
@@ -366,18 +418,21 @@ document.querySelectorAll('[data-row]').forEach(row => {
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({
             access_key: WEB3FORMS_ACCESS_KEY,
-            subject: `Zpráva z webu od ${name}`,
+            subject: `${form.dataset.subject || 'Zpráva z webu'} od ${name}`,
             jmeno: name,
             email,
             'o co má zájem': sluzba || '',
             'kdy chce fotit': termin || '',
             'kde chce fotit': misto || '',
             zprava: message,
+            // extra fields a page adds itself (e.g. the gift voucher's delivery + address)
+            ...Object.fromEntries([...form.querySelectorAll('[data-send]')].map(f => [f.dataset.send, f.value.trim()])),
             ...(form.querySelector('[name="souhlas"]') ? { 'souhlas s dodáním PDF (bez práva na odstoupení)': form.querySelector('[name="souhlas"]').checked ? 'ano' : 'ne' } : {}),
           }),
         });
         const data = await res.json();
         if (data.success) {
+          window.trackAdsConversion?.('form');
           form.reset();
           submitBtn.textContent = 'Odesláno ✓';
           submitBtn.setAttribute('data-state', 'success');
@@ -952,7 +1007,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
     ],
   };
   if (Date.now() > Date.parse(MINI.until)) return;
-  if (/kontakt|obchodni-podminky|ochrana-osobnich-udaju|\/en(\.html)?$/.test(location.pathname)) return;
+  if (/kontakt|darkovy-poukaz|obchodni-podminky|ochrana-osobnich-udaju|\/en(\.html)?$/.test(location.pathname)) return;
   if (!window.HTMLDialogElement) return;
 
   const SNOOZE = 'mini-offer-snooze', SEEN = 'mini-offer-seen';

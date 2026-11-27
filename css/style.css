@@ -3125,3 +3125,41 @@
   /* 27 Nov: no short hairline above the reviewer's name either (read as a template motif) */
   .rg .card .card-name::before { content:none; }
   .rg .card .card-name { margin-top: var(--space-4); }
+
+  /* Dárkový poukaz (27 Nov): the voucher front rebuilt in the site's own type (the print PDF's
+     accents were misplaced), drawn to the real DL proportion 210 × 99 and scaled with cqw */
+  .voucher-show { padding: var(--space-4) 0 0; }
+  .voucher { max-width: 980px; margin: 0 auto; }
+  .voucher-card { container-type: inline-size; aspect-ratio: 210 / 99; background:#fff; box-shadow: 0 1px 2px rgba(17,17,17,.06), 0 18px 40px -18px rgba(17,17,17,.25); display:grid; grid-template-columns: 1fr auto; align-items:center; padding: 0 7cqw 0 7.5cqw; color: var(--ink); }
+  .voucher-kicker { display:flex; align-items:center; gap: 2.6cqw; font-family: var(--sans); font-size: 1.75cqw; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4.2cqw; }
+  .voucher-quote { font-family: var(--serif); font-weight:400; font-size: 5.3cqw; line-height: 1.12; letter-spacing: -0.01em; max-width: 15em; }
+  .voucher-mark { display:flex; flex-direction:column; align-items:center; gap: 3cqw; }
+  .voucher-mark .footer-logo-mark { width: 23cqw; }
+  .voucher-mark .footer-logo-ring text { opacity: .9; }
+  .voucher-mark .footer-logo-heart { stroke: var(--ink); }
+  .voucher-url { font-family: var(--sans); font-size: 1.85cqw; letter-spacing: .12em; }
+  .voucher-show + .section-label { padding-top: var(--space-6); }
+  .voucher-caption { margin-top: var(--space-4); text-align:center; font-size: var(--fs-body); color: var(--ink-body); }
+
+  .voucher-list-wrap { max-width: 860px; margin: 0 auto; padding-bottom: var(--space-7); }
+  .voucher-list { list-style:none; border-top:1px solid var(--line); }
+  .voucher-list li { border-bottom:1px solid var(--line); }
+  .voucher-list a { display:grid; grid-template-columns: 1fr auto; column-gap: var(--space-4); align-items:baseline; padding: var(--space-4) 0; color: inherit; text-decoration:none; }
+  .vl-name, .vl-spec { grid-column:1; }
+  .vl-name { font-family: var(--serif); font-size: clamp(24px, 2.4vw, 34px); line-height:1.2; color: var(--ink-subheading); }
+  .vl-price { grid-column:2; grid-row: 1 / span 2; align-self:center; font-family: var(--serif); font-size: clamp(24px, 2.4vw, 34px); white-space:nowrap; }
+  .vl-spec { font-size: var(--fs-body); color: var(--ink-body); margin-top: 6px; }
+  .vl-kc { font-family: var(--sans); font-size: .72em; letter-spacing:.02em; }
+  .voucher-list a:hover .vl-name { font-style: italic; }
+  .voucher-list-note { margin-top: var(--space-4); text-align:center; font-size: var(--fs-body); color: var(--ink-body); }
+  .voucher-list-note a { text-decoration: underline; text-underline-offset: 3px; }
+
+  .section-label:has(+ .voucher-order-wrap) .wrap, .section-label:has(+ .voucher-list-wrap) .wrap { justify-content:center; }
+  .section-label:has(+ .voucher-order-wrap) h2, .section-label:has(+ .voucher-list-wrap) h2 { text-align:center; }
+  .voucher-center .wrap { justify-content:center; } .voucher-center h2 { text-align:center; }
+  .contact-form.voucher-order { max-width: 860px; margin: 0 auto; }
+  .voucher-order-note { font-size: var(--fs-body); color: var(--ink-body); }
+  @media (max-width:600px){
+    .voucher-list a { padding: var(--space-3) 0; }
+  }
+  .cenik-article-link.page-intro-links { justify-content:center; }
