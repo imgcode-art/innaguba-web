@@ -3196,3 +3196,21 @@
   .closing .cf-submit, .dark-panel .cf-submit { background:#F5F3EF; color:#111; border-color:#F5F3EF; }
   .closing .cf-submit:hover, .dark-panel .cf-submit:hover { background:transparent; color:#F5F3EF; border-color:#F5F3EF; }
   .cf-submit[data-state="success"], .closing .cf-submit[data-state="success"] { background:#2f6b3a; border-color:#2f6b3a; color:#fff; }
+  /* portrait photo inside an article: cap the width so one tall frame doesn't fill two screens */
+  .article-body figure.fig-portrait { max-width:480px; margin-inline:auto; }
+  /* three portrait frames side by side inside an article, equal height */
+  .article-body figure.fig-trio { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .article-body figure.fig-trio img { aspect-ratio:2/3; object-fit:cover; }
+  /* phone: three frames get too small to read faces — show the last two, bigger */
+  @media (max-width:600px){ .article-body figure.fig-trio { grid-template-columns:repeat(2,1fr); gap:6px; } .article-body figure.fig-trio img:first-child { display:none; } }
+  /* article video: same round play button + italic meta line as the video gallery cards */
+  .article-body figure.fig-video .fig-video-stage { position:relative; background:#111; }
+  .article-body figure.fig-video video { display:block; width:100%; height:auto; }
+  .article-body figure.fig-video .play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:none; border:0; padding:0; cursor:pointer; }
+  .article-body figure.fig-video .play::before { content:""; width:64px; height:64px; border-radius:50%; background:rgba(245,243,239,0.94); display:block; transition: transform .25s ease; }
+  .article-body figure.fig-video .play::after { content:""; position:absolute; width:0; height:0; border-style:solid; border-width:10px 0 10px 16px; border-color:transparent transparent transparent var(--ink); margin-left:4px; }
+  @media (hover:hover){ .article-body figure.fig-video .play:hover::before { transform:scale(1.1); } }
+  .article-body figure.fig-video .play[hidden] { display:none; }
+  .article-body figure.fig-video .vcard-meta { margin-top: var(--space-2); }
+  /* article pages: the FAQ heading follows running text, not a full section — 150px read as a hole */
+  section.wrap:has(> .article-body) + .section-label { padding-top: 64px; }
