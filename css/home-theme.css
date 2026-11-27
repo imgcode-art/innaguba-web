@@ -68,8 +68,10 @@ body { overflow-x: clip; }
    memory-section's closing "Dnešní investice do focení?" directly. memory-section gets the
    normal exit split: 64px dark / 86px light desktop, 48px / 42px mobile (48px set below). */
 @media (min-width:901px){
-  .memory-section.dark-panel { padding-bottom: 64px; }
-  .memory-section.dark-panel + .section-label { padding-top: 86px; }
+  /* 27 Nov: 40px + the content row's own 32px padding-block = 72px black under the video,
+     the same as above it (150 − 110 light + 32); the light gap after stays 150px total */
+  .memory-section.dark-panel { padding-bottom: 40px; }
+  .memory-section.dark-panel + .section-label { padding-top: 110px; }
 }
 @media (max-width:900px){
   .memory-section.dark-panel + .section-label { padding-top: 42px; }

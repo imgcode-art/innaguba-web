@@ -2936,14 +2936,14 @@
   @media (max-width:900px){ .memory-body > .memory-kicker { order:0; } }
   @media (min-width:901px){ .memory-body { text-align:left; } }
   /* video section: the row is as tall as the taller column; the video stretches to it and
-     the text column sits on the same bottom line, so the button never ends below the video */
+     the text column is centred on the video's height (27 Nov: bottom-aligned read as "shifted down") */
   @media (min-width:901px){
     .memory-body-align { align-items:stretch; }
     /* explicit width + stretch on both axes: with only aspect-ratio, Safari sized the video
        from its height (grid "normal" alignment = start for aspect-ratio items), leaving it
        ~25% narrower than its column */
     .memory-body-align .memory-photo { width:100%; justify-self:stretch; align-self:stretch; height:auto; min-height:0; }
-    .memory-body-align .memory-body { display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start; }
+    .memory-body-align .memory-body { display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
   }
   /* video section rhythm = homepage hero: label tight to the headline (~24px ink), headline →
      text ~30px, text → button ~50px; body leading 1.6 like the hero promise (1.8 read loose) */
@@ -3166,3 +3166,21 @@
     .voucher-list a { padding: var(--space-3) 0; }
   }
   .cenik-article-link.page-intro-links { justify-content:center; }
+
+  /* Dárkový poukaz teaser on the homepage (27 Nov): the same voucher front, smaller, next to a short pitch */
+  .gift-teaser { padding: 150px 0 0; }
+  @media (max-width:900px){ .gift-teaser { padding-top: var(--space-9); } }
+  /* a printed voucher doesn't spin: the ring logo stays still on the card */
+  .voucher-mark .footer-logo-ring { animation:none; }
+  .gift-teaser-inner { display:grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--space-6); align-items:center; max-width: 1040px; margin: 0 auto; color: inherit; text-decoration:none; }
+  .gift-teaser-card { container-type: inline-size; }
+  .gift-teaser-card .voucher-card { transition: transform .5s ease; }
+  .gift-teaser-inner:hover .voucher-card { transform: rotate(-1.2deg) translateY(-4px); }
+  .gift-teaser-kicker { font-size:13px; letter-spacing:.12em; text-transform:uppercase; color: var(--ink-body); margin-bottom: var(--space-2); }
+  .gift-teaser-text h3 { font-family: var(--serif); font-size: clamp(30px, 3.4vw, 46px); font-weight:400; line-height:1.1; color: var(--ink-heading); margin-bottom: var(--space-3); }
+  .gift-teaser-text p:not(.gift-teaser-kicker) { font-size: var(--fs-body); color: var(--ink-body); max-width: 30em; }
+  @media (max-width: 860px) {
+    .gift-teaser-inner { grid-template-columns: 1fr; gap: var(--space-5); text-align:center; }
+    .gift-teaser-text p:not(.gift-teaser-kicker) { margin-left:auto; margin-right:auto; }
+  }
+  @media (prefers-reduced-motion: reduce) { .gift-teaser-inner:hover .voucher-card { transform:none; } }
